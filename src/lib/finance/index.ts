@@ -631,3 +631,177 @@ export function advanceTaxFY27(annualTax: number, tds: number): AdvanceTaxResult
   const interest234CApprox = 0.03 * (0.15 + 0.45 + 0.75) * balance;
   return { advanceTaxDue: balance, needsAdvanceTax, installments, interest234CApprox };
 }
+
+/**
+ * SIF sleeve-sizing and fee-edge test.
+ *
+ * A SIF is a satellite on top of a diversified mutual-fund core. The decision
+ * is whether the manager's *net* (after fee) edge over its stated benchmark is
+ * positive, and how much of the corpus a SIF sleeve may safely hold under the
+ * ~15-25% rule of thumb.
+ *
+ * Conventions:
+ *  - `coreReturn` is the diversified mutual-fund core's expected annual net
+ *    return (decimal).
+ *  - `sifGrossReturn` is the SIF's expected annual GROSS return (decimal).
+ *  - `sifFee` is the SIF's annual expense ratio / management fee (decimal).
+ *  - `benchmarkReturn` is the SIF's stated strategy-benchmark expected gross
+ *    return (decimal). The net edge is computed against THIS, not the plain
+ *    index — a long-short SIF is judged on its own stated benchmark.
+ *  - `sleevePct` is the fraction of total corpus placed in the SIF (decimal),
+ *    bounded to [0, 0.25] by the rule of thumb; inputs above 0.25 are capped.
+ *  - Terminal values are compounded at the blended net return over `years`.
+ *  - This is an expected-return decision aid, not a backtest; a SIF's
+ *    long-short return is a function of pair selection, not market direction.
+ */
+export interface SifSleeveInput {
+  corpus: number;
+  coreReturn: number;
+  sifGrossReturn: number;
+  sifFee: number;
+  benchmarkReturn: number;
+  sleevePct: number;
+  years: number;
+}
+
+export interface SifSleeveResult {
+  sifNetReturn: number;
+  netEdgeVsBenchmark: number;
+  paysForItself: boolean;
+  effectiveSleevePct: number;
+  feeDragOverPeriod: number;
+  portfolioNetReturn: number;
+  corpusWithSleeve: number;
+  corpusAllCore: number;
+  deltaOverPeriod: number;
+  sleeveCapPct: number;
+}
+
+export function sifSleeveSizing(s: SifSleeveInput): SifSleeveResult {
+  const sleevePct = Math.max(0, Math.min(0.25, s.sleevePct));
+  const sifNetReturn = s.sifGrossReturn - s.sifFee;
+  const netEdgeVsBenchmark = sifNetReturn - s.benchmarkReturn;
+  const paysForItself = netEdgeVsBenchmark > 0;
+  const sleeveCorpus = s.corpus * sleevePct;
+  const withoutFees = sleeveCorpus * Math.pow(1 + s.sifGrossReturn, s.years);
+  const withFees = sleeveCorpus * Math.pow(1 + sifNetReturn, s.years);
+  const feeDragOverPeriod = Math.max(0, withoutFees - withFees);
+  const portfolioNetReturn = sleevePct * sifNetReturn + (1 - sleevePct) * s.coreReturn;
+  const corpusWithSleeve = s.corpus * Math.pow(1 + portfolioNetReturn, s.years);
+  const corpusAllCore = s.corpus * Math.pow(1 + s.coreReturn, s.years);
+  const deltaOverPeriod = corpusWithSleeve - corpusAllCore;
+  return {
+    sifNetReturn,
+    netEdgeVsBenchmark,
+    paysForItself,
+    effectiveSleevePct: sleevePct,
+    feeDragOverPeriod,
+    portfolioNetReturn,
+    corpusWithSleeve,
+    corpusAllCore,
+    deltaOverPeriod,
+    sleeveCapPct: 0.25,
+  };
+}
+
+/**
+ * REIT / InvIT (business-trust) timing & total-return decision aid.
+ *
+ * A business trust's total return is distribution + NAV appreciation, and its
+ * capital gain is only 12.5% long-term (above the shared Rs 1.25L annual
+ * equity pool, Section 112A) once the 12-month clock has run; before that the
+ * gain is 20% short-term. Most distributions are slab-taxed component-by-
+ * component (Section 115UA pass-through), so the after-tax income matters.
+ *
+ * Conventions:
+ *  - `navPerUnit` is the current NAV per unit; `currentPrice` is the market
+ *    price. premium/discount = (price - nav) / nav. A positive premium shrinks
+ *    the effective distribution yield on your purchase price.
+ *  - `annualDistPerUnit` is the expected annual distribution per unit.
+ *  - `monthsHeld` is how long you have already held the units; the unit
+ *    qualifies for 12.5% long-term capital gains only at 12 months or more.
+ *  - `forwardYears` projects the market value forward at `navGrowthRate`.
+ *  - `sharedLtcgPool` is the remaining shared Rs 1.25L equity-LTCG annual
+ *    exemption for the year a long-term sale would land; a forward sale may
+ *    land in a fresh pool, so treat the forward figure as a heuristic.
+ *  - Distributions are assumed to be predominantly slab-taxed (interest /
+ *    115BAA-dividend / rental components); a pure exempt-dividend payout
+ *    would raise afterTaxDistIncome toward gross.
+ */
+export interface BtTimingInput {
+  units: number;
+  costPerUnit: number;
+  currentPrice: number;
+  navPerUnit: number;
+  annualDistPerUnit: number;
+  monthsHeld: number;
+  forwardYears: number;
+  navGrowthRate: number;
+  marginalTaxRate: number;
+  sharedLtcgPool: number;
+}
+
+export interface BtTimingResult {
+  premiumDiscountPct: number;
+  totalCost: number;
+  marketValue: number;
+  unrealizedGain: number;
+  headlineYield: number;
+  yieldOnPrice: number;
+  premiumYieldDrag: number;
+  annualDistIncome: number;
+  afterTaxDistIncome: number;
+  qualifiesLtcgNow: boolean;
+  gainIfSoldNow: number;
+  taxIfSoldNow: number;
+  afterTaxProceedsNow: number;
+  projectedMarketValueForward: number;
+  gainIfSoldForward: number;
+  taxIfSoldForward: number;
+  afterTaxProceedsForward: number;
+  betterChoice: 'now' | 'forward';
+}
+
+export function businessTrustTiming(i: BtTimingInput): BtTimingResult {
+  const premiumDiscountPct =
+    i.navPerUnit > 0 ? (i.currentPrice - i.navPerUnit) / i.navPerUnit : 0;
+  const totalCost = i.units * i.costPerUnit;
+  const marketValue = i.units * i.currentPrice;
+  const unrealizedGain = marketValue - totalCost;
+  const headlineYield = i.costPerUnit > 0 ? i.annualDistPerUnit / i.costPerUnit : 0;
+  const yieldOnPrice = i.currentPrice > 0 ? i.annualDistPerUnit / i.currentPrice : 0;
+  const premiumYieldDrag = headlineYield - yieldOnPrice;
+  const annualDistIncome = i.units * i.annualDistPerUnit;
+  const afterTaxDistIncome = annualDistIncome * (1 - Math.max(0, Math.min(1, i.marginalTaxRate)));
+  const qualifiesLtcgNow = i.monthsHeld >= 12;
+  const gainIfSoldNow = Math.max(0, marketValue - totalCost);
+  const taxIfSoldNow = qualifiesLtcgNow
+    ? Math.max(0, gainIfSoldNow - Math.max(0, i.sharedLtcgPool)) * 0.125
+    : Math.max(0, gainIfSoldNow) * 0.2;
+  const afterTaxProceedsNow = marketValue - taxIfSoldNow;
+  const projectedMarketValueForward = marketValue * Math.pow(1 + i.navGrowthRate, i.forwardYears);
+  const gainIfSoldForward = Math.max(0, projectedMarketValueForward - totalCost);
+  const taxIfSoldForward = Math.max(0, gainIfSoldForward - Math.max(0, i.sharedLtcgPool)) * 0.125;
+  const afterTaxProceedsForward = projectedMarketValueForward - taxIfSoldForward;
+  const betterChoice = afterTaxProceedsForward >= afterTaxProceedsNow ? 'forward' : 'now';
+  return {
+    premiumDiscountPct,
+    totalCost,
+    marketValue,
+    unrealizedGain,
+    headlineYield,
+    yieldOnPrice,
+    premiumYieldDrag,
+    annualDistIncome,
+    afterTaxDistIncome,
+    qualifiesLtcgNow,
+    gainIfSoldNow,
+    taxIfSoldNow,
+    afterTaxProceedsNow,
+    projectedMarketValueForward,
+    gainIfSoldForward,
+    taxIfSoldForward,
+    afterTaxProceedsForward,
+    betterChoice,
+  };
+}

@@ -562,5 +562,39 @@
    "The exact filing and advance-payment dates are published by the Income-tax Department each year-end and should be re-verified before the last mile of the checklist"
   ],
   "notes": "Cited as the authoritative check-line for year-end dates; the specific published dates are a re-verify-each-year item, not a stable figure."
+ },
+ {
+  "id": "src-sif-strategy-families-2026",
+  "title": "SIF strategy families (SEBI MF Regulations 2026, secondary summaries): seven permitted long-short / relative-value families — equity long-short, equity market-neutral, debt long-short (rate), credit relative value, sector rotation, dynamic / tactical asset allocation, event-driven / arbitrage; illustrative 75% long / 25% short blend, ~25% naked-short cap + required hedging; ~2.25% management fee + ~2% marketing / distribution; daily NAV pricing; SIP / STP allowed",
+  "publisher": "AndFintech / Mera SIF / GreySky Capital / SafeMoney (2026 secondary guides on the SEBI MF Regulations 2026 SIF framework)",
+  "url": "https://andfintech.in/blog-post.php?slug=sif-categories-decoded-which-of-indias-7-long-short-strategies-fits-your-portfolio",
+  "type": "industry-guide",
+  "authority": "secondary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "The SIF category opens to seven broad strategy families (equity long-short, equity market-neutral, debt long-short / rate, credit relative value, sector rotation, dynamic / tactical asset allocation, event-driven / arbitrage); the \"seven\" is an order-of-magnitude secondary reading, not a fixed SEBI named list",
+   "Illustrative equity long-short blend is roughly 75% long / 25% short; the naked (unhedged) short sleeve is capped at about 25% of the book with the remainder required to be hedged (medium confidence - verify against the scheme derivative policy)",
+   "SIF expense cap about 2.25% management fee plus about 2% marketing / distribution; no separate performance fee in the classic mutual-fund style",
+   "SIFs are priced daily (NAV), and SIP / STP are allowed; the 10L aggregate-minimum and active / passive breach rules carry forward from the overview"
+  ],
+  "notes": "Medium confidence - caps, the 75/25 blend and the seven-family framing are secondary-guide summaries of the SEBI 2026 framework; verify against the SEBI circular text and each scheme document before advising."
+ },
+ {
+  "id": "src-reit-invit-premium-discount-2026",
+  "title": "REIT / InvIT NAV premium-discount dynamics and the Finance Bill 2026 dividend-uniformity proposal: REIT total return = distribution + NAV appreciation + change in the premium/discount; buying above NAV embeds a future cost if the premium normalises; the Finance Act 2025 amendment to 115UA(2) and the Taxation and Other Laws (Amendment) Act 2026 (assent 17 Aug 2026) make the dividend component more uniformly exempt while interest / rental components stay slab-taxed and a higher 25% SPV-level surcharge applies",
+  "publisher": "Mint (Lok Sabha 2026 amendment report) / The Hindu Business Line / Finoscape (REIT-InvIT distribution treatment) / SEBI Item 13 memo (Sep 2025)",
+  "url": "https://www.livemint.com/money/personal-finance/reit-invit-dividend-tax-relief-may-boost-investor-returns-know-who-benefits-and-what-remains-taxable-11786368498754.html",
+  "type": "financial-publication",
+  "authority": "secondary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "REIT / InvIT total return is distribution + NAV appreciation + change in the NAV premium/discount; a fat premium at purchase is a future cost if the premium normalises back to NAV",
+   "The proposed dividend-uniformity change makes the dividend component more uniformly exempt to unitholders regardless of the underlying SPV tax regime, but the interest and other distribution components remain slab-taxed",
+   "The uniform exemption comes with a higher 25% surcharge payable by the underlying SPVs that opt for the concessional regime - an industry-flagged trade-off that tempers the immediate benefit",
+   "The amendment is the Taxation and Other Laws (Amendment) Act 2026 (assent 17 Aug 2026); the current-year wording of 115UA(2) and the dividend component breakup must be verified with a CA before acting"
+  ],
+  "notes": "Confirm the current-year 115UA wording, the 25% SPV surcharge figure, and the component-level TDS rates against the final Finance Act text and each REIT / InvIT distribution statement before advising."
  }
 ]

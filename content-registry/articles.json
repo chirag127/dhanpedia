@@ -945,6 +945,73 @@
    "books": [
     "book-indian-taxation"
    ]
+  },
+  {
+   "id": "alternatives-sif-strategy-families-deep-dive",
+   "title": "SIF Strategy Families Decoded: The 7 Permitted Strategies, the Scheme-Document Mechanics & Sleeve-Sizing Math",
+   "category": "alternatives",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "sif",
+    "strategy-families",
+    "long-short",
+    "market-neutral",
+    "sebi-2026",
+    "sleeve-sizing",
+    "fee-drag",
+    "scheme-document"
+   ],
+   "summary": "Beyond the Rs.10L minimum: what SEBI 2026 actually permits a SIF to run (the seven strategy families), how to read the derivative-policy, allocation and governance annexes in the scheme document, the sleeve-sizing fee-decay math, and when a SIF sleeve earns its place on top of a mutual-fund core.",
+   "file": "src/content/alternatives/alternatives-sif-strategy-families-deep-dive.mdx",
+   "sources": [
+    "src-sebi-mf-regulations-2026",
+    "src-sebi-sif-2026",
+    "src-sif-strategy-families-2026"
+   ],
+   "related": [
+    "alternatives-sif-specialized-funds",
+    "alternatives-hnw-pms-aif-sif-selection",
+    "mf-choosing-comparing-funds",
+    "portfolio-construction-rebalancing",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-wealth-beyond-10l"
+   ]
+  },
+  {
+   "id": "real-estate-reit-invit-dividend-timing-tax",
+   "title": "REIT & InvIT Dividend Timing, the 12-Month Clock & the NAV Premium/Discount Trade",
+   "category": "real-estate",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "reit",
+    "invit",
+    "timing",
+    "ltcg",
+    "nav-premium",
+    "dividend",
+    "115ua",
+    "business-trust",
+    "tax-free-stack"
+   ],
+   "summary": "The timing and total-return layer over the REIT/InvIT tax table: the 12-month long-term capital-gains clock, how the NAV premium/discount drags the effective yield, reinvest-vs-redeem, distribution timing into the tax-free stack, and the exit math that decides when to sell.",
+   "file": "src/content/real-estate/real-estate-reit-invit-dividend-timing-tax.mdx",
+   "sources": [
+    "src-reit-invit-tax-2026",
+    "src-reit-invit-premium-discount-2026",
+    "src-elss-ltcg-2026"
+   ],
+   "related": [
+    "real-estate-reit-invit",
+    "tax-tax-free-wealth-stack",
+    "tax-loss-harvesting",
+    "pf-wealth-plan-10-lakh",
+    "portfolio-construction-rebalancing"
+   ],
+   "books": []
   }
  ]
 }

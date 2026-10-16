@@ -70,6 +70,25 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('[role="img"]')).toBeVisible();
   });
 
+  test('SIF strategy-families article renders its decoded families and annex layers', async ({ page }) => {
+    await page.goto('/articles/alternatives-sif-strategy-families-deep-dive');
+    await expect(page.getByRole('heading', { name: /SIF Strategy Families/ })).toBeVisible();
+    // A stable, unique H2 in the body.
+    await expect(page.getByRole('heading', { name: /How to read the scheme document/ })).toBeVisible();
+    // The standard article layout renders a "Sources & citations" heading (sources.length > 0).
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
+  test('REIT / InvIT timing article renders its three-leg decision model', async ({ page }) => {
+    await page.goto('/articles/real-estate-reit-invit-dividend-timing-tax');
+    await expect(page.getByRole('heading', { name: /REIT & InvIT Dividend Timing/ })).toBeVisible();
+    // A stable, unique H2 in the body.
+    await expect(page.getByRole('heading', { name: /The 12-month clock/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

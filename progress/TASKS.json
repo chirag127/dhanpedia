@@ -1,19 +1,197 @@
 {
-  "note": "Task registry — single source of truth for DhanPedia workstreams. Resumable across sessions. status: backlog|ready|in_progress|blocked|review|complete.",
-  "version": "2.0",
-  "updatedAt": "2026-10-16",
-  "tasks": [
-    { "id": "T-arch", "title": "Architecture + scaffold (Astro 7, React 19, Tailwind 4, Pagefind, ECharts 6)", "workstream": "architecture", "status": "complete", "priority": 1, "dependencies": [], "output_files": ["astro.config.ts","package.json","tsconfig.json","vitest.config.ts","src/lib/"], "validation_status": "npm install passed; build passes", "next_action": null },
-    { "id": "T-calc", "title": "Calculation engine (CAGR, XIRR, SIP, EMI, FD, bonds, P2P EL, fee drag)", "workstream": "calculators", "status": "complete", "priority": 1, "dependencies": ["T-arch"], "output_files": ["src/lib/finance/index.ts","src/lib/calculators.ts"], "validation_status": "41/41 unit tests pass", "next_action": null },
-    { "id": "T-calc-ui", "title": "React calculator islands + 12 calculator pages", "workstream": "calculators", "status": "complete", "priority": 2, "dependencies": ["T-calc"], "output_files": ["src/components/CalculatorIsland.tsx","src/pages/calculators/"], "validation_status": "builds; 12 pages generated in dist", "next_action": "Playwright e2e interaction check" },
-    { "id": "T-articles", "title": "33 deep articles across all 17 avenues (source-cited, verified)", "workstream": "content", "status": "complete", "priority": 2, "dependencies": ["T-sources"], "output_files": ["src/content/**"], "validation_status": "validate-content + check-links pass; 0 placeholders; Wave-4 added tax-free-stack, HUF, NCD + REIT tax; Wave-5 added hnw-pms-aif-sif-selection + advance-tax/itr-checklist", "next_action": "Daily article habit: Wave-6 candidate = SIF strategy deep-dive or AIF-category selection guide" },
-    { "id": "T-sources", "title": "Source registry (32 verified) + update-log (22 time-sensitive claims)", "workstream": "research", "status": "complete", "priority": 1, "dependencies": [], "output_files": ["content-registry/sources.json","content-registry/update-log.json"], "validation_status": "check-links: all resolve; Wave-3 added 4 sources (intl FoF cap, EPF rate, IRDAI annual report 2026, ULIP-vs-term)", "next_action": "Re-verify SCSS/PPF/EPF rates + SFB FD rates next quarter" },
-    { "id": "T-books", "title": "Publishing pipeline: 4 books × 6 formats (PDF/EPUB/HTML/MD/TEXT/TTS) + 19 article downloads", "workstream": "publishing", "status": "complete", "priority": 2, "dependencies": ["T-articles"], "output_files": ["scripts/generate-books.mjs","public/downloads/","src/data/downloads.json"], "validation_status": "build-report: all manifest files present on disk", "next_action": null },
-    { "id": "T-site", "title": "Site shell: layout, home, topics, articles, glossary, sources, about, policy, security, 404, progress", "workstream": "site", "status": "complete", "priority": 1, "dependencies": ["T-arch"], "output_files": ["src/layouts/","src/pages/","src/styles/"], "validation_status": "80 pages build successfully", "next_action": null },
-    { "id": "T-search", "title": "Pagefind full-text search (index + /search page)", "workstream": "search", "status": "in_progress", "priority": 3, "dependencies": ["T-site"], "output_files": ["src/pages/search.astro","package.json scripts.search"], "validation_status": "page pending index build", "next_action": "Run `npx pagefind --source dist --dest dist` and verify" },
-    { "id": "T-ci", "title": "GitHub Actions CI/CD to GitHub Pages under /dhanpedia", "workstream": "deploy", "status": "in_progress", "priority": 3, "dependencies": ["T-site","T-books"], "output_files": [".github/workflows/deploy.yml"], "validation_status": "pending", "next_action": "Author workflow; owner must enable Pages + authorize token" },
-    { "id": "T-plan", "title": "Personal ₹10L plan article (with PMS/AIF growth path) + 4-book set", "workstream": "content", "status": "complete", "priority": 2, "dependencies": ["T-articles","T-books"], "output_files": ["src/content/personal-finance/pf-wealth-plan-10-lakh.mdx","content-registry/books.json"], "validation_status": "published + downloadable", "next_action": "Answer user profile questions → refine allocations" },
-    { "id": "T-e2e", "title": "Playwright browser tests (home, article, calculator, dark mode, responsive)", "workstream": "qa", "status": "backlog", "priority": 4, "dependencies": ["T-site","T-calc-ui"], "output_files": ["tests/e2e/"], "validation_status": "not started", "next_action": "Add baseline Playwright specs" },
-    { "id": "T-perf", "title": "Core Web Vitals measurement + chunk-splitting of ECharts islands", "workstream": "qa", "status": "backlog", "priority": 5, "dependencies": ["T-site"], "output_files": [], "validation_status": "not started", "next_action": "Lighthouse CI run" }
-  ]
+ "note": "Task registry — single source of truth for DhanPedia workstreams. Resumable across sessions. status: backlog|ready|in_progress|blocked|review|complete.",
+ "version": "2.0",
+ "updatedAt": "2026-10-18",
+ "tasks": [
+  {
+   "id": "T-arch",
+   "title": "Architecture + scaffold (Astro 7, React 19, Tailwind 4, Pagefind, ECharts 6)",
+   "workstream": "architecture",
+   "status": "complete",
+   "priority": 1,
+   "dependencies": [],
+   "output_files": [
+    "astro.config.ts",
+    "package.json",
+    "tsconfig.json",
+    "vitest.config.ts",
+    "src/lib/"
+   ],
+   "validation_status": "npm install passed; build passes",
+   "next_action": null
+  },
+  {
+   "id": "T-calc",
+   "title": "Calculation engine (CAGR, XIRR, SIP, EMI, FD, bonds, P2P EL, fee drag)",
+   "workstream": "calculators",
+   "status": "complete",
+   "priority": 1,
+   "dependencies": [
+    "T-arch"
+   ],
+   "output_files": [
+    "src/lib/finance/index.ts",
+    "src/lib/calculators.ts"
+   ],
+   "validation_status": "55/55 unit tests pass (Wave-6 added sifSleeveSizing + businessTrustTiming)",
+   "next_action": null
+  },
+  {
+   "id": "T-calc-ui",
+   "title": "React calculator islands + 12 calculator pages",
+   "workstream": "calculators",
+   "status": "complete",
+   "priority": 2,
+   "dependencies": [
+    "T-calc"
+   ],
+   "output_files": [
+    "src/components/CalculatorIsland.tsx",
+    "src/pages/calculators/"
+   ],
+   "validation_status": "builds; 12 pages generated in dist",
+   "next_action": "Playwright e2e interaction check"
+  },
+  {
+   "id": "T-articles",
+   "title": "35 deep articles across all 17 avenues (source-cited, verified)",
+   "workstream": "content",
+   "status": "complete",
+   "priority": 2,
+   "dependencies": [
+    "T-sources"
+   ],
+   "output_files": [
+    "src/content/**"
+   ],
+   "validation_status": "Wave-4 added tax-free-stack, HUF, NCD + REIT tax; Wave-5 added hnw-pms-aif-sif-selection + advance-tax/itr-checklist; Wave-6 added sif-strategy-families-deep-dive + reit-invit-dividend-timing-tax",
+   "next_action": "Daily article habit: Wave-7 candidate = AIF-category selection guide, or a dedicated sif-sleeve / reit-invit-timing calculator page wiring the two new finance functions"
+  },
+  {
+   "id": "T-sources",
+   "title": "Source registry (32 verified) + update-log (22 time-sensitive claims)",
+   "workstream": "research",
+   "status": "complete",
+   "priority": 1,
+   "dependencies": [],
+   "output_files": [
+    "content-registry/sources.json",
+    "content-registry/update-log.json"
+   ],
+   "validation_status": "check-links: all resolve; Wave-3 added 4 sources (intl FoF cap, EPF rate, IRDAI annual report 2026, ULIP-vs-term)",
+   "next_action": "Re-verify SCSS/PPF/EPF rates + SFB FD rates next quarter"
+  },
+  {
+   "id": "T-books",
+   "title": "Publishing pipeline: 4 books × 6 formats (PDF/EPUB/HTML/MD/TEXT/TTS) + 19 article downloads",
+   "workstream": "publishing",
+   "status": "complete",
+   "priority": 2,
+   "dependencies": [
+    "T-articles"
+   ],
+   "output_files": [
+    "scripts/generate-books.mjs",
+    "public/downloads/",
+    "src/data/downloads.json"
+   ],
+   "validation_status": "build-report: all manifest files present on disk",
+   "next_action": null
+  },
+  {
+   "id": "T-site",
+   "title": "Site shell: layout, home, topics, articles, glossary, sources, about, policy, security, 404, progress",
+   "workstream": "site",
+   "status": "complete",
+   "priority": 1,
+   "dependencies": [
+    "T-arch"
+   ],
+   "output_files": [
+    "src/layouts/",
+    "src/pages/",
+    "src/styles/"
+   ],
+   "validation_status": "80 pages build successfully",
+   "next_action": null
+  },
+  {
+   "id": "T-search",
+   "title": "Pagefind full-text search (index + /search page)",
+   "workstream": "search",
+   "status": "in_progress",
+   "priority": 3,
+   "dependencies": [
+    "T-site"
+   ],
+   "output_files": [
+    "src/pages/search.astro",
+    "package.json scripts.search"
+   ],
+   "validation_status": "page pending index build",
+   "next_action": "Run `npx pagefind --source dist --dest dist` and verify"
+  },
+  {
+   "id": "T-ci",
+   "title": "GitHub Actions CI/CD to GitHub Pages under /dhanpedia",
+   "workstream": "deploy",
+   "status": "in_progress",
+   "priority": 3,
+   "dependencies": [
+    "T-site",
+    "T-books"
+   ],
+   "output_files": [
+    ".github/workflows/deploy.yml"
+   ],
+   "validation_status": "pending",
+   "next_action": "Author workflow; owner must enable Pages + authorize token"
+  },
+  {
+   "id": "T-plan",
+   "title": "Personal ₹10L plan article (with PMS/AIF growth path) + 4-book set",
+   "workstream": "content",
+   "status": "complete",
+   "priority": 2,
+   "dependencies": [
+    "T-articles",
+    "T-books"
+   ],
+   "output_files": [
+    "src/content/personal-finance/pf-wealth-plan-10-lakh.mdx",
+    "content-registry/books.json"
+   ],
+   "validation_status": "published + downloadable",
+   "next_action": "Answer user profile questions → refine allocations"
+  },
+  {
+   "id": "T-e2e",
+   "title": "Playwright browser tests (home, article, calculator, dark mode, responsive)",
+   "workstream": "qa",
+   "status": "backlog",
+   "priority": 4,
+   "dependencies": [
+    "T-site",
+    "T-calc-ui"
+   ],
+   "output_files": [
+    "tests/e2e/"
+   ],
+   "validation_status": "not started",
+   "next_action": "Add baseline Playwright specs"
+  },
+  {
+   "id": "T-perf",
+   "title": "Core Web Vitals measurement + chunk-splitting of ECharts islands",
+   "workstream": "qa",
+   "status": "backlog",
+   "priority": 5,
+   "dependencies": [
+    "T-site"
+   ],
+   "output_files": [],
+   "validation_status": "not started",
+   "next_action": "Lighthouse CI run"
+  }
+ ]
 }

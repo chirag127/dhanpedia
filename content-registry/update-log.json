@@ -293,6 +293,24 @@
    "lastVerified": "2026-10-17",
    "reviewAfter": "2027-07-31",
    "status": "verified"
+  },
+  {
+   "id": "ul-sif-strategy-families-2026",
+   "claim": "SIF strategy families (SEBI MF Regs 2026, secondary): seven permitted long-short / relative-value families; illustrative 75/25 blend with ~25% naked-short cap; ~2.25% management + ~2% distribution expense; daily NAV pricing; SIP/STP allowed",
+   "source": "src-sif-strategy-families-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "The \"seven families\" and the 75/25 blend are secondary-guide readings, not a fixed SEBI named list; verify the exact caps against the SEBI circular and each scheme document."
+  },
+  {
+   "id": "ul-reit-invit-dividend-uniformity-2026",
+   "claim": "Finance Bill 2026 (assent 17 Aug 2026) makes the REIT/InvIT dividend component more uniformly exempt to unitholders regardless of the SPV regime, with a higher 25% SPV surcharge trade-off; interest / rental components stay slab-taxed; 115UA(2) current-year wording must be verified with a CA",
+   "source": "src-reit-invit-premium-discount-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-02-28",
+   "status": "verified",
+   "notes": "The 25% SPV-surcharge figure and the dividend-uniformity mechanics are from the Lok Sabha 2026 amendment report; confirm against the final Finance Act text and the REIT/InvIT distribution statement."
   }
  ]
 }

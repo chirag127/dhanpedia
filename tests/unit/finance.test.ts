@@ -13,6 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
+  sifSleeveSizing, businessTrustTiming,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -352,5 +353,101 @@ describe('FY 2026-27 tax slabs', () => {
     const clamped = advanceTaxFY27(100000, 200000);
     expect(clamped.advanceTaxDue).toBe(0);
     expect(clamped.needsAdvanceTax).toBe(false);
+  });
+});
+
+describe('SIF sleeve sizing', () => {
+  it('net edge vs stated benchmark decides whether the sleeve pays for itself', () => {
+    const r = sifSleeveSizing({
+      corpus: 4000000,
+      coreReturn: 0.10,
+      sifGrossReturn: 0.14,
+      sifFee: 0.0225,
+      benchmarkReturn: 0.11,
+      sleevePct: 0.20,
+      years: 5,
+    });
+    expect(r.sifNetReturn).toBeCloseTo(0.1175, 6); // 0.14 - 0.0225
+    expect(r.netEdgeVsBenchmark).toBeCloseTo(0.0075, 6); // 0.1175 - 0.11
+    expect(r.paysForItself).toBe(true);
+    expect(r.effectiveSleevePct).toBe(0.20);
+    // blended portfolio net return = 0.20*0.1175 + 0.80*0.10 = 0.1035
+    expect(r.portfolioNetReturn).toBeCloseTo(0.1035, 6);
+  });
+
+  it('a fee that eats the gross edge means the sleeve does NOT pay for itself', () => {
+    const r = sifSleeveSizing({
+      corpus: 4000000,
+      coreReturn: 0.10,
+      sifGrossReturn: 0.12,
+      sifFee: 0.0225,
+      benchmarkReturn: 0.11,
+      sleevePct: 0.20,
+      years: 5,
+    });
+    expect(r.sifNetReturn).toBeCloseTo(0.0975, 6);
+    expect(r.netEdgeVsBenchmark).toBeCloseTo(-0.0125, 6);
+    expect(r.paysForItself).toBe(false);
+  });
+
+  it('sleeve is capped at the 25% rule of thumb', () => {
+    const r = sifSleeveSizing({
+      corpus: 4000000,
+      coreReturn: 0.10,
+      sifGrossReturn: 0.14,
+      sifFee: 0.0225,
+      benchmarkReturn: 0.11,
+      sleevePct: 0.40,
+      years: 5,
+    });
+    expect(r.effectiveSleevePct).toBe(0.25);
+    expect(r.sleeveCapPct).toBe(0.25);
+  });
+});
+
+describe('REIT / InvIT business-trust timing', () => {
+  const base = {
+    units: 1000,
+    costPerUnit: 400,
+    currentPrice: 480,
+    navPerUnit: 420,
+    annualDistPerUnit: 30,
+    monthsHeld: 18,
+    forwardYears: 3,
+    navGrowthRate: 0.05,
+    marginalTaxRate: 0.30,
+    sharedLtcgPool: 0,
+  };
+
+  it('premium drags the effective yield; a long-term sale is better held forward', () => {
+    const r = businessTrustTiming(base);
+    expect(r.premiumDiscountPct).toBeCloseTo(60 / 420, 6);
+    expect(r.headlineYield).toBe(0.075); // 30/400 on cost
+    expect(r.yieldOnPrice).toBe(0.0625); // 30/480 on price
+    expect(r.premiumYieldDrag).toBeCloseTo(0.0125, 6);
+    expect(r.afterTaxDistIncome).toBe(21000); // 30000 * (1 - 0.30)
+    expect(r.qualifiesLtcgNow).toBe(true); // 18 months >= 12
+    expect(r.taxIfSoldNow).toBe(10000); // 80000 LTCG * 0.125
+    expect(r.afterTaxProceedsNow).toBe(470000);
+    // forward: 480000 * 1.05^3 = 555660; LTCG 155660*0.125 = 19457.5
+    expect(r.afterTaxProceedsForward).toBeCloseTo(536202.5, 4);
+    expect(r.betterChoice).toBe('forward');
+  });
+
+  it('under 12 months the gain is 20% short-term, so selling now is more costly', () => {
+    const st = businessTrustTiming({ ...base, monthsHeld: 6 });
+    expect(st.qualifiesLtcgNow).toBe(false);
+    expect(st.taxIfSoldNow).toBe(16000); // 80000 STCG * 0.20
+    expect(st.afterTaxProceedsNow).toBe(464000);
+  });
+
+  it('a unit trading below NAV is at a discount; yield-on-price rises vs cost-based', () => {
+    const neg = businessTrustTiming({ ...base, currentPrice: 380 });
+    expect(neg.premiumDiscountPct).toBeLessThan(0);
+    // discount => you paid less than cost-basis, so the same distribution is a
+    // higher yield on your actual purchase price (30/380 > 30/400)
+    expect(neg.yieldOnPrice).toBeGreaterThan(neg.headlineYield);
+    expect(neg.headlineYield).toBe(0.075);
+    expect(neg.yieldOnPrice).toBeCloseTo(30 / 380, 6);
   });
 });

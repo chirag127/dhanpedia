@@ -1,14 +1,41 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-17** (Wave 5: 2 new articles + 1 new calculator + 4 new sources; 31 → 33 articles; all pipeline green)
+Last updated: **2026-10-18** (Wave 6: 2 new articles + 2 new finance functions + 2 new sources; 33 → 35 articles; all pipeline green)
 
 ## State
 
-- **Articles:** 33 on disk / registered. Wave 5 added 2: `alternatives-hnw-pms-aif-sif-selection` (the selection + fee-decay layer over SIF/PMS/AIF) and `tax-advance-itr-final-checklist` (advance tax, 234B/234C interest clocks, surcharge, ITR form selection, end-of-year checklist).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 8, p2p-lending 4, wealth-beyond-10l 10.
-- **Sources:** 43 in `sources.json` (Wave 5 added 4: src-pms-aif-fees-2026, src-aif-categories-2026, src-advance-tax-fy2026-27, src-it-dept-final-dates-2026).
-- **Update-log:** 34 tracked time-sensitive claims.
-- **Calculators:** 18 pages, including Wave 5 `advance-tax` (4-installment schedule + 234B/234C approximation, `advanceTaxFY27()`).
+- **Articles:** 35 on disk / registered. Wave 6 added 2: `alternatives-sif-strategy-families-deep-dive` (the 7 SIF strategy families, scheme-document annex mechanics, sleeve-sizing fee-decay math) and `real-estate-reit-invit-dividend-timing-tax` (the 12-month LTCG clock, NAV premium/discount yield-drag, reinvest-vs-redeem, distribution timing into the tax-free stack).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 8, p2p-lending 4, wealth-beyond-10l 11 (Wave 6 added the SIF strategy-families chapter).
+- **Sources:** 45 in `sources.json` (Wave 6 added 2: src-sif-strategy-families-2026, src-reit-invit-premium-discount-2026).
+- **Update-log:** 36 tracked time-sensitive claims.
+- **Calculators:** 18 pages. Wave 6 added 2 pure, unit-tested finance functions (`sifSleeveSizing()`, `businessTrustTiming()`) that power the two new articles' decision math.
+
+## Wave 6 session (verified 2026-10-18 via web research)
+
+### New articles
+- [x] `src/content/alternatives/alternatives-sif-strategy-families-deep-dive.mdx` — the *strategy* layer the SIF overview left open: the seven SEBI 2026 strategy families decoded (equity long-short, equity market-neutral, debt long-short/rate, credit relative value, sector rotation, dynamic/tactical allocation, event-driven/arbitrage), the 75/25 illustrative blend and ~25% naked-short cap, the three scheme-document annexes to read (derivative policy, allocation/rebalancing, governance/turnover), the sleeve-sizing fee-decay decision test, and when a SIF sleeve is the wrong tool. KaTeX + Mermaid + a 7-family table.
+- [x] `src/content/real-estate/real-estate-reit-invit-dividend-timing-tax.mdx` — the *timing and total-return* layer over the REIT/InvIT tax table: the 12-month LTCG clock and the 12.5% vs 20% rate step, how the NAV premium/discount drags the effective yield on your purchase price (premium is a future cost, discount is return to capture), reinvest-vs-redeem and what to route the distribution into, a worked now-vs-forward exit math, and how the REIT slots into the tax-free stack (exempt-dividend leg + shared ₹1.25L 112A pool management). KaTeX + Mermaid + worked tables.
+
+### New finance functions + tests
+- [x] `sifSleeveSizing()` in `src/lib/finance/index.ts` (SifSleeveResult: net edge vs stated benchmark, blended portfolio net return, fee drag over period, sleeve cap at the 25% rule).
+- [x] `businessTrustTiming()` in `src/lib/finance/index.ts` (BtTimingResult: premium/discount, yield-on-cost vs yield-on-price and the drag, 12-month LTCG qualification, after-tax distribution income, after-tax proceeds of selling now vs forward, better-choice flag).
+- [x] 6 new finance unit tests (3 for each function) — **55/55 unit tests pass**.
+- [x] 2 new e2e tests (the two new article pages, desktop + mobile) — **24/24 pass**.
+
+### Research verified this session
+- [x] **SIF strategy families** — the "seven" families and the 75/25 blend / ~25% naked-short cap are secondary-guide readings of the SEBI MF Regulations 2026 (AndFintech, Mera SIF, GreySky, SafeMoney); flagged medium-confidence for scheme-document verification.
+- [x] **REIT/InvIT dividend-uniformity** — Finance Bill 2026 (assent 17 Aug 2026) makes the dividend component more uniformly exempt regardless of the SPV regime, with a higher 25% SPV-level surcharge trade-off; interest/rental components stay slab-taxed (Mint, Hindu Business Line, Finoscape). Current-year 115UA(2) wording flagged for CA verification.
+- [x] **NAV premium/discount** — REIT total return = distribution + NAV appreciation + change in the premium/discount; a fat premium at purchase is a future cost if it normalises (Finoscape, secondary pattern).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 55 passed.
+- [x] `node scripts/validate-content.mjs` → 35 articles, 4 books, 45 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npx astro build` → 159 indexed pages; both new article pages generated.
+- [x] `npx pagefind --site dist` → indexed (159 pages, 16,496 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 35/35 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 24 passed (desktop + mobile).
 
 ## Wave 5 session (verified 2026-10-17 via web research)
 
@@ -42,12 +69,12 @@ Last updated: **2026-10-17** (Wave 5: 2 new articles + 1 new calculator + 4 new 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion if the user confirms: SIF sleeve-sizing calculator, AIF carry-return calculator (high-water-line), ELSS/NPS tax-shield standalone (already folded into `tax-shield`).
+- [ ] Phase 4 deeper expansion if the user confirms: AIF carry-return calculator (high-water-line), dedicated `sif-sleeve` and `reit-invit-timing` calculator pages wiring the two new finance functions, ELSS/NPS tax-shield standalone.
 
 ## Next 3 actions
-1. Commit Wave 5: 2 new articles + `advance-tax` calculator + 4 sources + tests.
+1. Commit Wave 6: 2 new articles + 2 finance functions + 2 sources + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 6 candidates: a SIF strategy-category deep-dive, or an AIF-category selection guide, or a REIT/InvIT dividend-timing article).
+3. Continue the daily article habit (Wave 7 candidates: an AIF-category selection guide, an AIF carry-return calculator, or a SIF sleeve-sizing calculator page).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.
