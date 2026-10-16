@@ -1209,3 +1209,91 @@ UPDATE LOG
 • 2026-10-18 — Wave 7: 115UB pass-through vs Cat III fund-level tax, the 194LBB 10% TDS trap, the
 
 business-income non-pass-through rule, the 12-month loss hold requirement, and the 64C/64D→78/79 migration (Income-tax Act 2025, effective 1 Apr 2026). The Cat III ~42.7% fund-level rate is a secondary reading; confirm the exact rate and the specific-exemption sections (10(4D), 10(23FF), 10(23FBC), 115AD) with a CA for the assessment year before acting. Form numbers and deadlines to be re-verified at each Finance Act and against the Income-tax Department's ITR-2 documentation.
+
+
+
+THE 80C BASKET DECISION: WHAT ₹1.5 L OF DEDUCTIONS IS ACTUALLY WORTH IN YOUR REGIME (AND THE NPS SIDE-DOOR)
+
+If you are on the new regime (the default since 2023), this article is still worth reading, because the regime decision is computable, and the new regime is not automatically the winner for someone with a Rs. 1.5L 80C basket plus employer NPS. If you are on the old regime, this is the piece that tells you what to do with the deduction you are already paying for.
+
+The India tax complete guide (./tax-india-investor-complete.mdx) gave you the slabs and the two regimes. This article is the decision layer: how much is the 80C basket actually worth to you, instrument by instrument, and which regime should you file under in FY 2026-27?
+
+WHAT THE 80C BASKET IS — AND IS NOT
+===================================
+
+Section 80C gives one shared bucket of Rs. 1,50,000 per year (old regime only) that you can fill from any mix of:
+
+Instrument: **ELSS** (equity mutual funds),~12-15% CAGR (historical, market risk),**3 years**,Market,Deduction + 112A LTCG 12.5% on gains  |  Typical return: **PPF**,**7.1% guaranteed** (FY 2026-27, 8th straight unchanged quarter),**15 years**,None (govt),EEE — completely tax-free  |  Lock-in: **EPF**,8.25% (FY 2025-26 rate, carried forward),Till retirement,None,EEE, but contribution capped at 10% of salary inside 80C  |  Risk: **NSC**,~7.7%,5 years,None,EEE  |  Tax treatment: **Home-loan principal**,Your loan's rate,Until the loan ends,Property,Deduction on principal only
+
+Two traps that cost real money:
+1. The LIC-first habit. Putting the whole Rs. 1.5L into a traditional LIC plan buys 4-6% with a 15-20
+
+year lock, when the same Rs. 1.5L in PPF buys 7.1% guaranteed with zero lock-in flexibility. The only reason to hold LIC at all is insurance — and for that, a term policy (Rs. 15-20k/year for Rs. 1Cr cover) plus ELSS or PPF for the 80C is nearly always better.
+1. The "80C is automatic" myth. EPF contributes automatically, but it only counts up to **10% of
+
+salary**, and anything beyond the Rs. 1.5L total gives you zero extra. If EPF alone fills 80C, a PPF or ELSS top-up does nothing for your tax this year.
+
+THE NPS SIDE-DOOR: RS. 50K OVER THE BASKET — OLD REGIME ONLY
+============================================================
+
+Beyond the Rs. 1.5L 80C basket, Section 80CCD(1B) gives an extra Rs. 50,000 deduction for NPS Tier-1 self-contributions (salaried, self-employed, or even on your child's account under NPS Vatsalya). The rules that matter for FY 2026-27:
+• Old regime: yes. 80C (Rs. 1.5L) + 80CCD(1B) (Rs. 50K) stack, for Rs. 2.0L of NPS-related deductions.
+• New regime: no. This was the subject of a conflicting blog claim during our Wave 8 research;
+
+the CA-reviewed source (15 Oct 2026) and 1 Finance/ClearTax coverage both confirm 80CCD(1B) is disallowed under the new regime (Section 115BAC). It is recorded in our update log (ul-80ccd1b-regime-clarification-2026).
+• The one NPS lever that survives the new regime: 80CCD(2) — your employer's NPS contribution,
+
+up to 14% of Basic+DA for all employers (raised from 10% private-sector by Budget 2024). You cannot claim it directly; you get it by asking HR to route part of your "special allowance" into employer NPS. For a Rs. 20L CTC earner in the 20% slab, converting Rs. 1.4L of cash salary into employer NPS saves ~Rs. 29,120/year — that is a 20.8% instant "return" on the money, before the NPS account even compounds. It counts toward the Rs. 7.5L combined employer EPF+NPS+superannuation exempt cap; above that it is taxed as a perquisite.
+
+$$ \text{Total NPS-related deductions (old regime)} \;=\; \underbrace{80C \;(\le 1.5L)}_{\text{incl. 80CCD(1)}} \;+\; \underbrace{80CCD(1B) \;(\le 0.5L)}_{\text{old only}} \;+\; \underbrace{80CCD(2)}_{\text{both regimes}} $$
+
+WHEN THE NEW REGIME ACTUALLY WINS (AND A SURPRISING FY 2026-27 RESULT)
+======================================================================
+
+Here is the finding most people get wrong: after the Budget 2025 widening of the new regime (nil up to Rs. 4L, then 5/10/15/20/25/30% with the 87A rebate keeping income up to Rs. 12L tax-free, and a Rs. 75,000 standard deduction for salaried people), the new regime wins for a typical salaried taxpayer even when they have a full old-regime deduction stack — up to roughly Rs. 45 lakh of income, before surcharge even enters.
+
+We verified this by running the deductionShieldFY27() model across incomes with a complete ~Rs. 5L old-regime stack (Rs. 1.5L 80C + Rs. 50k NPS 80CCD(1B) + Rs. 2L home-loan interest 24(b) + Rs. 1L health 80D). The new regime came out cheaper at every income tested up to Rs. 45L. The reason is arithmetic, not intuition: the new regime's lower base slabs (0/5/10/15/20/25% where the old regime was 0/5/20/30%) mean the old regime has less base tax for the deductions to offset, and at the top both regimes hit 30% — so the deductions no longer have a steeper slope to leverage.
+
+So when does the old regime actually win? Only when your deductions are large relative to income, which for FY 2026-27 happens in a few specific cases:
+
+Your profile: Income ₹50L+ with a big 24(b) home-loan + 80E startup loss offset,Surcharge (not modelled here) plus the deduction stack flips the balance; verify with a CA including surcharge  |  Why old can win: Heavy 80D (₹1L health) + 80E (startup investment, up to ₹1L) on top of 80C,The old regime's extra deduction buckets stack into ₹3-4L that the new regime gives up
+
+The practical takeaway: do not assume the new regime wins. Run the numbers. For a Rs. 15L–Rs. 40L salaried person with a normal 80C basket, the new regime almost certainly wins. For a home-loan holder at the top of that band, or anyone with 80E, the gap narrows and you must compute it.
+
+The one lever that is pure value in the new regime: 80CCD(2) employer NPS. Because it is the only deduction that survives in both regimes, routing salary into employer NPS is the single most efficient tax move a new-regime filer has — it drops income at your full marginal rate with no deduction-bucket limit, up to the Rs. 7.5L employer EPF+NPS+superannuation cap.
+
+FILLING THE BASKET: THE THREE ARCHETYPES
+========================================
+
+You are: **In your 20s-30s, no home loan**,EPF auto (up to its cap) + the rest into **ELSS SIP**,3-year lock is cheap at your age; ~12%+ historical CAGR beats 7.1% PPF in expectation  |  Fill the basket with: **Mid-career with a home loan**,**Home-loan principal** (you are paying it anyway) + EPF + a **PPF top-up**,No incremental cash outflow; PPF's 7.1% guaranteed with EEE is the safe core  |  Why: **40s+, near retirement**,**PPF first** (15-yr tenure matches your retirement date), SCSS at 60+,Guaranteed, tax-free, duration-matched; ELSS's equity risk is wrong for you this close
+
+One more timing rule worth Rs. 1,000 a year: PPF contributions before the 5th of the month earn a month's interest for that month; contributing on the 6th or later costs you the month's accrual. On a Rs. 1.5L PPF balance that is roughly Rs. 1,300/year of guaranteed interest.
+
+THE REGIME DECISION, COMPUTED (NOT GUESSED)
+===========================================
+
+Use the 80C + NPS Shield calculator (/calculators/regime-80c-shield): enter your gross income, the Rs.  you will actually invest in the 80C basket, your 80CCD(1B) self NPS, and your employer NPS — and it returns the tax under each regime, which one wins, and the rupee value of each bucket at your own marginal rate (a bucket is only worth its marginal-slab value: at the 5% slab, Rs. 1.5L of 80C saves Rs. 75K, not Rs. 46.8K).
+
+$$ \text{80C bucket value} \;=\; \text{old-regime tax (without it)} \;-\; \text{old-regime tax (with it)} $$
+
+That subtraction — not the 30%-slab headline number you see in every marketing piece — is the honest value of the deduction for you.
+
+RELATED
+=======
+• India Taxation: The Complete Investor's Guide (./tax-india-investor-complete.mdx)
+• The Tax-Free Wealth Stack (EEE + EET instruments) (./tax-tax-free-wealth-stack.mdx)
+• Government Savings Schemes: PPF, SSY, NSC, KVP (../government-schemes/govt-small-savings-schemes.mdx)
+• Your 10 Lakh Wealth Plan (../personal-finance/pf-wealth-plan-10-lakh.mdx)
+
+SOURCES
+=======
+• 80C limit Rs. 1.5L, old-regime-only — <a href="https://taxclue.in/blog/section-80c-tax-saving-investments-fy-2025-26">TaxClue 80C guide</a>
+• Old vs new regime deduction map FY 2026-27 (80C, 80CCD(1B), 80D, 80E, 80TTA/80TTB) — <a href="https://cleartax.in/">ClearTax / 1 Finance coverage (FY 2026-27)</a>
+• PPF 7.1% for FY 2026-27 Q1 (unchanged, 8th straight quarter) — <a href="https://economictimes.indiatimes.com/wealth/invest/ppf-interest-rate-2026-has-public-provident-fund-interest-rate-increased-for-april-june-2026-quarter/articleshow/130060237.cms">Economic Times (07 Apr 2026)</a>
+• NPS 80CCD(1)/(1B)/(2) structure; 80CCD(1B) old-regime-only; 80CCD(2) 14% all-employers — <a href="https://smarttaxcalc.in/blog/nps-tax-benefits">SmartTaxCalc (CA-reviewed 15 Oct 2026)</a>
+
+UPDATE LOG
+==========
+• 2026-10-18 — Wave 9: 80C instrument-by-instrument value table, the NPS side-door regime resolution
+
+(80CCD(1B) old-regime-only, per the Wave 8 ul-80ccd1b-regime-clarification-2026 record; 80CCD(2) 14% for all employers works in both regimes), the regime-decision archetype table, the PPF timing rule (contribute before the 5th), and the regime-80c-shield calculator wiring. PPF 7.1% verified for FY 2026-27 Q1 (ET, 07 Apr 2026); re-verify the PPF rate at each quarterly notification (July, October, January).

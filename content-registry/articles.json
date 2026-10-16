@@ -1125,6 +1125,45 @@
    "books": [
     "book-wealth-beyond-10l"
    ]
+  },
+  {
+   "id": "tax-80c-baskets-regime-decision",
+   "title": "The 80C Basket Decision: What ₹1.5 L of Deductions Is Actually Worth in Your Regime (and the NPS Side-Door)",
+   "category": "taxation",
+   "difficulty": "intermediate",
+   "status": "published",
+   "tags": [
+    "80c",
+    "elss",
+    "ppf",
+    "epf",
+    "nps",
+    "80ccd1b",
+    "80ccd2",
+    "old-regime",
+    "new-regime",
+    "tax-shield",
+    "deductions",
+    "fy-2026-27"
+   ],
+   "summary": "The tax-shield layer over old-regime deductions: how to fill the 1.5L 80C basket by risk not habit (ELSS vs PPF vs EPF vs home-loan vs the LIC trap), the 50K NPS side-door (old-regime-only), the 80CCD(2) employer-NPS lever that survives the new regime, and the verified FY 2026-27 result that the new regime usually still wins up to ~45L even with a full deduction stack.",
+   "file": "src/content/taxation/tax-80c-baskets-regime-decision.mdx",
+   "sources": [
+    "src-it-80c-150k",
+    "src-eldeductions-fy2026-27",
+    "src-ppf-rate-fy2026-27",
+    "src-nps-deductions-2026"
+   ],
+   "related": [
+    "tax-india-investor-complete",
+    "tax-tax-free-wealth-stack",
+    "govt-small-savings-schemes",
+    "pf-wealth-plan-10-lakh",
+    "retirement-fire-annuities"
+   ],
+   "books": [
+    "book-indian-taxation"
+   ]
   }
  ]
 }

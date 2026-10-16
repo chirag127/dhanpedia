@@ -807,6 +807,108 @@ export function businessTrustTiming(i: BtTimingInput): BtTimingResult {
 }
 
 /**
+ * Old-vs-new regime decision for a salaried FY 2026-27 taxpayer with the
+ * 80C basket + NPS deductions.
+ *
+ * Conventions:
+ *  - `grossIncome` is total gross income BEFORE the standard deduction and
+ *    before any Chapter VI-A deductions (salary, rent, interest, CG net of
+ *    exemptions, etc.).
+ *  - `eightyC` is the total 80C basket (ELSS + PPF + EPF + home-loan + NSC +
+ *    LIC + NPS 80CCD(1)) — available OLD regime only.
+ *  - `npsSelf` is the 80CCD(1B) extra NPS self-contribution (max 50,000) —
+ *    available OLD regime only (verified Wave 8: a conflicting blog claim was
+ *    resolved to old-regime-only per the CA-reviewed 15 Oct 2026 source).
+ *  - `npsEmployer` is the 80CCD(2) employer NPS contribution — available in
+ *    BOTH regimes (new regime: 14% of Basic+DA for all employers).
+ *  - Standard deduction: new regime 75,000 (salaried), old regime 50,000.
+ *  - Surcharge + 4% cess are NOT modelled (the calculator targets the
+ *    individual-salaried band below 50L; surcharge only matters above 50L).
+ *
+ * Returns the tax under each regime, the regime difference, and the
+ * effective value of each deduction bucket under the old regime.
+ */
+export interface DeductionShieldInput {
+  grossIncome: number;
+  eightyC: number;
+  npsSelf: number;
+  npsEmployer: number;
+  homeLoanInterest: number;
+  healthInsurance: number;
+  salaried: boolean;
+}
+
+export interface DeductionShieldResult {
+  newRegimeTax: number;
+  oldRegimeTax: number;
+  savingsByOld: number;
+  winRegime: 'new' | 'old' | 'tie';
+  newRegimeTaxable: number;
+  oldRegimeTaxable: number;
+  eightyCValue: number;
+  npsSelfValue: number;
+  npsEmployerValue: number;
+  homeLoanInterestValue: number;
+  healthInsuranceValue: number;
+}
+
+export function deductionShieldFY27(d: DeductionShieldInput): DeductionShieldResult {
+  const stdDed = d.salaried ? 75000 : 0;
+  const newRegimeTaxable = Math.max(
+    0,
+    d.grossIncome - stdDed - Math.max(0, d.npsEmployer),
+  );
+  const oldStdDed = d.salaried ? 50000 : 0;
+  const oldOnlyDeductions =
+    Math.min(Math.max(0, d.eightyC), 150000) +
+    Math.min(Math.max(0, d.npsSelf), 50000) +
+    Math.min(Math.max(0, d.homeLoanInterest), 200000) +
+    Math.min(Math.max(0, d.healthInsurance), 100000);
+  const oldRegimeTaxable = Math.max(
+    0,
+    d.grossIncome - oldStdDed - oldOnlyDeductions - Math.max(0, d.npsEmployer),
+  );
+  const newRegimeTax = newRegimeTaxFY27(newRegimeTaxable);
+  const oldRegimeTax = oldRegimeTaxFY27(oldRegimeTaxable);
+  const savingsByOld = newRegimeTax - oldRegimeTax;
+  const winRegime = savingsByOld > 0 ? 'old' : savingsByOld < 0 ? 'new' : 'tie';
+
+  // Effective value of each bucket = old-regime tax saved by that bucket at the
+  // taxpayer's own marginal position (sequential, in the statutory order).
+  const taxAt = (taxable: number) => oldRegimeTaxFY27(Math.max(0, taxable));
+  let cursor = d.grossIncome - oldStdDed; // old-regime taxable with NO VI-A deductions
+  const valueOf = (amount: number): number => {
+    const without = taxAt(cursor);
+    cursor -= amount;
+    return Math.max(0, without - taxAt(cursor));
+  };
+  const eightyCValue = valueOf(Math.min(Math.max(0, d.eightyC), 150000));
+  const npsSelfValue = valueOf(Math.min(Math.max(0, d.npsSelf), 50000));
+  const homeLoanInterestValue = valueOf(Math.min(Math.max(0, d.homeLoanInterest), 200000));
+  const healthInsuranceValue = valueOf(Math.min(Math.max(0, d.healthInsurance), 100000));
+  const npsEmployerValueBase = cursor;
+  const npsEmployerValue = Math.max(
+    0,
+    taxAt(npsEmployerValueBase) -
+      taxAt(npsEmployerValueBase - Math.max(0, d.npsEmployer)),
+  );
+
+  return {
+    newRegimeTax,
+    oldRegimeTax,
+    savingsByOld,
+    winRegime,
+    newRegimeTaxable,
+    oldRegimeTaxable,
+    eightyCValue,
+    npsSelfValue,
+    npsEmployerValue,
+    homeLoanInterestValue,
+    healthInsuranceValue,
+  };
+}
+
+/**
  * AIF end-of-fund "2 and 20" waterfall (European-style, single distribution).
  *
  * Models a fund that returns `grossMultiple` on committed capital at the end of

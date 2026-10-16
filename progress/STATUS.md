@@ -1,14 +1,41 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 8: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 37 → 38 articles; 21 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 9: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 38 → 39 articles; 22 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 38 on disk / registered. Wave 8 added 1: `alternatives-aif-waterfall-economics` (the GP-LP "2 and 20" ladder: management fee / hurdle / catch-up / carry in the exact order money flows, a worked ₹500 Cr / 3x / 10-yr fund that lands LPs at ~₹1,300 Cr net (2.6x) and the GP at ~₹200 Cr carry + ₹70-80 Cr fee, the negotiation table showing the hurdle and catch-up are the terms that actually move, the clawback / escrow-fragility note, and the ₹1 Cr smallest-ticket decision test).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 9, p2p-lending 4, wealth-beyond-10l 13 (+ alternatives-aif-waterfall-economics).
-- **Sources:** 48 in `sources.json` (Wave 8 added 1: src-aif-waterfall-economics-2026).
-- **Update-log:** 40 tracked (Wave 8 added 2, incl. a **conflict-resolved** note: 80CCD(1B) is old-regime-only — a blog intro claimed otherwise, the CA-reviewed body and 1 Finance/ClearTax coverage say old-regime-only; that resolution is flagged for Wave 9's ELSS/NPS tax-shield work).
-- **Calculators:** 21 (Wave 8 added `aif-waterfall`, powered by the new `aifWaterfall()` pure function with a European-style end-of-fund model, 6 unit tests, and an e2e test).
+- **Articles:** 39 on disk / registered. Wave 9 added 1: `tax-80c-baskets-regime-decision` (the tax-shield layer: filling the ₹1.5L 80C basket by risk not habit — ELSS vs PPF vs EPF vs home-loan vs the LIC trap; the ₹50K NPS side-door is old-regime-only; the 80CCD(2) employer-NPS lever that survives the new regime; and the **verified FY 2026-27 finding that the new regime wins up to ~₹45L even with a full ~₹5L deduction stack**).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 10 (+ tax-80c-baskets-regime-decision), p2p-lending 4, wealth-beyond-10l 13.
+- **Sources:** 49 in `sources.json` (Wave 9 added 1: src-ppf-rate-fy2026-27, PPF 7.1% FY 2026-27 Q1).
+- **Update-log:** 42 tracked (Wave 9 added 2, incl. the `ul-regime-decision-new-wins-fy2026-27` modeled result + `ul-ppf-rate-fy2026-27`).
+- **Calculators:** 22 (Wave 9 added `regime-80c-shield`, powered by the new `deductionShieldFY27()` pure function, with 6 unit tests and an e2e test).
+
+## Wave 9 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/taxation/tax-80c-baskets-regime-decision.mdx` — the *tax-shield* layer: the 80C instrument-by-instrument value table (ELSS ~12-15% CAGR / 3-yr lock, PPF 7.1% EEE / 15-yr, EPF 8.25% auto-capped, NSC, home-loan principal, LIC trap, tuition, NPS 80CCD(1)), the NPS side-door regime resolution (80CCD(1B) ₹50K old-regime-only per the Wave 8 `ul-80ccd1b-regime-clarification-2026` record; 80CCD(2) employer NPS 14% works in both regimes), the three basket-fill archetypes by life stage, the PPF "before the 5th" timing rule, and the **honest FY 2026-27 regime-decision result** (new regime wins up to ~₹45L even with a full ~₹5L stack, pre-surcharge).
+
+### New finance function + calculator + tests
+- [x] `deductionShieldFY27()` in `src/lib/finance/index.ts` — old vs new regime tax for a salaried FY 2026-27 taxpayer with 80C + NPS + 24(b) home-loan + 80D health, standard deductions (75k new / 50k old), and the *effective rupee value of each deduction bucket at the taxpayer's own marginal position* (sequential statutory order).
+- [x] `regime-80c-shield` calculator page (category: Tax) — 7 inputs, new-vs-old tax, winner, per-bucket value, tax-comparison bar chart.
+- [x] 6 new unit tests (full-stack new-wins scan across 6 income points, 24b bucket value, 87A no-deduction new-wins, 80CCD(2) new-regime effect, bucket-sum invariant, self-employed no std ded) — **67/67 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile) — **40/40 pass**.
+
+### Research verified this session
+- [x] **PPF 7.1% FY 2026-27 Q1** — 8th straight unchanged quarter, Finance Ministry notification 30 Mar 2026 (Economic Times 07 Apr 2026).
+- [x] **EPF 8.25%** — carried forward from FY 2025-26 (`src-epf-rate-2026`), flagged for re-verification at the FY 2026-27 EPFO meeting.
+- [x] **80CCD(1B) old-regime-only** — applied per `ul-80ccd1b-regime-clarification-2026` (Wave 8 conflict resolution); 80CCD(2) 14% all-employers survives the new regime (CA-reviewed 15 Oct 2026 source).
+- [x] **NEW finding (corrects the initial draft):** the first version of this article hand-computed "old regime usually wins at ₹15-25L with a basket" — the `deductionShieldFY27()` scan proved that wrong: with the Budget 2025-widened new-regime slabs + 87A + 75k std ded, the **new regime wins up to ~₹45L even with a full ~₹5L old-regime stack**. The article now states the verified result; recorded as `ul-regime-decision-new-wins-fy2026-27` (surcharge above 50L excluded from the model — flagged for CA verification at the top bands).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 67 passed.
+- [x] `node scripts/validate-content.mjs` → 39 articles, 4 books, 49 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npx astro build` → 175 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (17,267 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 39/39 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 40 passed (20 desktop + 20 mobile).
 
 ## Wave 8 session (verified 2026-10-18 via web research)
 
@@ -119,12 +146,12 @@ Last updated: **2026-10-18** (Wave 8: 1 new article + 1 new finance function + 1
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion: Wave 9 = ELSS + NPS tax-shield standalone calculators (must use 80CCD(1B) old-regime-only per `ul-80ccd1b-regime-clarification-2026`; new-regime only has 80CCD(2) employer NPS), a PMS-vs-AIF net-return after-tax comparator, or an ELSS lock-in / tax-shield standalone article.
+- [ ] Phase 4 deeper expansion: Wave 10 candidate = a PMS-vs-AIF after-tax net-return comparator, an ELSS lock-in / tax-shield standalone calculator, or re-model the regime decision including surcharge above 50L.
 
 ## Next 3 actions
-1. Commit Wave 8: 1 new article + aifWaterfall() function + aif-waterfall calculator + 1 source + tests.
+1. Commit Wave 9: 1 new article + deductionShieldFY27() function + regime-80c-shield calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 9 candidate: ELSS + NPS tax-shield calculators with the new-regime-only 80CCD(2) rule, or a PMS-vs-AIF after-tax net-return comparator).
+3. Continue the daily article habit (Wave 10 candidate: PMS-vs-AIF after-tax net-return comparator, or an ELSS lock-in / tax-shield standalone calculator).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

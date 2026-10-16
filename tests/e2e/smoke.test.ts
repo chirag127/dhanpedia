@@ -145,6 +145,27 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('regime-80c-shield calculator renders the regime decision and bucket values', async ({ page }) => {
+    await page.goto('/calculators/regime-80c-shield');
+    await expect(page.getByText('New-regime tax')).toBeVisible();
+    await expect(page.getByText('Old-regime tax', { exact: true })).toBeVisible();
+    await expect(page.getByText('Winner')).toBeVisible();
+    await expect(page.getByText('80C basket value')).toBeVisible();
+    await expect(page.getByText('Employer NPS value (80CCD(2))')).toBeVisible();
+    // Chart container for the regime tax comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('80C baskets regime-decision article renders the verified new-regime-wins finding', async ({ page }) => {
+    await page.goto('/articles/tax-80c-baskets-regime-decision');
+    await expect(page.getByRole('heading', { name: /80C Basket Decision/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /The NPS side-door/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /When the new regime actually wins/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

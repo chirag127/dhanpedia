@@ -652,5 +652,22 @@
    "On an unsuccessful fund the GP earns only the management fee - the structural alignment between GP and LP"
   ],
   "notes": "Practitioner secondary source; the exact ladder numbers vary LPA-by-LPA. Read each fund's PPM waterfall page and confirm the specific hurdle, catch-up, fee base, and clawback/escrow language before committing."
+ },
+ {
+  "id": "src-ppf-rate-fy2026-27",
+  "title": "PPF interest rate FY 2026-27: 7.1% p.a. unchanged for Q1 (Apr-Jun 2026), the 8th straight unchanged quarter (Finance Ministry notification 30 Mar 2026); PPF is EEE - 80C deduction on contribution (old regime), tax-free interest credited annually, tax-free withdrawal; 15-year tenure; partial withdrawal after 5 yrs up to 50% of the lower of year-4 / previous-year balance; deposit before the 5th of the month earns that month interest",
+  "publisher": "Economic Times / Finance Ministry small-savings notification (30 Mar 2026)",
+  "url": "https://economictimes.indiatimes.com/wealth/invest/ppf-interest-rate-2026-has-public-provident-fund-interest-rate-increased-for-april-june-2026-quarter/articleshow/130060237.cms",
+  "type": "regulator",
+  "authority": "primary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "PPF rate is 7.1% p.a. for FY 2026-27 Q1, unchanged for the 8th consecutive quarter",
+   "PPF is an EEE instrument: 80C on contribution (old regime), tax-free interest, tax-free maturity",
+   "Interest is credited at the end of each financial year; contributions before the 5th of a month earn that month accrual",
+   "Partial withdrawal allowed after 5 years, limited to 50% of the lower of the year-4 or previous-year balance"
+  ],
+  "notes": "The rate is re-notified quarterly (July, October, January) - re-verify at each notification and before advising on a PPF top-up."
  }
 ]

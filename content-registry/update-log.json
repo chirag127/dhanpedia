@@ -347,6 +347,24 @@
    "reviewAfter": "2027-04-17",
    "status": "conflict-resolved",
    "notes": "Conflicting claims found during Wave 8 research (ELSS/NPS tax-shield planning). Resolution: old-regime-only, per the CA-reviewed 15 Oct 2026 review plus 1 Finance/ClearTax coverage. Re-verify at each Finance Act; Wave 9 ELSS/NPS tax-shield calculators must use 80CCD(1B) old-regime-only."
+  },
+  {
+   "id": "ul-ppf-rate-fy2026-27",
+   "claim": "PPF interest rate 7.1% p.a. for FY 2026-27 Q1 (unchanged, 8th straight quarter); re-notified quarterly",
+   "source": "src-ppf-rate-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2026-12-31",
+   "status": "verified",
+   "notes": "Re-verify at the January 2027 notification for Q4 FY 2026-27."
+  },
+  {
+   "id": "ul-regime-decision-new-wins-fy2026-27",
+   "claim": "Modeled FY 2026-27 result: with the Budget 2025-widened new-regime slabs + 87A to 12L + 75k standard deduction, the NEW regime is cheaper than the old regime up to ~45L of income even with a full ~5L old-regime stack (80C 1.5L + 80CCD(1B) 0.5L + 24(b) 2L + 80D 1L); the old regime can only win with larger relative deductions (heavy 80D + 80E + top bands with surcharge). Verified by the deductionShieldFY27() unit-test scan.",
+   "source": "src-it-slab-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Model excludes surcharge + 4% cess above 50L - the regime flip for >50L earners must be re-checked including surcharge. Re-verify at each Finance Act because any new-regime slab change flips the boundary."
   }
  ]
 }

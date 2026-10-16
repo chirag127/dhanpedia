@@ -17,7 +17,7 @@ import {
   bondPrice, macaulayDuration, feeImpact, currencyScenario, rentalYield,
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1017,6 +1017,121 @@ export const CALCULATORS: CalcDef[] = [
               },
             ],
             grid: { left: 110, right: 30, top: 30, bottom: 30 },
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'regime-80c-shield',
+    title: 'Old vs New Regime: the 80C + NPS Shield',
+    category: 'Tax',
+    description: 'Decide new vs old tax regime for FY 2026-27 with your 80C basket, the 50K NPS side-door (old-regime-only) and your employer NPS: it shows the tax under each regime, which wins, and the rupee value of each deduction bucket.',
+    inputs: [
+      { key: 'grossIncome', label: 'Gross annual income (Rs)', default: 1800000, min: 0, step: 100000, hint: 'Total gross income BEFORE the standard deduction and before any 80C/NPS deductions. Includes salary, rent, interest, and net capital gains.' },
+      { key: 'eightyC', label: '80C basket invested (Rs)', default: 150000, min: 0, max: 150000, step: 10000, hint: 'ELSS + PPF + EPF + home-loan principal + NSC + LIC + own NPS under 80CCD(1). Capped at Rs 1,50,000. Available OLD regime only - in the new regime this whole basket does nothing.' },
+      { key: 'npsSelf', label: 'Extra NPS self-contribution (Rs)', default: 50000, min: 0, max: 50000, step: 10000, hint: 'Section 80CCD(1B): up to Rs 50,000 on NPS Tier-1, over and above the 80C basket. OLD regime only (verified Wave 8 - a conflicting claim that it survives the new regime was resolved to old-regime-only).' },
+      { key: 'npsEmployer', label: 'Employer NPS contribution (Rs)', default: 0, min: 0, step: 10000, hint: 'Section 80CCD(2): your employer NPS contribution (up to 14% of Basic+DA for all employers in the new regime). This is one of the few deductions that survives in BOTH regimes. Counts toward the Rs 7.5L employer EPF+NPS+superannuation exempt cap.' },
+      { key: 'homeLoanInterest', label: 'Home-loan interest (Rs)', default: 0, min: 0, step: 10000, hint: 'Section 24(b): home-loan interest paid in the year, up to the Rs 2,00,000 cap. OLD regime only - in the new regime this deduction is gone. This is usually what tips the decision to the old regime for a home-loan holder.' },
+      { key: 'healthInsurance', label: 'Health insurance (Rs)', default: 0, min: 0, step: 10000, hint: 'Section 80D: your own premium + family + parents, up to Rs 1,00,000. OLD regime only. Note the 80D cap is the premium, not the tax it saves.' },
+      { key: 'salaried', label: 'Salaried taxpayer', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - standard deduction applies (75,000 new / 50,000 old)' }, { value: 0, label: 'No - self-employed, no standard deduction' }], hint: 'The standard deduction is 75,000 in the new regime and 50,000 in the old regime for salaried taxpayers; self-employed taxpayers get neither.' },
+    ],
+    assumptions: [
+      'FY 2026-27 slabs: new regime nil to 4L, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30% above, with the 87A rebate keeping income up to 12L tax-free; old regime nil to 2.5L, 5% to 5L, 20% to 10L, 30% above, 87A rebate to 5L.',
+      '80C and 80CCD(1B) are old-regime-only; 80CCD(2) employer NPS works in both regimes.',
+      'Surcharge and 4% cess are NOT modelled - above Rs 50L of income the comparison should be redone with them added (10% surcharge from 50L).',
+    ],
+    limitations: [
+      'The "value" of each bucket is the old-regime tax it actually saves at your marginal position - a 5% slab earns only 5% back on 80C, not 30%.',
+      'Home-loan principal inside 80C must be from an eligible, documented loan; the calculator takes your total basket as one number.',
+      'Employer NPS above the Rs 7.5L combined EPF+NPS+superannuation cap is taxable as a perquisite - keep it inside the cap.',
+    ],
+    compute: (v) => {
+      const r = deductionShieldFY27({
+        grossIncome: v.grossIncome,
+        eightyC: v.eightyC,
+        npsSelf: v.npsSelf,
+        npsEmployer: v.npsEmployer,
+        homeLoanInterest: v.homeLoanInterest,
+        healthInsurance: v.healthInsurance,
+        salaried: v.salaried === 1,
+      });
+      const inr = (x: number) => Math.round(x).toLocaleString('en-IN');
+      return {
+        results: [
+          {
+            label: 'New-regime tax',
+            value: inr(r.newRegimeTax),
+            kind: 'inr',
+            note: `On taxable Rs ${inr(r.newRegimeTaxable)}`,
+          },
+          {
+            label: 'Old-regime tax',
+            value: inr(r.oldRegimeTax),
+            kind: 'inr',
+            note: `On taxable Rs ${inr(r.oldRegimeTaxable)}`,
+          },
+          {
+            label: 'Winner',
+            value: r.winRegime === 'old' ? 'Old regime' : r.winRegime === 'new' ? 'New regime' : 'Tie',
+            kind: 'text',
+            note:
+              r.winRegime === 'old'
+                ? `Old regime saves Rs ${inr(r.savingsByOld)} more - your deductions beat the lower slabs`
+                : r.winRegime === 'new'
+                  ? `New regime saves Rs ${inr(Math.abs(r.savingsByOld))} more - the lower slabs beat your deductions`
+                  : 'Both regimes give the same tax at these numbers',
+          },
+          {
+            label: '80C basket value',
+            value: inr(r.eightyCValue),
+            kind: 'inr',
+            note: `Rs ${inr(v.eightyC)} of basket saves this much at your old-regime marginal rate - zero in the new regime`,
+          },
+          {
+            label: 'NPS side-door value (80CCD(1B))',
+            value: inr(r.npsSelfValue),
+            kind: 'inr',
+            note: 'Old-regime-only; zero value under the new regime',
+          },
+          {
+            label: 'Home-loan interest value (24b)',
+            value: inr(r.homeLoanInterestValue),
+            kind: 'inr',
+            note: 'Old-regime-only; usually the deduction that tips the decision for home-loan holders',
+          },
+          {
+            label: 'Health insurance value (80D)',
+            value: inr(r.healthInsuranceValue),
+            kind: 'inr',
+            note: 'Old-regime-only',
+          },
+          {
+            label: 'Employer NPS value (80CCD(2))',
+            value: inr(r.npsEmployerValue),
+            kind: 'inr',
+            note: 'Works in BOTH regimes - the most valuable deduction for new-regime filers',
+          },
+        ],
+        chart: {
+          title: 'Tax under each regime (Rs)',
+          alt: `Tax comparison: new regime Rs ${inr(r.newRegimeTax)} vs old regime Rs ${inr(r.oldRegimeTax)}; the ${r.winRegime === 'old' ? 'old regime' : r.winRegime === 'new' ? 'new regime' : 'two'} wins by Rs ${inr(Math.abs(r.savingsByOld))}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${inr(x)}` },
+            xAxis: { type: 'category', data: ['New regime', 'Old regime'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Tax',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.newRegimeTax), itemStyle: { color: r.winRegime === 'new' ? '#1f7a5c' : '#b45309' } },
+                  { value: Math.round(r.oldRegimeTax), itemStyle: { color: r.winRegime === 'old' ? '#1f7a5c' : '#b45309' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
           },
         },
       };
