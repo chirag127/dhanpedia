@@ -711,6 +711,71 @@
       "books": [
         "book-indian-taxation"
       ]
+    },
+    {
+      "id": "insurance-claims-ulip-mis-selling",
+      "title": "Insurance in Practice: Claim Settlement Data, ULIPs, and Mis-Selling Red Flags (2026)",
+      "category": "insurance",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "insurance",
+        "claims",
+        "irdai",
+        "ulip",
+        "term",
+        "mis-selling",
+        "solvency",
+        "bima-sugam"
+      ],
+      "summary": "IRDAI 2026 claims data, term vs ULIP vs endowment math, mis-selling & solvency red flags, the IRDAI 2025-26 reforms, and a claims checklist so a health claim does not fail on admin.",
+      "file": "src/content/insurance/insurance-claims-ulip-mis-selling.mdx",
+      "sources": [
+        "src-irdai-annual-report-2026",
+        "src-irdai-moratorium-2026",
+        "src-ulip-vs-term-2026"
+      ],
+      "related": [
+        "insurance-protection",
+        "pf-wealth-plan-10-lakh",
+        "tax-india-investor-complete",
+        "pf-wills-succession"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "international-fof-gift-city-lrs",
+      "title": "Getting Global Exposure from India: FoF, GIFT City, and LRS — and the $7B Cap That Closed Most International Funds",
+      "category": "international",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "international",
+        "fof",
+        "gift-city",
+        "lrs",
+        "us-stocks",
+        "sebi-cap",
+        "ifsc",
+        "diversification"
+      ],
+      "summary": "Why most Indian international FoFs stopped accepting new SIPs (SEBI $7B cap), the GIFT City IFSCA route that sidesteps it, and a cost/tax comparison of FoF vs GIFT City vs direct LRS for a ₹10 lakh investor.",
+      "file": "src/content/international/international-fof-gift-city-lrs.mdx",
+      "sources": [
+        "src-intl-fof-cap-2026",
+        "src-lrs-tcs-sc-2026"
+      ],
+      "related": [
+        "international-investing-lrs",
+        "pf-wealth-plan-10-lakh",
+        "portfolio-construction-rebalancing",
+        "alternatives-pms-aif-private"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
     }
   ]
 }

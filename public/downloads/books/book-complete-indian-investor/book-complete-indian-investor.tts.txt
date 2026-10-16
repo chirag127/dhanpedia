@@ -1809,3 +1809,112 @@ RELATED
 • Your  rupees 10 Lakh Plan (/articles/pf-wealth-plan-10-lakh)
 • Foundations: Compounding & Returns (/articles/foundations-compounding-returns)
 • Tax for the Indian Investor (/articles/tax-india-investor-complete)
+
+
+
+Insurance in Practice: Claim Settlement Data, ULIPs, and Mis-Selling Red Flags (2026)
+
+Scope note. The Insurance & Protection article (/articles/insurance-protection) covers which products to buy. This article covers what happens after you buy: the claims data (what % of claims actually get paid, and why the rest fail), the ULIP-vs-term math (the single most profitable mis-sale in Indian retail finance), mis-selling red flags, and solvency checks that predict who pays on time. Figures marked "(verified 2026-10-16)" were checked against the cited IRDAI report and 2026 guides.
+
+WHAT IRDAI'S 2026 REPORT ACTUALLY SAYS ABOUT CLAIMS
+===================================================
+
+The IRDAI Annual Report 2026 (covering FY 2025-26) gives the cleanest public view yet of how claims actually land. [src-irdai-annual-report-2026]
+
+Life insurance (death claims):
+• The industry's aggregate death-claim settlement ratio is ~99% (i.e., ~1 death claim in 100 gets rejected or is still pending). Top public-sector (LIC) and strong private players sit above 99%; a few laggards are in the 97% band.
+• Why life claims fail: lapsed policies (premium not paid), unfulfilled duties of disclosure (undisclosed pre-existing conditions), suicide within the 2-year window, or claims filed with incomplete documents. Most are administrative, not underwriting disputes.
+
+Health insurance (the hard part):
+• ~1 in 12 health claims (~8%) is rejected (IRDAI 2026 summary, verified 2026-10-16). [src-irdai-annual-report-2026]
+• The top causes of rejection are fine print, not fraud:
+  • Room-rent capping — a policy that caps the room at  rupees 5,000/night while your private room costs  rupees 12,000 makes you pay the difference on every line item proportionally (a  rupees 7,000/night gap can become a  rupees 70,000+ total gap in a Tier-1 hospitalization).
+  • Pre-existing condition waiting periods (now capped at 3 years by the 2025-26 reforms [src-irdai-moratorium-2026]).
+  • Non-medical expenses — parking, attendant charges, and similar items are typically excluded; you pay them.
+  • Moratorium claims — the 2025-26 reforms cut the moratorium (no-claim-rejection) period from 8 to 5 years [src-irdai-moratorium-2026]; claims beyond that are protected, claims inside are still underwritable.
+• The 1-hour cashless rule: IRDAI now mandates hospitals/insurers to clear pre-authorization within 1 hour (discharge authorizations within 3 hours). FY 2025-26 data: 86.8% of cases met the 1-hour deadline [src-irdai-annual-report-2026]. If the insurer delays, the extra hospital charges due to that delay must be paid by the insurer.
+• Average health payout ~ rupees 29,000 — this is misleading, because it is dominated by small fever/in-patient episodes. A single Tier-1 cardiac event easily costs  rupees 8–10 lakh. A  rupees 3L cover is materially under-insured for a family in a metro.
+
+THE ULIP MATH: WHY "INSURANCE + INVESTMENT IN ONE" LOSES
+========================================================
+
+A ULIP (Unit Linked Insurance Plan) is life cover + a mutual-fund-style fund, with charges on top of fund expenses. It has been the most mis-sold product in Indian retail finance, and for a concrete reason — the math. [src-ulip-vs-term-2026]
+
+Worked comparison (illustrative, not a forecast;  rupees 1L p.a. for 20 years, age 30):
+
+Structure: **ULIP** (₹1L/yr, 6–8% net after charges, high fund charges 1.5–2.5%),**~₹40–45L**,₹20L premiums, of which ~₹4–6L goes to *charges*, not the fund  |  20-year corpus (illustrative): **Pure term (₹20,000/yr for ₹1Cr cover) + SIP of the saved ₹90,000** in a low-cost index fund (assume 11% p.a. illustrative),**~₹70–75L**,₹0.4L/yr term + ₹10.8L invested  |  What you actually paid: 
+
+The ULIP is not "insurance + a better fund." It is "thinner cover + a worse fund (high charges, long lock-in, switch costs) + a surrender-value trap (early exit pays back a fraction of premiums)." The 20-year gap in the illustration is  rupees 30L+.
+
+The mis-sale usually goes like this: " rupees 1L a year — your money grows AND your family is protected!" The two claims: (a) the growth is grossly overstated (charges eat the spread vs. any index fund), and (b) the cover is thin ( rupees 3–5L typical cover on  rupees 1L premium, vs.  rupees 1Cr on a  rupees 20,000 term premium). You are paying premium + fund charges for both jobs — when the term + index-fund split does both jobs cheaper and more transparently. [src-ulip-vs-term-2026]
+
+WHERE A ULIP IS NOT OBVIOUSLY WRONG
+===================================
+• Tax-advantaged legacy structure — ULIPs carry 172-80C/80CCD ( rupees 2.5L/yr limit, old regime only). Under the new regime (default, 2026-27), the 80C/80CCD deductions don't apply, so that advantage disappears for most people. [src-irdai-annual-report-2026] (GST removal on health & life premiums, late 2025, makes more cover cheaper; a larger term/health cover often beats the ULIP tax story.)
+• You genuinely want the surrender value as an emergency bucket and accept the high cost (rare — a separate liquid fund + term is cheaper for the same two jobs).
+
+TERM VS ENDOWMENT VS ULIP VS HEALTH: THE RIGHT STACK
+====================================================
+
+For a  rupees 10L starter investor, the protection-first stack is:
+
+Layer: **Death cover**,**Term** (₹1Cr, 30 yrs, 60/70 return),~₹18–25k/yr,Replaces your income; family stays solvent  |  Product: **Health (self + family)**,**Family floater + top-up**,~₹25–40k/yr,Absorbs the ₹8–10L hospital bill  |  Illustrative premium (age 30): **Critical illness** (optional),**CI rider** (₹2–5L on the term),~₹5–10k/yr,Lump sum for long-recovery illness  |  Job: **Accident** (optional),**Personal accident (₹5–10L)**,~₹1–2k/yr,Disability / accidental death
+
+Total protection budget: ~ rupees 50–80k/yr at age 30 (rises with age). That is not a large cost relative to a  rupees 10L portfolio — and it is what keeps the portfolio alive.
+
+MIS-SELLING RED FLAGS (THE IRDAI 2026 LIST, PRACTICAL)
+======================================================
+
+IRDAI's 2026 report explicitly flags the mis-selling patterns that drive complaint volumes. [src-irdai-annual-report-2026]
+1. "Insurance sold as an FD." Agents selling endowment / ULIPs as fixed deposit + bonus ("guaranteed 8% + cover"). No Indian life product is a deposit. If it is sold that way, the investment claim is false.
+2. Bundling with loans / credit cards. A bank "recommends" a term or health policy at loan disbursement; the policy is not needed and the lender gets the commission. Decline and buy independently.
+3. Compulsory bundling (e.g., "you must take this  rupees 1L ULIP to get the loan approved"). IRDAI's 2026 proposed reforms target exactly this — bundled/compulsory sales.
+4. Pushing complex, investment-linked products on risk-averse customers. If the agent's pitch is "this grows and protects," they are selling a ULIP to someone who wanted a term. The product is worse at both jobs.
+5. The "guaranteed returns" slide. Anything guaranteed above the deposit rates (PPF 7.1%, SCSS 8.2%) is either mis-stated or not guaranteed. The only guaranteed, sovereign-backed returns in India are the small-savings schemes.
+6. Solvency red flag (your own check):
+7. Solvency ratio < 1.5 → insurer is under-capitalized relative to reserves (paying claims out of new premiums, not from capital). IRDAI's 2026 report flags this as a red flag.
+8. Incurred Claim Ratio (ICR): public-sector insurers run above 100% (paying out more than they collect — great for you, but a financial stress signal), private insurers cluster 75–85% (healthier balance). [src-irdai-annual-report-2026]
+9. Check both: a high ICR + low solvency + rising rejections is the pattern to avoid; a high ICR + strong solvency (LIC) is actually good for claimants.
+
+The IRDAI 2026 reforms (verified 2026-10-16 [src-irdai-moratorium-2026, src-irdai-annual-report-2026]):
+• No entry-age cap on health insurance (the 65-year limit is gone).
+• Pre-existing condition (PED) waiting period capped at 3 years (down from 4).
+• Moratorium period cut 8 → 5 years (after 60 continuous months, claims can't be rejected on "late-disclosed" pre-existing conditions).
+• Bima Sugam (UPI of insurance): a government zero-commission online marketplace, plus a Public Insurance Registry (a digital locker so nominees can find your policies — no more hunting for PDF passwords). These directly target high-commission mis-selling and post-death policy discovery.
+• GST removed from health & life premiums (late 2025) — a material cost reduction on increasing cover.
+
+A CLAIMS CHECKLIST (SO YOUR CLAIM DOESN'T FAIL ON ADMIN)
+========================================================
+
+Most rejected health claims are administrative. Do these before you file:
+1. Read your room-rent cap and non-medical exclusions — the two top rejection drivers.
+2. Meet the 1-hour pre-auth window: if the insurer misses it, the delay costs are theirs, not yours — but you must document the delay (timestamped chat / email).
+3. PEX disclosure: declare all pre-existing conditions (even old, resolved ones) at inception; a future undisclosed PEX is a classic rejection trigger. The 3-year PED wait (2026 reform) is the maximum you will wait.
+4. File within 30 days of discharge; a late claim is a late rejection.
+5. Keep the final bill, discharge summary, and all receipts (the non-medical items you pay out of pocket are yours — the policy does not cover them).
+6. If rejected: file with the Insurance Ombudsman (free, claims up to  rupees 50L) before the court; the 2026 report notes the Ombudsman is now a much faster first step.
+
+THE "WHO ACTUALLY PAYS" QUESTION (SOLVENCY IN PLAIN LANGUAGE)
+=============================================================
+
+Check: **Solvency ratio**,IRDAI / company *Investor Information* (quarterly),< 1.5×  |  Where to look: **Incurred Claim Ratio**,Same (12-mo ICR),Public >100% (stress); private >85% (tight)  |  Red flag: **Death claim settlement ratio**,IRDAI *claims* data (annual),< 98% (or *trending down* 3 yrs)
+
+The bottom line: for a young, healthy policyholder in a term plan, claim rejection is a non-event (death claims settle at 99%+). For health, the 1-in-12 rejection is administrative, not fraud — and it is avoidable by reading the room-rent cap, disclosing PEX, and filing on time. Solvency is a tail risk: a weak insurer may delay; it rarely defaults. Use the solvency + ICR + ratio checks at purchase, not at claim.
+
+UPDATE LOG
+==========
+
+id: tl-irdai-claims-2026,IRDAI FY 2025-26 report (published 2026): life death-claim settlement ~99%; **~1 in 12 (~8%) health claims rejected**; 1-hour cashless pre-auth met in **86.8%** of cases; **average health payout ~₹29,000**; ICR: public >100%, private 75–85%; Bima Sugam + Public Insurance Registry launched,2026-10-16,2027-03-31,ok  |  claim: tl-irdai-2025-26-reforms,IRDAI 2025-26 health reforms: **no entry-age cap**, **PED wait 4→3 yrs**, **moratorium 8→5 yrs** (60 continuous months); GST removed from health & life premiums (late 2025),2026-10-16,2027-03-31,ok  |  lastVerified:   |  reviewAfter:   |  status: 
+
+SOURCES & CITATIONS
+===================
+• [src-irdai-annual-report-2026] — IRDAI Annual Report 2026 (FY 2025-26) claims-settlement data + reforms summary (via OneAssure report, published 30 Mar 2026)
+• [src-irdai-moratorium-2026] — IRDAI 2025-26 health-insurance reform (no entry-age cap, PED 3-yr cap, moratorium 5-yr)
+• [src-ulip-vs-term-2026] — ULIP vs Term 2026 comparisons (IndWallet / MoneyRadar / ABSLI guides)
+
+RELATED
+=======
+• Insurance & Protection (/articles/insurance-protection)
+• Your  rupees 10 Lakh Plan (/articles/pf-wealth-plan-10-lakh)
+• Tax for the Indian Investor (/articles/tax-india-investor-complete)
+• Wills & Succession (/articles/pf-wills-succession)

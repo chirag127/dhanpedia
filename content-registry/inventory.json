@@ -266,8 +266,6 @@
       "property-vs-equity-fixed-income"
     ],
     "insurance": [
-      "term-life-insurance-complete",
-      "health-insurance-india-guide",
       "personal-accident-insurance",
       "disability-income-protection",
       "critical-illness-products",
@@ -277,13 +275,8 @@
       "riders-exclusions-decoded",
       "deductibles-copayments",
       "waiting-periods-explained",
-      "claim-settlement-data-limits",
       "underwriting-process",
       "premium-calculation-basics",
-      "comparing-insurance-policies",
-      "mis-selling-avoiding",
-      "ulips-traditional-savings-linked",
-      "insurance-protection-vs-investment",
       "surrender-values-lockins",
       "nomination-beneficiary-guidance",
       "insurance-tax-rules-changes"
@@ -308,7 +301,6 @@
       "international-equity-funds",
       "global-diversification-benefits-limits",
       "india-funds-overseas-exposure",
-      "direct-overseas-investing-lrs",
       "liberalised-remittance-scheme-lrs",
       "foreign-exchange-risk",
       "currency-conversion-costs",
@@ -316,9 +308,7 @@
       "india-reporting-obligations-overseas",
       "double-taxation-dta",
       "country-geopolitical-risk",
-      "international-etfs-fof-structures",
-      "regulatory-platform-restrictions",
-      "global-bonds-access"
+      "regulatory-platform-restrictions"
     ],
     "derivatives": [
       "futures-options-overview",

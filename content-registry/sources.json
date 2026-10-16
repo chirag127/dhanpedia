@@ -329,5 +329,62 @@
     "type": "regulator",
     "verified": "2026-10-16",
     "lastVerified": "2026-10-16"
+  },
+  {
+    "id": "src-intl-fof-cap-2026",
+    "title": "SEBI/RBI $7 billion industry-wide cap on direct overseas equity investment by Indian MFs; the $1B/AMC sub-cap; why most domestic international funds closed to fresh SIPs in 2026; GIFT City IFSCA funds are outside this cap",
+    "publisher": "Creso / mfreturns / creget / mfonline / VM Financial Services / Value Research Online (2026 coverage of SEBI cap + AMC status)",
+    "url": "https://creso.in/blog/which-international-mutual-funds-are-open-for-sip-(july-2026)",
+    "claims": [
+      "SEBI+RBI cap the Indian MF industry's direct overseas equity at USD 7B (plus USD 1B global ETFs; USD 1B per-AMC), set 2008, unraised; ceiling breached Jan 2022",
+      "As of 10 Jul 2026, only one domestic international fund (Baroda BNP Paribas Aqua FoF) was open for fresh SIPs; Nippon/Axis/Kotak/PGIM/Franklin/Edelweiss had paused global SIPs",
+      "GIFT City / IFSC funds are regulated by IFSCA (not SEBI), so they are outside the $7B cap; bought in USD via the personal LRS (USD 250,000/FY)"
+    ],
+    "type": "industry",
+    "verified": "2026-10-16",
+    "lastVerified": "2026-10-16"
+  },
+  {
+    "id": "src-epf-rate-2026",
+    "title": "EPFO CBT 239th meeting (Mar 2026): EPF interest rate retained at 8.25% for FY 2025-26; EPF Scheme 2026 keeps 8.25%",
+    "publisher": "EPFO (Central Board of Trustees) / PIB / Business Standard / ET Now (2026)",
+    "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=2234502",
+    "claims": [
+      "EPF rate 8.25% for FY 2025-26, retained by the CBT (239th meeting, Mar 2026); second consecutive year at 8.25%",
+      "Interest credited to subscriber accounts in FY 2026 (Jun-Sep 2026 per reports)"
+    ],
+    "type": "regulator",
+    "verified": "2026-10-16",
+    "lastVerified": "2026-10-16"
+  },
+  {
+    "id": "src-irdai-annual-report-2026",
+    "title": "IRDAI Annual Report 2026 summary (FY 2025-26): life death-claim settlement ~99%; ~1 in 12 (~8%) health claims rejected; 1-hour cashless pre-auth met in 86.8% of cases; avg health payout ~Rs 29,000; ICR: public >100%, private 75-85%; Bima Sugam + Public Insurance Registry; solvency ratio <1.5 flagged",
+    "publisher": "IRDAI Annual Report 2026 (via OneAssure summary, published 30 Mar 2026)",
+    "url": "https://www.oneassure.in/insurance/insurance-updates/irdai-annual-report-2026-summary",
+    "claims": [
+      "Health-claim rejection ~8% (1 in 12); top causes: room-rent capping, PED waiting, non-medical expenses, moratorium",
+      "Life death-claim settlement ~99% (top insurers above 99%; laggards ~97%)",
+      "1-hour cashless pre-authorization met in 86.8% of cases (3-hour for discharge)",
+      "Bima Sugam (zero-commission marketplace) + Public Insurance Registry launched",
+      "Solvency ratio <1.5 and rising mis-selling flagged as red flags"
+    ],
+    "type": "regulator",
+    "verified": "2026-10-16",
+    "lastVerified": "2026-10-16"
+  },
+  {
+    "id": "src-ulip-vs-term-2026",
+    "title": "ULIP vs Term Insurance 2026 comparisons: 20-year worked corpus (ULIP ~Rs 40-45L on Rs 1L/yr vs term+SIP ~Rs 70-75L); charges, lock-in, surrender-value trap; IRDAI 2026 mis-selling patterns + proposed anti-bundling rules",
+    "publisher": "IndWallet / MoneyRadar / ABSLI / Upstox / nyvo (2026 ULIP-vs-term + IRDAI mis-selling coverage)",
+    "url": "https://indwallet.com/blog/ulip-vs-term-insurance-india",
+    "claims": [
+      "A 20-year ULIP (Rs 1L/yr, 6-8% net) builds ~Rs 40-45L; pure term (Rs 20k/yr) + SIP of the difference at 11% builds ~Rs 70-75L",
+      "ULIPs charge 1.5-2.5% fund charges + surrender-value trap; term+index-fund split is cheaper at both jobs",
+      "IRDAI flagged the mis-selling patterns: insurance sold as FD, compulsory bundling with loans/credit cards, pushing investment-linked products on risk-averse buyers; proposed new rules target the bundling"
+    ],
+    "type": "industry",
+    "verified": "2026-10-16",
+    "lastVerified": "2026-10-16"
   }
 ]

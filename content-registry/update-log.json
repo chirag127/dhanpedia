@@ -173,6 +173,30 @@
       "lastVerified": "2026-10-16",
       "reviewAfter": "2027-04-01",
       "status": "ok"
+    },
+    {
+      "id": "tl-epf-8-25",
+      "claim": "EPF interest rate 8.25% for FY 2025-26 (retained by CBT 239th meeting, Mar 2026; second consecutive year); EPF Scheme 2026 keeps 8.25%",
+      "source": "src-epf-rate-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-irdai-claims-2026",
+      "claim": "IRDAI FY 2025-26: life death-claim settlement ~99%; ~1 in 12 (~8%) health claims rejected; 1-hour cashless pre-auth met in 86.8% of cases; avg health payout ~Rs 29,000; ICR public >100%, private 75-85%",
+      "source": "src-irdai-annual-report-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-03-31",
+      "status": "ok"
+    },
+    {
+      "id": "tl-sebi-7b-cap",
+      "claim": "SEBI+RBI cap the Indian MF industry's direct overseas equity at USD 7B (+ USD 1B global ETFs + USD 1B/AMC), set 2008, unraised; ceiling breached Jan 2022; as of 10 Jul 2026 only one domestic international fund open for fresh SIPs; GIFT City IFSCA funds are outside the cap",
+      "source": "src-intl-fof-cap-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
     }
   ]
 }

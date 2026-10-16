@@ -11,6 +11,7 @@ import {
   xirr, irr, retirementCorpus, withdrawalSustainability, sustainableInitialWithdrawal,
   p2pExpectedNetReturn, portfolioExpectedReturn, maxDrawdown, feeImpact,
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
+  pmsSimulation,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -243,6 +244,32 @@ describe('bonds', () => {
   });
   it('zero-coupon bond duration = its maturity', () => {
     expect(macaulayDuration(1000, 0, 7, 0.05)).toBeCloseTo(7, 2);
+  });
+});
+
+describe('PMS / AIF fee simulation', () => {
+  it('layered mgmt + performance fees (10L, 15% gross, 2y, 1% mgmt, 20% perf on 10% benchmark)', () => {
+    // Year 1: open=1,000,000 -> gross 1,150,000; mgmt 10,000 -> 1,140,000;
+    //   netGain 140,000; benchmark 100,000; excess 40,000; perf 8,000 -> value 1,132,000
+    // Year 2: open=1,132,000 -> gross 1,301,800; mgmt 11,320 -> 1,290,480;
+    //   netGain 158,480; benchmark 113,200; excess 45,280; perf 9,056 -> value 1,281,424
+    const r = pmsSimulation(1e6, 0.15, 2, 0.01, 0.2, 0.1);
+    expect(r.finalValue).toBeCloseTo(1281424, 0);
+    expect(r.totalMgmtFees).toBeCloseTo(21320, 0);
+    expect(r.totalPerfFees).toBeCloseTo(17056, 0);
+    expect(r.totalFees).toBeCloseTo(38376, 0);
+    expect(r.feeShareOfFinal).toBeCloseTo(38376 / 1281424, 4);
+  });
+  it('no performance fee when the fund only meets (does not beat) the benchmark', () => {
+    // gross = benchmark => netGain after mgmt is below benchmark => excess 0 => perf 0
+    const r = pmsSimulation(1e6, 0.1, 1, 0.0, 0.2, 0.1);
+    expect(r.totalPerfFees).toBeCloseTo(0, 6);
+    expect(r.finalValue).toBeCloseTo(1.1e6, 0); // 1,000,000 * 1.10, no fees
+  });
+  it('fees reduce final value vs a no-fee identical gross return', () => {
+    const withFees = pmsSimulation(1e6, 0.15, 5, 0.01, 0.2, 0.1).finalValue;
+    const noFees = pmsSimulation(1e6, 0.15, 5, 0.0, 0.0, 0.1).finalValue;
+    expect(withFees).toBeLessThan(noFees);
   });
 });
 

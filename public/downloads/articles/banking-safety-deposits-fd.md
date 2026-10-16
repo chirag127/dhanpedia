@@ -51,7 +51,7 @@ A Fixed Deposit is a **deposit account** with a fixed interest rate and a fixed 
 | Overnight/liquid mutual funds | ~5.8–6.2% (yield) | STCG at slab if under 3 months; LCG 0% after 91 days | **No** |
 | PPF (8.2% p.a., verified [src-rbi-repo] repo 5.25% context) | 8.15% | EEE | N/A (govt scheme) |
 | Senior Citizen Savings Scheme (8.2%) | 8.2% | Slab; no TDS until >₹1L/yr | N/A |
-| Bank NPS | 8.5% (assumed return; PFRDA) | EET + 80CCD(1B) extra ₹50k | N/A |
+| EPF (Employees' Provident Fund) | 8.25% (FY 2025-26, EPFO CBT 239th meeting, verified [src-epf-rate-2026]) | EEE | N/A |
 
 **Rule of thumb:** if you need the cash **inside 1 year**, an overnight/liquid fund is fine (0% LCG after 91 days) and more liquid than an FD. If you **don't need it for 1–3 years**, an FD at 7–8% (spread across banks for DICGC) typically beats overnight funds on after-tax yield.
 
@@ -182,6 +182,7 @@ If you have more than ₹5L total at one bank in your individual name:
 - **Reserve Bank of India** — RBI MPC decision, 3-5 Aug 2026: repo held at 5.25%, neutral stance, SDF 5.00%, MSF 5.50%. https://www.rbi.org.in/SCRIPTs/BS_ViewBulletin.aspx?Id=24369 (verified 2026-10-16)
 - **HindustanBusinessLine (14 Aug 2026) / Zee Business (20 Aug 2026) / HDFC Bank FD rate sheet (19 Aug 2026) / saifu.in aggregator (Oct 2026)** — FD rates in India, Aug–Oct 2026: SBI 6.25% (1-yr, 444-day Amrit Vrishti 6.45%), HDFC/ICICI 6.25–6.45%, IDFC FIRST up to 7.40%, small-finance banks up to 8.5% senior / 8.25% general; major private 1-yr 6.25–7.10%. https://www.hdfc.bank.in/fixed-deposit/fd-interest-rate (verified 2026-10-16)
 - **Reserve Bank of India (Master Direction) / CNBC TV18 & Mint reporting** — RBI (All India Financial Institutions – Credit Information Reporting) Directions, 2025 (updated 1 Jul 2026): phased weekly reporting — framework w.e.f. 1 Apr 2026, lenders to file borrower data 4×/month (9th, 16th, 23rd, last day) from 1 Jul 2026. https://www.cnbctv18.com/personal-finance/rbi-weekly-credit-reporting-kicks-april-1-what-changes-for-borrowers-lenders-ws-el-19878645.htm (verified 2026-10-16)
+- **EPFO (Central Board of Trustees) / PIB / Business Standard / ET Now (2026)** — EPFO CBT 239th meeting (Mar 2026): EPF interest rate retained at 8.25% for FY 2025-26; EPF Scheme 2026 keeps 8.25%. https://pib.gov.in/PressReleasePage.aspx?PRID=2234502 (verified 2026-10-16)
 
 ---
 Educational content, not individualized investment, tax, accounting, or legal advice.

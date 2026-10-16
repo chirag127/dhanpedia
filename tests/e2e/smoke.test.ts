@@ -34,6 +34,16 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(resultCard).toBeVisible();
   });
 
+  test('PMS / AIF fee calculator renders its layered-fee results', async ({ page }) => {
+    await page.goto('/calculators/pms-aif-fees');
+    // The calculator island renders its result cards (stable DOM labels).
+    await expect(page.getByText('Final value (with fees)')).toBeVisible();
+    await expect(page.getByText('Total performance fees')).toBeVisible();
+    await expect(page.getByText('Lost to fees')).toBeVisible();
+    // The chart mounts a canvas (role img with the alt) and the alt text is in the DOM.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

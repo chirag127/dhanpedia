@@ -408,3 +408,65 @@ export function rentalYield(annualNetRental: number, propertyValue: number): num
 export function propertyTransactionCosts(price: number, buyCosts: number, sellCosts: number): number {
   return price * buyCosts + price * sellCosts;
 }
+
+/* ------------------------------------------------------------------ *
+ * PMS / AIF cost simulation (layered fees: management + performance)
+ * ------------------------------------------------------------------ */
+
+export interface PmsSimResult {
+  /** Final corpus value after all fees. */
+  finalValue: number;
+  /** Total management fees paid over the horizon. */
+  totalMgmtFees: number;
+  /** Total performance fees paid over the horizon. */
+  totalPerfFees: number;
+  /** Management + performance fees combined. */
+  totalFees: number;
+  /** Fee as a % of the final value. */
+  feeShareOfFinal: number;
+}
+
+/**
+ * Year-by-year PMS/AIF cost simulation.
+ *
+ * Conventions (documented on the calculator page):
+ *  - Gross return is the fund's pre-fee annual growth applied to the
+ *    *opening* corpus each year.
+ *  - The management fee (mgmtFeePct) is charged on the *opening* corpus
+ *    value each year (SEBI PMS recurring management fee convention).
+ *  - The performance fee (perfFeePct) is charged only on the gain that
+ *    *exceeds* the benchmark return, computed *after* the management fee.
+ *  - If the year's net gain does not beat the benchmark, the performance
+ *    fee for that year is zero (clawback / high-water line is NOT modelled;
+ *    see the page's limitations).
+ *
+ * This is a mathematical illustration, not a forecast.
+ */
+export function pmsSimulation(
+  corpus: number,
+  grossReturn: number,
+  years: number,
+  mgmtFeePct: number,
+  perfFeePct: number,
+  benchmarkReturn: number,
+): PmsSimResult {
+  let value = corpus;
+  let totalMgmt = 0;
+  let totalPerf = 0;
+  for (let t = 0; t < years; t++) {
+    const opening = value;
+    const grossValue = opening * (1 + grossReturn);
+    const mgmtFee = opening * mgmtFeePct;
+    const afterMgmt = grossValue - mgmtFee;
+    const netGain = afterMgmt - opening;
+    const benchmarkGain = opening * benchmarkReturn;
+    const excess = Math.max(0, netGain - benchmarkGain);
+    const perfFee = excess * perfFeePct;
+    value = afterMgmt - perfFee;
+    totalMgmt += mgmtFee;
+    totalPerf += perfFee;
+  }
+  const totalFees = totalMgmt + totalPerf;
+  const feeShareOfFinal = value > 0 ? totalFees / value : 0;
+  return { finalValue: value, totalMgmtFees: totalMgmt, totalPerfFees: totalPerf, totalFees, feeShareOfFinal };
+}

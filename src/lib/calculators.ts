@@ -15,7 +15,7 @@ import {
   inflationErodedValue, effectiveAnnualRate, retirementCorpus,
   withdrawalSustainability, sustainableInitialWithdrawal, p2pExpectedNetReturn,
   bondPrice, macaulayDuration, feeImpact, currencyScenario, rentalYield,
-  portfolioExpectedReturn, maxDrawdown,
+  portfolioExpectedReturn, maxDrawdown, pmsSimulation,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -466,6 +466,61 @@ export const CALCULATORS: CalcDef[] = [
           { label: 'Max drawdown', value: `${(dd * 100).toFixed(1)}%`, kind: 'text' },
           { label: 'Gain needed to recover', value: `${(recover * 100).toFixed(1)}%`, kind: 'text' },
         ],
+      };
+    },
+  },
+
+  {
+    id: 'pms-aif-fees',
+    title: 'PMS / AIF Fee Drag (mgmt + performance)',
+    category: 'Costs',
+    description: 'Model the layered fees of a PMS/AIF — an annual management fee plus a performance fee charged only on gains above a benchmark — and how much they quietly cost over a long horizon.',
+    inputs: [
+      { key: 'corpus', label: 'Starting corpus (₹)', default: 1000000, min: 500000, step: 500000, hint: 'SEBI PMS minimum is ₹50L; AIF Cat-I/II/III from ₹25L. Use the amount you would actually commit.' },
+      { key: 'gross', label: 'Gross annual return, before fees (%)', default: 15, min: 0, max: 40, step: 0.5, hint: 'The fund\u2019s pre-fee return. PMS/AIFs are often 14-18% in good years; do not extrapolate peak years.' },
+      { key: 'years', label: 'Years', default: 15, min: 1, max: 30, step: 1 },
+      { key: 'mgmt', label: 'Management fee (% / yr)', default: 1.0, min: 0, max: 3, step: 0.1, hint: 'SEBI PMS recurring management fee is capped; many charge 0.5-2%. Charged each year on the opening corpus.' },
+      { key: 'perf', label: 'Performance fee (% on excess gain)', default: 20, min: 0, max: 25, step: 1, hint: 'Charged only on the gain that beats the benchmark. Common at 20% of the excess (the standard "2-and-20" style).' },
+      { key: 'benchmark', label: 'Benchmark return (%)', default: 10, min: 0, max: 20, step: 0.5, hint: 'The hurdle (often an index like Nifty). Performance fee applies only above this.' },
+    ],
+    assumptions: [
+      'Gross return is pre-fee; the management fee is charged each year on the *opening* corpus (SEBI PMS convention).',
+      'The performance fee applies only to the gain that *exceeds* the benchmark, computed *after* the management fee; if the year does not beat the benchmark, that year\u2019s performance fee is zero.',
+      'No entry/exit load, no taxes, no high-water-line clawback; a smooth constant return (the key simplification).',
+    ],
+    limitations: [
+      'Real PMS/AIF performance is volatile and non-linear; a clawback / high-water line can reduce the performance fee in down years but is not modelled here.',
+      'AIFs can add a carry provision and a longer lock-in; treat this as the order of magnitude, not a fund-specific quote.',
+    ],
+    compute: (v) => {
+      const s = pmsSimulation(v.corpus, v.gross / 100, v.years, v.mgmt / 100, v.perf / 100, v.benchmark / 100);
+      const noFee = pmsSimulation(v.corpus, v.gross / 100, v.years, 0, 0, v.benchmark / 100).finalValue;
+      const yrs = Array.from({ length: v.years + 1 }, (_, i) => i);
+      const withFeesSeries = yrs.map((yy) => Math.round(pmsSimulation(v.corpus, v.gross / 100, yy, v.mgmt / 100, v.perf / 100, v.benchmark / 100).finalValue));
+      const noFeesSeries = yrs.map((yy) => Math.round(pmsSimulation(v.corpus, v.gross / 100, yy, 0, 0, v.benchmark / 100).finalValue));
+      return {
+        results: [
+          { label: 'Final value (with fees)', value: inr(s.finalValue), kind: 'inr', note: `after ${v.mgmt}% mgmt + ${v.perf}% perf` },
+          { label: 'Final value (no fees)', value: inr(noFee), kind: 'inr' },
+          { label: 'Lost to fees', value: inr(noFee - s.finalValue), kind: 'inr', note: 'management + performance fees, compounded' },
+          { label: 'Total management fees', value: inr(s.totalMgmtFees), kind: 'inr' },
+          { label: 'Total performance fees', value: inr(s.totalPerfFees), kind: 'inr' },
+          { label: 'Fees as % of final value', value: `${(s.feeShareOfFinal * 100).toFixed(1)}%`, kind: 'text' },
+        ],
+        chart: {
+          title: `PMS/AIF growth over ${v.years}y with vs without fees`,
+          alt: `Two lines over ${v.years} years: the corpus with management and performance fees, and the same corpus with no fees, showing the fee drag.`,
+          option: {
+            tooltip: { trigger: 'axis', valueFormatter: (x: number) => `₹${(x / 1e5).toFixed(1)}L` },
+            legend: { data: ['With fees', 'No fees'] },
+            xAxis: { type: 'category', data: yrs.map((yy) => `${yy}y`), name: 'Years' },
+            yAxis: { type: 'value', name: '₹ (lakh)', axisLabel: { formatter: (x: number) => `${(x / 1e5).toFixed(0)}` } },
+            series: [
+              { name: 'With fees', type: 'line', smooth: true, data: withFeesSeries, areaStyle: { opacity: 0.12 }, lineStyle: { color: '#b45309' }, itemStyle: { color: '#b45309' } },
+              { name: 'No fees', type: 'line', smooth: true, data: noFeesSeries, lineStyle: { color: '#1f7a5c', type: 'dashed' }, itemStyle: { color: '#1f7a5c' } },
+            ],
+          },
+        },
       };
     },
   },
