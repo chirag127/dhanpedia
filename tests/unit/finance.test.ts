@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -657,5 +657,78 @@ describe('After-tax product wedge', () => {
     expect(r.taxPaid).toBe(0);
     expect(r.totalWedgePct).toBe(0);
     expect(r.afterTaxFinalValue).toBeCloseTo(1, 6);
+  });
+});
+
+describe('High-income tax: surcharge, cess, regime (FY 2026-27)', () => {
+  const base = (over: Record<string, number> = {}) => ({
+    nonEquityIncome: 0, equityLtcg: 0, equityStcg: 0,
+    eightyC: 0, npsSelf: 0, healthInsurance: 0, homeLoanInterest: 0,
+    npsEmployer: 0, salaried: true, ...over,
+  });
+
+  it('no surcharge or cess effect below 50L; slab tax only', () => {
+    const r = highIncomeTaxFY27(base({ nonEquityIncome: 4000000 }));
+    expect(r.new.surchargeRate).toBe(0);
+    expect(r.new.surcharge).toBe(0);
+    // cess still applies: 4% of base tax
+    expect(r.new.cess).toBeCloseTo(0.04 * r.new.baseTax, 2);
+    expect(r.new.total).toBe(r.new.baseTax + r.new.cess);
+  });
+
+  it('55L: 10% surcharge band, new regime wins on slab rate', () => {
+    const r = highIncomeTaxFY27(base({ nonEquityIncome: 5500000 }));
+    expect(r.new.surchargeRate).toBe(0.1);
+    expect(r.old.surchargeRate).toBe(0.1);
+    expect(r.new.baseTax).toBeCloseTo(1207500, 0);
+    expect(r.new.surchargeAfterRelief).toBeCloseTo(120750, 0);
+    expect(r.new.total).toBeCloseTo(1381380, 0);
+    expect(r.new.effectiveRate).toBeGreaterThan(0.25);
+    expect(r.new.effectiveRate).toBeLessThan(0.27);
+    expect(r.winner).toBe('new');
+    expect(r.savingsByOld).toBeLessThan(0);
+  });
+
+  it('new regime caps the surcharge at 25% above 2Cr; old regime still has 37% above 5Cr', () => {
+    const r8cr = highIncomeTaxFY27(base({ nonEquityIncome: 80000000 }));
+    expect(r8cr.new.surchargeRate).toBe(0.25);
+    expect(r8cr.old.surchargeRate).toBe(0.37);
+    expect(r8cr.winner).toBe('new');
+    expect(r8cr.new.effectiveRate).toBeLessThan(r8cr.old.effectiveRate);
+  });
+
+  it('2.5Cr: both regimes in the 25% band (new capped, old at 25), new still wins on slab', () => {
+    const r = highIncomeTaxFY27(base({ nonEquityIncome: 25000000 }));
+    expect(r.new.surchargeRate).toBe(0.25);
+    expect(r.old.surchargeRate).toBe(0.25);
+    expect(r.winner).toBe('new');
+  });
+
+  it('the 15% equity-surcharge cap limits surcharge on 111A/112A tax, not the slab portion', () => {
+    const r = highIncomeTaxFY27(base({ nonEquityIncome: 30000000, equityLtcg: 50000000 }));
+    const equityTax = (50000000 - 125000) * 0.125; // 6234375
+    const slabTax = r.new.baseTax - equityTax;
+    const expectedSurcharge = Math.min(0.25, 0.15) * equityTax + 0.25 * slabTax;
+    expect(r.new.surcharge).toBeCloseTo(expectedSurcharge, 0);
+    expect(r.new.effectiveRate).toBeLessThan(0.30);
+  });
+
+  it('marginal relief caps the cliff just above a surcharge boundary', () => {
+    // Just below the 50L boundary (self-employed, no std ded): no surcharge
+    const below = highIncomeTaxFY27(base({ nonEquityIncome: 5000000, salaried: false }));
+    const above = highIncomeTaxFY27(base({ nonEquityIncome: 5001000, salaried: false }));
+    expect(below.new.surchargeRate).toBe(0);
+    expect(above.new.surchargeRate).toBe(0.1);
+    expect(above.new.marginalRelief).toBeGreaterThan(0);
+    // Without relief, crossing 50L would add a ~10% surcharge on the whole
+    // prior tax; with relief the increment on the extra Rs 1,000 is ~Rs 1,040.
+    expect(above.new.total - below.new.total).toBeCloseTo(1040, 0);
+  });
+
+  it('zero income, no gains: zero tax, zero surcharge, zero cess', () => {
+    const r = highIncomeTaxFY27(base({}));
+    expect(r.new.total).toBe(0);
+    expect(r.old.total).toBe(0);
+    expect(r.winner).toBe('tie');
   });
 });

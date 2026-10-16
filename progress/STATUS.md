@@ -1,14 +1,38 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 10: 1 new article + 1 new finance function + 1 new calculator; 39 → 40 articles; 23 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 11: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 40 → 41 articles; 24 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 40 on disk / registered. Wave 10 added 1: `alternatives-pms-sif-aif-after-tax-wedge` (the "what actually lands in your pocket" layer: index / PMS / SIF / AIF Cat I-II / Cat III at equal gross, the where-the-tax-lands table, a worked 10-year 14%-gross comparison, the decision rule `gross edge × (1 − wedge)`, and the 194LBB cash-flow trap).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 10, p2p-lending 4, wealth-beyond-10l 14 (+ alternatives-pms-sif-aif-after-tax-wedge).
-- **Sources:** 49 in `sources.json` (Wave 10 needed no new source — the article cites only existing registry sources: src-elss-ltcg-2026, src-pms-aif-fees-2026, src-aif-categories-2026, src-aif-waterfall-economics-2026).
-- **Update-log:** 44 tracked (Wave 10 added 2: `ul-unlisted-ltcg-slab-2026`, `ul-cat3-fund-level-rate-2026`).
-- **Calculators:** 23 (Wave 10 added `pms-sif-aif-tax-wedge`, powered by the new `afterTaxProductWedge()` pure function, with 5 unit tests and an e2e test).
+- **Articles:** 41 on disk / registered. Wave 11 added 1: `tax-surcharge-cess-high-income` (the high-income layer: the three-tier computation base tax → surcharge with marginal relief → 4% cess; the FY 2026-27 change that **abolished the 37% surcharge in the new regime (capped at 25%)** while the old regime keeps 37% above ₹5Cr; the 15% equity-surcharge cap; worked regime comparisons at 55L / 2.5Cr / 8Cr / 3Cr+5Cr-LTCG; the marginal-relief cliff math at ₹50L).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 11 (+ tax-surcharge-cess-high-income), p2p-lending 4, wealth-beyond-10l 14.
+- **Sources:** 50 in `sources.json` (Wave 11 added 1: src-surcharge-cess-fy2026-27, Income-tax Act 2025 surcharge/cess structure).
+- **Update-log:** 45 tracked (Wave 11 added `ul-new-regime-surcharge-cap-25-2026`).
+- **Calculators:** 24 (Wave 11 added `high-income-regime`, powered by the new `highIncomeTaxFY27()` pure function with marginal relief + equity 15% cap, 7 unit tests and an e2e test).
+
+## Wave 11 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/taxation/tax-surcharge-cess-high-income.mdx` — the *high-income* layer that closes the surcharge/cess gap flagged in Wave 9: the three-tier computation (base tax → surcharge with marginal relief → 4% cess), the FY 2026-27 table (new regime 25% capped vs old regime 37% above ₹5Cr), the 15% equity-surcharge cap, worked regime comparisons (55L / 2.5Cr / 8Cr / 3Cr+5Cr-LTCG), and the marginal-relief cliff math at ₹50L (₹1,040 not ₹1,08,000+ on an extra ₹1,000).
+
+### New finance function + calculator + tests
+- [x] `highIncomeTaxFY27()` in `src/lib/finance/index.ts` — both regimes end to end: slab base tax (new/old FY 2026-27), separate-head 112A/111A equity-gains tax, surcharge bands (new 25% cap / old 37% above 5Cr), the 15% equity-surcharge cap on the equity portion of base tax, marginal relief (boundary priced at its own band, pre-cess comparison — documented approximation), 4% cess on (base + surcharge after relief), effective rates, and the regime winner.
+- [x] `high-income-regime` calculator page (category: Tax) — 9 inputs incl. equity-LTCG/STCG, both-regime totals + effective rates + winner, per-regime cess, total-bill bar chart.
+- [x] 7 new unit tests (no-surcharge below 50L, the 55L 10% band with exact base/surcharge/total, the 8Cr 25%-vs-37% split, 2.5Cr both-in-25%, the 15% equity-cap arithmetic, marginal relief at the ₹50L boundary, zero-income tie) — **79/79 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile) — **48/48 pass**.
+
+### Research verified this session
+- [x] **Income-tax Act, 2025 surcharge structure** — new regime: 10% (50L-1Cr), 15% (1Cr-2Cr), 25% capped above 2Cr, 37% abolished; old regime: 37% above 5Cr kept; 15% equity cap on 111A/112A tax; 4% HEC; marginal relief at boundaries (Virtual Auditor, updated 15 Apr 2026; corroborated by the Income-tax Dept threshold-limit snippets and multiple 2026 slab guides).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 79 passed.
+- [x] `node scripts/validate-content.mjs` → 41 articles, 4 books, 50 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 183 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (17,524 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 41/41 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 48 passed (24 desktop + 24 mobile).
 
 ## Wave 10 session (verified 2026-10-18 via web research)
 
@@ -171,12 +195,12 @@ Last updated: **2026-10-18** (Wave 10: 1 new article + 1 new finance function + 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion: Wave 11 candidate = a PMS-vs-AIF after-tax net-return comparator, re-model the regime decision including surcharge above 50L, or an ELSS lock-in / tax-shield standalone calculator.
+- [ ] Phase 4 deeper expansion: Wave 12 candidate = HUF / family-office structuring article (tax on HUF income, 234B/234C interplay at high incomes, gifting rules), or a senior-citizen / NRI tax-structure article, or an ESOP-vesting tax-walkthrough calculator.
 
 ## Next 3 actions
-1. Commit Wave 10: 1 new article + afterTaxProductWedge() function + pms-sif-aif-tax-wedge calculator + tests.
+1. Commit Wave 11: 1 new article + highIncomeTaxFY27() function + high-income-regime calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 11 candidate: PMS-vs-AIF after-tax net-return comparator, or re-model the regime decision with surcharge above 50L).
+3. Continue the daily article habit (Wave 12 candidate: HUF structuring / high-income gifting rules, or senior-citizen + NRI tax structures).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

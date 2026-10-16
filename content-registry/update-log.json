@@ -383,6 +383,15 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "Secondary reading (Altportfunds / Treelife 2026); confirm the specific fund tax note and the exact current-year rate before advising on a Cat III sleeve."
+  },
+  {
+   "id": "ul-new-regime-surcharge-cap-25-2026",
+   "claim": "FY 2026-27 individual surcharge: new regime 10%/15%/25% capped above 2Cr (the 37% top rate abolished for the new regime under the Income-tax Act, 2025, effective 1 Apr 2026); old regime keeps 37% above 5Cr; 15% surcharge cap on listed-equity 111A/112A tax; 4% HEC on (tax + surcharge after marginal relief)",
+   "source": "src-surcharge-cess-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Income-tax Act, 2025 (assent 21 Aug 2025) position per CA-published secondary source; re-verify the bands at each Finance Act and against the Income-tax Department threshold tables. The highIncomeTaxFY27() function models these bands."
   }
  ]
 }

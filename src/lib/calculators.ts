@@ -18,7 +18,7 @@ import {
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
-  afterTaxProductWedge,
+  afterTaxProductWedge, highIncomeTaxFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1224,6 +1224,109 @@ export const CALCULATORS: CalcDef[] = [
                   { value: r.cagrAfterTax * 100, itemStyle: { color: '#1f7a5c' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `${p.value.toFixed(1)}%` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'high-income-regime',
+    title: 'High-Income Tax: Surcharge, Cess & Regime (above ₹50L)',
+    category: 'Tax',
+    description: 'The full FY 2026-27 tax bill for incomes above ₹50L: slab tax + surcharge (the new-regime 25% cap vs the old regime’s 37% above ₹5Cr), the 15% equity-surcharge cap, marginal relief, and the 4% health & education cess. Compares both regimes end to end and shows who wins.',
+    inputs: [
+      { key: 'nonEquityIncome', label: 'Slab income before deductions (Rs)', default: 3000000, min: 0, step: 100000, hint: 'Salary + rent + interest + unlisted gains + other slab income, BEFORE the standard deduction and before any 80C/NPS/home-loan deductions. Equity gains go in the separate equity boxes below.' },
+      { key: 'equityLtcg', label: 'Listed-equity long-term capital gains (Rs)', default: 0, min: 0, step: 100000, hint: 'LTCG on listed shares / equity MFs / REIT-InvIT units (12-month hold): 12.5% above the shared Rs 1.25L annual pool, surcharge-capped at 15%.' },
+      { key: 'equityStcg', label: 'Listed-equity short-term capital gains (Rs)', default: 0, min: 0, step: 100000, hint: 'STCG under 12 months (Sec 111A): 20%, surcharge-capped at 15%.' },
+      { key: 'eightyC', label: '80C basket (Rs, old regime only)', default: 0, min: 0, max: 150000, step: 10000, hint: 'Up to Rs 1,50,000. Old regime only - in the new regime this bucket does nothing.' },
+      { key: 'npsSelf', label: 'NPS self 80CCD(1B) (Rs, old regime only)', default: 0, min: 0, max: 50000, step: 10000, hint: 'Up to Rs 50,000, old regime only (verified Wave 8: the conflicting new-regime claim was resolved to old-only).' },
+      { key: 'healthInsurance', label: 'Health insurance 80D (Rs, old regime only)', default: 0, min: 0, max: 100000, step: 10000, hint: 'Up to Rs 1,00,000, old regime only.' },
+      { key: 'homeLoanInterest', label: 'Home-loan interest 24(b) (Rs, old regime only)', default: 0, min: 0, max: 200000, step: 10000, hint: 'Up to Rs 2,00,000, old regime only - the single biggest old-regime lever for a home-loan holder.' },
+      { key: 'npsEmployer', label: 'Employer NPS 80CCD(2) (Rs, both regimes)', default: 0, min: 0, step: 10000, hint: 'Your employer NPS contribution; one of the few deductions that survives in BOTH regimes. Counts toward the Rs 7.5L employer EPF+NPS+superannuation cap.' },
+      { key: 'salaried', label: 'Salaried taxpayer', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - standard deduction 75,000 (new) / 50,000 (old)' }, { value: 0, label: 'No - self-employed, no standard deduction' }], hint: 'The standard deduction is 75,000 in the new regime and 50,000 in the old for salaried taxpayers; self-employed gets neither.' },
+    ],
+    assumptions: [
+      'FY 2026-27 (Income-tax Act, 2025, effective 1 Apr 2026): new-regime surcharge 10% (50L-1Cr) / 15% (1Cr-2Cr) / 25% capped above 2Cr - the 37% top rate was abolished for the new regime; old regime keeps 37% above 5Cr.',
+      'The 15% equity-surcharge cap limits the surcharge on tax arising from listed-equity 111A/112A gains; the band rate applies to the rest of the tax.',
+      '4% health & education cess is charged on (base tax + surcharge after marginal relief). Marginal relief caps the incremental tax + surcharge above each boundary at the incremental income (the boundary itself is priced at its own band).',
+      'The shared 112A equity-LTCG annual pool defaults to Rs 1.25L and applies to the equity-LTCG input only.',
+    ],
+    limitations: [
+      'Marginal relief here prices the boundary at its own lower band and compares pre-cess totals - a close, documented approximation; the ITR utility is the authority for the exact figure at each boundary.',
+      'Unlisted-equity gains (slab-taxed) belong in "slab income", not the equity boxes - the equity boxes are for listed-equity STCG/LTCG that get the 15% surcharge cap.',
+      'Surcharge thresholds run on total income; this model approximates the standard-deduction and old-regime-deduction interaction by applying deductions to the slab-income leg only.',
+    ],
+    compute: (v) => {
+      const r = highIncomeTaxFY27({
+        nonEquityIncome: v.nonEquityIncome,
+        equityLtcg: v.equityLtcg,
+        equityStcg: v.equityStcg,
+        eightyC: v.eightyC,
+        npsSelf: v.npsSelf,
+        healthInsurance: v.healthInsurance,
+        homeLoanInterest: v.homeLoanInterest,
+        npsEmployer: v.npsEmployer,
+        salaried: v.salaried === 1,
+      });
+      const inr = (x: number) => Math.round(x).toLocaleString('en-IN');
+      const pct = (x: number) => (x * 100).toFixed(1) + '%';
+      return {
+        results: [
+          {
+            label: 'New-regime total (tax + surcharge + cess)',
+            value: inr(r.new.total),
+            kind: 'inr',
+            note: `Effective rate ${pct(r.new.effectiveRate)}; surcharge band ${pct(r.new.surchargeRate)}${r.new.marginalRelief > 0 ? `; marginal relief ${inr(r.new.marginalRelief)}` : ''}`,
+          },
+          {
+            label: 'Old-regime total (tax + surcharge + cess)',
+            value: inr(r.old.total),
+            kind: 'inr',
+            note: `Effective rate ${pct(r.old.effectiveRate)}; surcharge band ${pct(r.old.surchargeRate)}${r.old.marginalRelief > 0 ? `; marginal relief ${inr(r.old.marginalRelief)}` : ''}`,
+          },
+          {
+            label: 'Regime winner',
+            value: r.winner === 'old' ? 'Old regime' : r.winner === 'new' ? 'New regime' : 'Tie',
+            kind: 'text',
+            note:
+              r.winner === 'old'
+                ? `Old regime saves ${inr(r.savingsByOld)} more at these numbers`
+                : r.winner === 'new'
+                  ? `New regime saves ${inr(Math.abs(r.savingsByOld))} more - above 5Cr the 25% cap beats the old 37%`
+                  : 'Both regimes give the same total at these numbers',
+          },
+          {
+            label: 'New-regime cess',
+            value: inr(r.new.cess),
+            kind: 'inr',
+            note: '4% on (base tax + surcharge after relief)',
+          },
+          {
+            label: 'Old-regime cess',
+            value: inr(r.old.cess),
+            kind: 'inr',
+            note: '4% on (base tax + surcharge after relief)',
+          },
+        ],
+        chart: {
+          title: 'Total tax bill under each regime (Rs)',
+          alt: `Total tax + surcharge + cess: new regime Rs ${inr(r.new.total)} vs old regime Rs ${inr(r.old.total)}; the ${r.winner === 'old' ? 'old' : 'new'} regime is cheaper by ${inr(Math.abs(r.savingsByOld))}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${inr(x)}` },
+            xAxis: { type: 'category', data: ['New regime', 'Old regime'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Total bill',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.new.total), itemStyle: { color: r.winner === 'new' ? '#1f7a5c' : '#b45309' } },
+                  { value: Math.round(r.old.total), itemStyle: { color: r.winner === 'old' ? '#1f7a5c' : '#b45309' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
               },
             ],
           },

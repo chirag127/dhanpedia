@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Surcharge, Cess & the High-Income Regime: What ₹50L+ Actually Costs in FY 2026-27 (and the 25% Cap That Changes Everything Above ₹2Cr)</title>
+<style>body{font:16px/1.7 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#14231d}
+h1{font-size:1.8rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border:1px solid #ccc;padding:.4rem .5rem}code{background:#f1efe7;padding:.1rem .3rem;border-radius:4px}
+.eq code{display:block;text-align:center;margin:.8rem 0}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}</style>
+</head><body><h1>Surcharge, Cess & the High-Income Regime: What ₹50L+ Actually Costs in FY 2026-27 (and the 25% Cap That Changes Everything Above ₹2Cr)</h1><p style="color:#3c4b44"><em>The high-income layer over the tax model: the three-tier computation (slab base tax → surcharge with marginal relief → 4% cess), the FY 2026-27 change that abolished the 37% surcharge in the new regime (capped at 25%), the 15% equity-surcharge cap, and when the old regime actually wins again at the very top.</em></p>
+<p style="font-size:.8rem;color:#555">DhanPedia · Author Chirag Singhal · Verified 2026-10-18</p>
+<p>Below ₹50L the tax model is just slabs plus a 4% cess line — the <a href="./tax-80c-baskets-regime-decision.mdx">80C basket decision article</a> covers that world, and its calculator <em>deliberately excluded surcharge</em>. Above ₹50L, two more layers switch on, and in FY 2026-27 one of them changed in a way most tax articles still get wrong: <strong>the Income-tax Act, 2025 (effective 1 April 2026) abolished the 37% top surcharge in the new regime and capped it at 25%</strong>. The old regime keeps 37% above ₹5Cr. That single asymmetry is what decides regime fights at the top of your capital ladder.</p>
+<2>The three tiers: base tax → surcharge → cess</2>
+<p>Every bill above ₹50L is computed in exactly this order:</p>
+<ol>
+<li><strong>Base tax</strong> — your slab tax (new or old regime) plus the separate-head tax on equity gains</li>
+</ol>
+<p>(112A LTCG at 12.5% above the shared ₹1.25L pool; 111A STCG at 20%).</p>
+<ol>
+<li><strong>Surcharge</strong> — a percentage <em>of the base tax</em> (not of income), in bands by total income.</li>
+<li><strong>Marginal relief</strong> — at each surcharge boundary, the extra (tax + surcharge) on income above the</li>
+</ol>
+<p>boundary cannot exceed the incremental income itself. This removes the "cliff effect": crossing ₹50L by ₹1,000 costs about ₹1,040 <em>with</em> relief, not roughly ₹1.1L <em>without</em> it.</p>
+<ol>
+<li><strong>Health &amp; education cess</strong> — a flat <strong>4% on (base tax + surcharge after relief)</strong>, in both</li>
+</ol>
+<p>regimes, with no threshold.</p>
+<p>$$ \text{Total liability} \;=\; \underbrace{T}_{\text{base tax}} \;+\; \underbrace{(S - MR)}_{\text{surcharge after marginal relief}} \;+\; 0.04\,(T + S - MR) $$</p>
+<2>The FY 2026-27 surcharge table — and the change that matters</2>
+<table>
+<thead><tr><th>Total income</th><th>New regime</th><th>Old regime</th></tr></thead>
+<tbody><tr><td>Up to ₹50L,Nil,Nil</td><td>₹50L – ₹1Cr,10%,10%</td><td>₹1Cr – ₹2Cr,15%,15%</td><td>₹2Cr – ₹5Cr,25%,25%</td><td>Above ₹5Cr,<strong>25% (capped)</strong>,<strong>37%</strong></td></tr></tbody>
+</table>
+<p>The two regimes are identical up to ₹5Cr. <strong>Above ₹5Cr the new regime stops at 25% while the old regime reaches 37%</strong> — a 12-percentage-point wedge on the surcharge layer alone, before you even compare the lower new-regime slabs. The 37% top rate of the 1961 Act was deliberately not carried into the new regime; the cap is a policy choice to keep very high earners in the default regime.</p>
+<2>The 15% equity-surcharge cap: the rule long-term equity investors need</2>
+<p>Surcharge on tax arising from <strong>listed-equity gains</strong> — 111A short-term (20%) and 112A long-term (12.5%) — is <strong>capped at 15%</strong>, no matter how high your total income is. The slab portion of your base tax still attracts the full band rate. Consequence at, say, a ₹3Cr+ income:</p>
+<table>
+<thead><tr><th>Base-tax component</th><th>Surcharge applied</th></tr></thead>
+<tbody><tr><td>Equity LTCG/STCG tax,15% (capped)</td><td>Everything else (salary, rent, interest, unlisted gains, business),Full band (25% / 37% by regime)</td></tr></tbody>
+</table>
+<p>This is why a ₹10Cr earner whose income is mostly 112A LTCG pays far less <em>effective</em> surcharge than a ₹10Cr earner whose income is salary — and why the <a href="./tax-loss-harvesting.mdx">loss-harvesting and tax-free-stack articles</a> keep pushing equity activity into the 112A bucket: the 12.5% rate <em>and</em> the 15% surcharge cap stack into the most tax-efficient long-term channel in the system.</p>
+<2>Worked numbers (from the high-income calculator)</2>
+<p>All figures below come from the <code>highIncomeTaxFY27()</code> model — the <a href="/calculators/high-income-regime">high-income calculator</a> reproduces them with your own inputs.</p>
+<table>
+<thead><tr><th>Case</th><th>New regime (total)</th><th>Old regime (total)</th><th>Winner</th></tr></thead>
+<tbody><tr><td>₹55L slab income, salaried,₹13,81,380 (eff. 25.1%),₹16,55,940 (eff. 30.1%),<strong>New</strong></td><td>₹2.5Cr slab income,₹91,74,750 (eff. 36.7%),₹94,86,750 (eff. 38.0%),<strong>New</strong> (narrower)</td><td>₹8Cr slab income,₹3,06,24,750 (eff. 38.3%),₹3,39,06,678 (eff. 42.4%),<strong>New, by ₹32.8L</strong></td><td>₹3Cr slab + ₹5Cr equity LTCG,₹1,85,81,063 (eff. 23.2%),₹1,99,90,991 (eff. 25.0%),<strong>New</strong> (15% cap helps both, new slab wins)</td></tr></tbody>
+</table>
+<p>The pattern to internalize: <strong>at every income tested, the new regime wins on total bill — but the margin is not constant.</strong> Between ₹50L and roughly ₹1–2Cr a heavy old-regime deduction stack (home-loan interest, 80D, 80E) can still flip the decision, as the <a href="./tax-80c-baskets-regime-decision.mdx">regime-decision article</a> shows. Above ~₹2Cr, where both regimes sit in the 25% band and the new regime's slabs are structurally lower, the new regime pulls away — and above ₹5Cr the 25%-vs-37% wedge makes the new regime the unambiguous choice for a high-earner <em>without</em> a very large deduction stack.</p>
+<2>Marginal relief, shown at the ₹50L boundary</2>
+<p>Crossing ₹50L (self-employed, no standard deduction): the surcharge band turns from 0% to 10%. Without relief, the extra ₹1,000 of income would pull a 10% surcharge across the <em>entire</em> base tax (about ₹1.08L), so the marginal cost of that ₹1,000 would be ₹10,800+. <strong>With marginal relief the extra liability is capped at the incremental income</strong> — the verified figure is ₹1,040 (₹1,000 plus a sliver of slab-rate tax), not the cliff. The same cap operates at ₹1Cr, ₹2Cr and ₹5Cr. In practice this means: <em>income that lands just above a boundary is nearly as cheap as income at the boundary</em> — and it removes most of the temptation to "save for next year" an income component that is already going to happen (you usually cannot choose the timing of salary).</p>
+<2>What this means for your ladder</2>
+<table>
+<thead><tr><th>Your income position</th><th>What changes at FY 2026-27</th></tr></thead>
+<tbody><tr><td>₹50L – ₹1Cr,Surcharge starts: +10% on the whole base tax (plus cess on it). The new regime still wins for most people here; re-run the regime decision with surcharge included.</td><td>₹1Cr – ₹2Cr,15% band. The surcharge on a ₹1Cr base tax is ~₹1.5L before cess — plan the advance-tax installments on the <em>post-surcharge</em> number, or the <a href="./tax-advance-itr-final-checklist.mdx">234C clock</a> starts working against you.</td><td>₹2Cr+,Both regimes at 25%. New regime's lower slabs + capped surcharge make it the default winner; old wins only with an unusually large deduction stack.</td><td>₹5Cr+,<strong>Old regime's 37% is now the out-of-sight cost.</strong> A ₹10Cr income saves roughly ₹3L/year just from the surcharge differential, before slabs.</td></tr></tbody>
+</table>
+<p>Two honesty notes: (1) these are the model's numbers, and the ITR utility is the authority for the exact figure at each boundary — the marginal-relief computation here prices the boundary at its own band, which is the standard approximation; (2) the 15% equity cap and the 25% new-regime ceiling are the Income-tax Act, 2025 positions as effective 1 April 2026 — re-verify at each Finance Act.</p>
+<2>Related</2>
+<ul>
+<li><a href="./tax-india-investor-complete.mdx">India Taxation: The Complete Investor's Guide</a></li>
+<li><a href="./tax-80c-baskets-regime-decision.mdx">The 80C Basket Decision &amp; Regime</a></li>
+<li><a href="./tax-advance-itr-final-checklist.mdx">Advance Tax, the 234B/234C Interest Clock &amp; the Final ITR Checklist</a></li>
+<li><a href="./tax-loss-harvesting.mdx">Tax Loss Harvesting</a></li>
+</ul>
+<2>Sources</2>
+<ul>
+<li>Surcharge &amp; cess under the Income-tax Act, 2025 (new-regime 25% cap, old-regime 37% above 5Cr, 15% equity cap, 4% cess, marginal relief; worked examples) — &lt;a href="https://virtualauditor.in/learn/surcharge-cess-income-tax-2025/"&gt;Virtual Auditor (updated 15 Apr 2026)&lt;/a&gt;</li>
+<li>FY 2026-27 slab structure &amp; 87A — &lt;a href="https://taxatlas.app/in/tax-brackets/"&gt;Tax Atlas India / Income-tax Dept (incometaxindia.gov.in)&lt;/a&gt;</li>
+<li>Advance-tax interplay (installments run on the post-surcharge figure) — &lt;a href="https://taxclue.in/guide/advance-tax-calculator"&gt;TaxClue advance-tax guide&lt;/a&gt;</li>
+</ul>
+<2>Update log</2>
+<ul>
+<li>2026-10-18 — Wave 11: three-tier computation (base → surcharge with marginal relief → 4% cess), the</li>
+</ul>
+<p>FY 2026-27 surcharge table with the new-regime 25% cap vs old-regime 37% above ₹5Cr (Income-tax Act, 2025, effective 1 Apr 2026), the 15% equity-surcharge cap, worked regime comparisons at 55L / 2.5Cr / 8Cr / 3Cr+5Cr-LTCG, and the marginal-relief cliff math at ₹50L (₹1,040 not ₹1,08,000+ on an extra ₹1,000). Model verified against the Act 2025 secondary source; exact boundary figures should be confirmed with the ITR utility. Re-verify the surcharge bands at each Finance Act.</p>
+<h2>Sources</h2><ol><li>Virtual Auditor - Surcharge &amp; HEC under the Income-tax Act, 2025 (updated 15 Apr 2026; Income-tax Act 2025 + Finance Act 2026) — Surcharge &amp; Health and Education Cess under the Income-tax Act, 2025 (effective 1 Apr 2026): individual new-regime surcharge 10% (50L-1Cr) / 15% (1Cr-2Cr) / 25% capped above 2Cr (the 37% top rate of the 1961 Act was ABOLISHED for the new regime); old regime keeps 37% above 5Cr; surcharge on listed-equity 111A/112A tax capped at 15%; 4% cess on (base tax + surcharge); marginal relief at each boundary caps incremental tax + surcharge on (income above boundary): https://virtualauditor.in/learn/surcharge-cess-income-tax-2025/ (verified 2026-10-18)</li><li>Income Tax Department / Union Budget 2025 (Finance Act 2025) — FY 2026-27 slabs — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) — unchanged from the Budget 2025 reset: 0-4L nil, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30%+; Sec 87A rebate extends tax-free up to Rs 12L; standard deduction Rs 75,000: https://cleartax.in/s/income-tax-slabs (verified 2026-10-16)</li><li>Income-tax Act, 2025 (FY 2026-27), Sec 207-211, 234B, 234C — via TaxClue advance-tax guide — Advance tax FY 2026-27: duty when tax after TDS exceeds Rs.10,000; four cumulative installments 15 Jun (15%) / 15 Sep (45%) / 15 Dec (75%) / 15 Mar (100%); Sec 234C interest 1%/mo on each quarterly shortfall (3-month tails on the first three, 1-month on the last); Sec 234B 1%/mo from 1 Apr when advance paid is under 90% of assessed tax; capital-gains/lottery/dividend income arising after a date attracts no 234C if paid in the remaining installments (last quarter by 31 Mar); 44AD/44ADA presumptive taxpayers may pay 100% by 15 Mar in one installment: https://taxclue.in/guide/advance-tax-calculator (verified 2026-10-17)</li></ol>
+<p style="font-size:.75rem;color:#666;margin-top:2rem;border-top:1px solid #ccc;padding-top:1rem">Educational content, not individualized investment, tax, accounting, or legal advice.</p>
+</body></html>

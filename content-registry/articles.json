@@ -1202,6 +1202,42 @@
    "books": [
     "book-wealth-beyond-10l"
    ]
+  },
+  {
+   "id": "tax-surcharge-cess-high-income",
+   "title": "Surcharge, Cess & the High-Income Regime: What ₹50L+ Actually Costs in FY 2026-27 (and the 25% Cap That Changes Everything Above ₹2Cr)",
+   "category": "taxation",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "surcharge",
+    "cess",
+    "high-income",
+    "new-regime",
+    "old-regime",
+    "25-cap",
+    "37-rate",
+    "equity-surcharge-cap",
+    "marginal-relief",
+    "itr"
+   ],
+   "summary": "The high-income layer over the tax model: the three-tier computation (slab base tax -> surcharge with marginal relief -> 4% cess), the FY 2026-27 change that abolished the 37% surcharge in the new regime (capped at 25%), the 15% equity-surcharge cap, and when the old regime still wins at the very top. Closes the surcharge/cess gap the Wave-9 deduction-shield model flagged.",
+   "file": "src/content/taxation/tax-surcharge-cess-high-income.mdx",
+   "sources": [
+    "src-surcharge-cess-fy2026-27",
+    "src-it-slab-fy2026-27",
+    "src-advance-tax-fy2026-27"
+   ],
+   "related": [
+    "tax-india-investor-complete",
+    "tax-80c-baskets-regime-decision",
+    "tax-advance-itr-final-checklist",
+    "tax-tax-free-wealth-stack",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-indian-taxation"
+   ]
   }
  ]
 }

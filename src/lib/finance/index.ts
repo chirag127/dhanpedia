@@ -1072,6 +1072,223 @@ export function afterTaxProductWedge(w: AfterTaxWedgeInput): AfterTaxWedgeResult
   };
 }
 
+/**
+ * Full FY 2026-27 individual tax computation including the surcharge and
+ * 4% Health & Education Cess layers, for both regimes, and the regime
+ * decision at high incomes.
+ *
+ * This closes the gap flagged in the Wave-9 deduction-shield model, which
+ * deliberately excluded surcharge/cess. Verified against the Income-tax
+ * Act, 2025 (effective 1 Apr 2026):
+ *
+ *  - New regime surcharge: 10% (50L-1Cr), 15% (1Cr-2Cr), 25% above 2Cr -
+ *    the 37% top rate of the 1961 Act was ABOLISHED for the new regime.
+ *  - Old regime surcharge: 10% / 15% / 25% (2Cr-5Cr) / 37% above 5Cr.
+ *  - Equity surcharge cap: surcharge on tax arising from listed-equity
+ *    capital gains (111A STCG 20% / 112A LTCG 12.5%) is capped at 15%,
+ *    regardless of total income.
+ *  - Cess: 4% on (base tax + surcharge after marginal relief).
+ *  - Marginal relief: at each surcharge boundary, the surcharge is reduced
+ *    so that (total tax + surcharge) does not exceed (tax + surcharge at
+ *    the boundary + the incremental income). Cess is excluded from the
+ *    relief comparison (documented approximation).
+ *
+ * Conventions:
+ *  - `nonEquityIncome` is slab income BEFORE the standard deduction and
+ *    before any Chapter VI-A deductions (salary, rent, interest, unlisted
+ *    gains, business income net of losses, etc.).
+ *  - Equity gains are kept out of the slab computation (111A/112A are
+ *    separate heads) and enter through `equityLtcg` / `equityStcg`.
+ *  - The shared 112A annual pool defaults to Rs 1.25L.
+ */
+export interface HighIncomeTaxInput {
+  nonEquityIncome: number;
+  equityLtcg: number;
+  equityStcg: number;
+  eightyC: number;
+  npsSelf: number;
+  healthInsurance: number;
+  homeLoanInterest: number;
+  npsEmployer: number;
+  salaried: boolean;
+  ltcgPool?: number;
+}
+
+export interface RegimeFullTax {
+  taxableSlabIncome: number;
+  baseTax: number;
+  surchargeRate: number;
+  surcharge: number;
+  marginalRelief: number;
+  surchargeAfterRelief: number;
+  cess: number;
+  total: number;
+  effectiveRate: number;
+}
+
+export interface HighIncomeTaxResult {
+  new: RegimeFullTax;
+  old: RegimeFullTax;
+  winner: 'new' | 'old' | 'tie';
+  savingsByOld: number; // positive => old regime is cheaper
+}
+
+/**
+ * Surcharge band rate for FY 2026-27 given TOTAL income.
+ * New regime: 37% abolished - capped at 25% above 2Cr.
+ * Old regime: 37% above 5Cr still applies.
+ */
+function surchargeBandRate(totalIncome: number, regime: 'new' | 'old'): number {
+  if (totalIncome <= 5000000) return 0;
+  if (regime === 'new') {
+    if (totalIncome <= 10000000) return 0.1;
+    if (totalIncome <= 20000000) return 0.15;
+    return 0.25;
+  }
+  if (totalIncome <= 10000000) return 0.1;
+  if (totalIncome <= 20000000) return 0.15;
+  if (totalIncome <= 50000000) return 0.25;
+  return 0.37;
+}
+
+/**
+ * The gross total-income threshold just below `totalIncome` where the current
+ * surcharge band starts (0 when total income is at or below 50L).
+ */
+function surchargeBoundaryTotalIncome(totalIncome: number, regime: 'new' | 'old'): number {
+  if (totalIncome <= 5000000) return 0;
+  if (regime === 'old' && totalIncome > 50000000) return 50000000;
+  if (totalIncome > 20000000) return 20000000;
+  if (totalIncome > 10000000) return 10000000;
+  return 5000000;
+}
+
+interface LevelEval {
+  slabTaxable: number;
+  baseTax: number;
+  surcharge: number;
+  surchargeRate: number;
+  preCess: number; // base tax + surcharge, before the 4% cess
+}
+
+/**
+ * Evaluate base tax + surcharge (pre-cess) at a given total-income level. The
+ * 15% equity-surcharge cap applies to the equity-gains portion of the base
+ * tax; the band rate applies to the rest. At a total income exactly at a band
+ * boundary the *lower* band rate is returned (the band is "above X up to Y").
+ */
+function evalAtLevel(
+  regime: 'new' | 'old',
+  slabIncomeGross: number,
+  equityLtcgGain: number,
+  equityStcgGain: number,
+  ltcgPool: number,
+  stdDed: number,
+  oldOnlyDeductions: number,
+  npsEmployer: number,
+): LevelEval {
+  const slabTaxable = Math.max(0, slabIncomeGross - stdDed - oldOnlyDeductions - npsEmployer);
+  const ltcgTax = Math.max(0, equityLtcgGain - ltcgPool) * 0.125;
+  const stcgTax = Math.max(0, equityStcgGain) * 0.2;
+  const equityTax = ltcgTax + stcgTax;
+  const baseTax =
+    (regime === 'new' ? newRegimeTaxFY27(slabTaxable) : oldRegimeTaxFY27(slabTaxable)) +
+    equityTax;
+  const totalIncome = slabIncomeGross + equityLtcgGain + equityStcgGain;
+  const rate = surchargeBandRate(totalIncome, regime);
+  const equitySurchargeRate = Math.min(rate, 0.15);
+  const surcharge = equityTax * equitySurchargeRate + (baseTax - equityTax) * rate;
+  return {
+    slabTaxable,
+    baseTax,
+    surcharge,
+    surchargeRate: rate,
+    preCess: baseTax + surcharge,
+  };
+}
+
+function computeRegimeFullTax(
+  regime: 'new' | 'old',
+  slabIncomeGross: number,
+  equityLtcgGain: number,
+  equityStcgGain: number,
+  ltcgPool: number,
+  stdDed: number,
+  oldOnlyDeductions: number,
+  npsEmployer: number,
+): RegimeFullTax {
+  const actual = evalAtLevel(
+    regime, slabIncomeGross, equityLtcgGain, equityStcgGain,
+    ltcgPool, stdDed, oldOnlyDeductions, npsEmployer,
+  );
+  const totalIncome = slabIncomeGross + equityLtcgGain + equityStcgGain;
+
+  // Marginal relief (Sec 111E style): cap the *incremental* tax + surcharge
+  // on the income above the boundary B at (totalIncome - B). The counterfactual
+  // is the total income exactly at B, priced at B's own (lower) band. Relief
+  // is computed on (base tax + surcharge), pre-cess.
+  let marginalRelief = 0;
+  const boundary = surchargeBoundaryTotalIncome(totalIncome, regime);
+  if (boundary > 0 && actual.surchargeRate > 0 && totalIncome > boundary) {
+    const scale = boundary / totalIncome;
+    const atBoundary = evalAtLevel(
+      regime,
+      slabIncomeGross * scale,
+      equityLtcgGain * scale,
+      equityStcgGain * scale,
+      ltcgPool,
+      stdDed,
+      oldOnlyDeductions,
+      npsEmployer * scale,
+    );
+    marginalRelief = Math.max(
+      0,
+      actual.preCess - atBoundary.preCess - (totalIncome - boundary),
+    );
+  }
+  const surchargeAfterRelief = Math.max(0, actual.surcharge - marginalRelief);
+  const cess = 0.04 * (actual.baseTax + surchargeAfterRelief);
+  const total = actual.baseTax + surchargeAfterRelief + cess;
+  return {
+    taxableSlabIncome: actual.slabTaxable,
+    baseTax: actual.baseTax,
+    surchargeRate: actual.surchargeRate,
+    surcharge: actual.surcharge,
+    marginalRelief,
+    surchargeAfterRelief,
+    cess,
+    total,
+    effectiveRate: totalIncome > 0 ? total / totalIncome : 0,
+  };
+}
+
+export function highIncomeTaxFY27(h: HighIncomeTaxInput): HighIncomeTaxResult {
+  const ltcgPool = Math.max(0, h.ltcgPool ?? 125000);
+  // Standard deduction: 75k new regime / 50k old regime, salaried only.
+  const newStd = h.salaried ? 75000 : 0;
+  const oldStd = h.salaried ? 50000 : 0;
+  // Old-regime-only deductions, with statutory caps (Wave-9 conventions).
+  const oldOnly =
+    Math.min(Math.max(0, h.eightyC), 150000) +
+    Math.min(Math.max(0, h.npsSelf), 50000) +
+    Math.min(Math.max(0, h.healthInsurance), 100000) +
+    Math.min(Math.max(0, h.homeLoanInterest), 200000);
+
+  const newRegime = computeRegimeFullTax(
+    'new', h.nonEquityIncome, h.equityLtcg, h.equityStcg,
+    ltcgPool, newStd, 0, h.npsEmployer,
+  );
+  const oldRegime = computeRegimeFullTax(
+    'old', h.nonEquityIncome, h.equityLtcg, h.equityStcg,
+    ltcgPool, oldStd, oldOnly, h.npsEmployer,
+  );
+
+  const savingsByOld = newRegime.total - oldRegime.total;
+  const winner: HighIncomeTaxResult['winner'] =
+    savingsByOld > 0 ? 'old' : savingsByOld < 0 ? 'new' : 'tie';
+  return { new: newRegime, old: oldRegime, winner, savingsByOld };
+}
+
 export function aifWaterfall(w: AifWaterfallInput): AifWaterfallResult {
   const grossFinalValue = w.committedCapital * w.grossMultiple;
   const totalProfit = Math.max(0, grossFinalValue - w.committedCapital);

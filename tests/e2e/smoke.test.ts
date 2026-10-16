@@ -185,6 +185,25 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('high-income-regime calculator renders the surcharge/cess comparison', async ({ page }) => {
+    await page.goto('/calculators/high-income-regime');
+    await expect(page.getByText('New-regime total (tax + surcharge + cess)')).toBeVisible();
+    await expect(page.getByText('Old-regime total (tax + surcharge + cess)')).toBeVisible();
+    await expect(page.getByText('Regime winner')).toBeVisible();
+    // Chart container for the total-bill comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('surcharge/cess high-income article renders the FY 2026-27 surcharge table', async ({ page }) => {
+    await page.goto('/articles/tax-surcharge-cess-high-income');
+    await expect(page.getByRole('heading', { name: /Surcharge, Cess & the High-Income Regime/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /The FY 2026-27 surcharge table/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The 15% equity-surcharge cap/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

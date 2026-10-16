@@ -33,12 +33,12 @@
     "src/lib/finance/index.ts",
     "src/lib/calculators.ts"
    ],
-   "validation_status": "72/72 unit tests pass (Wave-10 added afterTaxProductWedge: end-of-horizon gross-final-value with product-specific tax landing (112A 12.5% / slab for unlisted pass-through / ~42.7% Cat III fund-level), compounding mgmt fee + exit perf fee, shared-LTCG-pool subtraction, after-tax CAGR + total wedge)",
+   "validation_status": "79/79 unit tests pass (Wave-11 added highIncomeTaxFY27: both-regime end-to-end with 112A/111A equity heads, surcharge bands (new 25% cap / old 37% above 5Cr), 15% equity surcharge cap, marginal relief, 4% cess, effective rates, regime winner)",
    "next_action": null
   },
   {
    "id": "T-calc-ui",
-   "title": "React calculator islands + 23 calculator pages",
+   "title": "React calculator islands + 24 calculator pages",
    "workstream": "calculators",
    "status": "complete",
    "priority": 2,
@@ -49,12 +49,12 @@
     "src/components/CalculatorIsland.tsx",
     "src/pages/calculators/"
    ],
-   "validation_status": "builds; 23 calculator pages (Wave-10 added pms-sif-aif-tax-wedge); data-driven via src/lib/calculators.ts + [id].astro",
+   "validation_status": "builds; 24 calculator pages (Wave-11 added high-income-regime); data-driven via src/lib/calculators.ts + [id].astro",
    "next_action": "Playwright e2e interaction check"
   },
   {
    "id": "T-articles",
-   "title": "40 deep articles across all 17 avenues (source-cited, verified)",
+   "title": "41 deep articles across all 17 avenues (source-cited, verified)",
    "workstream": "content",
    "status": "complete",
    "priority": 2,
@@ -64,8 +64,8 @@
    "output_files": [
     "src/content/**"
    ],
-   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge (the after-tax pocket-landing comparison across the capital ladder)",
-   "next_action": "Daily article habit: Wave-11 candidate = PMS-vs-AIF after-tax net-return comparator, re-model the regime decision with surcharge above 50L, or an ELSS lock-in / tax-shield standalone calculator"
+   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge; Wave-11 tax-surcharge-cess-high-income (3-tier tax, new-regime 25% surcharge cap vs old 37%, 15% equity cap, marginal relief)",
+   "next_action": "Daily article habit: Wave-12 candidate = HUF / family-office structuring (HUF income tax, gifting rules, 234B/234C interplay), senior-citizen / NRI tax structures, or an ESOP-vesting tax-walkthrough calculator"
   },
   {
    "id": "T-sources",
