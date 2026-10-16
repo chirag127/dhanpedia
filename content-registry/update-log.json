@@ -64,6 +64,51 @@
         "alternatives-pms-aif-private"
       ],
       "notes": "Minimum, breach rules, and cost caps were sourced from secondary guides summarizing the SEBI text. Confirm against SEBI circulars and scheme documents before advising."
+    },
+    {
+      "id": "tl-fo-fy26",
+      "claim": "SEBI FY26 retail F&O data: 78.6 lakh individual traders, net losses Rs 91,685 cr, avg loss Rs 1,16,654; 87.7% of traders lost; F&O STT collections Rs 27,695 cr (FY26)",
+      "source": "src-sebi-fo-fy26",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "articles": [
+        "derivatives-fno-retail-realities"
+      ]
+    },
+    {
+      "id": "tl-sgb-tax-2026",
+      "claim": "Budget 2026 removed the capital-gains exemption on SGBs purchased from the secondary market (effective 1 Apr 2026); only original subscribers holding to maturity retain the tax-free redemption; no new SGB tranches in FY 2026-27",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "articles": [
+        "govt-sovereign-gold-bonds",
+        "gold-silver-commodities",
+        "tax-india-investor-complete"
+      ]
+    },
+    {
+      "id": "tl-lrs-tcs-2026",
+      "claim": "FY 2026-27 LRS TCS structure (Finance Act 2026, eff. 1 Apr 2026): loan-funded education 0%; self-funded education/medical 2% above Rs 10L; overseas tour packages 2% flat (no threshold); other LRS purposes 20% above Rs 10L; LRS limit USD 250,000/FY unchanged",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "articles": [
+        "international-investing-lrs",
+        "tax-india-investor-complete"
+      ]
+    },
+    {
+      "id": "tl-irdai-2026-reforms",
+      "claim": "IRDAI 2025-26 health-insurance reforms: PED waiting capped at 3 years; entry-age limit removed; moratorium period cut from 8 years to 5 (60 months, Feb 2026) - post-60-month repudiation only on proven fraud",
+      "source": "src-irdai-moratorium-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-02-28",
+      "status": "ok",
+      "articles": [
+        "insurance-protection"
+      ]
     }
   ]
 }

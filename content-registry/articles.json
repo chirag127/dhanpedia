@@ -106,7 +106,8 @@
         "src-it-slab-calculator",
         "src-it-80c-150k",
         "src-sebi-elss",
-        "src-nps-2025-exit"
+        "src-nps-2025-exit",
+        "src-budget-2026-sgb-tax"
       ],
       "related": [
         "pf-wealth-plan-10-lakh",
@@ -163,7 +164,8 @@
       "file": "src/content/government-schemes/govt-sovereign-gold-bonds.mdx",
       "sources": [
         "src-sgb-discontinued",
-        "src-indiagold"
+        "src-indiagold",
+        "src-budget-2026-sgb-tax"
       ],
       "related": [
         "gold-silver-commodities"
@@ -337,7 +339,8 @@
       "file": "src/content/gold-commodities/gold-silver-commodities.mdx",
       "sources": [
         "src-sgb-discontinued",
-        "src-indiagold"
+        "src-indiagold",
+        "src-budget-2026-sgb-tax"
       ],
       "related": [
         "govt-sovereign-gold-bonds",
@@ -408,7 +411,8 @@
       "summary": "Sizing term cover, health & critical-illness cover, riders, deductibles, claims data, and why insurance is protection, not an investment (ULIPs included).",
       "file": "src/content/insurance/insurance-protection.mdx",
       "sources": [
-        "src-it-slab-fy2025-26"
+        "src-it-slab-fy2025-26",
+        "src-irdai-moratorium-2026"
       ],
       "related": [
         "pf-wealth-plan-10-lakh",
@@ -456,7 +460,8 @@
       "summary": "Global diversification, international funds, LRS limits, FX & conversion cost, overseas tax & FATCA/CRS reporting, DTA and realistic implementation routes.",
       "file": "src/content/international/international-investing-lrs.mdx",
       "sources": [
-        "src-it-slab-fy2025-26"
+        "src-it-slab-fy2025-26",
+        "src-lrs-tcs-sc-2026"
       ],
       "related": [
         "pf-wealth-plan-10-lakh",
@@ -516,6 +521,38 @@
       ],
       "books": [
         "book-wealth-beyond-10l"
+      ]
+    },
+    {
+      "id": "derivatives-fno-retail-realities",
+      "title": "Derivatives & F&O for the Indian Retail Investor: Why 9 in 10 Lose — and When Hedging Actually Works",
+      "category": "derivatives",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "fno",
+        "options",
+        "futures",
+        "sebi",
+        "retail-trading",
+        "hedging",
+        "derivatives"
+      ],
+      "summary": "SEBI five-year loss data, the negative-sum structure of options for retail, a hedging decision framework, F&O tax treatment, and where derivatives do (and do not) fit a Rs.10 lakh portfolio.",
+      "file": "src/content/derivatives/derivatives-fno-retail-realities.mdx",
+      "sources": [
+        "src-sebi-fo-fy26",
+        "src-et-fo-retail-exodus",
+        "src-toi-big-boys"
+      ],
+      "related": [
+        "portfolio-construction-rebalancing",
+        "foundations-risk-allocation-behavior",
+        "equity-fundamental-valuation",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "books": [
+        "book-complete-indian-investor"
       ]
     }
   ]

@@ -1,35 +1,45 @@
-# STATUS — DhanPedia
-Updated: 2026-10-16 · Owner: Chirag Singhal · Repo: chirag127/dhanpedia
+# DhanPedia — Progress
 
-## Complete & verified (this session)
-- [x] Full pipeline green end-to-end: `npm test` (41/41 unit) · `npm run build` (books → astro → pagefind → validate → check-links → report) · `npx playwright test` (12/12 e2e on desktop + mobile-chromium) · `BASE_PATH=/dhanpedia` production build.
-- [x] 20 articles on disk (19 original + new SIF deep article, ~4,460 words, SEBI SIF 2026 tier).
-- [x] 4 books × 6 formats (md/html/txt/tts/epub/pdf) + per-article downloads; SIF chapter added to *Wealth Beyond ₹10 Lakh*.
-- [x] Registry refresh: sources.json normalized to bare array with 14 verified entries (added 2 SIF sources; repo source → primary RBI MPC Aug 2026; NPS → PFRDA gazette 16 Dec 2025; tax → FY 2026-27; SCSS → Q1 FY 2026-27).
-- [x] update-log.json: 7 tracked claims; 5 re-verified 2026-10-16; added tl-sif-2026.
-- [x] Content accuracy pass vs live web (2026-10-16): tax slab labels → FY 2026-27 (slabs unchanged by Budget 2026); NPS Dec-2025 exit rules confirmed in small-savings + retirement articles; SIF added to PMS/AIF capital ladder + ₹10L plan; tax-regime-choice section added to the flagship plan.
-- [x] Fixed `link()`/`BASE_URL` double-slash bug (local base was `'/'` → `'//x'`); search.astro + BaseLayout now use the normalized base.
-- [x] Fixed vitest picking up Playwright e2e files; Playwright webServer Node-version shadowing (prepend system Node on Windows); mobile project now runs on chromium.
-- [x] All 12 e2e assertions pass: homepage, article, calculator, dark-mode, books (real downloads, no `//` links), 404.
+Last updated: **2026-10-16** (content push: derivatives article + Budget-2026 fact fixes)
 
-## Current facts verified 2026-10-16
-- RBI repo 5.25%, SDF 5.00%, MSF/BR 5.50%, neutral, 4th consecutive hold (MPC 3–5 Aug 2026). GDP outlook 6.7% FY2026-27.
-- SCSS 8.2% / PPF 7.1% / MIS 7.4% / NSC 7.7% — unchanged for 8 consecutive quarters incl. Q1 FY 2026-27.
-- FY 2026-27 income-tax slabs unchanged from Budget 2025 reset: new regime 0/5/10/15/20/25/30; 87A ₹60,000 (₹12L tax-free; ₹12.75L salaried with ₹75k standard deduction); old-regime slabs also unchanged.
-- PFRDA NPS exit amendment w.e.f. 16 Dec 2025 (non-govt): no 5-yr lock-in; 80% lump sum / 20% min annuity; deferment to age 85; ₹8L corpus 100% withdrawal; up to 100% equity option.
-- SEBI SIF (effective 1 Apr 2026): ₹10L aggregate minimum per PAN within one AMC; SIP/STP allowed; passive breach → full-redemption only; active breach → units frozen, 30-day rebalance; accredited-investor exemption. PMS ₹50L and AIF ₹1Cr minimums unchanged.
-- LRS limit remains USD 250,000/person/FY; Budget 2025 revised TCS thresholds (education/tour ₹10L threshold, medical ₹5L).
+## State
 
-## In progress / next
-- [ ] Deploy: repo remote is configured; CI builds at base '' for tests, `BASE_PATH=/dhanpedia` for the Pages artifact. **Owner still needs to enable GitHub Pages (project site, /dhanpedia) and a root `404.html` is served by astro.**
-- [ ] Optional wave-2 depth: expand remaining avenues (derives/futures, bank & deposit safety deep-dive, ESOP/RSU tax) — registries + inventory.json (180-item roadmap) already scoped.
-- [ ] User profile answers → personalize `pf-wealth-plan-10-lakh` with their actual monthly capacity, risk grade, and tax regime (plan + questions already drafted).
+- **Articles:** 21 on disk / registered (derivatives category now filled: `derivatives-fno-retail-realities`, ~3,590 words).
+- **Books:** 4 × 6 formats (PDF/EPUB/MD/HTML/TXT/TTS) → `public/downloads/`.
+- **Sources:** 20 in `sources.json` (added `src-budget-2026-sgb-tax`, `src-lrs-tcs-sc-2026`, `src-irdai-moratorium-2026`, `src-sebi-fo-fy26`, `src-et-fo-retail-exodus`, `src-toi-big-boys`).
+- **Update-log:** 11 tracked time-sensitive claims.
 
-## Failed / unresolved
-- None blocking. Secondary-source SIF figures (caps, expense ratios) are explicitly flagged "verify against scheme document" per the honesty rule; SIF facts re-verify due 2027-04-01.
+## This session (verified 2026-10-16 via web research)
 
-## One-off helper scripts (safe to delete; kept until next build proves they're unneeded)
-- scripts/_refresh-sources.mjs, _refresh-updatelog.mjs, _refresh-tax-article.mjs, _refresh-tax-article2.mjs, _register-sif.mjs, _enrich-pmsaif.mjs, _enrich-10l.mjs, _rename-sif-source.mjs
+### New article
+- [x] `src/content/derivatives/derivatives-fno-retail-realities.mdx` — "Why 9 in 10 Lose — and When Hedging Actually Works." SEBI 5-year retail F&O loss table, negative-sum options structure, hedging decision framework, F&O tax treatment, and where F&O fits a ₹10L portfolio. Registered in `articles.json`, added to `book-complete-indian-investor` (now 10 chapters), 3 sources + 3 update-log entries added.
 
-## Deployable?
-Yes for the owner: `git push` runs the CI (tests + validate + dual builds). The live URL only exists once Pages is enabled on the repo.
+### Stale-fact fixes (Budget 2026 / IRDAI / SEBI, all cross-checked)
+- [x] **SGB tax change** — Budget 2026 (eff. 1 Apr 2026) limited the SGB maturity redemption CGT exemption to *original subscribers*; secondary-market buyers are now slab-taxed on both pre-maturity sale and maturity. Fixed in: SGB article (rewrote secondary-market paragraphs, comparison table, worked example, update-log, sources section), gold-commodities article, and tax article. New source `src-budget-2026-sgb-tax` (TOI Carat & Stick).
+- [x] **LRS TCS FY 2026-27 structure** — threshold ₹7L→₹10L; loan-funded education 0%; self-funded education/medical 2% above threshold; tour packages 2% flat; other LRS 20% above threshold. Added a dedicated TCS table + section to the LRS article. New source `src-lrs-tcs-sc-2026` (Standard Chartered Finance Act 2026 notice).
+- [x] **IRDAI health-insurance reforms** — no entry-age cap; PED waiting capped at 3 years; moratorium cut 8→5 years (60 months). Added a new "IRDAI 2025-26 reforms" section + updated the PED waiting bullet in the insurance article. New source `src-irdai-moratorium-2026` (India Today).
+- [x] **SEBI F&O FY26 data** — 78.6 lakh individual traders, ₹91,685 cr losses, avg ₹1,16,654/trader, 87.7% lost, F&O STT ₹27,695 cr. Used as the primary data spine in the new derivatives article. New sources `src-sebi-fo-fy26`, `src-et-fo-retail-exodus`, `src-toi-big-boys`.
+
+### Pipeline (all green)
+- [x] `node scripts/validate-content.mjs` → **21 articles, 4 books, 20 sources, 0 warnings**.
+- [x] `node scripts/check-links.mjs` → all registry refs resolve.
+- [x] `npx vitest run` → 41/41.
+- [x] `npx astro build` → 88 pages, local base OK **and** `BASE_PATH=/dhanpedia` production OK.
+- [x] `npx pagefind --site dist` → search index built (derivatives included).
+- [x] `node scripts/build-report.mjs` → manifest files present on disk.
+
+## Known issues / fixes this session
+- Subagent MDX used bare `<https://...>` autolinks (MDX-incompatible) → converted to markdown links.
+- One-shot frontmatter patch dropped the closing `]` on 5 articles' `sources:` arrays → repaired.
+- SGB/insurance/gold anchors use em-dashes (`—`), not hyphens → follow-up patch with exact text.
+
+## Not yet done
+- [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
+- [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
+- [ ] Phase 2 article depth expansion (bank safety, ESOP/RSU tax, REIT/InvIT, gold SGB-vs-ETF worked example).
+- [ ] More calculators (ELSS tax shield, NPS tax shield, PMS fee-drag, AIF carry, SIF sleeve sizing).
+
+## Next 3 actions
+1. Commit this session's changes.
+2. Present the updated books (esp. `book-complete-indian-investor`, now with the derivatives chapter) as downloadable artifacts.
+3. Ask the user the personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.

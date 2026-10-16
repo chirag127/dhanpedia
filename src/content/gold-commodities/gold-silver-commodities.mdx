@@ -9,9 +9,9 @@ status: "published"
 author: "Chirag Singhal"
 created: "2026-10-16"
 updated: "2026-10-16"
-lastVerified: "2026-08-06"
+lastVerified: "2026-10-16"
 reviewAfter: "2026-12-31"
-sources: ["src-sgb-discontinued","src-indiagold"]
+sources: ["src-sgb-discontinued","src-indiagold","src-budget-2026-sgb-tax"]
 relatedArticles: ["govt-sovereign-gold-bonds","portfolio-construction-rebalancing"]
 books: []
 ---
@@ -51,11 +51,11 @@ The oldest route, and the one where the spread quietly eats your wealth.
 
 ### SGBs — discontinued as a new issue, ownable only via secondary market
 
-Sovereign Gold Bonds were the cleanest gold route India ever offered: the government backed the principal and paid interest, so you could earn a cash return on paper gold, plus the appreciation itself. That combination has a tax consequence worth remembering for anyone holding SGBs bought earlier: on maturity or redemption through the primary/secondary channel, the gains on SGBs are treated as tax-exempt capital gains on redemption (verify current treatment, and note the interest is fully taxable at your slab rate, unlike the redemption itself).
+Sovereign Gold Bonds were the cleanest gold route India ever offered: the government backed the principal and paid interest, so you could earn a cash return on paper gold, plus the appreciation itself. That combination has a tax consequence worth remembering for anyone holding SGBs bought earlier: for an *original* subscriber who holds to maturity, the redemption is a *tax-exempt* capital gain (the *interest* remains fully taxable at your slab rate); **since 1 April 2026 (Budget 2026)** the *exemption no longer applies to SGBs acquired from the secondary market* - their redemption (and any pre-maturity sale) is a *slab-taxed* capital gain. [src-budget-2026-sgb-tax]
 
-**The status you must know:** the SGB scheme stopped issuing new tranches from FY 2024-25, with the last tranche issued in February 2024 (verified 2026-08-06, `src-sgb-discontinued`). The source registry itself flags the limitation: *confirm the current-year status against the latest Union Budget / Ministry of Finance note before republishing* — a re-launch is a budget-announced thing, not a standing schedule.
+**The status you must know:** the SGB scheme stopped issuing new tranches from FY 2024-25, with the last tranche issued in February 2024 (verified 2026-08-06, `src-sgb-discontinued`). The source registry itself flags the limitation: *confirm the current-year status against the latest Union Budget / Ministry of Finance note before republishing* — a re-launch is a budget-announced thing, not a standing schedule. **The FY 2026-27 Budget confirmed *no* re-launch; instead it *removed* the *secondary-market* maturity exemption (effective 1 April 2026).**
 
-**What this means practically.** Existing SGBs are a real and still-traded asset, listed on exchanges; the secondary market has been active enough to buy with a modest premium/discount to the underlying gold value. The tax structure that made SGBs attractive is unchanged for these bonds, so the secondary market is still a legitimate route *for gold exposure with interest*, just one you enter as a bond, not an allocation plan. New-issuance SGBs: do not plan around them; treat their return as a budget-dependent option. The original feature set, for reference (8-year maturity, 2.5% p.a. interest, tax-exempt on maturity) is captured in `src-indiagold`; that document predates the discontinuation, so read it as "how it worked" and cross-check against `src-sgb-discontinued` for "what is on offer now."
+**What this means practically.** Existing SGBs are a real and still-traded asset, listed on exchanges; the secondary market has been active enough to buy with a modest premium/discount to the underlying gold value. The tax structure that made SGBs attractive is *unchanged only for original subscribers*; since 1 April 2026 a *secondary-market buyer's* redemption is slab-taxed, so the secondary market is a legitimate route *for gold exposure with interest* but only as a *coupon-and-premium* argument, not as a tax argument. New-issuance SGBs: do not plan around them; treat their return as a budget-dependent option. The original feature set, for reference (8-year maturity, 2.5% p.a. interest, tax-exempt on maturity) is captured in `src-indiagold`; that document predates the discontinuation, so read it as "how it worked" and cross-check against `src-sgb-discontinued` for "what is on offer now."
 
 ### Gold ETFs
 
@@ -145,6 +145,7 @@ Three limits that should keep a 5–10% allocation from becoming a 40% "safe" al
 ## Update log
 
 - 2026-08-06: Verified SGB discontinuation (last tranche February 2024, no new issues from FY 2024-25) against `src-sgb-discontinued`; flagged the 2.5% p.a. SGB interest rate and 8-year maturity as historical features from `src-indiagold`, still applicable to outstanding bonds.
+- 2026-10-16: Verified the Budget 2026 SGB tax change - maturity CGT exemption limited to original subscribers; secondary-market SGB buyers are slab-taxed on redemption effective 1 April 2026 [src-budget-2026-sgb-tax]. No new SGB tranches announced for FY 2026-27.
 - 2026-08-06: Gold ETF tax treatment marked "verify current treatment" (equity treatment for most ETFs; dependent on the specific fund and underlying).
 - 5–8% buy-sell spread on physical jewellery, 916/999 hallmarking, and margin pattern on MCX futures: pattern-level statements, not sourced constants. Revisit when you source a specific jeweller's spread or a specific exchange's margin schedule.
 - 5–10% gold allocation and 0–2% silver add-on: pattern guidance, not sourced constants; revisit with the portfolio's equity weight and risk budget.

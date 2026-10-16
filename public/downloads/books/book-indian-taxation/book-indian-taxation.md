@@ -137,7 +137,7 @@ The recurring investor takeaway: *before* you chase a higher nominal bond yield,
 Gold is where the instrument choice is almost entirely a **tax** decision:
 
 - **Physical gold:** if the gold is held for more than 2 years *and* is a "listed" or identifiable asset, the gain is a long-term capital gain **taxed at your slab rate**. Short-term gain is also at slab rate. The point is that physical gold has **no special preferential rate** — it behaves like any other non-equity asset for CG purposes.
-- **Sovereign Gold Bonds (SGBs):** the headline feature — when you **hold to maturity**, the redemption value is **exempt from capital-gains tax**, and the 2.5% annual interest is taxed only at slab rate. This is the single most tax-efficient way to hold gold for a long horizon. However, SGBs **stopped issuing new tranches from FY 2024-25** (the last tranche was February 2024). If you **sell a listed SGB before maturity**, the gain is taxed as capital gain on the sale (slab rate), and the tax-free-at-maturity benefit is lost. See the dedicated SGB article for the full comparison.
+- **Sovereign Gold Bonds (SGBs):** the headline feature — as of **1 April 2026 (Budget 2026)**, the *maturity-redemption* *capital-gains* *exemption* now applies **only to the *original* *subscriber*** who *holds* *to* *maturity* (*the* 2.5% *annual* *interest* *remains* *taxable* *at* *your* *slab*). An SGB **acquired from the secondary market** is now **taxable as capital gain at slab rate on *both* the pre-maturity sale and the maturity redemption** — the Budget 2026 change deliberately narrowed the exemption to the original-subscriber case. SGBs **stopped issuing new tranches from FY 2024-25** (last tranche February 2024), and the FY 2026-27 Budget confirmed no re-launch. [src-budget-2026-sgb-tax] See the dedicated SGB article for the full comparison.
 - **Gold ETFs and Gold Mutual Funds:** taxed like their underlying (commodity/equity-style CG treatment; held > 12 months = long-term at 12.5% for listed-equity-classified funds, slab otherwise). This is why a *taxable gold ETF* is often the practical post-SGB substitute: you give up the tax-free-maturity feature in exchange for liquidity and no storage.
 
 The deep point: **gold is not a tax shelter in most forms; the SGB was.** Now that the SGB is closed, plan the rest of your gold exposure assuming it is taxed like any other asset.
@@ -276,6 +276,7 @@ The recurring, expensive mistakes: (1) **holding-period error** — selling an e
 - **Income Tax Act / Economic Times** — Section 80C limit remains ₹1.5 lakh (old regime only). https://economictimes.indiatimes.com/wealth/tax/has-section-80c-deduction-limit-hiked-check-how-much-tax-you-can-save-after-union-budget-2025/articleshow/117821055.cms (verified 2026-08-06)
 - **SEBI Investor Education** — Securities Market Investment: A Guide to ELSS. https://investor.sebi.gov.in/elss.html (verified 2026-08-06)
 - **PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025** — PFRDA (Exits and Withdrawals under the NPS) (Amendment) Regulations, 2025, w.e.f. 16 Dec 2025. https://www.pfrda.org.in/documents/33652/184762/Gazette+PFRDA+Exit+and+Withdrawals+under+the+NPS+Amendment+Regulations+2025.pdf (verified 2026-10-16)
+- **The Times of India (Carat & Stick column)** — Budget 2026: capital-gains exemption on SGB redemption now applies to original subscribers only (effective 1 Apr 2026). https://timesofindia.indiatimes.com/business/india-business/carat-stick-gold-bonds-lose-some-tax-free-sparkle/articleshow/127848054.cms (verified 2026-10-16)
 
 ---
 Educational content, not individualized investment, tax, accounting, or legal advice.
@@ -522,6 +523,19 @@ The *direct* *route*: *open* *a* *foreign* *broker* *account* *(usually* *a* *US
 - **The paperwork.** Every LRS remittance requires *Form* *111* *(the* *outward* *remittance* *form*, *signed* *by* *you* *and* *by* *the* *bank*, *the* *bank* *retains* *its* *copy* *and* *sends* *the* *RBI* *its* *copy*, *and* *you* *get* *the* *reference* *number* *that* *is* *the* *paper* *trail* *for* *the* *entire* *remittance* *and*, *eventually*, *for* *the* *foreign* *tax* *return* *filing*), *and*, *for* *repatriation* *(when* *the* *money* *comes* *back*), *Form* *111A*, *which* *ties* *the* *inward* *remittance* *to* *the* *outward* *one*, *by* *reference* *number*. *The* *reference* *number* *is* *the* *key* *that* *the* *CA* *uses* *to* *match* *your* *overseas* *asset* *to* *your* *LRS* *filing*; *a* *missing* *or* *unmatched* *reference* *number* *is* *a* *penalty* *event*, *not* *a* *paperwork* *event*.
 - **The *permitted* *purpose* *list*.** The LRS is *not* *an* *unrestricted* *remittance*; *it* *is* *a* *list* *of* *permitted* *purposes* *(education*, *medical* *treatment*, *purchase* *of* *foreign* *securities* *is* *on* *the* *list*, *but* *the* *list* *is* *not* *open-ended*, *and* *a* *purpose* *that* *is* *not* *on* *the* *list* *is* *not* *a* *permitted* *LRS* *transaction*, *verify* *the* *current* *permitted* *list* *before* *structuring* *a* *remittance* *for* *a* *specific* *asset*, *because* *the* *list* *is* *revised*).
 
+### TCS on outward remittances - the FY 2026-27 structure (verified 2026-10-16)
+
+Every LRS remittance passes through your bank, and the bank collects **Tax Collected at Source (TCS)** at the moment of remittance. **The Budget 2026 reshaped the rates and the threshold, effective 1 April 2026:** the threshold rose from *Rs 7 lakh* to ***Rs 10 lakh*** per remitter per FY (tracked *cumulatively* across *all* of your LRS remittances for the year), and the *education/medical* rate fell to *2%* above the threshold (from 5%).
+
+| Purpose | FY 2026-27 TCS |
+|---|---|
+| Education funded by an Indian bank / NBFC loan | **0%** (no threshold) |
+| Self-funded education, medical treatment | **2%** above *Rs 10 lakh* |
+| Overseas tour packages (travel + stay) | **2% flat** (no threshold - applies from the first rupee) |
+| Investment, gifts, maintenance, other LRS purposes | **20%** above *Rs 10 lakh* |
+
+Three practical points. (1) **Loan-funded overseas education is now effectively TCS-free** - a real cash-flow improvement for families financing a degree through an Indian lender rather than personal savings. (2) **TCS is not an extra tax** - it is a *prepayment* that shows up as credit in your Form 26AS/AIS; if your actual liability is lower, the excess is refunded after filing, and for a large one-time remittance you can apply to the Assessing Officer *in advance* for a lower/nil TCS certificate to avoid the cash-flow lock-up. (3) If your **PAN is not linked to Aadhaar, a higher TCS rate applies** - link it before remitting. The LRS limit itself (USD 2,50,000 per person per FY; HUF limit separate) was *unchanged* by the 2026 changes. [src-lrs-tcs-sc-2026]
+
 **The tax side of Route B, stated as the honest picture (verify the current DTA terms — the DTA is a *treaty*, and the *specific* *credit* *mechanism*, *the* *limit*, *and* *the* *form* *of* *the* *credit* *are* *treaty-specific*, *not* *a* *universal* *number):**
 
 - **An Indian resident is taxed on *worldwide* income.** This is the *first* *principle* *of* *the* *Indian* *overseas* *tax* *position*, *and* *it* *is* *the* *reason* *the* *LRS* *route* *has* *a* *tax* *consequence* *at* *all*: *a* *gain* *realised* *on* *a* *US* *stock* *you* *hold* *through* *a* *US* *broker*, *in* *a* *year* *you* *are* *a* *resident* *in* *India*, *is* *taxable* *in* *India*, *not* *only* *in* *the* *US*. *The* *foreign* *tax* *paid* *in* *the* *US* *is* *not* *a* *substitute* *for* *the* *Indian* *tax*; *it* *is* *a* *credit* *against* *it*, *under* *the* *DTA*, *up* *to* *the* *DTA's* *limit*.
@@ -599,6 +613,7 @@ The *net* *effect*, *on* *a* *multi-year* *hold*, *is* *that* *the* *INR/USD* *r
 ## Sources & Citations
 
 - **Income Tax Department / Union Budget 2025** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) - unchanged from the Budget 2025 reset. https://www.indiabudget.gov.in/doc/Finance_Bill.pdf (verified 2026-10-16)
+- **Standard Chartered Bank India (official notice reproducing Finance Act 2026 LRS TCS amendment)** — Revised TCS on outward foreign remittances under LRS, w.e.f. 1 April 2026 (Finance Act 2026, Sec 394(1) of IT Act 2025). https://www.sc.bank.in/important-information/others/lrs-amendment-in-tcs/ (verified 2026-10-16)
 
 ---
 Educational content, not individualized investment, tax, accounting, or legal advice.

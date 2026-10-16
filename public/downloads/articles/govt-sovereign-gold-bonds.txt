@@ -39,9 +39,9 @@ Because new tranches are closed, your routes to exposure to gold have changed. E
 
 You can still buy listed SGBs on the exchange, at a premium or discount to the face value, depending on where gold price is versus the original issue price. Two tax consequences to weigh:
 • Sale before maturity (i.e., you buy on the exchange, sell on the exchange): the gain/loss is taxed as capital gains on the sale — short-term or long-term depends on the holding period of the SGB itself, and the tax rate is your slab rate (not the equity-asset 12.5%). Selling a listed SGB does not get the tax-free-maturity benefit.
-• Hold to maturity (i.e., you buy on the exchange and keep it till the 8-year redemption): the redemption is tax-free (the same feature as a primary subscription), but you have paid the market premium (or discount) on top of face value, so your effective gold price is not the issue price. A discount purchase is the cleanest secondary-market route; a premium purchase means you are paying more than the tax-free redemption will return, which can erode the tax edge.
+• Hold to maturity as a secondary-market buyer: changed by the Budget 2026, effective 1 April 2026. The capital-gains exemption on SGB redemption now applies only to the original subscriber who bought at issue and holds to maturity. If you acquired the SGB from the secondary market, the whole gain - from your purchase price to the redemption value - is taxable as capital gain at your slab rate, whether you exit early or hold to maturity. The tax-free-maturity feature no longer transfers with the bond; it stays with the original subscriber. [src-budget-2026-sgb-tax]
 
-The secondary market is where the liquidity and price discovery happen; the tax rule is unchanged — maturity is tax-free, pre-maturity sale is slab-taxed. A discounted SGB on NSE is often the most tax-efficient active gold position available today, and is worth checking the current exchange quote for.
+The secondary market is where the liquidity and price discovery happen, but since 1 April 2026 the tax rule changed for secondary-market buyers: both a pre-maturity sale and a maturity redemption of a secondary-market SGB are now slab-taxed capital gains (only the original subscriber keeps the tax-free-maturity benefit). [src-budget-2026-sgb-tax] A discounted SGB on NSE therefore saves your purchase price but no longer saves you the tax on exit — so the after-tax case for a secondary-market SGB is now a coupon-and-premium argument, not a tax argument, and a Gold ETF (12.5% LTCG) usually wins unless the SGB entry discount plus its 2.5% coupon still clears your slab-tax cost on exit. Re-check the current exchange quote for the premium/discount before deciding.
 
 2. GOLD ETFS
 ============
@@ -50,7 +50,7 @@ A Gold ETF is an exchange-traded fund that holds physical gold (or gold-backed c
 • Held > 12 months → long-term capital gain on a listed-equity-classified fund, 12.5% with the Rs. 1L annual exemption (the equity rule).
 • Held ≤ 12 months → short-term capital gain, 20% (the July-2024 STCG rule).
 
-Gold ETFs are the most liquid active gold instrument and the most likely tax-treatment to match a plain equity fund's, which means you give up the SGB's tax-free-maturity feature in exchange for instant liquidity, no 8-year lock-in, and no storage. For a shorter horizon (1–3 years) the ETF beats the SGB on liquidity; for a long horizon (5+ years) the existing SGB position still wins on after-tax.
+Gold ETFs are the most liquid active gold instrument and the most likely tax-treatment to match a plain equity fund's, which means you give up the SGB's tax-free-maturity feature in exchange for instant liquidity, no 8-year lock-in, and no storage. For a shorter horizon (1–3 years) the ETF beats the SGB on liquidity; for a long horizon (5+ years) your own SGB position (a primary subscription held to maturity) still wins on after-tax; a secondary-market SGB no longer beats the ETF on the tax axis since 1 April 2026.
 
 3. GOLD MUTUAL FUNDS
 ====================
@@ -67,21 +67,21 @@ The SGB was the tax-efficient physical equivalent — it eliminated the storage-
 SGB VS. ETF VS. PHYSICAL — COMPARISON TABLE
 ===========================================
 
-All figures verified 2026-08-06 for the tax rows; the spread / storage / liquidity rows are structural facts about the instrument, not time-sensitive rates.
+Figures verified 2026-08-06 for the structural tax rows and 2026-10-16 for the Budget-2026 secondary-market change; the spread / storage / liquidity rows are structural facts about the instrument, not time-sensitive rates.
 
-Feature: **Tax-free at maturity**,**Yes (if held to maturity)**,No,No,No  |  **SGB (existing, listed)**: **Tax on pre-maturity sale**,**Slab rate (CG on sale)**,**12.5% LTCG (>12 mo) / 20% STCG**,**Slab rate (non-equity CG)**,**Slab rate (non-equity CG)**  |  **Gold ETF**: **Coupon**,**2.5% p.a. (fixed, slab-taxed)**,No,No,No  |  **Gold MF**: **Lock-in / tenure**,**8 yrs (early redemption after 5 yrs, 30-notice)**,None,None,None  |  **Physical (hallmarked)**: **Liquidity**,Exchange-listed (N/BSE), demat,Exchange-listed (N/BSE), demat,NAV redemption, daily,Physical storage
+Feature: **Tax-free at maturity**,**Yes - original subscribers only (since 1 Apr 2026)**,No,No,No  |  **SGB (existing, listed)**: **Tax on pre-maturity sale**,**Slab rate (CG on sale)**,**12.5% LTCG (>12 mo) / 20% STCG**,**Slab rate (non-equity CG)**,**Slab rate (non-equity CG)**  |  **Gold ETF**: **Coupon**,**2.5% p.a. (fixed, slab-taxed)**,No,No,No  |  **Gold MF**: **Lock-in / tenure**,**8 yrs (early redemption after 5 yrs, 30-notice)**,None,None,None  |  **Physical (hallmarked)**: **Liquidity**,Exchange-listed (N/BSE), demat,Exchange-listed (N/BSE), demat,NAV redemption, daily,Physical storage
 
-Reading the table: the SGB's tax-free-maturity and sovereign-guarantee rows are the two features that cannot be replicated by an ETF, MF, or physical gold.
+Reading the table: the SGB's sovereign-guarantee row cannot be replicated by any other instrument, and the tax-free-maturity row now applies only to original subscribers (since 1 April 2026, secondary-market buyers are slab-taxed on redemption).
 
-A WORKED EXAMPLE: WHY THE SGB'S TAX EDGE WAS REAL
-=================================================
+A WORKED EXAMPLE: WHY THE SGB'S TAX EDGE WAS REAL (ORIGINAL-SUBSCRIBER VIEW; SINCE 1 APRIL 2026 THE TAX-FREE-MATURITY FEATURE NO LONGER TRANSFERS TO A SECONDARY-MARKET BUYER)
+==============================================================================================================================================================================
 
 The table is only half the story; the other half is magnitude. Assume you bought an SGB at a face value of Rs. 1,00,000 (a plausible price near the start of the SGB program, illustrative — not your number) and hold it to maturity 8 years later. Gold appreciates at an assumed 8% p.a. (a placeholder, not a forecast) to Rs. 1,00,000 × (1.08)^8 ≈ Rs. 1,80,000 in gold value. The SGB pays a fixed 2.5% coupon on the original face value: 0.025 × Rs. 1,00,000 = Rs. 2,500 p.a., paid semi-annually. At maturity, assuming the coupon is redeemed with you (not separately accumulated), the headline picture is:
 
 \text{Gold value at maturity} \approx 1{,}80{,}000,\quad
 \text{Coupon earned over 8 yrs} \approx 2{,}000 \times 8 = 20{,}000
 
-The SGB path: the entire redemption (gold value + the tax-free maturity feature) comes out tax-free on the capital; only the 2.5% coupon is slab-taxed (a small, fixed line — 0.30 × 20,000 = Rs. 6,000 at a 30% slab, illustrative). The Gold ETF path: you track the same 8% p.a. gold appreciation, but at maturity you have a long-term capital gain of roughly Rs. 80,000 that is taxed at 12.5% (a listed-equity-classified fund held > 12 months), i.e. 0.125 × 80,000 = Rs. 10,000 — more tax than the SGB's coupon line, and no tax-free-maturity shield on the whole corpus.
+The SGB path (as an original subscriber; secondary-market buyers lose this tax-free path from 1 April 2026): the entire redemption (gold value + the tax-free maturity feature) comes out tax-free on the capital; only the 2.5% coupon is slab-taxed (a small, fixed line — 0.30 × 20,000 = Rs. 6,000 at a 30% slab, illustrative). The Gold ETF path: you track the same 8% p.a. gold appreciation, but at maturity you have a long-term capital gain of roughly Rs. 80,000 that is taxed at 12.5% (a listed-equity-classified fund held > 12 months), i.e. 0.125 × 80,000 = Rs. 10,000 — more tax than the SGB's coupon line, and no tax-free-maturity shield on the whole corpus.
 
 Two consequences fall out of that arithmetic:
 1. The SGB's tax-free-maturity feature is the dominant after-tax edge. It is not a small rounding difference — it is the difference between a slab-taxed 80,000 gain and a tax-free 80,000 gain, which is materially larger than any coupon-rate gap.
@@ -93,19 +93,19 @@ TAX NOTE: SGB MATURITY VS. LISTED-SALE — THE KEY DISTINCTION
 ============================================================
 
 The single most confusing (and most costly) point about SGBs is the distinction between:
-1. Maturity redemption (you hold the SGB to the 8-year end): completely tax-free on the entire redemption (principal + coupon). This is the original SGB feature.
+1. Maturity redemption (you hold the SGB to the 8-year end): completely tax-free on the entire redemption (principal + coupon) - as of 1 April 2026, this is the original subscriber's feature only; a secondary-market buyer's redemption is now slab-taxed CG (Budget 2026).
 2. Listed pre-maturity sale (you sell on NSE/BSE before the 8-year end): taxed as capital gains on the sale, at slab rate (not the equity-asset 12.5% rule, because a listed SGB is a non-equity asset for CG purposes).
 
 A common investor error is to buy an SGB at a discount on the exchange, sell it on the exchange at a higher price before maturity, and expect the tax-free-maturity benefit — which does not apply to a listed sale. The tax-free benefit only applies to a maturity redemption. The slab-taxed CG on a listed sale is the correct rule, and the effective after-tax outcome depends on both the premium/discount on the purchase and your marginal slab rate.
 
-In practice, maturity is the superior tax outcome (tax-free) versus listed sale (slab-taxed), so if you can hold the SGB to maturity, you should — even at a small premium, because the tax-free benefit on the whole redemption typically outweighs the premium paid. The exception is a very large premium (the gold price has doubled since the issue), in which case the premium cost erodes the tax-free benefit and a Gold ETF (with a 12.5% LTCG rule if held > 12 months) may be the better after-tax instrument.
+In practice: for an original subscriber, maturity remains the superior tax outcome (tax-free) versus a listed sale (slab-taxed), so hold to maturity even at a small premium — the tax-free benefit on the whole redemption typically outweighs the premium paid. The exception is a very large premium (gold has doubled since the issue), where the premium cost erodes the tax-free benefit and a Gold ETF (12.5% LTCG if held > 12 months) may be the better after-tax instrument. Since 1 April 2026 the tax no longer decides between hold and sell for a secondary-market buyer — both exits are slab-taxed — so the secondary-market choice reduces to the classic premium/discount plus 2.5% coupon arithmetic, and the ETF wins unless the SGB entry discount plus coupon still clears the slab-tax cost on exit.**
 
 WHEN AN SGB POSITION IS THE WRONG TOOL
 ======================================
 • You have less than 5 years to a goal — the SGB lock-in (even the early 5-year redemption, which is penalty-eroded) costs you liquidity the Gold ETF does not.
 • You are above the per-person cap (Rs. 25k, or Rs. 50k HUF) and want a bigger gold position — the secondary-market route does have a cap (you can only buy existing SGBs, at a premium/discount, in exchange-traded lots). A Gold ETF has no cap.
 • You need instant liquidity (you may have to sell within days) — the SGB's exchange liquidity is not instant (a discount can be volatile); a Gold ETF is near-instant.
-• The premium on the SGB is high (gold price is well above the issue price) — the premium cost erodes the tax-free-maturity benefit; a Gold ETF is likely the better after-tax instrument.
+• The premium on the SGB is high (gold price is well above the issue price) — for an original subscriber the premium cost erodes the tax-free-maturity benefit; for a secondary-market buyer (post 1 April 2026) it simply raises your slab-taxed cost basis; in both cases a Gold ETF is likely the better after-tax instrument.
 
 RELATED
 =======
@@ -116,11 +116,12 @@ RELATED
 UPDATE LOG
 ==========
 
-Date: 2026-08-06,Verified SGB *scheme* features (₹50 min, 8-yr tenure, 2.5% p.a. coupon, tax-free maturity, 5-yr early-redemption window, NSE/BSE listing, ₹25k per-person cap on *primary* subscription, HUF/family angle),[src-indiagold]  |  Change: 2026-08-06,Verified SGB *discontinuation*: no new tranches from FY 2024-25, last tranche Feb 2024; scheme *not* abolished, *existing* bonds *remain valid*. **Re-check the latest Union Budget / Ministry of Finance note before republishing.**,[src-sgb-discontinued]  |  Source: 2026-08-06,Verified SGB *tax* rules: *maturity redemption* is tax-free; *listed pre-maturity sale* is slab-taxed CG,[src-indiagold]
+Date: 2026-08-06,Verified SGB *scheme* features (₹50 min, 8-yr tenure, 2.5% p.a. coupon, tax-free maturity, 5-yr early-redemption window, NSE/BSE listing, ₹25k per-person cap on *primary* subscription, HUF/family angle),[src-indiagold]  |  Change: 2026-08-06,Verified SGB *discontinuation*: no new tranches from FY 2024-25, last tranche Feb 2024; scheme *not* abolished, *existing* bonds *remain valid*. **Re-check the latest Union Budget / Ministry of Finance note before republishing.**,[src-sgb-discontinued]  |  Source: 2026-08-06,Verified SGB *tax* rules: *maturity redemption* is tax-free; *listed pre-maturity sale* is slab-taxed CG *(pre-2026 rule; see next row)*,[src-indiagold]
 
 SOURCES & CITATIONS
 ===================
 • [src-sgb-discontinued] PMJJLayojana / multiple finance desks (consistent report) — SGB scheme stopped issuing new tranches from FY 2024-25; last tranche Feb 2024. Limitation: confirm the current-year status against the latest Union Budget / Ministry of Finance note before republishing.
+• [src-budget-2026-sgb-tax] The Times of India (Carat & Stick column, Feb 2026) — the Budget 2026 removed the capital-gains exemption on SGB redemption for SGBs bought from the secondary market (effective 1 April 2026); only the original subscriber who holds to maturity keeps the tax-free redemption; secondary SGB prices reportedly softened ~5% on the news; no new-tranche re-launch in the FY 2026-27 Budget. Limitation: confirm the exact Finance Act 2026 text and the current secondary-market quote at purchase.
 • [src-indiagold] Ministry of Finance / RBI SGB scheme documents (historical) — SGB scheme features when active: 8-year maturity, 2.5% p.a. interest, tax-exempt on maturity. Verified 2026-08-06.
 
 Figures marked "(verified 2026-08-06)" were checked against the sources above at that date. The SGB discontinuation (no new tranches since FY 2024-25) is the primary time-sensitive claim in this article; re-check the latest Union Budget before republishing. The secondary-market premium/discount on existing SGBs is always time-sensitive and must be checked at purchase.

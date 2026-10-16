@@ -149,5 +149,75 @@
     "verified": "2026-10-16",
     "claims": "SIF categories: Equity Long-Short (market-neutral, ~75/25 illustrative), Debt Long-Short (duration/credit); naked shorts up to ~25% + hedging; expense cap ~2.25%+2%; investor-level tax like MFs by asset class; AIF Cat III differs (CG 12.5% + business income 30%)",
     "notes": "Medium confidence: caps and category specifics are secondary summaries - verify against the SEBI text and scheme document."
+  },
+  {
+    "id": "src-sebi-fo-fy26",
+    "publisher": "Ministry of Finance / SEBI (Rajya Sabha written reply)",
+    "title": "Ministry of Finance written reply, Rajya Sabha Unstarred Q 2633 (retail investor protection in F&O trading), 11 Aug 2026",
+    "url": "https://sansad.in/getFile/annex/271/AU2633_w2b25X.pdf",
+    "type": "government",
+    "authority": "primary",
+    "published": "2026-08-11",
+    "verified": "2026-10-16",
+    "claims": "F&O-retail-losses-five-year",
+    "notes": "SEBI five-year F&O data (top-15-broker sample ~90% of individual traders): FY22-FY26 trader counts, notional turnover, net losses, avg loss/trader; STT collection series."
+  },
+  {
+    "id": "src-et-fo-retail-exodus",
+    "publisher": "The Economic Times",
+    "title": "Retail F&O boom hits reverse gear as active trader base falls 18% in FY26: SEBI",
+    "url": "https://economictimes.indiatimes.com/markets/stocks/news/retail-fo-boom-hits-reverse-gear-as-active-trader-base-falls-18-in-fy26-sebi/printarticle/133382023.cms",
+    "type": "financial-publication",
+    "authority": "secondary",
+    "verified": "2026-10-16",
+    "claims": "F&O-87.7-pct-traders-lose-fy26",
+    "notes": "87.7% of individual F&O traders lost money in FY26; options = 92% of losses."
+  },
+  {
+    "id": "src-toi-big-boys",
+    "publisher": "The Times of India",
+    "title": "In F&O space, big boys profit at retail expense (SEBI study)",
+    "url": "https://timesofindia.indiatimes.com/business/india-business/in-fo-space-big-boys-profit-at-retails-expense-sebi-study/articleshow/133390369.cms",
+    "type": "financial-publication",
+    "authority": "secondary",
+    "verified": "2026-10-16",
+    "claims": "F&O-prop-vs-retail-fy26",
+    "notes": "FY26: prop traders +Rs 44,000 cr, retail -Rs 72,000 cr in F&O (press reporting of SEBI data; treat split as approximate)."
+  },
+  {
+    "id": "src-budget-2026-sgb-tax",
+    "publisher": "The Times of India (Carat & Stick column)",
+    "title": "Budget 2026: capital-gains exemption on SGB redemption now applies to original subscribers only (effective 1 Apr 2026)",
+    "url": "https://timesofindia.indiatimes.com/business/india-business/carat-stick-gold-bonds-lose-some-tax-free-sparkle/articleshow/127848054.cms",
+    "type": "financial-publication",
+    "authority": "secondary",
+    "published": "2026-02-02",
+    "verified": "2026-10-16",
+    "claims": "SGB-secondary-market-tax",
+    "notes": "Budget 2026 removed the maturity-redemption CGT exemption for SGBs acquired from the secondary market; secondary SGB prices softened ~5% on the news; no new SGB tranches in FY 2026-27."
+  },
+  {
+    "id": "src-lrs-tcs-sc-2026",
+    "publisher": "Standard Chartered Bank India (official notice reproducing Finance Act 2026 LRS TCS amendment)",
+    "title": "Revised TCS on outward foreign remittances under LRS, w.e.f. 1 April 2026 (Finance Act 2026, Sec 394(1) of IT Act 2025)",
+    "url": "https://www.sc.bank.in/important-information/others/lrs-amendment-in-tcs/",
+    "type": "regulator",
+    "authority": "secondary",
+    "published": "2026-04-01",
+    "verified": "2026-10-16",
+    "claims": "LRS-TCS-FY2026-27",
+    "notes": "Threshold Rs 10L (up from 7L); loan-funded education 0%; self-funded education/medical 2% above threshold; tour packages 2% flat no threshold; other LRS 20% above threshold; higher rate if PAN not linked to Aadhaar."
+  },
+  {
+    "id": "src-irdai-moratorium-2026",
+    "publisher": "India Today (reporting the IRDAI 2026 health-insurance reform)",
+    "title": "IRDAI cuts health-insurance moratorium period from 8 to 5 years; no entry-age limit; PED waiting max 3 years",
+    "url": "https://www.indiatoday.in/business/personal-finance/story/health-insurance-moratorium-period-5-years-irdai-non-disclosure-claims-rule-2872800-2026-02-23",
+    "type": "financial-publication",
+    "authority": "secondary",
+    "published": "2026-02-23",
+    "verified": "2026-10-16",
+    "claims": "IRDAI-health-reforms-2025-26",
+    "notes": "After 60 consecutive months of uninterrupted cover, insurer cannot repudiate a claim for non-disclosure except proven fraud; lapse or improper migration resets the clock; IRDAI also removed the entry-age cap on health products."
   }
 ]
