@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -904,5 +904,95 @@ describe('Pre-IPO / unlisted equity tax outcome', () => {
     expect(r.taxPaid).toBe(0);
     expect(r.afterTaxGain).toBe(0);
     expect(r.netReturnPct).toBe(0);
+  });
+});
+
+describe('Senior-citizen regime decision (age brackets + 80TTB + 87A)', () => {
+  const base = (over: Record<string, unknown> = {}) => ({
+    age: 66, interestIncome: 246000, otherIncome: 600000,
+    eightyTTBLimit: 50000, eightyD: 50000, ...over,
+  });
+
+  it('a 66-year-old at 8.46L: the new regime 87A-to-12L zeroes the bill, old pays 59.2k', () => {
+    const r = seniorRegimeTaxFY27(base({}));
+    expect(r.ageBracket).toBe('senior');
+    expect(r.new.tax).toBe(0); // 8.46L is under the 12L new-regime tax-free threshold
+    expect(r.old.tax).toBe(59200);
+    expect(r.winner).toBe('new');
+    expect(r.savingsByOld).toBeLessThan(0); // new regime is cheaper here
+  });
+
+  it('the old-regime basic exemption is 3L for senior and 5L for super-senior', () => {
+    const s = seniorRegimeTaxFY27(base({ age: 66, interestIncome: 0, otherIncome: 1000000, eightyTTBLimit: 0, eightyD: 0 }));
+    const sp = seniorRegimeTaxFY27(base({ age: 82, interestIncome: 0, otherIncome: 1000000, eightyTTBLimit: 0, eightyD: 0 }));
+    expect(s.old.basicExemption).toBe(300000);
+    expect(sp.old.basicExemption).toBe(500000);
+    expect(s.ageBracket).toBe('senior');
+    expect(sp.ageBracket).toBe('super-senior');
+  });
+
+  it('below 60 the old-regime basic exemption is the regular 2.5L', () => {
+    const r = seniorRegimeTaxFY27(base({ age: 55, interestIncome: 0, otherIncome: 1000000, eightyTTBLimit: 0, eightyD: 0 }));
+    expect(r.ageBracket).toBe('below-60');
+    expect(r.old.basicExemption).toBe(250000);
+  });
+
+  it('80TTB applies only up to the interest actually earned (and the limit)', () => {
+    const r = seniorRegimeTaxFY27(base({ interestIncome: 30000, otherIncome: 10000000 }));
+    // 30k interest < 50k limit, so the applied deduction is the full 30k
+    expect(r.old.eightyTTBApplied).toBe(30000);
+    const capped = seniorRegimeTaxFY27(base({ interestIncome: 200000, otherIncome: 10000000 }));
+    expect(capped.old.eightyTTBApplied).toBe(50000); // capped at the limit
+  });
+
+  it('the 80TTB value is the old-regime tax it removes (zero at low income)', () => {
+    // High income: 80TTB has real value
+    const high = seniorRegimeTaxFY27(base({ interestIncome: 1000000, otherIncome: 12000000 }));
+    expect(high.eightyTTBValue).toBeGreaterThan(0);
+    // Low income (total under the 5L old-regime 87A threshold): old tax is
+    // zero either way, so 80TTB has no base tax to reduce - value is 0.
+    const low = seniorRegimeTaxFY27(base({ interestIncome: 100000, otherIncome: 200000 }));
+    expect(low.eightyTTBValue).toBe(0);
+  });
+
+  it('even a full old-regime stack does NOT flip the decision at typical retiree income (new wins)', () => {
+    // The honest finding: at 40L, a super-senior with the whole old stack
+    // (80C 1.5L + 24b 2L + 80D 50k + 80TTB 50k = ~4.55L) still pays LESS in
+    // the new regime, because both hit 30% at the top but the new regime has
+    // lower base slabs + the 87A-to-12L rebate. 80TTB alone is too small to
+    // overcome the new regime's widened slabs.
+    const r = seniorRegimeTaxFY27({
+      age: 84, interestIncome: 200000, otherIncome: 3800000,
+      eightyTTBLimit: 50000, eightyD: 50000, eightyC: 150000, homeLoanInterest: 200000,
+    });
+    expect(r.winner).toBe('new');
+    expect(r.new.tax).toBe(780000);
+    expect(r.old.tax).toBe(865000);
+    expect(r.savingsByOld).toBe(-85000);
+  });
+
+  it('the new regime still wins even at very high income with the full old stack (FY 2026-27 widening)', () => {
+    // Verified honest finding: at 1 Cr with the entire old-regime stack
+    // (80C 1.5L + 24b 2L + 80D 50k + 80TTB 50k = ~4.55L of deductions), the
+    // new regime STILL costs less. The FY 2026-27 new-regime widening (lower
+    // base slabs + 87A to 12L) means the stale "old regime wins for retirees"
+    // advice no longer holds in this base-slab model. (Model excludes
+    // surcharge; the new regime's 25% surcharge cap vs the old 37% would only
+    // widen the new regime's advantage at the very top.)
+    const r = seniorRegimeTaxFY27({
+      age: 84, interestIncome: 1000000, otherIncome: 9000000,
+      eightyTTBLimit: 50000, eightyD: 50000, eightyC: 150000, homeLoanInterest: 200000,
+    });
+    expect(r.winner).toBe('new');
+    expect(r.new.tax).toBe(2580000);
+    expect(r.old.tax).toBe(2665000);
+    expect(r.savingsByOld).toBeLessThan(0);
+  });
+
+  it('zero income: both regimes zero, tie', () => {
+    const r = seniorRegimeTaxFY27(base({ interestIncome: 0, otherIncome: 0 }));
+    expect(r.old.tax).toBe(0);
+    expect(r.new.tax).toBe(0);
+    expect(r.winner).toBe('tie');
   });
 });

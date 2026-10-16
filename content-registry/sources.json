@@ -747,5 +747,25 @@
    "The IPO may not happen (DRHPs lapse/are withdrawn) and may price below the pre-IPO entry; unlisted shares in a company with no listing plan have only a private buyer as the exit"
   ],
   "notes": "The 12.5% 112 rate and the 24-month unlisted holding test are the post-Budget-2024 position; confirm the current-year section numbers (and any Act-2025 renumbering) with a CA before acting. The SEBI platform position is a regulatory warning, not a change to the underlying private transaction law (Companies Act / articles compliance)."
+ },
+ {
+  "id": "src-senior-tax-fy2026-27",
+  "title": "Senior-citizen tax FY 2026-27 (Income-tax Act 2025): old-regime basic exemption Rs 3,00,000 (senior 60-79) / Rs 5,00,000 (super-senior 80+) vs Rs 2,50,000 below 60; the new regime has NO age benefit (same slabs + 87A to 12L + Rs 75,000 standard deduction for everyone); 80TTB up to Rs 50,000 on interest income (savings/FD/RD/post-office/SCSS), OLD regime only - a Budget-2026 raise to Rs 1,00,000 has been reported but is unverified; 80D enhanced senior cap; senior TDS threshold on interest raised to Rs 1,00,000 (from 50,000); Form 15H stops TDS below the taxable limit; seniors with no business income are exempt from advance tax (pay as self-assessment tax); Section 194P lets a 75+ senior whose only income is pension + interest from the same bank skip ITR filing; SCSS 8.2% interest is fully taxable as Other Sources with only 80C on the deposit and 80TTB on up to Rs 50,000 of interest (both old regime)",
+  "publisher": "CalcGuru senior-citizen tax benefits (Aug 2026) / TaxClue senior slabs / Moneykit senior calculator",
+  "url": "https://calcguru.in/senior-citizen-tax-benefits-80ttb-scss",
+  "type": "financial-publication",
+  "authority": "secondary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "Old-regime basic exemption: Rs 3,00,000 senior (60-79) / Rs 5,00,000 super-senior (80+) / Rs 2,50,000 below 60; the new regime gives no age-based exemption to anyone",
+   "Section 80TTB: up to Rs 50,000 deduction on interest income (FY 2026-27 confirmed figure), old regime only; the new regime removes it entirely",
+   "A Budget-2026 report of raising 80TTB to Rs 1,00,000 is UNVERIFIED - the Income-tax Department / Finance Act text must be checked before relying on the higher cap",
+   "Senior TDS threshold on interest income raised to Rs 1,00,000 (from Rs 50,000); Form 15H stops TDS if total income is below the taxable limit",
+   "Seniors with no business income are exempt from advance tax; a 75+ senior whose only income is pension + same-bank interest may skip ITR filing under Section 194P",
+   "SCSS (8.2% on up to Rs 30L) interest is fully taxable as Income from Other Sources; the only reliefs are 80C on the deposit (up to Rs 1.5L, investment year) and 80TTB on up to Rs 50,000 of the interest - both old regime",
+   "In FY 2026-27 the new regime's widened slabs + 87A-to-12L often beat the old regime for retirees even WITH 80TTB/80D; the popular 'old regime wins for retirees' advice is stale at typical (below ~20L) income levels in this base-slab model"
+  ],
+  "notes": "The 80TTB Rs 50,000 figure is the confirmed FY 2026-27 (AY 2027-28) value; the reported Rs 1,00,000 raise is not yet in the Finance Act text - verify with a CA before acting. The senior TDS threshold, 15H, the advance-tax exemption and 194P are stable; the regime-decision result depends on the widened new-regime slabs and would flip back if the old regime regained lower top bands."
  }
 ]

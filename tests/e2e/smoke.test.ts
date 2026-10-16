@@ -264,6 +264,28 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('senior-regime-tax calculator renders the old-vs-new retiree decision', async ({ page }) => {
+    await page.goto('/calculators/senior-regime-tax');
+    await expect(page.getByText('Age bracket')).toBeVisible();
+    await expect(page.getByText('Old-regime tax', { exact: true })).toBeVisible();
+    await expect(page.getByText('New-regime tax', { exact: true })).toBeVisible();
+    await expect(page.getByText('Regime winner')).toBeVisible();
+    await expect(page.getByText('80TTB value (old regime)')).toBeVisible();
+    // Chart container for the old-vs-new tax comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('senior-citizen regime-decision article renders the age brackets and 87A-trap section', async ({ page }) => {
+    await page.goto('/articles/tax-senior-citizen-regime-decision');
+    await expect(page.getByRole('heading', { name: /The Senior-Citizen Regime Decision/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /The age brackets/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The counterintuitive result/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The retirement TDS and filing reliefs/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

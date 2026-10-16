@@ -1109,6 +1109,144 @@ export function npsRetirementExitFY27(n: NpsExitInput): NpsExitResult {
 }
 
 /**
+ * Senior-citizen regime decision for FY 2026-27 (Income-tax Act, 2025).
+ *
+ * Age brackets (only the OLD regime differentiates by age):
+ *  - Senior (60-79): old-regime basic exemption Rs 3,00,000.
+ *  - Super senior (80+): old-regime basic exemption Rs 5,00,000.
+ *  - New regime: no age benefit; same slabs + 87A (to 12L) for everyone.
+ *
+ * Senior-specific deductions:
+ *  - 80TTB: up to a limit (Rs 50,000 in FY 2025-26; a Budget-2026 raise to
+ *    Rs 1,00,000 has been reported but is UNVERIFIED - pass `eightyTTBLimit`
+ *    and confirm with a CA) on interest income, OLD regime only.
+ *  - 80D: enhanced cap for seniors (Rs 50,000, vs Rs 25,000 for a regular
+ *    individual under the pre-2025 structure) - passed in as `eightyD`.
+ *  - TDS on senior interest starts only above Rs 1,00,000/yr (Form 15H stops
+ *    it below the taxable limit) - informational, not modelled here.
+ *
+ * Conventions: `interestIncome` is the FD/RD/SCSS/savings interest eligible
+ * for 80TTB; `otherIncome` is everything else (pension, rental, etc.). The
+ * old-regime 87A rebate (to Rs 5L) and new-regime 87A (to 12L) are applied.
+ */
+export interface SeniorTaxInput {
+  age: number;
+  interestIncome: number;
+  otherIncome: number;
+  eightyTTBLimit: number;
+  eightyD: number;
+  eightyC?: number;
+  homeLoanInterest?: number;
+}
+
+export interface SeniorRegimeResult {
+  ageBracket: 'below-60' | 'senior' | 'super-senior';
+  old: {
+    basicExemption: number;
+    eightyTTBApplied: number;
+    taxableIncome: number;
+    tax: number;
+    effectiveRate: number;
+  };
+  new: {
+    basicExemption: number;
+    eightyTTBApplied: number; // 0 - 80TTB is old-regime-only
+    taxableIncome: number;
+    tax: number;
+    effectiveRate: number;
+  };
+  totalIncome: number;
+  eightyTTBValue: number; // the old-regime tax saved by the 80TTB deduction
+  winner: 'old' | 'new' | 'tie';
+  savingsByOld: number; // positive => old regime is cheaper
+}
+
+function seniorOldBasicExemption(age: number): number {
+  if (age >= 80) return 500000;
+  if (age >= 60) return 300000;
+  return 250000;
+}
+
+/**
+ * Old-regime slab tax on income-after-deductions, with an age-appropriate
+ * basic-exemption nil band: nil up to `basicExemption`, 5% up to 5L, 20% up
+ * to 10L, 30% above. (The 5/20/30 structure is the classic old regime; only
+ * the nil-band start changes with age.)
+ */
+function seniorOldSlabTax(incomeAfterDeductions: number, basicExemption: number): number {
+  if (incomeAfterDeductions <= basicExemption) return 0;
+  let tax = 0;
+  const b1Hi = 500000;
+  const b2Hi = 1000000;
+  if (basicExemption < b1Hi) {
+    tax += (Math.min(incomeAfterDeductions, b1Hi) - basicExemption) * 0.05;
+  }
+  if (incomeAfterDeductions > b1Hi) {
+    tax += (Math.min(incomeAfterDeductions, b2Hi) - b1Hi) * 0.2;
+  }
+  if (incomeAfterDeductions > b2Hi) {
+    tax += (incomeAfterDeductions - b2Hi) * 0.3;
+  }
+  return tax;
+}
+
+export function seniorRegimeTaxFY27(s: SeniorTaxInput): SeniorRegimeResult {
+  const totalIncome = s.interestIncome + s.otherIncome;
+  const ageBracket: SeniorRegimeResult['ageBracket'] =
+    s.age >= 80 ? 'super-senior' : s.age >= 60 ? 'senior' : 'below-60';
+
+  // OLD regime: age-based basic exemption + 80TTB on interest (capped at the
+  // limit and the interest actually earned) + 80D + the old-regime-only stack
+  // (80C basket, 24(b) home-loan interest), on the 5/20/30 slabs.
+  const oldBasic = seniorOldBasicExemption(s.age);
+  const eightyTTBApplied = Math.min(s.eightyTTBLimit, Math.max(0, s.interestIncome));
+  const eightyD = Math.max(0, s.eightyD);
+  const eightyC = Math.min(Math.max(0, s.eightyC ?? 0), 150000);
+  const homeLoan = Math.min(Math.max(0, s.homeLoanInterest ?? 0), 200000);
+  const oldDeductions = eightyTTBApplied + eightyD + eightyC + homeLoan;
+  const oldTaxable = Math.max(0, totalIncome - oldBasic - oldDeductions);
+  let oldTax = seniorOldSlabTax(totalIncome - oldDeductions, oldBasic);
+  // 87A (old regime): income up to 5L is tax-free regardless of age.
+  if (totalIncome <= 500000) oldTax = 0;
+  // The 80TTB value = the old tax if 80TTB were not claimed, minus the tax with it.
+  let oldTaxNoTTB = seniorOldSlabTax(totalIncome - oldDeductions + eightyTTBApplied, oldBasic);
+  if (totalIncome <= 500000) oldTaxNoTTB = 0;
+  const eightyTTBValue = Math.max(0, oldTaxNoTTB - oldTax);
+
+  // NEW regime: no age benefit, no 80TTB/80D, same 87A-to-12L rebate as everyone.
+  const newTaxable = totalIncome; // no deductions available in the new regime
+  const newTax = newRegimeTaxFY27(newTaxable);
+
+  const oldEff = totalIncome > 0 ? oldTax / totalIncome : 0;
+  const newEff = totalIncome > 0 ? newTax / totalIncome : 0;
+  const savingsByOld = newTax - oldTax;
+  const winner: SeniorRegimeResult['winner'] =
+    savingsByOld > 0 ? 'old' : savingsByOld < 0 ? 'new' : 'tie';
+
+  return {
+    ageBracket,
+    old: {
+      basicExemption: oldBasic,
+      eightyTTBApplied,
+      taxableIncome: oldTaxable,
+      tax: oldTax,
+      effectiveRate: oldEff,
+    },
+    new: {
+      basicExemption: 400000,
+      eightyTTBApplied: 0,
+      taxableIncome: newTaxable,
+      tax: newTax,
+      effectiveRate: newEff,
+    },
+    totalIncome,
+    eightyTTBValue,
+    winner,
+    savingsByOld,
+  };
+}
+
+/**
  * AIF end-of-fund "2 and 20" waterfall (European-style, single distribution).
  *
  * Models a fund that returns `grossMultiple` on committed capital at the end of

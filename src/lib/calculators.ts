@@ -19,7 +19,7 @@ import {
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
-  npsRetirementExitFY27, preIpoTaxOutcome,
+  npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1565,6 +1565,75 @@ export const CALCULATORS: CalcDef[] = [
                 data: [
                   { value: Math.round(r.grossGain), itemStyle: { color: '#64748b' } },
                   { value: Math.round(r.afterTaxGain), itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'senior-regime-tax',
+    title: 'Senior-Citizen Regime Decision (60+ / 80+)',
+    category: 'Tax',
+    description: 'For a retiree living on interest and pension: which tax regime wins in FY 2026-27. It applies the age-based old-regime basic exemption (3L senior / 5L super-senior), the 80TTB interest deduction, 80D, and the new regime 87A-to-12L, then shows the 80TTB value and which regime costs less.',
+    inputs: [
+      { key: 'age', label: 'Age during the year', default: 66, min: 0, max: 120, step: 1, hint: '60-79 is the senior bracket (3L old-regime exemption); 80+ is super-senior (5L). The new regime gives no age benefit either way.' },
+      { key: 'interestIncome', label: 'Interest income (FD/RD/SCSS/savings) (Rs)', default: 246000, min: 0, step: 10000, hint: 'The interest a retiree usually lives on. Up to the 80TTB limit of this is deductible in the OLD regime; TDS on it starts only above Rs 1,00,000/yr.' },
+      { key: 'otherIncome', label: 'Other income (pension, rental, etc.) (Rs)', default: 600000, min: 0, step: 10000, hint: 'Everything that is not 80TTB-eligible interest. Pension and rental go here.' },
+      { key: 'eightyTTBLimit', label: '80TTB interest-deduction limit (Rs)', default: 50000, min: 0, step: 10000, hint: 'Rs 50,000 for FY 2025-26 / AY 2026-27. A Budget-2026 raise to Rs 1,00,000 has been reported but is NOT yet verified - use 50,000 until a CA confirms the new cap.' },
+      { key: 'eightyD', label: '80D health / medical (Rs)', default: 50000, min: 0, step: 10000, hint: 'Old-regime 80D claim. Seniors get an enhanced cap (up to Rs 50,000, higher than a regular individual). Set 0 if you have no claim.' },
+      { key: 'eightyC', label: '80C basket on the old regime (Rs, up to 1.5L)', default: 0, min: 0, max: 150000, step: 10000, hint: 'PPF / ELSS / EPF / home-loan principal etc. that a retiree may still claim in the OLD regime. Only available in the old regime.' },
+      { key: 'homeLoanInterest', label: 'Home-loan interest 24(b) (Rs, up to 2L)', default: 0, min: 0, max: 200000, step: 10000, hint: 'Old-regime-only home-loan interest deduction, up to Rs 2,00,000. Set 0 if you have no home loan.' },
+    ],
+    assumptions: [
+      'Old regime: age-based basic exemption (3L senior / 5L super-senior / 2.5L below-60) + 80TTB on interest (capped at the limit and the interest earned) + 80D, on the 5/20/30 slabs with the 87A-to-5L rebate.',
+      'New regime: no age benefit and no 80TTB/80D; everyone gets the same slabs + 87A rebate to 12L. A retiree moving to the new regime silently gives up the extra exemption (e.g. a super-senior loses Rs 1L of nil band).',
+      'The 80TTB value is the old-regime tax you save by claiming it: old tax without 80TTB minus old tax with it, at your own marginal position.',
+    ],
+    limitations: [
+      'The 80TTB limit is user-settable because the FY 2026-27 figure is in flux (Rs 50,000 confirmed for AY 2026-27; a reported Rs 1,00,000 raise is unverified) - confirm with a CA before acting.',
+      'No surcharge or 4% cess (retirees rarely cross Rs 50L on interest+pension, but a large corpus can); use the high-income calculator if total income is above Rs 50L.',
+      'SCSS interest is fully taxable as Other Sources; only the 80C deposit (up to 1.5L in the investment year) and the 80TTB interest relief apply, both old-regime.',
+    ],
+    compute: (v) => {
+      const r = seniorRegimeTaxFY27({
+        age: v.age,
+        interestIncome: v.interestIncome,
+        otherIncome: v.otherIncome,
+        eightyTTBLimit: v.eightyTTBLimit,
+        eightyD: v.eightyD,
+        eightyC: v.eightyC,
+        homeLoanInterest: v.homeLoanInterest,
+      });
+      const inr = (x: number) => Math.round(x).toLocaleString('en-IN');
+      const bracket =
+        r.ageBracket === 'super-senior' ? 'Super-senior (80+)' : r.ageBracket === 'senior' ? 'Senior (60-79)' : 'Below 60';
+      return {
+        results: [
+          { label: 'Age bracket', value: bracket, kind: 'text', note: `Old-regime basic exemption ${inr(r.old.basicExemption)}; new regime has no age benefit` },
+          { label: 'Old-regime tax', value: inr(r.old.tax), kind: 'inr', note: `On taxable ${inr(r.old.taxableIncome)} after 80TTB ${inr(r.old.eightyTTBApplied)} + 80D` },
+          { label: 'New-regime tax', value: inr(r.new.tax), kind: 'inr', note: `On total ${inr(r.new.taxableIncome)} - no 80TTB, no 80D, but 87A to 12L` },
+          { label: 'Regime winner', value: r.winner === 'old' ? 'Old regime' : r.winner === 'new' ? 'New regime' : 'Tie', kind: 'text', note: r.winner === 'old' ? `Old regime saves ${inr(r.savingsByOld)}` : r.winner === 'new' ? `New regime saves ${inr(Math.abs(r.savingsByOld))} - the 87A-to-12L rebate often beats the old regime for interest retirees` : 'Same tax at these numbers' },
+          { label: '80TTB value (old regime)', value: inr(r.eightyTTBValue), kind: 'inr', note: 'The tax the 80TTB deduction removes in the old regime; it is worth 0 under the new regime' },
+        ],
+        chart: {
+          title: 'Tax under each regime (Rs)',
+          alt: `Old-regime tax ${inr(r.old.tax)} vs new-regime tax ${inr(r.new.tax)}; the ${r.winner} regime is cheaper by ${inr(Math.abs(r.savingsByOld))}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${inr(x)}` },
+            xAxis: { type: 'category', data: ['Old regime', 'New regime'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Tax',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.old.tax), itemStyle: { color: r.winner === 'old' ? '#1f7a5c' : '#b45309' } },
+                  { value: Math.round(r.new.tax), itemStyle: { color: r.winner === 'new' ? '#1f7a5c' : '#b45309' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
               },

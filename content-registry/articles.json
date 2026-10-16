@@ -1349,6 +1349,44 @@
    "books": [
     "book-wealth-beyond-10l"
    ]
+  },
+  {
+   "id": "tax-senior-citizen-regime-decision",
+   "title": "The Senior-Citizen Regime Decision: When the Old Regime Wins for a Retiree (and the 87A Trap It Hides)",
+   "category": "taxation",
+   "difficulty": "intermediate",
+   "status": "published",
+   "tags": [
+    "senior-citizen",
+    "super-senior",
+    "80ttb",
+    "80d",
+    "regime-decision",
+    "scss",
+    "pension",
+    "interest",
+    "15h",
+    "advance-tax",
+    "194p"
+   ],
+   "summary": "The terminal-rung tax layer: how a retiree living on interest and pension should choose regimes in FY 2026-27 - the age-based old-regime exemptions (3L senior / 5L super-senior), the 80TTB interest deduction (old-only), the 80D enhanced cap, the Rs 1L senior TDS threshold + Form 15H, the retiree advance-tax exemption, the Section 194P no-ITR convenience - and the counterintuitive case where the new regime's 87A-to-12L rebate still wins for a typical retiree.",
+   "file": "src/content/taxation/tax-senior-citizen-regime-decision.mdx",
+   "sources": [
+    "src-senior-tax-fy2026-27",
+    "src-it-slab-fy2026-27",
+    "src-scss-8-2",
+    "src-advance-tax-fy2026-27"
+   ],
+   "related": [
+    "tax-80c-baskets-regime-decision",
+    "tax-surcharge-cess-high-income",
+    "tax-india-investor-complete",
+    "govt-small-savings-schemes",
+    "retirement-fire-annuities"
+   ],
+   "books": [
+    "book-indian-taxation"
+   ]
   }
  ]
 }

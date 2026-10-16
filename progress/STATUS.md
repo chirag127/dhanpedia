@@ -1,14 +1,44 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 14: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 43 → 44 articles; 27 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 15: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 44 → 45 articles; 28 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 44 on disk / registered. Wave 14 added 1: `alternatives-pre-ipo-unlisted-equity-hni` (the direct private-market rung between SIF ₹10L and AIF ₹1Cr: ICDR Reg 17 six-month post-IPO lock-in — you cannot sell into the listing pop; SEBI's position that off-market unlisted-trade platforms are not SEBI-recognised (no clearing guarantee); where the supply comes from; the dealer-ask mechanics; the 24-month/112 (no pool) vs 12-month/112A (shared pool) tax split with STCG-at-slab; and when to say no).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 15, indian-taxation 12, p2p-lending 4, wealth-beyond-10l 15 (+ alternatives-pre-ipo-unlisted-equity-hni).
-- **Sources:** 53 in `sources.json` (Wave 14 added 1: src-pre-ipo-unlisted-2026, ICDR Reg 17 + SEBI platform advisories + unlisted vs listed tax split + NSE unlisted worked case).
-- **Update-log:** 49 tracked (Wave 14 added `ul-pre-ipo-reg17-lockin-2026`).
-- **Calculators:** 27 (Wave 14 added `pre-ipo-tax`, powered by the new `preIpoTaxOutcome()` pure function covering all four tax heads, with 6 unit tests and an e2e test).
+- **Articles:** 45 on disk / registered. Wave 15 added 1: `tax-senior-citizen-regime-decision` (the terminal-rung / retiree layer: the age brackets (3L senior / 5L super-senior, old regime only — the new regime has no age benefit), the two old-regime-only senior benefits (80TTB interest deduction + the higher age exemption), the SCSS 8.2% tax mechanics, the ₹1L senior TDS threshold + Form 15H, the retiree advance-tax exemption, the Section 194P no-ITR convenience, and the **verified counterintuitive finding that the new regime usually still wins for a retiree in FY 2026-27** because its 87A-to-12L + widened slabs dominate, even with a full old-regime stack).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 15, indian-taxation 13 (+ tax-senior-citizen-regime-decision), p2p-lending 4, wealth-beyond-10l 15.
+- **Sources:** 54 in `sources.json` (Wave 15 added 1: src-senior-tax-fy2026-27, senior/super-senior brackets + 80TTB + TDS/15H/194P + SCSS tax).
+- **Update-log:** 51 tracked (Wave 15 added `ul-senior-80ttb-limit-2026` [conflict-open: 80TTB 50k confirmed vs reported 1L raise] + `ul-senior-regime-decision-2026`).
+- **Calculators:** 28 (Wave 15 added `senior-regime-tax`, powered by the new `seniorRegimeTaxFY27()` pure function, with 7 unit tests and an e2e test).
+
+## Wave 15 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/taxation/tax-senior-citizen-regime-decision.mdx` — the *terminal-rung / retiree* tax layer: the age brackets (3L senior / 5L super-senior, old regime only; the new regime gives no age benefit), the two old-regime-only senior benefits (80TTB interest deduction + the higher age exemption), the SCSS 8.2% tax mechanics (interest fully taxable as Other Sources; only 80C on the deposit + 80TTB on up to ₹50k of interest), the ₹1L senior TDS threshold + Form 15H, the retiree advance-tax exemption, the Section 194P no-ITR convenience for 75+, and the **verified counterintuitive finding that the new regime usually still wins for a retiree in FY 2026-27** (87A-to-12L + widened slabs dominate, even with a full old-regime stack — the "old regime wins for retirees" advice is stale below ~₹20L in this base-slab model).
+
+### New finance function + calculator + tests
+- [x] `seniorRegimeTaxFY27()` in `src/lib/finance/index.ts` — age-bracket old-regime basic exemption (2.5L/3L/5L), the senior-only old-regime stack (80TTB capped at the limit and the interest earned, 80D, 80C capped at 1.5L, 24(b) home-loan capped at 2L) on 5/20/30 slabs with the 87A-to-5L rebate; the new regime with no age benefit and no 80TTB/80D; both-regime effective rates, the 80TTB value at the taxpayer's own marginal position, and the regime winner. A corrected draft (first attempt double-subtracted the old-regime basic exemption via `oldRegimeTaxFY27()` — replaced with an explicit `seniorOldSlabTax()` age-band function).
+- [x] `senior-regime-tax` calculator page (category: Tax) — 7 inputs (age, interest, other income, 80TTB limit, 80D, 80C, home-loan 24b), old-vs-new tax rows, the 80TTB value, and a tax-comparison bar chart.
+- [x] 7 new unit tests (new-wins-at-8.46L worked case, the 3L/5L age brackets, below-60 2.5L, 80TTB cap-at-interest + cap-at-limit, 80TTB value zero under 5L, the full-stack new-still-wins at 40L, the 1Cr new-still-wins verified case, zero-income tie) — **104/104 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; one `exact: true` fix on the "Old-regime tax" / "New-regime tax" labels that also match the chart alt) — **64/64 pass**.
+
+### Research verified this session
+- [x] **Senior/super-senior brackets** — 3L (60-79) / 5L (80+) old-regime basic exemption, 2.5L below 60; the new regime gives no age benefit (same slabs + 87A-to-12L + 75k standard deduction) (CalcGuru, TaxClue, Moneykit, ET slabs continuity).
+- [x] **80TTB ₹50,000 (old-only) + the open conflict** — confirmed ₹50,000 for FY 2026-27; a Budget-2026 raise to ₹1,00,000 is reported but UNVERIFIED (department portal still shows 50k). Recorded as `ul-senior-80ttb-limit-2026` (conflict-open); the calculator takes the limit as a user-settable input rather than hardcoding a disputed figure.
+- [x] **Senior TDS ₹1L threshold + Form 15H + the retiree advance-tax exemption + Section 194P** — TDS on senior interest only above ₹1L (raised from ₹50k); 15H stops TDS below the taxable limit; seniors with no business income pay as self-assessment tax (no 234B/234C); 75+ with only pension + same-bank interest can skip the ITR under 194P.
+- [x] **NEW finding (corrects the draft's expectation):** scanning the full old-regime stack across incomes showed the **new regime wins at essentially all levels (up to ~₹1Cr, excluding surcharge)** — the base-slab difference is a constant ₹85k favouring new at 25-40L, because the new regime's widened 5/10/15/20/25/30 slabs + 87A-to-12L beat the old 5/20/30 even with ₹4.55L of deductions. Recorded as `ul-senior-regime-decision-2026`.
+
+### Build gotcha hit this session
+- **First draft of `seniorRegimeTaxFY27()` reused `oldRegimeTaxFY27()` (which has a built-in 2.5L below-60 nil band) AND subtracted the senior `oldBasic` exemption — a double-subtraction.** Replaced with an explicit `seniorOldSlabTax()` that takes the age-appropriate nil band. (Same class of bug as the Wave 11 marginal-relief rewrite — verify each function's base-tax helper before reusing it.)
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 104 passed.
+- [x] `node scripts/validate-content.mjs` → 45 articles, 4 books, 54 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 199 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (18,071 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 45/45 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 64 passed (32 desktop + 32 mobile).
 
 ## Wave 14 session (verified 2026-10-18 via web research)
 
@@ -278,12 +308,13 @@ Last updated: **2026-10-18** (Wave 14: 1 new article + 1 new finance function + 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion: Wave 15 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a senior-citizen / NRI tax-structure article, or a GIFT City FoF deep-dive.
+- [ ] Resolve the open 80TTB conflict (`ul-senior-80ttb-limit-2026`): confirm whether the Budget-2026 raise to Rs 1,00,000 is in the Finance Act text - re-run the senior-regime decision if so.
+- [ ] Phase 4 deeper expansion: Wave 16 candidate = NRI tax-structure article (DTAA, 194P/26AS NRI rules, LRS interplay), an ESOP-vesting tax walkthrough, or a GIFT City FoF deep-dive.
 
 ## Next 3 actions
-1. Commit Wave 14: 1 new article + preIpoTaxOutcome() function + pre-ipo-tax calculator + 1 source + tests.
+1. Commit Wave 15: 1 new article + seniorRegimeTaxFY27() function + senior-regime-tax calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 15 candidate: ESOP-vesting tax walkthrough, senior-citizen + NRI structures, or GIFT City FoF deep-dive).
+3. Continue the daily article habit (Wave 16 candidate: NRI tax structure, ESOP-vesting tax walkthrough, or GIFT City FoF deep-dive).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

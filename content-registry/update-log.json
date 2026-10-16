@@ -428,6 +428,24 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "The Reg 17 six-month lock-in and the SEBI platform position are stable regulatory points; re-verify the 12.5% 112/112A section numbers and any Act-2025 renumbering at each Finance Act, and confirm the current SEBI advisory list before relying on it."
+  },
+  {
+   "id": "ul-senior-80ttb-limit-2026",
+   "claim": "80TTB interest-income deduction for senior citizens: Rs 50,000 confirmed for FY 2026-27; a Budget-2026 report of a raise to Rs 1,00,000 is UNVERIFIED (department portal still shows 50k). Old-regime-only. The senior TDS threshold on interest is Rs 1,00,000 (raised from 50,000).",
+   "source": "src-senior-tax-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "conflict-open",
+   "notes": "Conflicting figures found during Wave 15 research: CalcGuru/TaxClue show 80TTB at Rs 50,000 (old-only); some 2026 budget coverage reports a Rs 1,00,000 raise. Resolution pending - the Income-tax Act 2025 / Finance Act text must be checked before advising. The seniorRegimeTaxFY27() function takes the 80TTB limit as a user-settable input so the article does not hardcode a disputed figure."
+  },
+  {
+   "id": "ul-senior-regime-decision-2026",
+   "claim": "Modeled FY 2026-27 finding: with the widened new-regime slabs + 87A-to-12L, the NEW regime is cheaper for a retiree at typical income levels (below ~Rs 20L) even after giving up 80TTB/80D; even a full old-regime stack (80C 1.5L + 24b 2L + 80D 50k + 80TTB 50k = ~4.55L) does not flip the decision up to ~Rs 1 Cr in the base-slab model. The stale 'old regime wins for retirees' advice no longer holds below ~Rs 20L.",
+   "source": "src-senior-tax-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Base-slab model excludes surcharge; the new regime 25% surcharge cap vs the old 37% would only widen the new regime advantage at the very top. Re-verify at each Finance Act - any old-regime top-band change would flip this back."
   }
  ]
 }
