@@ -1311,6 +1311,44 @@
    "books": [
     "book-complete-indian-investor"
    ]
+  },
+  {
+   "id": "alternatives-pre-ipo-unlisted-equity-hni",
+   "title": "Pre-IPO & Unlisted Equity: The Rung Between SIF and AIF (Lock-in, the Reg-17 Trap & the Tax Split Most Buyers Miss)",
+   "category": "alternatives",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "pre-ipo",
+    "unlisted-shares",
+    "private-markets",
+    "icdr-reg-17",
+    "lock-in",
+    "slab-rate",
+    "112a",
+    "112",
+    "sebi",
+    "hni",
+    "dealers",
+    "off-market"
+   ],
+   "summary": "The direct private-market rung between SIF (Rs 10L) and AIF (Rs 1Cr): how to lawfully buy pre-IPO/unlisted shares off-market, why ICDR Reg 17 six-month post-IPO lock-in means you cannot sell into the listing pop, why SEBI does not recognise the off-market platforms, where the supply comes from, the 24-month/112 (no pool) vs 12-month/112A (shared pool) tax split with STCG-at-slab, and when to say no.",
+   "file": "src/content/alternatives/alternatives-pre-ipo-unlisted-equity-hni.mdx",
+   "sources": [
+    "src-pre-ipo-unlisted-2026",
+    "src-elss-ltcg-2026",
+    "src-aif-categories-2026"
+   ],
+   "related": [
+    "alternatives-pms-aif-private",
+    "alternatives-aif-category-selection-guide",
+    "alternatives-pms-sif-aif-after-tax-wedge",
+    "alternatives-sif-specialized-funds",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-wealth-beyond-10l"
+   ]
   }
  ]
 }

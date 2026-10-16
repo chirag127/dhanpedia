@@ -1,14 +1,43 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 13: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 42 → 43 articles; 26 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 14: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 43 → 44 articles; 27 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 43 on disk / registered. Wave 13 added 1: `retirement-nps-exit-annuity-tax-deep-dive` (the NPS retirement-exit layer: the PFRDA 16-Dec-2025 amendment table — 80/20 split, 85 deferral, Rs 8L small-corpus 100% rule, premature 20/80; the Section 10(10A) 60%-of-contributions exemption cap vs the PFRDA 80% exit; the five PFRDA annuity variants and the ~6-7% life-annuity rate band; and the new-regime 80CCD(2) entry-vs-exit tax separation).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 15 (+ retirement-nps-exit-annuity-tax-deep-dive), indian-taxation 12, p2p-lending 4, wealth-beyond-10l 14.
-- **Sources:** 52 in `sources.json` (Wave 13 added 1: src-nps-exit-annuity-2026, PFRDA 16-Dec-2025 exit rules + annuity rate bands + 10(10A) 60% cap).
-- **Update-log:** 48 tracked (Wave 13 added `ul-nps-exit-80-20-2025`).
-- **Calculators:** 26 (Wave 13 added `nps-retirement-exit`, powered by the new `npsRetirementExitFY27()` pure function with 6 unit tests and an e2e test).
+- **Articles:** 44 on disk / registered. Wave 14 added 1: `alternatives-pre-ipo-unlisted-equity-hni` (the direct private-market rung between SIF ₹10L and AIF ₹1Cr: ICDR Reg 17 six-month post-IPO lock-in — you cannot sell into the listing pop; SEBI's position that off-market unlisted-trade platforms are not SEBI-recognised (no clearing guarantee); where the supply comes from; the dealer-ask mechanics; the 24-month/112 (no pool) vs 12-month/112A (shared pool) tax split with STCG-at-slab; and when to say no).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 15, indian-taxation 12, p2p-lending 4, wealth-beyond-10l 15 (+ alternatives-pre-ipo-unlisted-equity-hni).
+- **Sources:** 53 in `sources.json` (Wave 14 added 1: src-pre-ipo-unlisted-2026, ICDR Reg 17 + SEBI platform advisories + unlisted vs listed tax split + NSE unlisted worked case).
+- **Update-log:** 49 tracked (Wave 14 added `ul-pre-ipo-reg17-lockin-2026`).
+- **Calculators:** 27 (Wave 14 added `pre-ipo-tax`, powered by the new `preIpoTaxOutcome()` pure function covering all four tax heads, with 6 unit tests and an e2e test).
+
+## Wave 14 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/alternatives/alternatives-pre-ipo-unlisted-equity-hni.mdx` — the *direct pre-IPO / unlisted-equity* rung (the rung between SIF at ₹10L and AIF at ₹1Cr, and the one most investors try to buy *directly*): the three structural facts (ICDR Reg 17 six-month post-IPO lock-in — you cannot sell into the listing pop; SEBI's repeated position that off-market unlisted-trade platforms are not SEBI-recognised, so no clearing guarantee; no single price, only a dealer's ask), the supply-source table (ESOP / angel / PE-VC secondary / promoter sell-down / pre-IPO placement), the dealer-ask mechanics, the 24-month/112 (no pool, 12.5% no indexation) vs 12-month/112A (shared pool) tax split with STCG-at-slab, and a decision framework with explicit "when to say no" triggers.
+
+### New finance function + calculator + tests
+- [x] `preIpoTaxOutcome()` in `src/lib/finance/index.ts` — all four capital-gains heads: unlisted-LTCG (Sec 112, 12.5%, no pool, no indexation), unlisted-STCG (slab), listed-LTCG (Sec 112A, 12.5% above the shared Rs 1.25L pool), listed-STCG (Sec 111A, 20%); the holding test switches on `isListedAtSale` (24m vs 12m), the pool is capped at the gross gain, and it returns the after-tax net return on the entry price.
+- [x] `pre-ipo-tax` calculator page (category: Alternatives) — 7 inputs (incl. the listed-at-sale toggle + the shared-pool input), a tax-head result row, and a gross-vs-after-tax gain bar chart.
+- [x] 6 new unit tests (unlisted-LTCG 112 no-pool, unlisted-STCG at slab vs a higher slab, listed-LTCG above the pool, listed-STCG 20% no pool, pool-capped-at-gain zero tax, loss zero tax) — **96/96 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; two `exact: true` fixes on the "Gross gain" / "After-tax gain" labels that also match the chart alt) — **60/60 pass**.
+
+### Research verified this session
+- [x] **ICDR Reg 17 six-month post-IPO lock-in** — pre-IPO shares held by non-promoters are locked 6 months from IPO allotment; the 2026 NSE unlisted case (bought ~1,950-2,050, IPO 1,785, listed 1,800, locked to ~March 2027) (Money n Wealth, reviewed 14 Oct 2026).
+- [x] **SEBI platform position** — advisories of Aug 2016, Dec 2024, Jun 2026: off-market unlisted-trade platforms are not SEBI-recognised; no clearing guarantee, no SEBI-administered protection; any platform claiming SEBI approval is a red flag.
+- [x] **Unlisted vs listed tax split** — unlisted >24m LTCG 12.5% (Sec 112, no indexation, no pool); unlisted <=24m STCG at slab; listed exchange sale >12m 112A above the shared pool, <=12m 111A 20%; holding clock starts at transfer, not listing (We Grow Wealth, 12 Sep 2026; cross-checked against the PIB Budget-2024 FAQ).
+
+### Build gotcha hit this session
+- Inserting the `pre-ipo-tax` calculator entry consumed the NPS entry's closing `},`, producing a "Unexpected token" at the pre-IPO opening brace. Fixed by restoring the `},` object-close; re-checking `];` count + brace balance after every calculator edit (this is the recurring pattern from Waves 10/11/12 — now the standard post-edit check).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 96 passed.
+- [x] `node scripts/validate-content.mjs` → 44 articles, 4 books, 53 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 195 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (17,953 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 44/44 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 60 passed (30 desktop + 30 mobile).
 
 ## Wave 13 session (verified 2026-10-18 via web research)
 
@@ -249,15 +278,16 @@ Last updated: **2026-10-18** (Wave 13: 1 new article + 1 new finance function + 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion: Wave 14 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a senior-citizen / NRI tax-structure article, or a GIFT City FoF deep-dive.
+- [ ] Phase 4 deeper expansion: Wave 15 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a senior-citizen / NRI tax-structure article, or a GIFT City FoF deep-dive.
 
 ## Next 3 actions
-1. Commit Wave 13: 1 new article + npsRetirementExitFY27() function + nps-retirement-exit calculator + 1 source + tests.
+1. Commit Wave 14: 1 new article + preIpoTaxOutcome() function + pre-ipo-tax calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 14 candidate: ESOP-vesting tax walkthrough, senior-citizen + NRI structures, or GIFT City FoF deep-dive).
+3. Continue the daily article habit (Wave 15 candidate: ESOP-vesting tax walkthrough, senior-citizen + NRI structures, or GIFT City FoF deep-dive).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.
 - **MDX bare `=` / `<=`:** a bare `=` (or `<=`) outside a `$...$` math block or an attribute value breaks the MDX/JSX build with "Unexpected character `=`" (hit in Wave 13). Reword to "is" / "up to" / "equals"; `\;=\;` inside `$...$` and `href="..."` are safe.
+- **Calculator array-insertion brace:** inserting a new calculator entry in `src/lib/calculators.ts` by replacing the `},\n];` tail has repeatedly (Waves 10/11/12/14) either dropped the previous entry's closing `},` or left a duplicate `];`. After every insertion, verify `]`-close count is exactly 1 before `export function getCalc` and that the previous entry ends with `},\n  },`.
 - **Node version:** `npx astro build` via the Agnes wrapper (Node v22.14) fails — Astro 7 needs ≥22.22. Use `"C:\Program Files\nodejs\npx.cmd" astro build` (system Node v24.18.0).
 - **Scratch scripts:** keep one-off registry scripts (`_register-waveN.mjs`) for audit; delete transient inspection scripts.

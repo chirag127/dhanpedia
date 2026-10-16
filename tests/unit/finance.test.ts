@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -840,5 +840,69 @@ describe('NPS retirement exit (PFRDA 16-Dec-2025 rules + 10(10A) cap)', () => {
     expect(r.corpus).toBe(0);
     expect(r.totalAfterTax).toBe(0);
     expect(r.isSmallCorpus).toBe(true);
+  });
+});
+
+describe('Pre-IPO / unlisted equity tax outcome', () => {
+  const base = (over: Record<string, unknown> = {}) => ({
+    costPerUnit: 1000, units: 1000, salePricePerUnit: 2000, monthsHeld: 30,
+    isListedAtSale: false, sharedLtcgPool: 0, marginalSlabRate: 0.3, ...over,
+  });
+
+  it('unlisted long-term (24m+) is Sec 112: 12.5%, NO pool, on a 2x gain', () => {
+    const r = preIpoTaxOutcome(base({}));
+    expect(r.grossGain).toBe(1000000); // (2000-1000) x 1000
+    expect(r.taxHead).toBe('unlisted-ltcg');
+    expect(r.taxRate).toBe(0.125);
+    expect(r.poolApplied).toBe(0); // no 112A pool on unlisted equity LTCG
+    expect(r.taxPaid).toBe(125000);
+    expect(r.afterTaxGain).toBe(875000);
+    expect(r.netReturnPct).toBeCloseTo(0.875, 6);
+  });
+
+  it('unlisted short-term (<= 24m) is taxed at the slab rate, not a flat 20%', () => {
+    const r = preIpoTaxOutcome(base({ monthsHeld: 18 }));
+    expect(r.taxHead).toBe('unlisted-stcg');
+    expect(r.taxRate).toBe(0.3); // 30% slab
+    expect(r.taxPaid).toBe(300000);
+    expect(r.afterTaxGain).toBe(700000);
+    // A higher slab means a materially worse short-term outcome
+    const highSlab = preIpoTaxOutcome(base({ monthsHeld: 18, marginalSlabRate: 0.35 }));
+    expect(highSlab.taxPaid).toBeGreaterThan(r.taxPaid);
+  });
+
+  it('a listed exchange sale (STT paid) switches to the 12m 112A test with the shared pool', () => {
+    const r = preIpoTaxOutcome(base({ monthsHeld: 15, isListedAtSale: true, sharedLtcgPool: 125000 }));
+    expect(r.taxHead).toBe('listed-ltcg');
+    expect(r.taxRate).toBe(0.125);
+    expect(r.poolApplied).toBe(125000);
+    expect(r.taxPaid).toBeCloseTo((1000000 - 125000) * 0.125, 0);
+  });
+
+  it('a listed sale held <= 12 months is Sec 111A at a flat 20%, no pool', () => {
+    const r = preIpoTaxOutcome(base({ monthsHeld: 10, isListedAtSale: true, sharedLtcgPool: 125000 }));
+    expect(r.taxHead).toBe('listed-stcg');
+    expect(r.taxRate).toBe(0.2);
+    expect(r.poolApplied).toBe(0);
+    expect(r.taxPaid).toBe(200000);
+  });
+
+  it('the pool is capped at the gross gain (a pool larger than the gain applies only the gain)', () => {
+    // gain 100000, pool 125000 -> poolApplied = 100000, tax 0
+    const r = preIpoTaxOutcome(base({
+      salePricePerUnit: 1100, monthsHeld: 15, isListedAtSale: true, sharedLtcgPool: 125000,
+    }));
+    expect(r.grossGain).toBe(100000);
+    expect(r.poolApplied).toBe(100000);
+    expect(r.taxPaid).toBe(0);
+    expect(r.afterTaxGain).toBe(100000);
+  });
+
+  it('a loss (sale below cost) produces zero gain and zero tax', () => {
+    const r = preIpoTaxOutcome(base({ salePricePerUnit: 800, monthsHeld: 30 }));
+    expect(r.grossGain).toBe(0);
+    expect(r.taxPaid).toBe(0);
+    expect(r.afterTaxGain).toBe(0);
+    expect(r.netReturnPct).toBe(0);
   });
 });

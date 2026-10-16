@@ -19,7 +19,7 @@ import {
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
-  npsRetirementExitFY27,
+  npsRetirementExitFY27, preIpoTaxOutcome,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1494,6 +1494,79 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.annuityCorpus), itemStyle: { color: '#334155' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'pre-ipo-tax',
+    title: 'Pre-IPO / Unlisted Equity Tax Outcome',
+    category: 'Alternatives',
+    description: 'Work out what a pre-IPO or unlisted-equity exit actually leaves in your pocket: the unlisted 24-month vs listed 12-month holding split, the 112 (no pool) vs 112A (shared pool) LTCG difference, and STCG at slab vs 20%, as the net return on your entry price.',
+    inputs: [
+      { key: 'costPerUnit', label: 'Cost per unit / share (Rs)', default: 1000, min: 0, step: 10, hint: 'Your acquisition price per share, including any transfer/registration cost you treat as part of cost. This is the base for your net-return figure.' },
+      { key: 'units', label: 'Number of units / shares', default: 1000, min: 1, step: 10, hint: 'The lot you hold or plan to sell. Pre-IPO lots are often small - a thin lot is where the dealer spread hides.' },
+      { key: 'salePricePerUnit', label: 'Expected sale price per unit (Rs)', default: 2000, min: 0, step: 10, hint: 'The price you expect to settle at. For a pre-IPO name, judge it against the price six months after listing, not the listing pop - you are locked out under ICDR Reg 17 for that window.' },
+      { key: 'monthsHeld', label: 'Months held at sale', default: 30, min: 0, step: 1, hint: 'From your acquisition transfer to the sale. Unlisted: > 24 months is long-term. Listed (sold on the exchange, STT paid): > 12 months is long-term. The clock starts at your transfer, not at listing.' },
+      { key: 'isListedAtSale', label: 'Is the share listed on the exchange at the time you sell?', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No - still unlisted (off-market / private sale)' }, { value: 1, label: 'Yes - sold on NSE/BSE (STT paid)' }], hint: 'This switches the holding test: unlisted uses the 24-month Sec 112 rule; a listed exchange sale uses the 12-month 111A/112A rule. If you hold through the IPO and sell after listing, pick "Yes".' },
+      { key: 'sharedLtcgPool', label: 'Remaining shared Rs 1.25L 112A pool this year (Rs)', default: 0, min: 0, step: 25000, hint: 'Only relevant to a LISTED long-term sale: the Rs 1.25L annual equity-LTCG exemption shared across listed shares / equity MFs / business-trust units. An unlisted Sec 112 gain gets NO pool. Set 0 if you have used it up elsewhere.' },
+      { key: 'marginalSlabRate', label: 'Your marginal slab rate (decimal)', default: 0.3, min: 0, max: 0.4, step: 0.05, hint: 'Used for unlisted short-term gains (at slab). Enter 0.3 for the 30% slab (0.315 with cess).' },
+    ],
+    assumptions: [
+      'Unlisted equity: > 24 months long-term = 12.5% (Sec 112, no indexation, no Rs 1.25L pool); <= 24 months short-term = your slab rate.',
+      'Listed exchange sale (STT paid): > 12 months = 12.5% above the shared Rs 1.25L pool (Sec 112A); <= 12 months = 20% (Sec 111A).',
+      'The holding-period clock starts at your acquisition transfer, not at listing; sequence matters when you hold an unlisted share through its IPO and sell as a listed share.',
+    ],
+    limitations: [
+      'This is an exit-time tax aid; it does NOT model the 6-month ICDR Reg 17 post-IPO lock-in (you cannot sell on the exchange until it ends) or the illiquidity/price-discovery risk the article covers.',
+      'Unlisted STCG at the slab is a big cost for a top-slab investor - a short holding is rarely the right plan here.',
+      'The figures are the FY 2026-27 post-Budget-2024 rates; confirm the current position with a CA, as each Finance Act can renumber or revise these under the Income-tax Act, 2025.',
+    ],
+    compute: (v) => {
+      const r = preIpoTaxOutcome({
+        costPerUnit: v.costPerUnit,
+        units: v.units,
+        salePricePerUnit: v.salePricePerUnit,
+        monthsHeld: v.monthsHeld,
+        isListedAtSale: v.isListedAtSale === 1,
+        sharedLtcgPool: v.sharedLtcgPool,
+        marginalSlabRate: v.marginalSlabRate,
+      });
+      const inr = (x: number) => Math.round(x).toLocaleString('en-IN');
+      const headLabel = {
+        'unlisted-ltcg': 'Unlisted LTCG (Sec 112, 12.5%, no pool)',
+        'unlisted-stcg': `Unlisted STCG (at your ${(v.marginalSlabRate * 100).toFixed(0)}% slab)`,
+        'listed-ltcg': 'Listed LTCG (Sec 112A, 12.5% above pool)',
+        'listed-stcg': 'Listed STCG (Sec 111A, 20%)',
+      }[r.taxHead];
+      return {
+        results: [
+          { label: 'Gross gain', value: inr(r.grossGain), kind: 'inr', note: `On cost of Rs ${inr(r.totalCost)} across ${inr(v.units).replace(/^/, v.units < 1000 ? '' : '')} shares` },
+          { label: 'Tax head', value: headLabel, kind: 'text', note: `Held ${v.monthsHeld} months${v.isListedAtSale === 1 ? ' and sold on the exchange' : ' while still unlisted'}` },
+          { label: 'Tax paid', value: inr(r.taxPaid), kind: 'inr', note: r.poolApplied > 0 ? `After applying the Rs ${inr(r.poolApplied)} shared 112A pool` : 'No pool applies to this head' },
+          { label: 'After-tax gain', value: inr(r.afterTaxGain), kind: 'inr', note: 'What the gain leaves you, net of capital-gains tax' },
+          { label: 'Net return on entry', value: (r.netReturnPct * 100).toFixed(1) + '%', kind: 'text', note: 'After-tax gain as a % of your cost - the number to compare against a plain listed index at the same risk' },
+        ],
+        chart: {
+          title: 'Gross vs after-tax gain (Rs)',
+          alt: `Gross gain ${inr(r.grossGain)} vs after-tax gain ${inr(r.afterTaxGain)}; tax paid ${inr(r.taxPaid)} under ${headLabel}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${inr(x)}` },
+            xAxis: { type: 'category', data: ['Gross gain', 'After-tax gain'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Gain',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.grossGain), itemStyle: { color: '#64748b' } },
+                  { value: Math.round(r.afterTaxGain), itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
               },
             ],
           },

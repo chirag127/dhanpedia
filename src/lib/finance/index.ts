@@ -1334,6 +1334,102 @@ export interface HighIncomeTaxResult {
 }
 
 /**
+ * Pre-IPO / unlisted-equity tax outcome: the 24-month vs 12-month holding
+ * asymmetry and the unlisted-LTCG (Sec 112, no pool) vs listed-LTCG
+ * (Sec 112A, shared Rs 1.25L pool) split that decide what a pre-IPO win
+ * actually leaves in your pocket.
+ *
+ * Verified FY 2026-27 position (post Budget-2024, renumbered under the
+ * Income-tax Act 2025):
+ *  - Unlisted equity held > 24 months: LTCG at 12.5% (Sec 112), WITHOUT
+ *    indexation and with NO Rs 1.25L exemption (the 112A pool applies only
+ *    to listed equity / specified equity MFs / business-trust units).
+ *  - Unlisted equity held <= 24 months: STCG at your slab rate.
+ *  - Once listed and sold on the exchange (STT paid), the 12-month 112A
+ *    test applies: > 12 months = 12.5% above the shared Rs 1.25L pool;
+ *    <= 12 months = 20% (111A). The holding period starts at your
+ *    acquisition transfer, not at listing.
+ *
+ * Conventions: gross gain is (sale - cost) x units, floored at 0; the
+ * tax head is chosen by (isListedAtSale, monthsHeld); this is an exit-time
+ * tax aid, not a model of the 6-month ICDR Reg 17 post-IPO lock-in itself
+ * (that is the article's structural point, not a number this function takes).
+ */
+export interface PreIpoTaxInput {
+  costPerUnit: number;
+  units: number;
+  salePricePerUnit: number;
+  monthsHeld: number;
+  isListedAtSale: boolean;
+  sharedLtcgPool: number;
+  marginalSlabRate: number;
+}
+
+export interface PreIpoTaxResult {
+  totalCost: number;
+  saleValue: number;
+  grossGain: number;
+  taxHead: 'unlisted-ltcg' | 'unlisted-stcg' | 'listed-ltcg' | 'listed-stcg';
+  taxRate: number;
+  poolApplied: number;
+  taxPaid: number;
+  afterTaxGain: number;
+  netReturnPct: number;
+}
+
+export function preIpoTaxOutcome(p: PreIpoTaxInput): PreIpoTaxResult {
+  const totalCost = p.costPerUnit * p.units;
+  const saleValue = p.salePricePerUnit * p.units;
+  const grossGain = Math.max(0, saleValue - totalCost);
+  const slab = Math.max(0, Math.min(1, p.marginalSlabRate));
+
+  let taxHead: PreIpoTaxResult['taxHead'];
+  let taxRate: number;
+  let poolApplied: number;
+
+  if (p.isListedAtSale) {
+    // Sold on the exchange (STT paid): the 12-month 112A test governs.
+    if (p.monthsHeld > 12) {
+      taxHead = 'listed-ltcg';
+      taxRate = 0.125;
+      poolApplied = Math.min(Math.max(0, p.sharedLtcgPool), grossGain);
+    } else {
+      taxHead = 'listed-stcg';
+      taxRate = 0.2;
+      poolApplied = 0;
+    }
+  } else {
+    // Still unlisted at sale: the 24-month Sec 112 test governs.
+    if (p.monthsHeld > 24) {
+      taxHead = 'unlisted-ltcg';
+      taxRate = 0.125;
+      poolApplied = 0; // no Rs 1.25L exemption on unlisted equity LTCG
+    } else {
+      taxHead = 'unlisted-stcg';
+      taxRate = slab; // unlisted STCG at the slab rate
+      poolApplied = 0;
+    }
+  }
+
+  const taxBase = Math.max(0, grossGain - poolApplied);
+  const taxPaid = taxBase * taxRate;
+  const afterTaxGain = grossGain - taxPaid;
+  const netReturnPct = totalCost > 0 ? afterTaxGain / totalCost : 0;
+
+  return {
+    totalCost,
+    saleValue,
+    grossGain,
+    taxHead,
+    taxRate,
+    poolApplied,
+    taxPaid,
+    afterTaxGain,
+    netReturnPct,
+  };
+}
+
+/**
  * Surcharge band rate for FY 2026-27 given TOTAL income.
  * New regime: 37% abolished - capped at 25% above 2Cr.
  * Old regime: 37% above 5Cr still applies.

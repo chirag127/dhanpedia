@@ -244,6 +244,26 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('pre-ipo-tax calculator renders the tax-head outcome', async ({ page }) => {
+    await page.goto('/calculators/pre-ipo-tax');
+    await expect(page.getByText('Gross gain', { exact: true })).toBeVisible();
+    await expect(page.getByText('Tax head')).toBeVisible();
+    await expect(page.getByText('After-tax gain', { exact: true })).toBeVisible();
+    await expect(page.getByText('Net return on entry')).toBeVisible();
+    // Chart container for the gross-vs-after-tax comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('pre-IPO / unlisted equity article renders the Reg 17 and tax-split sections', async ({ page }) => {
+    await page.goto('/articles/alternatives-pre-ipo-unlisted-equity-hni');
+    await expect(page.getByRole('heading', { name: /Pre-IPO & Unlisted Equity/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /The three facts that define this market/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The tax split that decides what you keep/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

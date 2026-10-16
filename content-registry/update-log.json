@@ -419,6 +419,15 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "PFRDA 80/20 split, 85 deferral, and Rs 8L small-corpus threshold are per the 16-Dec-2025 amendment; the 60% 10(10A) cap and any new-regime annuity-income exemption are Income-tax-Act provisions under the Act-2025 transition - confirm with a CA for the exit year. Annuity rates are 2026 empanelment bands and move with interest rates."
+  },
+  {
+   "id": "ul-pre-ipo-reg17-lockin-2026",
+   "claim": "ICDR Reg 17: pre-IPO shares held by non-promoters are locked 6 months from IPO allotment (no selling into the listing pop); SEBI advisories (Aug 2016 / Dec 2024 / Jun 2026): off-market unlisted-trade platforms are not SEBI-recognised, no clearing guarantee; unlisted >24m LTCG 12.5% (Sec 112, no indexation, no pool), unlisted <=24m STCG at slab; listed sale >12m 112A pool / <=12m 111A 20%; holding clock starts at transfer",
+   "source": "src-pre-ipo-unlisted-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "The Reg 17 six-month lock-in and the SEBI platform position are stable regulatory points; re-verify the 12.5% 112/112A section numbers and any Act-2025 renumbering at each Finance Act, and confirm the current SEBI advisory list before relying on it."
   }
  ]
 }
