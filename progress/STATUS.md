@@ -1,14 +1,43 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 16: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 45 → 46 articles; 29 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 17: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 46 → 47 articles; 30 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 46 on disk / registered. Wave 16 added 1: `international-nri-tax-residency-tds-dtaa` (the inbound NRI tax layer none of the investing-route articles covered: the Section 6 day-count residency tests (182-day / 60+365 / 120+365 with the ₹15L Indian-income variant), the NR/RNOR/ROR split, India-source-only taxation, the NRE/NRO/FCNR account choice, the Section 195 TDS table (30% flat, property TDS-on-value + 197), the DTAA relief sequence (TRC + Form 10F + Form 67, 15G/15H unavailable), the **87A-not-available-to-NRIs asymmetry**, and the ITR-2/ITR-3 filing map).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 16 (+ international-nri-tax-residency-tds-dtaa), indian-taxation 13, p2p-lending 4, wealth-beyond-10l 15.
-- **Sources:** 55 in `sources.json` (Wave 16 added 1: src-nri-tax-tds-dtaa-2026, Section 6 residency + 195 TDS heads + DTAA/197/10F/67 + 87A-exclusion + ITR-2/3 map).
-- **Update-log:** 52 tracked (Wave 16 added `ul-nri-195-dtaa-2026`).
-- **Calculators:** 29 (Wave 16 added `nri-india-tax`, powered by the new `nriIndiaTaxFY27()` pure function — residency day-counting + domestic-vs-DTAA TDS rate + cess — with 8 unit tests and 2 e2e tests).
+- **Articles:** 47 on disk / registered. Wave 17 added 1: `tax-capital-gains-rollover-54-54f-54ec` (the capital-gains reinvestment layer: the 54/54F/54EC route table with time windows, the proportional rule — exemption = min(gain, reinvested), the 54EC ₹50L cap, the two exemption-breakers (missed window, non-long-term gain), the CGAS escape valve, the ₹10 Cr new-asset cap, and the NRI angle).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 16, indian-taxation 14 (+ tax-capital-gains-rollover-54-54f-54ec), p2p-lending 4, wealth-beyond-10l 15.
+- **Sources:** 56 in `sources.json` (Wave 17 added 1: src-54-rollover-fy2026-27, Section 54/54F/54EC mechanics + 50L cap + time windows + CGAS + ₹10 Cr cap + NRI eligibility, primary-sourced to the PIB 2024 capital-gains FAQ).
+- **Update-log:** 53 tracked (Wave 17 added `ul-54ec-notified-bonds-fy2026-27`).
+- **Calculators:** 30 (Wave 17 added `capital-gains-rollover`, powered by the new `rolloverExemption()` pure function, with 7 unit tests and 2 e2e tests).
+
+## Wave 17 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/taxation/tax-capital-gains-rollover-54-54f-54ec.mdx` — the *capital-gains reinvestment* layer (the complement to the loss-harvesting article): the 54/54F/54EC route table (what you sold → what you reinvest in, with the time windows: 54EC 6-month, 54 purchase 1yr-before/2yr-after or construction 3yr, 54F 2yr), the **proportional rule** (exemption = min(gain, reinvested), so "I sold for ₹1Cr" is the wrong mental model), the two exemption-breakers (a missed window and a non-long-term gain), the CGAS escape valve, the post-2024 12.5% no-indexation base + the ₹10 Cr new-asset cap, and the NRI angle (the rollover also cuts the 195 TDS).
+
+### New finance function + calculator + tests
+- [x] `rolloverExemption()` in `src/lib/finance/index.ts` — the proportional rule (exempt = min(gain, reinvested)), the 54EC ₹50L reinvestment cap, the 54/54F no-binding-cap branch, and the two breakers (a missed time window or a short-term gain zeroes the exemption), returning the exempt amount, taxable balance, tax saved, and the no-rollover bill.
+- [x] `capital-gains-rollover` calculator page (category: Tax) — 6 inputs (gain, reinvested, route select, time-compliant flag, LTCG flag, rate), the 5 result rows, and an exempt-vs-taxable bar chart that turns amber when the exemption is broken.
+- [x] 7 new unit tests (the 5L-on-8L proportional case, full reinvestment, the 54EC ₹50L cap binding, 54/54F no cap, the time-window-break, the short-term-gain-break, and zero gain) — **119/119 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile) — **72/72 pass**.
+
+### Research verified this session
+- [x] **Post-2024 capital-gains rationalisation** — holding periods simplified to 1 year (listed) / 2 years (other), LTCG at 12.5% without indexation, the 112A exemption raised to ₹1.25L, reinvestment benefits unchanged in structure (CBDT Budget-2024 capital-gains FAQ, PIB 24 Jul 2024 — primary source).
+- [x] **The three rollover routes** — 54 (house→house, 1yr-before/2yr-after purchase or 3yr construction), 54F (any-asset→house, 2yr), 54EC (house-gain→notified infrastructure bonds NHAI/REC/PFC/IRFC, ₹50L cap, 6 months, bond must be held) (TaxClue 54EC + 54F guides).
+- [x] **The two breakers + CGAS + the ₹10 Cr cap + NRI eligibility** — a missed window or a non-LTCG gain zeroes the exemption; the CGAS parks unspent consideration; the 54/54F new-asset-cost cap is ₹10 Cr (AY 2024-25+); all routes work for NRIs and also cut the 195 TDS (calcguru NRI rollover guide).
+
+### Build gotcha hit this session
+- The recurring calculator-array brace bug: inserting the `capital-gains-rollover` entry dropped the `nri-india-tax` entry's closing `},` → "Unexpected token" at the new entry's opening brace. Fixed by restoring the `},`; now the standard post-edit check is `];` count + brace balance (recurring since Wave 10).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 119 passed.
+- [x] `node scripts/validate-content.mjs` → 47 articles, 4 books, 56 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 207 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (18,359 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 47/47 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 72 passed (36 desktop + 36 mobile).
 
 ## Wave 16 session (verified 2026-10-18 via web research)
 
@@ -335,12 +364,12 @@ Last updated: **2026-10-18** (Wave 16: 1 new article + 1 new finance function + 
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
 - [ ] Resolve the open 80TTB conflict (`ul-senior-80ttb-limit-2026`): confirm whether the Budget-2026 raise to Rs 1,00,000 is in the Finance Act text - re-run the senior-regime decision if so.
-- [ ] Phase 4 deeper expansion: Wave 17 candidate = an ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a GIFT City FoF deep-dive, or a DTAA-by-country rate reference table.
+- [ ] Phase 4 deeper expansion: Wave 18 candidate = an ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a GIFT City FoF deep-dive, a DTAA-by-country rate reference table, or a 54EC tranche-tracker.
 
 ## Next 3 actions
-1. Commit Wave 16: 1 new article + nriIndiaTaxFY27() function + nri-india-tax calculator + 1 source + tests.
+1. Commit Wave 17: 1 new article + rolloverExemption() function + capital-gains-rollover calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 17 candidate: ESOP-vesting tax walkthrough, GIFT City FoF deep-dive, or a DTAA-by-country rate table).
+3. Continue the daily article habit (Wave 18 candidate: ESOP-vesting tax walkthrough, GIFT City FoF deep-dive, a DTAA-by-country rate table, or a 54EC tranche tracker).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

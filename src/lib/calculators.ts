@@ -20,7 +20,7 @@ import {
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
   npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
-  nriIndiaTaxFY27,
+  nriIndiaTaxFY27, rolloverExemption,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1709,6 +1709,100 @@ export const CALCULATORS: CalcDef[] = [
               },
             ],
             grid: { left: 70, right: 20, top: 30, bottom: 30 },
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'capital-gains-rollover',
+    title: 'Capital Gains Rollover: 54 / 54F / 54EC Exemption',
+    category: 'Tax',
+    description: 'Work out how much of a long-term capital gain you can shelter by reinvesting: Section 54 (house to house), 54F (any asset to house) and 54EC (notified bonds, Rs 50L cap) — the exempt amount, the taxable balance, the 12.5% tax it saves, and what breaks the exemption (a missed time window or a short-term gain).',
+    inputs: [
+      { key: 'gain', label: 'Net capital gain (Rs)', default: 800000, min: 0, step: 50000, hint: 'Sale value minus cost and expenses. Only a LONG-TERM gain qualifies - check your holding period (24 months for property, 12 months for listed equity / equity MFs).' },
+      { key: 'reinvested', label: 'Amount reinvested in the new asset (Rs)', default: 500000, min: 0, step: 50000, hint: 'What you actually put into the new house / bonds within the statutory window. The exemption is the smaller of the gain and this - reinvest less and the balance is taxable.' },
+      { key: 'route', label: 'Reinvestment route', default: 2, min: 0, max: 2, step: 1, type: 'select', options: [{ value: 0, label: '54 - house to house' }, { value: 1, label: '54F - any long-term asset to a house' }, { value: 2, label: '54EC - notified bonds (Rs 50L cap)' }], hint: '54EC is a hard Rs 50,00,000 cap on the reinvestment and is for a house-gain reinvested in notified bonds; 54/54F reinvest in a house and have no binding cap in this model.' },
+      { key: 'timeCompliant', label: 'Reinvestment done inside the statutory window?', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - on time' }, { value: 0, label: 'No - window missed' }], hint: '54EC: within 6 months of the sale. 54: purchase within 1 year before / 2 years after the sale, or construction within 3 years. 54F: within 2 years of the sale. Miss the window and the exemption is zero.' },
+      { key: 'ltcgOnly', label: 'Is this a long-term gain?', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - long-term' }, { value: 0, label: 'No - short-term' }], hint: 'The 54/54F/54EC reinvestment exemptions apply only to LONG-TERM gains. A short-term gain gets no rollover exemption.' },
+      { key: 'taxRateOnGain', label: 'Tax rate on the gain (decimal)', default: 0.125, min: 0, max: 0.4, step: 0.005, hint: '12.5% for the post-2024 uniform LTCG rate (property, listed equity, most assets, no indexation). Use your slab rate only if the gain is a non-112A/112 head taxed at slab.' },
+    ],
+    assumptions: [
+      'Post-Finance (No.2) Act 2024: long-term capital gains are taxed at 12.5% without indexation; the reinvestment exemptions (54/54F/54EC) are the primary way to shelter a long-term gain, and they apply to residents and NRIs alike.',
+      'The exemption is the smaller of (a) the gain and (b) the amount actually reinvested within the window - the proportional rule. 54EC additionally caps the reinvestment at Rs 50,00,000.',
+      'A missed statutory window or a short-term gain zeroes the exemption; only the time-compliant, long-term portion is sheltered.',
+    ],
+    limitations: [
+      'This models the reinvestment amount and the 54EC cap; the Section 54 Rs 10 Cr new-asset-cost cap and the 54/54F condition that the old house not be sold within 3 years of the new purchase are not modelled - they are compliance gates, not the exemption math.',
+      'Unspent sale consideration in a CGAS account must be invested within the remaining window or the exemption fails for that amount - track the deadline separately.',
+      '54EC bonds are issued only in notified tranches (NHAI/REC/PFC/IRFC, etc.); the window to invest depends on a tranche being open - confirm the notified list and your tranche dates.',
+    ],
+    compute: (v) => {
+      const routes = ['54', '54F', '54EC'] as const;
+      const r = rolloverExemption({
+        gain: v.gain,
+        reinvested: v.reinvested,
+        route: routes[v.route],
+        timeCompliant: v.timeCompliant === 1,
+        ltcgOnly: v.ltcgOnly === 1,
+        taxRateOnGain: v.taxRateOnGain,
+      });
+      const inr = (x: number) => Math.round(x).toLocaleString('en-IN');
+      const broken = !r.timeCompliant || !v.ltcgOnly;
+      return {
+        results: [
+          {
+            label: 'Route',
+            value: r.route.toUpperCase(),
+            kind: 'text',
+            note: r.route === '54EC' ? 'Rs 50,00,000 reinvestment cap applies' : 'No binding cap in this model',
+          },
+          {
+            label: 'Exempt amount',
+            value: inr(r.exemptAmount),
+            kind: 'inr',
+            note: broken
+              ? 'Zeroed: ' + (!r.timeCompliant ? 'window missed' : 'not a long-term gain')
+              : 'The smaller of the gain and the (capped) reinvested amount',
+          },
+          {
+            label: 'Taxable balance',
+            value: inr(r.taxableGain),
+            kind: 'inr',
+            note: 'This portion is taxed at your rate - the reinvestment sheltered the rest',
+          },
+          {
+            label: 'Tax the rollover saves',
+            value: inr(r.taxSaved),
+            kind: 'inr',
+            note: `At ${(v.taxRateOnGain * 100).toFixed(1)}% on the exempt amount - zero if the window was missed or the gain is short-term`,
+          },
+          {
+            label: 'Tax with no rollover',
+            value: inr(r.taxOnGainIfNoRollover),
+            kind: 'inr',
+            note: 'The full bill on the whole gain if nothing were reinvested',
+          },
+        ],
+        chart: {
+          title: broken ? 'Exemption broken - the whole gain is taxable' : 'How the gain splits after the rollover',
+          alt: `Exempt ${inr(r.exemptAmount)}, taxable ${inr(r.taxableGain)}; the rollover saves ${inr(r.taxSaved)} in tax.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${inr(x)}` },
+            xAxis: { type: 'category', data: ['Exempt', 'Taxable'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Gain',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.exemptAmount), itemStyle: { color: broken ? '#b45309' : '#1f7a5c' } },
+                  { value: Math.round(r.taxableGain), itemStyle: { color: '#64748b' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
           },
         },
       };

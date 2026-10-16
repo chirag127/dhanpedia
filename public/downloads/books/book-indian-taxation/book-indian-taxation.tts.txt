@@ -1524,3 +1524,77 @@ UPDATE LOG
 • 2026-10-18 — Wave 15: the age-bracket table, the two old-regime-only senior benefits (80TTB  rupees 50k,
 
 higher age exemption), the counterintuitive new-regime-87A-wins-below-12L result (worked 66-year-old  rupees 8.46L case: new  rupees 0 vs old  rupees 59,200), the SCSS taxation mechanics, the  rupees 1L senior TDS threshold + Form 15H, the retiree advance-tax exemption, and the Section 194P no-ITR convenience. The 80TTB limit is modelled as  rupees 50,000 (AY 2026-27 confirmed); the reported Budget-2026 raise to  rupees 1,00,000 is flagged as unverified and user-settable in the calculator — confirm with a CA before relying on it.
+
+
+
+Capital Gains Rollover: Section 54, 54F & 54EC — Reinvest the Gain, Not the Sale Value (and What Breaks It)
+
+The loss-harvesting article (./tax-loss-harvesting.mdx) covers offsetting gains with losses. This is the other side of the same ledger: when you have a long-term gain and no loss to absorb it, you can often shelter it by reinvesting it — not by the raw sale value, but by the gain. After the Finance (No.2) Act 2024 rationalisation (LTCG at 12.5%, no indexation, two holding periods of 1 and 2 years), the reinvestment exemptions under Sections 54, 54F and 54EC are the primary legal mechanism to reduce or eliminate that tax — and they work for residents and NRIs alike.
+
+THE THREE ROUTES, SIDE BY SIDE
+==============================
+
+: **You sold**,A residential house,Any long-term asset *other than a house*,A residential house (for 54EC bonds)  |  **Section 54**: **You reinvest in**,Another residential house,A residential house,Notified bonds (NHAI / REC / PFC / IRFC etc.)  |  **Section 54F**: **Reinvest within**,Purchase: 1 yr before / 2 yr after sale; construction: 3 yr after,2 yr after sale,**6 months** after sale  |  **Section 54EC**: **Reinvestment cap**,None binding in this model,None binding in this model,**₹50,00,000** (a hard ceiling)
+
+Two things decide whether you use 54, 54F or 54EC: what you sold (house → 54/54EC; any other long-term asset → 54F) and whether you want another house or liquidity. 54EC is the one that keeps you out of the housing market: a 5-year bond, fully listed, that shelters up to  rupees 50L of the gain.
+
+THE PROPORTIONAL RULE: IT IS THE GAIN, NOT THE SALE VALUE
+=========================================================
+
+This is the single most-misunderstood point, and it is why "I sold for  rupees 1 Cr, so I reinvest  rupees 1 Cr" is the wrong mental model.
+
+$$ \text{Exemption} \;=\; \min\big(\text{net capital GAIN},\; \text{amount REINVESTED within the window}\big) $$
+
+You shelter the gain, and only up to what you actually reinvest. Worked: a  rupees 8L gain from a house, reinvest  rupees 5L in 54EC bonds →  rupees 5L exempt,  rupees 3L still taxed at 12.5% ( rupees 37,500). If instead you reinvest  rupees 60L of a  rupees 6L gain through 54EC, the exemption is capped at the  rupees 50L bond limit, so  rupees 10L of the gain is still taxable. The capital-gains-rollover calculator (/calculators/capital-gains-rollover) runs this split for you across all three routes.
+
+THE TWO THINGS THAT BREAK THE EXEMPTION
+=======================================
+
+A rollover that quietly fails is worse than no plan at all, because you have already locked the money away. Two conditions zero the exemption:
+1. The time window is missed. 54EC needs the bonds bought within 6 months of the sale; 54
+
+needs the new house purchased within 1 year before / 2 years after (or constructed within 3 years); 54F needs the house within 2 years. If you cannot complete it in time, the exemption fails for the uninvested amount.
+1. The gain is not a long-term gain. 54/54F/54EC apply only to long-term capital gains.
+
+Property must have been held 24 months; listed equity / equity MFs 12 months. A short-term gain gets no rollover exemption at all.
+
+THE ESCAPE VALVE: THE CAPITAL GAINS ACCOUNT SCHEME (CGAS)
+=========================================================
+
+If you have sold but cannot complete the reinvestment inside the window, you can park the unspent consideration in a CGAS account (a designated savings/FD). The exemption survives only if that money is deployed within the remaining time; once the window closes, the exempt portion is recomputed down to what was actually invested and the shortfall becomes taxable in the year the deadline lapses. Track the CGAS deadline as a hard date.
+
+THE 12.5% BASE THEY ALL SIT ON (AND THE CAP WORTH KNOWING)
+==========================================================
+
+These exemptions work on top of the post-2024 rate structure: LTCG at 12.5% without indexation, holding periods of 1 year (listed) and 2 years (everything else). Two further points from that same rationalisation matter when you plan a rollover:
+• The  rupees 10 Cr cap (from AY 2024-25): the 54/54F exemption for a single individual/HUF is now
+
+limited to a new-asset cost of  rupees 10 Cr — irrelevant to a 10L ladder, but it binds a multi-asset sale.
+• NRIs are not shut out. An NRI selling Indian property faces the same 12.5% LTCG — and can use
+
+the same 54/54EC/54F routes, which also cut the 195 TDS the buyer is withholding. See the NRI tax article (../international/international-nri-tax-residency-tds-dtaa.mdx) for the TDS side.
+
+WHEN TO REACH FOR EACH, FOR A 10-LAKH-STYLE LADDER
+==================================================
+
+Situation: Moving up / swapping flats, want to stay in housing,**Section 54**  |  Reach for: Sold shares / gold / a non-house asset and want a home,**Section 54F**
+
+The REIT/InvIT article (../real-estate/real-estate-reit-invit.mdx) and the loss-harvesting article (./tax-loss-harvesting.mdx) are the other two tools in the same capital-gains toolkit: losses offset a gain first; a rollover shelters what the losses do not reach.
+
+RELATED
+=======
+• Tax Loss Harvesting (offset gains before a rollover) (./tax-loss-harvesting.mdx)
+• India Taxation: The Complete Investor's Guide (./tax-india-investor-complete.mdx)
+• NRI Tax: Residency, 195 TDS & DTAA (the TDS side of a property sale) (../international/international-nri-tax-residency-tds-dtaa.mdx)
+• REITs & InvITs (a house-gain rollover target in a liquid form) (../real-estate/real-estate-reit-invit.mdx)
+
+SOURCES
+=======
+• Section 54 / 54F / 54EC reinvestment mechanics, time windows, the  rupees 50L 54EC cap, the  rupees 10 Cr new-asset cap, CGAS, NRI eligibility, and the post-Budget-2024 12.5% no-indexation base — <a href="https://www.pib.gov.in/newsite/erelcontentt.aspx?_d=2036604">CBDT Budget-2024 capital-gains FAQs (PIB, 24 Jul 2024)</a> and <a href="https://taxclue.in/guide/section-54ec">TaxClue 54EC guide</a>
+• 112A / 112 rate structure and the shared  rupees 1.25L pool — <a href="https://taxguru.in/income-tax/budget-2024-transforms-capital-gains.html">TaxGuru Budget-2024 capital-gains change</a>
+
+UPDATE LOG
+==========
+• 2026-10-18 — Wave 17: the 54/54F/54EC route table (what you sold → what you reinvest in, with the
+
+time windows), the proportional rule (exemption = min(gain, reinvested), 54EC's  rupees 50L cap), the two exemption-breakers (missed window, non-long-term gain), the CGAS escape valve, and the post-2024 12.5% no-indexation base +  rupees 10 Cr new-asset cap. The 54EC notified-bond list is updated by the government each quarter - confirm the open tranche and its dates before relying on the 6-month window. NRI eligibility confirmed; the 195 TDS reduction is covered in the NRI article.

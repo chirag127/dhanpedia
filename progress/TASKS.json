@@ -33,12 +33,12 @@
     "src/lib/finance/index.ts",
     "src/lib/calculators.ts"
    ],
-   "validation_status": "112/112 unit tests pass (Wave-16 added nriIndiaTaxFY27: Section 6 residency day-counting (182-day + 60/365 or 120/365 long test with the high-income variant), lower-of-domestic-and-DTAA TDS rate, TDS + 4% cess, DTAA relief in Rs terms)",
+   "validation_status": "119/119 unit tests pass (Wave-17 added rolloverExemption: the proportional rule exempt=min(gain,reinvested), the 54EC 50L reinvestment cap, 54/54F no binding cap, and the two breakers (missed time window / short-term gain) returning exempt + taxable + tax saved + no-rollover bill)",
    "next_action": null
   },
   {
    "id": "T-calc-ui",
-   "title": "React calculator islands + 29 calculator pages",
+   "title": "React calculator islands + 30 calculator pages",
    "workstream": "calculators",
    "status": "complete",
    "priority": 2,
@@ -49,12 +49,12 @@
     "src/components/CalculatorIsland.tsx",
     "src/pages/calculators/"
    ],
-   "validation_status": "builds; 29 calculator pages (Wave-16 added nri-india-tax); data-driven via src/lib/calculators.ts + [id].astro",
+   "validation_status": "builds; 30 calculator pages (Wave-17 added capital-gains-rollover); data-driven via src/lib/calculators.ts + [id].astro",
    "next_action": "Playwright e2e interaction check"
   },
   {
    "id": "T-articles",
-   "title": "46 deep articles across all 17 avenues (source-cited, verified)",
+   "title": "47 deep articles across all 17 avenues (source-cited, verified)",
    "workstream": "content",
    "status": "complete",
    "priority": 2,
@@ -64,8 +64,8 @@
    "output_files": [
     "src/content/**"
    ],
-   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge; Wave-11 tax-surcharge-cess-high-income; Wave-12 tax-huf-second-slab-gifting; Wave-13 retirement-nps-exit-annuity-tax; Wave-14 alternatives-pre-ipo-unlisted-equity-hni; Wave-15 tax-senior-citizen-regime-decision; Wave-16 international-nri-tax-residency-tds-dtaa (Section 6 residency, 195 TDS, DTAA/10F/67, 87A exclusion, ITR-2/3)",
-   "next_action": "Daily article habit: Wave-17 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a GIFT City FoF deep-dive, or a DTAA-by-country rate reference table; also resolve the open 80TTB conflict (ul-senior-80ttb-limit-2026)"
+   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge; Wave-11 tax-surcharge-cess-high-income; Wave-12 tax-huf-second-slab-gifting; Wave-13 retirement-nps-exit-annuity-tax; Wave-14 alternatives-pre-ipo-unlisted-equity-hni; Wave-15 tax-senior-citizen-regime-decision; Wave-16 international-nri-tax-residency-tds-dtaa; Wave-17 tax-capital-gains-rollover-54-54f-54ec (rollover exemption math + 54EC 50L cap + breakers)",
+   "next_action": "Daily article habit: Wave-18 candidate = ESOP-vesting tax walkthrough, GIFT City FoF deep-dive, a DTAA-by-country rate table, or a 54EC tranche tracker; also resolve the open 80TTB conflict (ul-senior-80ttb-limit-2026)"
   },
   {
    "id": "T-sources",

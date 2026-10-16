@@ -1330,6 +1330,88 @@ export function nriIndiaTaxFY27(n: NriTaxInput): NriTaxResult {
 }
 
 /**
+ * Capital-gains reinvestment exemption (Section 54 / 54F / 54EC) for FY 2026-27.
+ *
+ * After the Finance (No.2) Act 2024 rationalisation, long-term capital gains
+ * are taxed at 12.5% without indexation, and the reinvestment exemptions
+ * (54 house, 54F any-asset-to-house, 54EC notified bonds) are the primary
+ * legal way to shelter a long-term gain. These exemptions are available to
+ * residents AND NRIs.
+ *
+ * Conventions:
+ *  - Only LONG-TERM gains qualify; the holding period is the caller's
+ *    responsibility (property: 24 months, listed equity: 12 months).
+ *  - `gain` is the net long-term capital gain (sale - cost - expenses).
+ *  - `reinvested` is the amount actually invested in the new asset within
+ *    the statutory window. The exemption is the SMALLER of the gain and the
+ *    reinvested amount (the proportional rule): reinvesting less than the
+ *    gain leaves the balance taxable.
+ *  - `route` selects the cap: 54EC is capped at Rs 50L and only works on a
+ *    long-term gain from a residential house (54) / any asset (54F
+ *    reinvested via a house); 54/54F are subject to the Rs 10Cr cap on the
+ *    new asset cost. The 6-month (54EC) vs 2-year-purchase/3-year-construction
+ *    (54/54F) windows are the caller's compliance responsibility, modelled
+ *    here by a `timeCompliant` flag that, when false, zeroes the exemption.
+ *  - The tax saving is the 12.5% (or, for property/other-asset non-112A
+ *    gains, the slab rate passed in) that would have applied to the exempt
+ *    portion.
+ */
+export interface RolloverInput {
+  gain: number;
+  reinvested: number;
+  route: '54' | '54F' | '54EC';
+  timeCompliant: boolean;
+  ltcgOnly: boolean;
+  taxRateOnGain: number;
+}
+
+export interface RolloverResult {
+  route: RolloverInput['route'];
+  longTermGain: number;
+  reinvested: number;
+  timeCompliant: boolean;
+  routeCap: number; // the reinvestment cap for this route (0 = none modelled)
+  exemptAmount: number;
+  taxableGain: number;
+  taxSaved: number;
+  taxOnGainIfNoRollover: number;
+}
+
+export function rolloverExemption(r: RolloverInput): RolloverResult {
+  const gain = Math.max(0, r.gain);
+  const reinvested = Math.max(0, r.reinvested);
+
+  // Route caps: 54EC is a hard Rs 50L reinvestment cap; 54/54F reinvestment
+  // is effectively uncapped in this model (the Rs 10Cr new-asset-cost cap is
+  // a ceiling on the asset, not the gain, and is not the binding number here).
+  const routeCap = r.route === '54EC' ? 5000000 : 0;
+  const capApplied = routeCap > 0 ? Math.min(reinvested, routeCap) : reinvested;
+
+  // The proportional rule: exemption = the smaller of the gain and the
+  // (capped) reinvested amount - but only if the reinvestment happened within
+  // the statutory window and the gain is a long-term gain.
+  const eligible = r.timeCompliant && r.ltcgOnly;
+  const exemptAmount = eligible ? Math.min(gain, capApplied) : 0;
+  const taxableGain = Math.max(0, gain - exemptAmount);
+
+  const rate = Math.max(0, Math.min(1, r.taxRateOnGain));
+  const taxOnGainIfNoRollover = gain * rate;
+  const taxSaved = exemptAmount * rate;
+
+  return {
+    route: r.route,
+    longTermGain: gain,
+    reinvested,
+    timeCompliant: r.timeCompliant,
+    routeCap,
+    exemptAmount,
+    taxableGain,
+    taxSaved,
+    taxOnGainIfNoRollover,
+  };
+}
+
+/**
  * AIF end-of-fund "2 and 20" waterfall (European-style, single distribution).
  *
  * Models a fund that returns `grossMultiple` on committed capital at the end of

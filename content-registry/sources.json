@@ -788,5 +788,26 @@
    "NRI ITR: ITR-2 (ITR-3 if Indian business/professional income or foreign assets), due 31 Jul (31 Oct if audit); NRIs generally cannot use ITR-1 (Sahaj); filing is required to reclaim excess TDS"
   ],
   "notes": "The 195 head rates, the 87A-not-available position, and the 15G/15H exclusion are as of the FY 2026-27 transition under the Income-tax Act 2025; the individual residency day counts were NOT changed by the 2025 Act. Re-verify the 195 head rates and the 87A position at each Finance Act, and confirm the specific DTAA treaty rate against the actual treaty text before claiming relief."
+ },
+ {
+  "id": "src-54-rollover-fy2026-27",
+  "title": "Capital-gains reinvestment (rollover) exemptions FY 2026-27 - Section 54 (residential house to residential house), 54F (any long-term asset other than a house to a residential house) and 54EC (a house-gain reinvested in notified infrastructure bonds, capped at Rs 50,00,000): the proportional rule (exemption = the smaller of the net gain and the amount actually reinvested in time), the statutory time windows (54EC within 6 months; 54 purchase within 1 yr before / 2 yr after sale or construction within 3 yr; 54F within 2 yr), the two exemption-breakers (a missed window and a non-long-term gain), the Capital Gains Account Scheme (CGAS) to hold unspent consideration, the Rs 10 Cr new-asset-cost cap on 54/54F (from AY 2024-25), the post-Finance (No.2) Act 2024 12.5% no-indexation LTCG base, and NRI eligibility (the rollover also reduces the 195 TDS)",
+  "publisher": "CBDT Budget-2024 capital-gains FAQs (PIB, 24 Jul 2024) / TaxClue 54EC + 54F guides",
+  "url": "https://www.pib.gov.in/newsite/erelcontentt.aspx?_d=2036604",
+  "type": "regulator",
+  "authority": "primary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "The post-2024 capital-gains rationalisation: holding periods simplified to 1 year (listed) and 2 years (other assets); LTCG on all assets at 12.5% without indexation; the 112A equity exemption raised to Rs 1.25L; reinvestment (rollover) benefits unchanged in structure",
+   "Section 54: a long-term gain on a residential house is exempt to the extent it is reinvested in another residential house - purchase within 1 year before or 2 years after the sale, or construction within 3 years of the sale",
+   "Section 54F: a long-term gain on any asset OTHER than a house is exempt to the extent the net consideration is invested in one residential house within 2 years of the sale",
+   "Section 54EC: a long-term gain on a house may instead be reinvested in notified infrastructure bonds (NHAI / REC / PFC / IRFC etc.), capped at Rs 50,00,000, within 6 months of the sale; the bond must be held (not sold or converted to money) for the statutory period",
+   "The exemption is proportional: it is the SMALLER of the net gain and the amount actually reinvested; reinvesting less than the gain leaves the balance taxable",
+   "Two conditions break the exemption: the reinvestment must be inside the statutory window, and the gain must be a LONG-TERM gain",
+   "Unspent sale consideration can be parked in a Capital Gains Account Scheme (CGAS) deposit; the exemption holds only if it is deployed within the remaining time, else the uninvested part becomes taxable in the year the deadline lapses",
+   "From AY 2024-25 the 54/54F exemption for a single individual/HUF is capped at a new-asset cost of Rs 10 crore; the routes are available to residents and NRIs, and using them also reduces the Section 195 TDS an NRI property buyer withholds"
+  ],
+  "notes": "The 54EC notified-bond list is updated by the government each quarter - confirm the open tranche and its investment dates before relying on the 6-month window. The 12.5% no-indexation base and the holding periods are the Finance (No.2) Act 2024 position; re-verify at each Finance Act. The rollover math (exemption = min(gain, reinvested), 54EC 50L cap) is what the rolloverExemption() function models."
  }
 ]

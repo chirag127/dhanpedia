@@ -311,6 +311,27 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('capital-gains-rollover calculator renders the exemption split', async ({ page }) => {
+    await page.goto('/calculators/capital-gains-rollover');
+    await expect(page.getByText('Exempt amount', { exact: true })).toBeVisible();
+    await expect(page.getByText('Taxable balance', { exact: true })).toBeVisible();
+    await expect(page.getByText('Tax the rollover saves', { exact: true })).toBeVisible();
+    await expect(page.getByText('Tax with no rollover', { exact: true })).toBeVisible();
+    // Chart container for the exempt-vs-taxable split is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('capital-gains rollover article renders the route table and proportional rule', async ({ page }) => {
+    await page.goto('/articles/tax-capital-gains-rollover-54-54f-54ec');
+    await expect(page.getByRole('heading', { name: /Capital Gains Rollover/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /The three routes, side by side/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The proportional rule/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The two things that break the exemption/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

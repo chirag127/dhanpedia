@@ -1426,6 +1426,45 @@
    "books": [
     "book-complete-indian-investor"
    ]
+  },
+  {
+   "id": "tax-capital-gains-rollover-54-54f-54ec",
+   "title": "Capital Gains Rollover: Section 54, 54F & 54EC — Reinvest the Gain, Not the Sale Value (and What Breaks It)",
+   "category": "taxation",
+   "difficulty": "intermediate",
+   "status": "published",
+   "tags": [
+    "capital-gains",
+    "54",
+    "54f",
+    "54ec",
+    "rollover",
+    "reinvestment",
+    "ltcg",
+    "exemption",
+    "property",
+    "rec",
+    "nhai",
+    "cgs",
+    "bond"
+   ],
+   "summary": "The reinvestment layer over capital gains: how Section 54 (house to house), 54F (any asset to house) and 54EC (notified bonds, Rs 50L cap) shelter a long-term gain, the time windows that make or break each, the proportional rule when you reinvest less than the gain, the 12.5% no-indexation base, the CGAS escape valve, and the NRI angle.",
+   "file": "src/content/taxation/tax-capital-gains-rollover-54-54f-54ec.mdx",
+   "sources": [
+    "src-54-rollover-fy2026-27",
+    "src-elss-ltcg-2026",
+    "src-it-slab-fy2026-27"
+   ],
+   "related": [
+    "tax-loss-harvesting",
+    "tax-india-investor-complete",
+    "real-estate-reit-invit",
+    "international-nri-tax-residency-tds-dtaa",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-indian-taxation"
+   ]
   }
  ]
 }

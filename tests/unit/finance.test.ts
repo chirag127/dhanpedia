@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -1056,5 +1056,63 @@ describe('NRI India-source tax & TDS (residency + DTAA)', () => {
     expect(r.tdsBeforeCess).toBe(0);
     expect(r.cess4Pct).toBe(0);
     expect(r.dtaaRelief).toBe(0);
+  });
+});
+
+describe('Capital gains rollover (54 / 54F / 54EC reinvestment)', () => {
+  const base = (over: Record<string, unknown> = {}) => ({
+    gain: 800000, reinvested: 500000, route: '54EC',
+    timeCompliant: true, ltcgOnly: true, taxRateOnGain: 0.125, ...over,
+  });
+
+  it('shelters min(gain, reinvested) - a 5L reinvestment on an 8L gain leaves 3L taxable', () => {
+    const r = rolloverExemption(base({}));
+    expect(r.exemptAmount).toBe(500000);
+    expect(r.taxableGain).toBe(300000);
+    expect(r.taxSaved).toBeCloseTo(500000 * 0.125, 2);
+    expect(r.taxOnGainIfNoRollover).toBeCloseTo(800000 * 0.125, 2);
+  });
+
+  it('a full reinvestment (reinvested >= gain) makes the whole gain exempt', () => {
+    const r = rolloverExemption(base({ gain: 400000, reinvested: 400000, route: '54' }));
+    expect(r.exemptAmount).toBe(400000);
+    expect(r.taxableGain).toBe(0);
+    expect(r.taxSaved).toBeCloseTo(400000 * 0.125, 2);
+  });
+
+  it('the 54EC route caps the reinvestment at Rs 50L even when more is available', () => {
+    // A 60L gain, 60L reinvested, 54EC -> exemption capped at 50L
+    const r = rolloverExemption(base({ gain: 6000000, reinvested: 6000000, route: '54EC' }));
+    expect(r.routeCap).toBe(5000000);
+    expect(r.exemptAmount).toBe(5000000);
+    expect(r.taxableGain).toBe(1000000);
+  });
+
+  it('54 and 54F have no binding cap in this model (reinvested is the binding number)', () => {
+    const r = rolloverExemption(base({ gain: 6000000, reinvested: 6000000, route: '54' }));
+    expect(r.routeCap).toBe(0);
+    expect(r.exemptAmount).toBe(6000000); // full gain reinvested -> fully exempt
+    expect(r.taxableGain).toBe(0);
+  });
+
+  it('a missed time window zeroes the exemption', () => {
+    const r = rolloverExemption(base({ timeCompliant: false }));
+    expect(r.exemptAmount).toBe(0);
+    expect(r.taxableGain).toBe(800000);
+    expect(r.taxSaved).toBe(0);
+  });
+
+  it('a short-term gain (ltcgOnly false) gets no rollover exemption', () => {
+    const r = rolloverExemption(base({ ltcgOnly: false, taxRateOnGain: 0.2 }));
+    expect(r.exemptAmount).toBe(0);
+    expect(r.taxableGain).toBe(800000);
+    expect(r.taxOnGainIfNoRollover).toBeCloseTo(800000 * 0.2, 2);
+  });
+
+  it('a zero gain is trivially fully exempt', () => {
+    const r = rolloverExemption(base({ gain: 0, reinvested: 0 }));
+    expect(r.exemptAmount).toBe(0);
+    expect(r.taxableGain).toBe(0);
+    expect(r.taxSaved).toBe(0);
   });
 });

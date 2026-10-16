@@ -455,6 +455,15 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "The 195 head rates and the 87A/15G-15H positions are as of the FY 2026-27 transition under the Income-tax Act 2025; the individual residency day counts were unchanged. Re-verify the 195 head rates and the 87A position at each Finance Act, and confirm the specific DTAA treaty rate against the treaty text."
+  },
+  {
+   "id": "ul-54ec-notified-bonds-fy2026-27",
+   "claim": "Section 54EC reinvestment is capped at Rs 50,00,000 and must be into government-notified infrastructure bonds (NHAI / REC / PFC / IRFC etc.) within 6 months of the sale; the notified-bond list is refreshed quarterly and a tranche must be open to invest",
+   "source": "src-54-rollover-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-01-31",
+   "status": "verified",
+   "notes": "The 50L cap and the 6-month window are stable; the specific notified-bond issuers and tranche dates are re-notified each quarter - confirm the open tranche before acting. Re-verify the 12.5% no-indexation base and the 1-yr / 2-yr holding periods at each Finance Act."
   }
  ]
 }
