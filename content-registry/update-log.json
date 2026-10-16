@@ -311,6 +311,24 @@
    "reviewAfter": "2027-02-28",
    "status": "verified",
    "notes": "The 25% SPV-surcharge figure and the dividend-uniformity mechanics are from the Lok Sabha 2026 amendment report; confirm against the final Finance Act text and the REIT/InvIT distribution statement."
+  },
+  {
+   "id": "ul-aif-sebi-amendment-2026",
+   "claim": "SEBI AIF Amendment 2026: accredited-investor-only schemes waive the 1,000-investor cap; angel funds are a distinct Category I class (49-investor, accredited-only, re-registration deadline 8 Sep 2026); inoperative-fund classification and Regulation 29 retained-liquidation-proceeds changes; AIF Master Circular 3 Jun 2026",
+   "source": "src-aif-sebi-amendment-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Secondary reading of the SEBI amendment; confirm deadlines and amendment numbers against the SEBI AIF Master Circular (3 Jun 2026)."
+  },
+  {
+   "id": "ul-aif-tax-forms-migration-2026",
+   "claim": "AIF tax forms: 64C/64D migrate to 78/79 under the Income-tax Act 2025 (effective 1 Apr 2026, Sec 224 / Rule 145); income for years beginning before 1 Apr 2026 stays on the old forms; 194LBB 10% TDS on credited pass-through income; business income not passed through; losses need a 12-month hold",
+   "source": "src-aif-tax-forms-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-07-31",
+   "status": "verified",
+   "notes": "The 115UB pass-through and 194LBB TDS are current; the form renumbering is a 2026 framework change - re-verify at each Finance Act and against the Income-tax Department ITR-2 documentation."
   }
  ]
 }

@@ -1012,6 +1012,84 @@
     "portfolio-construction-rebalancing"
    ],
    "books": []
+  },
+  {
+   "id": "alternatives-aif-category-selection-guide",
+   "title": "AIF Category Selection: Which Rung of ₹1Cr (Cat I / II / III) Fits Your Capital, Liquidity & Tax",
+   "category": "alternatives",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "aif",
+    "category-i",
+    "category-ii",
+    "category-iii",
+    "pms",
+    "private-equity",
+    "venture",
+    "hedge-fund",
+    "due-diligence",
+    "fees",
+    "carried-interest",
+    "lock-in",
+    "leverage"
+   ],
+   "summary": "The decision layer over AIFs: how SEBI's three categories differ on leverage, lock-in, tax and fee structure; which one a growing ₹1Cr-to-₹10Cr investor should actually pick; the 2/20 fee-decay math; and the due-diligence questions that separate a real opportunity from a fee stack.",
+   "file": "src/content/alternatives/alternatives-aif-category-selection-guide.mdx",
+   "sources": [
+    "src-aif-categories-2026",
+    "src-pms-aif-fees-2026",
+    "src-sebi-sif-2026",
+    "src-aif-sebi-amendment-2026"
+   ],
+   "related": [
+    "alternatives-pms-aif-private",
+    "alternatives-hnw-pms-aif-sif-selection",
+    "alternatives-sif-strategy-families-deep-dive",
+    "tax-tax-free-wealth-stack",
+    "portfolio-construction-rebalancing"
+   ],
+   "books": [
+    "book-wealth-beyond-10l"
+   ]
+  },
+  {
+   "id": "tax-aif-pcc-115bb-deep-dive",
+   "title": "AIF Taxation Decoded: Section 115UB Pass-Through, the Cat III Fund-Level Tax & the 64C-to-78 Form Migration",
+   "category": "taxation",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "aif",
+    "115ub",
+    "pass-through",
+    "194lbb",
+    "form-64c",
+    "form-78",
+    "schedule-pti",
+    "category-iii",
+    "taxation",
+    "itr",
+    "advance-tax"
+   ],
+   "summary": "The taxation layer over AIFs: how Category I/II pass-through under Section 115UB puts tax in your hands, why Category III is taxed at the fund level, the 194LBB TDS, the business-income non-pass-through trap, and the 2026 migration from Form 64C/64D to 78/79 under the new Income-tax Act.",
+   "file": "src/content/taxation/tax-aif-pcc-115bb-deep-dive.mdx",
+   "sources": [
+    "src-advance-tax-fy2026-27",
+    "src-it-slab-fy2026-27",
+    "src-it-dept-final-dates-2026",
+    "src-aif-tax-forms-2026"
+   ],
+   "related": [
+    "tax-advance-itr-final-checklist",
+    "alternatives-aif-category-selection-guide",
+    "alternatives-pms-aif-private",
+    "tax-loss-harvesting",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-indian-taxation"
+   ]
   }
  ]
 }

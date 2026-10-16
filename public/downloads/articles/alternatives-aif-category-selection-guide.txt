@@ -1,0 +1,114 @@
+# AIF Category Selection: Which Rung of ₹1Cr (Cat I / II / III) Fits Your Capital, Liquidity & Tax
+
+The decision layer over AIFs: how SEBI's three categories differ on leverage, lock-in, tax and fee structure; which one a growing ₹1Cr-to-₹10Cr investor should actually pick; and the due-diligence questions that separate a real opportunity from a fee stack.
+
+You already read the PMS / AIF private markets overview (./alternatives-pms-aif-private.mdx), the SIF (Specialized Investment Fund) overview (./alternatives-sif-specialized-funds.mdx) and the selection & fee-decay decision layer (./alternatives-hnw-pms-aif-sif-selection.mdx). This article is the missing piece: once you have the Rs. 1 crore AIF ticket in hand, which of SEBI's three categories do you actually put it in, and why? The category is not a label — it fixes your leverage, your lock-in, your tax treatment and your fee waterfall before you ever pick a manager.
+
+WHY "AIF" IS NOT ONE PRODUCT
+============================
+
+SEBI's Alternative Investment Fund Regulations (2012, as amended through 2026) split every privately pooled vehicle into three mutually exclusive categories. The classification you choose up front determines:
+• What the fund may hold (startups vs private credit vs listed + unlisted + derivatives).
+• How much leverage it may use (none, up to 2× NAV, up to 2× NAV with active shorting).
+• How long your money is locked (close-ended tenure vs open-ended redemption windows).
+• Where the tax lands (in your hands vs at the fund level).
+
+All three require the same floor: a Rs. 1 crore minimum commitment per investor (Rs. 25 lakh only for angel-fund investors and manager/employee investors) and a Rs. 20 crore minimum corpus per scheme. So the category is a strategy and risk choice, not an access choice.
+
+THE THREE CATEGORIES IN ONE TABLE
+=================================
+
+Parameter: **Mandate**,Startups, SMEs, infra, social ventures, innovation,Private equity, performing private debt, real estate,Listed + unlisted, pre-IPO, derivatives, short, leverage  |  Category I: **Fund-level borrowing**,Not permitted,Up to 2× NAV (operational only),Up to 2× NAV (active use)  |  Category II: **Structure**,Close-ended,Close-ended,Open or close-ended  |  Category III: **Typical lock-in**,3–5 years (often longer),5–10 years,Monthly / quarterly redemption in open-ended
+
+Note: Rule of thumb. Category I is a bet on a company's survival, Category II is a bet on an exit at a higher multiple, and Category III is a bet on a strategy beating a benchmark while you keep exit flexibility. Match the bet to the money you can genuinely leave untouched.
+
+HOW THE MONEY COMPOUNDS INSIDE EACH CATEGORY
+============================================
+
+The single most-misunderstood number for a first-time AIF investor is the relationship between the gross return the manager quotes and the net return that actually reaches you after the fee stack. AIFs in India run on the private-market standard:
+
+$$ \text{total net to LP} = \underbrace{\text{gross return}}_{\text{manager's result}} \;-\; \underbrace{f_{m}}_{\text{mgmt fee} \;(\approx 2\%/yr)} \;-\; \underbrace{f_{c}}_{\text{carry on gain above hurdle}} $$
+
+where the industry standard is a 2% management fee + 20% carried interest on gains above an 8% preferred return (the hurdle), with the 20% split often written as a 50% "catch-up" to the general partner (GP). Concretely, for a Category II private-equity fund that returns 24% gross in a year:
+
+Step: Gross return (24%),₹24,00,000  |  Amount on a ₹1 Cr position: Less management fee (2% of corpus),−₹2,00,000
+
+The 20% above-hurdle is not cosmetic. Two funds with identical gross results can land 200–300 basis points apart on net purely because of where the hurdle sits and how aggressively the distribution is timed. Category I funds frequently add a hurdle-plus-catch-up to compensate for the illiquidity premium; Category III managers sometimes offer a lighter 1% management fee with up to 25% performance allocation on absolute (not net-of-benchmark) returns.
+
+WHICH CATEGORY, BY INVESTOR PROFILE
+===================================
+
+Your profile: Already in PMS, want private/pre-IPO access,**Category III**,The natural "next rung" — keeps liquidity, adds private-market exposure the PMS cannot reach  |  Best-fit category: Family office with 7–10 year horizon,**Category II**,Structured private equity / credit with predictable, pass-through outcomes  |  Why: Institution / impact mandate, patient capital,**Category I**,The incentive + binary-upside case; you are paid for the patience
+
+The last row matters for the Rs. 1Cr→Rs. 10Cr investor: you rarely replace your PMS core with an AIF. You layer a Category III satellite on top of the PMS core and add Category I/II for the long-dated, low-beta private exposure. That is the multi-layer structure, not a swap.
+
+THE DUE-DILIGENCE CHECKLIST BEFORE YOU WIRE RS. 1 CR
+====================================================
+
+Run this on every category — it is the difference between an opportunity and a fee stack you are paying for a manager's rent:
+
+flowchart TD
+  A[Manager track record] --> B[Co-investment of at least 2% of LP commitments]
+  B --> C[Third-party valuation agent and conflict policy]
+  C --> D[Exit routes: IPO, strategic sale, secondary transfer]
+  D --> E[Key-person and change-of-control clauses are enforceable]
+  E --> F[Full waterfall: hurdle, catch-up, clawback, distribution frequency]
+  F --> G[SEBI registration certificate and current compliance]
+  G --> H{Survived a full economic cycle?}
+  H -- Yes, all checked --> I[Commit]
+  H -- No --> J[Walk away or reduce size]
+
+The two questions that disqualify most funds fast:
+1. Did this manager's track record include a full down-market cycle (2008–09, 2020), or only a
+
+bull-market run? A vintage that never experienced a -40% drawdown has not been tested.
+1. Is the GP co-investing at least 2% of total LP commitments? When the manager's own money is not
+
+in the same pot, the incentive structure is misaligned and the carry means less.
+
+WHERE YOUR CAPITAL LADDER LIVES ACROSS THE THREE RUNGS
+======================================================
+
+Capital: ₹10L,SIF (₹10L aggregate, PAN-level),Not an AIF yet  |  Realistic placement: ₹50L,PMS core (or MF-only PMS route from Apr 2027 at ₹25L),Not an AIF yet  |  Category fit: ₹1 Cr,**First AIF commitment**,Category III satellite + Category II if 7-10 yr horizon
+
+The honest note for the Rs. 1 Cr entry point: you are buying the smallest ticket in the structure, where the fixed 2% management fee is the largest percentage drag on a small base. A 2% fee on Rs. 1 Cr is Rs. 2L a year; on a Rs. 10 Cr position the same 2% is Rs. 20L but is a smaller fraction of your net. This is why the fee-decay decision test (./alternatives-hnw-pms-aif-sif-selection.mdx) matters more the smaller the position: forward-edge minus fee-drag must still be positive at your size, or the AIF is a worse home for that specific crore than a PMS.
+
+REGULATORY WATCH: THE SEBI AIF AMENDMENT 2026
+=============================================
+
+A flurry of amendments ran from early 2026 into the AIF Master Circular of 3 June 2026 (https://www.sebi.gov.in/). Three items in that watch list are worth re-checking before you commit the crore, because they change the access rules rather than the category logic above:
+• Accredited-investor-only schemes. Following amendments notified in late 2025 and operationalised through
+
+2026, funds that restrict themselves exclusively to accredited investors get the 1,000-investor cap waived. If the scheme you are looking at is accredited-only, its investor base (and therefore its information quality and co-investor depth) is a different animal from a broad-retail HNW fund.
+• Angel funds: a distinct Category I class, re-registered by 8 September 2026. The AIF Second Amendment
+
+Regulations 2025 (in force 8 September 2025) made angel funds a distinct Category I AIF class that may raise only from accredited investors, with a 49-investor cap. Existing angel funds had to re-align to the new rules within the transition window (a further 200-investor cap during transition); any angel fund you touch should already be showing the re-registration.
+• Inoperative-fund classification and Regulation 29 (liquidation proceeds). The SEBI (AIF) (Amendment)
+
+Regulations, 2026 let an AIF be tagged as an inoperative fund and change how retained liquidation proceeds are handled. For a Category II/III fund you are joining near the back end of its life, ask the manager to state its inoperative-fund status and how liquidation proceeds will be returned — that is a cash-realisation question, not a market question.
+
+Treat all three as current-year operational details that move with each SEBI circular: re-verify the exact amendment text and dates against the SEBI AIF Master Circular (3 June 2026) and the amendment notification before relying on them, because the numbers and deadlines are secondary readings, not the regulation text.
+
+RELATED
+=======
+• Beyond SIP: PMS, AIFs & Private Markets for Growing Capital (./alternatives-pms-aif-private.mdx)
+• Picking Your Own Rung: The SIF / PMS / AIF Selection & Fee-Decay Decision Guide (./alternatives-hnw-pms-aif-sif-selection.mdx)
+• SIF Strategy Families Decoded (./alternatives-sif-strategy-families-deep-dive.mdx)
+• The Tax-Free Wealth Stack (./tax-tax-free-wealth-stack.mdx)
+
+SOURCES
+=======
+• SEBI AIF category minima & structure — <a href="https://www.planify.in/article/sebi_regulations">Planify / SEBI (AIF) Regulations, 2012 (2026)</a>
+• PMS / AIF fee conventions & 2/20 carry standard — <a href="https://www.nucleusadvisors.in/insights/gp-lp-economics-fee-carry-hurdle">Nucleus Advisors GP-LP economics</a>
+• AIF category mechanics & institutional allocation — <a href="https://altportfunds.com/understanding-category-i-ii-iii-aifs-whats-the-difference/">Altportfunds (2025)</a>
+• SEBI AIF Amendment 2026 (accredited-only funds, angel-fund class, inoperative-fund & Reg 29) — <a href="https://www.sebi.gov.in/">SEBI AIF Master Circular, 3 June 2026</a>
+
+UPDATE LOG
+==========
+• 2026-10-18 — Wave 7: category-comparison table, 2/20 fee-decay math, profile-to-category mapping,
+
+8-point due-diligence Mermaid, and the capital-ladder placement across rungs. Category numbers (Rs. 1 Cr minimum, Rs. 20 Cr corpus, 2× NAV leverage) re-verified against SEBI AIF regs; the specific tax-rate figures (Cat III ~42.7% fund-level) are secondary readings and must be confirmed with a CA for the current assessment year before acting.
+• 2026-10-18 — Wave 7 (regulatory watch): added the SEBI AIF Amendment 2026 watch list —
+
+accredited-only schemes (1,000-investor cap waived), the distinct angel-fund Category I class (re-registration deadline 8 Sep 2026), and the inoperative-fund / Regulation 29 retained-liquidation proceeds changes. All three are secondary readings of the AIF Master Circular (3 June 2026); re-verify against the SEBI amendment text before relying on the deadlines.
+

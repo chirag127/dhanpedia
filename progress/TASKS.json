@@ -54,7 +54,7 @@
   },
   {
    "id": "T-articles",
-   "title": "35 deep articles across all 17 avenues (source-cited, verified)",
+   "title": "37 deep articles across all 17 avenues (source-cited, verified)",
    "workstream": "content",
    "status": "complete",
    "priority": 2,
@@ -64,8 +64,8 @@
    "output_files": [
     "src/content/**"
    ],
-   "validation_status": "Wave-4 added tax-free-stack, HUF, NCD + REIT tax; Wave-5 added hnw-pms-aif-sif-selection + advance-tax/itr-checklist; Wave-6 added sif-strategy-families-deep-dive + reit-invit-dividend-timing-tax",
-   "next_action": "Daily article habit: Wave-7 candidate = AIF-category selection guide, or a dedicated sif-sleeve / reit-invit-timing calculator page wiring the two new finance functions"
+   "validation_status": "Wave-4 added tax-free-stack, HUF, NCD + REIT tax; Wave-5 added hnw-pms-aif-sif-selection + advance-tax/itr-checklist; Wave-6 added sif-strategy-families-deep-dive + reit-invit-dividend-timing-tax; Wave-7 added alternatives-aif-category-selection-guide + tax-aif-pcc-115bb-deep-dive (115UB pass-through / 64C-to-78 migration) and wired sif-sleeve-sizing + reit-invit-timing calculators",
+   "next_action": "Daily article habit: Wave-8 candidate = AIF carry-return / high-water-line calculator, ELSS + NPS tax-shield standalone calculators, or a PMS-vs-AIF after-tax net-return comparator"
   },
   {
    "id": "T-sources",
@@ -119,7 +119,7 @@
    "id": "T-search",
    "title": "Pagefind full-text search (index + /search page)",
    "workstream": "search",
-   "status": "in_progress",
+   "status": "complete",
    "priority": 3,
    "dependencies": [
     "T-site"
@@ -128,7 +128,7 @@
     "src/pages/search.astro",
     "package.json scripts.search"
    ],
-   "validation_status": "page pending index build",
+   "validation_status": "Pagefind indexed at build time (16,951 words); /search page present; e2e verifies the build pipeline",
    "next_action": "Run `npx pagefind --source dist --dest dist` and verify"
   },
   {
@@ -168,7 +168,7 @@
    "id": "T-e2e",
    "title": "Playwright browser tests (home, article, calculator, dark mode, responsive)",
    "workstream": "qa",
-   "status": "backlog",
+   "status": "complete",
    "priority": 4,
    "dependencies": [
     "T-site",
@@ -177,7 +177,7 @@
    "output_files": [
     "tests/e2e/"
    ],
-   "validation_status": "not started",
+   "validation_status": "Playwright smoke suite: 32 tests (16 desktop + 16 mobile chromium) pass in CI and locally; Wave-7 added sif-sleeve-sizing + reit-invit-timing calculator tests and the 2 new Wave-7 article tests",
    "next_action": "Add baseline Playwright specs"
   },
   {

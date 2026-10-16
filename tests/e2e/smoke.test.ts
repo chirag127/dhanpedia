@@ -89,6 +89,43 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('sif-sleeve-sizing calculator renders the net-edge decision', async ({ page }) => {
+    await page.goto('/calculators/sif-sleeve-sizing');
+    await expect(page.getByText('SIF net return (after fee)')).toBeVisible();
+    await expect(page.getByText('Net edge vs benchmark')).toBeVisible();
+    await expect(page.getByText('Fee drag over the period', { exact: true })).toBeVisible();
+    // Chart container for the projected-corpus comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('reit-invit-timing calculator renders the now-vs-forward exit', async ({ page }) => {
+    await page.goto('/calculators/reit-invit-timing');
+    await expect(page.getByText('NAV premium / (discount)')).toBeVisible();
+    await expect(page.getByText('After-tax distribution income')).toBeVisible();
+    await expect(page.getByText(/Better exit/)).toBeVisible();
+    // Chart container for the now-vs-forward after-tax proceeds is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('AIF category-selection article renders the category table and profile mapping', async ({ page }) => {
+    await page.goto('/articles/alternatives-aif-category-selection-guide');
+    await expect(page.getByRole('heading', { name: /AIF Category Selection/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /Which category, by investor profile/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The due-diligence checklist/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
+  test('AIF taxation article renders the 64C-to-78 form migration', async ({ page }) => {
+    await page.goto('/articles/tax-aif-pcc-115bb-deep-dive');
+    await expect(page.getByRole('heading', { name: /AIF Taxation Decoded/ })).toBeVisible();
+    // Stable, unique H2 in the body.
+    await expect(page.getByRole('heading', { name: /The form migration/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

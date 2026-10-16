@@ -1,14 +1,39 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 6: 2 new articles + 2 new finance functions + 2 new sources; 33 → 35 articles; all pipeline green)
+Last updated: **2026-10-18** (Wave 7: 2 new articles + 2 new calculators + 2 new sources; 35 → 37 articles; 20 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 35 on disk / registered. Wave 6 added 2: `alternatives-sif-strategy-families-deep-dive` (the 7 SIF strategy families, scheme-document annex mechanics, sleeve-sizing fee-decay math) and `real-estate-reit-invit-dividend-timing-tax` (the 12-month LTCG clock, NAV premium/discount yield-drag, reinvest-vs-redeem, distribution timing into the tax-free stack).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 8, p2p-lending 4, wealth-beyond-10l 11 (Wave 6 added the SIF strategy-families chapter).
-- **Sources:** 45 in `sources.json` (Wave 6 added 2: src-sif-strategy-families-2026, src-reit-invit-premium-discount-2026).
-- **Update-log:** 36 tracked time-sensitive claims.
-- **Calculators:** 18 pages. Wave 6 added 2 pure, unit-tested finance functions (`sifSleeveSizing()`, `businessTrustTiming()`) that power the two new articles' decision math.
+- **Articles:** 37 on disk / registered. Wave 7 added 2: `alternatives-aif-category-selection-guide` (the Cat I/II/III decision layer: leverage/lock-in/tax/fee comparison, 2/20 fee-decay math, profile-to-category mapping, 8-point due-diligence Mermaid, SEBI AIF Amendment 2026 regulatory watch) and `tax-aif-pcc-115bb-deep-dive` (the AIF taxation layer: 115UB pass-through vs Cat III fund-level tax, 194LBB TDS trap, the 64C/64D → 78/79 form migration under the Income-tax Act 2025, Schedule PTI, and the advance-tax clock interaction).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 9 (+ tax-aif-pcc-115bb-deep-dive), p2p-lending 4, wealth-beyond-10l 12 (+ alternatives-aif-category-selection-guide).
+- **Sources:** 47 in `sources.json` (Wave 7 added 2: src-aif-sebi-amendment-2026, src-aif-tax-forms-2026).
+- **Update-log:** 38 tracked.
+- **Calculators:** 20 (Wave 7 wired the two Wave-6 finance functions into new pages: `sif-sleeve-sizing` and `reit-invit-timing`).
+
+## Wave 7 session (verified 2026-10-18 via web research)
+
+### New articles
+- [x] `src/content/alternatives/alternatives-aif-category-selection-guide.mdx` — the *category decision* layer over AIFs: the Cat I/II/III comparison table (mandate, leverage, structure, lock-in, tax landing place, nature of risk, ideal investor, liquidity optionality), the 2/20 fee-decay math on a worked ₹1Cr position, the profile-to-category mapping, an 8-point due-diligence Mermaid checklist, the capital-ladder placement (₹10L SIF → ₹50L PMS → ₹1Cr first AIF → ₹5Cr/₹10Cr blends), and a **Regulatory watch** section on the SEBI AIF Amendment 2026 (accredited-only funds, the new angel-fund Category I class, inoperative-fund / Regulation 29).
+- [x] `src/content/taxation/tax-aif-pcc-115bb-deep-dive.mdx` — the *taxation* layer over AIFs: the PMS-vs-Cat I/II-vs-Cat III distinction table, the 115UB pass-through and its two breaks (business income NOT passed through; the 12-month loss hold), the Cat III ~42.7% fund-level tax and its specific-exemption sections, the **64C/64D → 78/79 form migration** under the Income-tax Act 2025 (effective 1 Apr 2026, Sec 224 / Rule 145), the 194LBB 10% TDS trap and its connection to the 234B/234C advance-tax clocks, Schedule PTI reporting, and the PMS/AIF fee non-deductibility rule.
+
+### New calculators
+- [x] `sif-sleeve-sizing` calculator page — wires `sifSleeveSizing()`: size the SIF sleeve, apply the all-in fee, compare net edge vs a plain index, and project corpus with vs without the sleeve. The "does it pay for itself" decision test.
+- [x] `reit-invit-timing` calculator page — wires `businessTrustTiming()`: the 12-month LTCG clock, NAV premium/discount yield-drag, after-tax distribution income, and a now-vs-forward exit comparison.
+
+### Research verified this session
+- [x] **SEBI AIF Amendment 2026** — accredited-investor-only schemes (1,000-investor cap waived), the distinct Category I angel-fund class (49-investor, accredited-only, re-registration deadline 8 Sep 2026), inoperative-fund classification and Regulation 29 retained-liquidation-proceeds changes; AIF Master Circular 3 June 2026 (Tax Update India, RANJ Legal, calcguru, SEBI).
+- [x] **AIF category mechanics & fees** — Cat I no-leverage / 3-5 yr lock-in / govt incentives; Cat II up to 2× NAV / 5-10 yr / pass-through / 75%+ of commitments; Cat III up to 2× NAV / open or close-ended / fund-level ~42.7% tax; 2/20 standard fee ladder (Altportfunds, Nucleus Advisors, Scholarly).
+- [x] **AIF taxation & form migration** — 115UB pass-through, 194LBB 10% TDS, business-income non-pass-through, 12-month loss hold, 64C/64D → 78/79 under the Income-tax Act 2025 (Sec 224 / Rule 145), Schedule PTI in ITR-2, Cat III ~42.7% fund-level with 10(4D)/10(23FF)/10(23FBC)/115AD exemptions (49Tax, Altportfunds, TaxHeal).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 55 passed (unit; the two new calculators are pure-data entries, no new unit math).
+- [x] `node scripts/validate-content.mjs` → 37 articles, 4 books, 47 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npx astro build` → indexed pages; both new article pages + both new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (16,951 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 37/37 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 32 passed (16 desktop + 16 mobile).
 
 ## Wave 6 session (verified 2026-10-18 via web research)
 
@@ -69,12 +94,12 @@ Last updated: **2026-10-18** (Wave 6: 2 new articles + 2 new finance functions +
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion if the user confirms: AIF carry-return calculator (high-water-line), dedicated `sif-sleeve` and `reit-invit-timing` calculator pages wiring the two new finance functions, ELSS/NPS tax-shield standalone.
+- [ ] Phase 4 deeper expansion if the user confirms: AIF carry-return calculator (high-water-line), ELSS/NPS tax-shield standalone, a PMS-vs-AIF net-return after-tax comparator.
 
 ## Next 3 actions
-1. Commit Wave 6: 2 new articles + 2 finance functions + 2 sources + tests.
+1. Commit Wave 7: 2 new articles + 2 new calculators + 2 new sources + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 7 candidates: an AIF-category selection guide, an AIF carry-return calculator, or a SIF sleeve-sizing calculator page).
+3. Continue the daily article habit (Wave 8 candidates: AIF carry-return / high-water-line calculator, ELSS + NPS tax-shield standalone calculators, or a PMS-vs-AIF after-tax net-return comparator).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

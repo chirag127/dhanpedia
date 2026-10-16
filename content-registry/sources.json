@@ -596,5 +596,42 @@
    "The amendment is the Taxation and Other Laws (Amendment) Act 2026 (assent 17 Aug 2026); the current-year wording of 115UA(2) and the dividend component breakup must be verified with a CA before acting"
   ],
   "notes": "Confirm the current-year 115UA wording, the 25% SPV surcharge figure, and the component-level TDS rates against the final Finance Act text and each REIT / InvIT distribution statement before advising."
+ },
+ {
+  "id": "src-aif-sebi-amendment-2026",
+  "title": "SEBI AIF Amendment 2026: accredited-investor-only schemes (1,000-investor cap waived), distinct Category I angel-fund class (49-investor cap, accredited-only, re-registration deadline 8 Sep 2026), inoperative-fund classification and Regulation 29 retained-liquidation-proceeds changes; AIF Master Circular 3 June 2026",
+  "publisher": "SEBI AIF Amendment Regulations 2026 / AIF Master Circular (3 Jun 2026) — via Tax Update India, RANJ Legal, calcguru",
+  "url": "https://taxupdate.in/finance/706/sebi-aif-amendment-regulations-2026-inoperative-fund-regulation-29-ppm-update-guide/",
+  "type": "regulator",
+  "authority": "secondary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "Funds that restrict themselves exclusively to Accredited Investors get the 1,000-investor cap waived",
+   "Angel funds are now a distinct Category I AIF class that may raise only from accredited investors, with a 49-investor cap; existing angel funds had to re-align by the transition deadline of 8 Sep 2026",
+   "The SEBI (AIF) (Amendment) Regulations, 2026 let an AIF be tagged as an inoperative fund and change how retained liquidation proceeds are handled (Regulation 29)",
+   "The AIF Master Circular was consolidated on 3 June 2026"
+  ],
+  "notes": "Secondary readings of the SEBI amendment text; confirm the exact amendment numbers, dates, and deadlines against the SEBI AIF Master Circular (3 Jun 2026) and the notification before advising."
+ },
+ {
+  "id": "src-aif-tax-forms-2026",
+  "title": "AIF tax forms AY 2026-27 vs AY 2027-28: Section 115UB pass-through (Cat I/II) vs fund-level trust taxation (Cat III); 194LBB 10% TDS on credited income; business income NOT passed through; losses pass through only after 12-month hold; the 64C/64D -> 78/79 form migration under the Income-tax Act 2025 (effective 1 Apr 2026, Sec 224 / Rule 145); Schedule PTI reporting in ITR-2",
+  "publisher": "49Tax PMS/AIF Taxation Guide (AY 2026-27) / Altportfunds AIF Tax Forms / TaxHeal pass-through AY 2026-27",
+  "url": "https://www.altportfunds.com/aif-tax-forms-itr-reporting",
+  "type": "financial-publication",
+  "authority": "secondary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "Section 115UB gives Category I & II AIFs pass-through status: fund income is taxed in the unitholder hands, retaining its character",
+   "Business income of the AIF is taxed at the fund level (max marginal rate) and reaches the unitholder tax-free; it is NOT passed through",
+   "Losses: business losses stay at the fund level; other losses pass through only if units were held at least 12 months",
+   "TDS at 10% under Section 194LBB on income credited to the unitholder, whether or not distributed",
+   "The Income-tax Act 2025 (effective 1 Apr 2026) renames Form 64C -> Form 78 and Form 64D -> Form 79 (Sec 224, Rule 145); income for years beginning before 1 Apr 2026 stays under the old Act and old forms",
+   "Category III AIFs have no pass-through; taxed at fund level, frequently ~42.7% incl. surcharge, net of tax to the unitholder; specific Cat III vehicles may qualify for exemptions under 10(4D), 10(23FF), 10(23FBC) or 115AD",
+   "Pass-through income is reported in Schedule PTI of ITR-2, by head and by fund, including the deemed-credit mechanism"
+  ],
+  "notes": "The ~42.7% Cat III fund-level rate and the specific-exemption sections are secondary readings; confirm the exact rate and sections against the Income-tax Act 2025 text and a CA for the assessment year."
  }
 ]

@@ -17,6 +17,7 @@ import {
   bondPrice, macaulayDuration, feeImpact, currencyScenario, rentalYield,
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
+  sifSleeveSizing, businessTrustTiming,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -712,6 +713,210 @@ export const CALCULATORS: CalcDef[] = [
                 name: 'Cumulative due',
                 type: 'bar',
                 data: schedule.map((s) => Math.round(s.amountDue)),
+                itemStyle: { color: '#1f7a5c' },
+                label: { show: true, formatter: (p: { value: number }) => `${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'sif-sleeve-sizing',
+    title: 'SIF Sleeve Sizing & Fee Decay',
+    category: 'Alternatives',
+    description: 'Size an equity long-short / SIF sleeve as a percentage of your corpus, apply its all-in fee, compare the net edge over a benchmark, and project the corpus with and without the sleeve. The decision test is "does the net edge beat the benchmark after fees?"',
+    inputs: [
+      { key: 'corpus', label: 'Investable corpus (Rs)', default: 1000000, min: 100000, step: 100000, hint: 'Total equity + debt corpus you are sizing the sleeve against. A SIF sleeve is a satellite, not the whole portfolio.' },
+      { key: 'coreReturn', label: 'Core portfolio annual return (decimal)', default: 0.12, min: 0, step: 0.005, hint: 'Expected annual return on the rest of the portfolio (your SIP / index / debt core). Enter 0.12 for 12%.' },
+      { key: 'sifGrossReturn', label: 'SIF expected gross annual return (decimal)', default: 0.14, min: 0, step: 0.005, hint: 'The gross return the SIF quotes, before its all-in fee. Long-short strategies track dispersion, not market direction.' },
+      { key: 'sifFee', label: 'SIF all-in fee (decimal)', default: 0.0225, min: 0, step: 0.0025, hint: 'Management + distribution + performance. The SEBI SIF expense cap is about 2.25% management + about 2% marketing; use 0.0225 as a planning floor.' },
+      { key: 'benchmarkReturn', label: 'Benchmark (index) annual return (decimal)', default: 0.11, min: 0, step: 0.005, hint: 'The market return you would earn by putting that same money into a plain index fund instead. The net edge is SIF-net minus this.' },
+      { key: 'sleevePct', label: 'Sleeve as % of corpus (0-25)', default: 15, min: 0, max: 25, step: 1, hint: 'The naked-short-cap rule of thumb keeps a long-short sleeve under 25% of the book. Inputs above 25 are capped at 25.' },
+      { key: 'years', label: 'Hold period (years)', default: 10, min: 1, step: 1, hint: 'How long the blended portfolio compounds at the blended net return.' },
+    ],
+    assumptions: [
+      'Blended portfolio net return = sleeve% x SIF-net + (1 - sleeve%) x core return, compounded annually.',
+      'SIF net return = SIF gross - all-in fee. The sleeve is "pays for itself" only when the SIF net return exceeds the benchmark return on the same money.',
+      'Fee drag over the period is the difference between compounding the sleeve at gross vs at net. This is an expected-return decision aid, not a backtest.',
+    ],
+    limitations: [
+      'Long-short returns come from pair selection and volatility, not market direction; a single "expected gross" number is a planning input, not a forecast.',
+      'The 25% sleeve cap is a risk-of-concentration rule of thumb, not a regulatory limit - a manager may allow more, at your risk.',
+      'Taxes on the sleeve are not modelled; a SIF is not a mutual fund, so check the tax landing place before acting.',
+    ],
+    compute: (v) => {
+      const r = sifSleeveSizing({
+        corpus: v.corpus,
+        coreReturn: v.coreReturn,
+        sifGrossReturn: v.sifGrossReturn,
+        sifFee: v.sifFee,
+        benchmarkReturn: v.benchmarkReturn,
+        sleevePct: v.sleevePct / 100,
+        years: v.years,
+      });
+      return {
+        results: [
+          {
+            label: 'SIF net return (after fee)',
+            value: (r.sifNetReturn * 100).toFixed(1) + '%',
+            kind: 'text',
+            note: `Gross ${(v.sifGrossReturn * 100).toFixed(1)}% - ${(v.sifFee * 100).toFixed(1)}% all-in fee`,
+          },
+          {
+            label: 'Net edge vs benchmark',
+            value: ((r.netEdgeVsBenchmark) * 100).toFixed(1) + ' bps -> ' + Math.round(r.netEdgeVsBenchmark * 10000) + ' bps',
+            kind: 'text',
+            note: r.paysForItself
+              ? 'Positive - the SIF beats a plain index after its fee, so the sleeve earns its place'
+              : 'Negative - a plain index would beat this SIF after its fee; the sleeve does not pay for itself',
+          },
+          {
+            label: 'Effective sleeve (capped at 25%)',
+            value: Math.round(r.effectiveSleevePct * 100) + '%',
+            kind: 'text',
+            note: r.sleevePct > 0.25 ? 'Your requested sleeve was above the 25% cap and was reduced' : 'Within the naked-short-cap rule of thumb',
+          },
+          {
+            label: 'Fee drag over the period',
+            value: Math.round(r.feeDragOverPeriod),
+            kind: 'inr',
+            note: 'Value lost to compounding the sleeve at net vs gross over ' + v.years + ' years',
+          },
+          {
+            label: 'Corpus with sleeve',
+            value: Math.round(r.corpusWithSleeve),
+            kind: 'inr',
+            note: 'All-core corpus = Rs ' + Math.round(r.corpusAllCore).toLocaleString('en-IN'),
+          },
+          {
+            label: 'Extra value from the sleeve',
+            value: Math.round(r.deltaOverPeriod),
+            kind: 'inr',
+            note: r.deltaOverPeriod >= 0 ? 'The sleeve adds this over all-core after its fee' : 'The sleeve subtracts this over all-core after its fee',
+          },
+        ],
+        chart: {
+          title: r.paysForItself ? 'Sleeve pays for itself: projected corpus' : 'Sleeve does not beat the index after its fee',
+          alt: `Projected corpus after ${v.years} years: Rs ${Math.round(r.corpusWithSleeve).toLocaleString('en-IN')} with a ${Math.round(r.effectiveSleevePct * 100)}% SIF sleeve vs Rs ${Math.round(r.corpusAllCore).toLocaleString('en-IN')} all-core; delta Rs ${Math.round(r.deltaOverPeriod).toLocaleString('en-IN')}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${Math.round(x).toLocaleString('en-IN')}` },
+            xAxis: { type: 'category', data: ['All-core', 'With SIF sleeve'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Projected corpus',
+                type: 'bar',
+                data: [Math.round(r.corpusAllCore), Math.round(r.corpusWithSleeve)],
+                itemStyle: { color: r.paysForItself ? '#1f7a5c' : '#b45309' },
+                label: { show: true, formatter: (p: { value: number }) => `${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'reit-invit-timing',
+    title: 'REIT / InvIT Timing & Total-Return Optimizer',
+    category: 'Real Estate',
+    description: 'Decide when to sell REIT/InvIT units: the 12-month long-term clock, the NAV premium/discount drag on your effective yield, the distribution after tax, and a now-vs-forward exit comparison including the shared 1.25L equity LTCG pool.',
+    inputs: [
+      { key: 'units', label: 'Units held', default: 5000, min: 1, step: 100, hint: 'Number of REIT/InvIT units you own.' },
+      { key: 'costPerUnit', label: 'Average cost per unit (Rs)', default: 400, min: 1, step: 1, hint: 'Your acquisition price per unit. This is what the 12-month long-term clock and the premium/discount are measured against.' },
+      { key: 'currentPrice', label: 'Current market price per unit (Rs)', default: 420, min: 1, step: 1, hint: 'Today NAV-trading price per unit. A price above NAV is a premium that drags your yield; below NAV is a discount that lifts it.' },
+      { key: 'navPerUnit', label: 'NAV per unit (Rs)', default: 405, min: 1, step: 1, hint: 'The trust NAV. Premium/discount is the gap between the market price and NAV.' },
+      { key: 'annualDistPerUnit', label: 'Annual distribution per unit (Rs)', default: 30, min: 0, step: 1, hint: 'Expected annual distribution per unit. Most components are slab-taxed, so the after-tax figure matters for your income.' },
+      { key: 'monthsHeld', label: 'Months held (current)', default: 14, min: 0, step: 1, hint: '12 months or more qualifies for 12.5% long-term CG; under 12 months the gain is 20% short-term CG.' },
+      { key: 'forwardYears', label: 'Hold forward (years)', default: 3, min: 0, step: 1, hint: 'Project the market value forward this many years at the NAV growth rate to test a later sale. 0 means compare only a sale now.' },
+      { key: 'navGrowthRate', label: 'Expected annual NAV growth (decimal)', default: 0.08, min: 0, step: 0.005, hint: 'The expected annual appreciation of the trust NAV. Enter 0.08 for 8%.' },
+      { key: 'marginalTaxRate', label: 'Your marginal slab rate (decimal)', default: 0.3, min: 0, max: 0.4, step: 0.05, hint: 'Used to after-tax the distribution income. Enter 0.3 for the 30% slab (plus cess, use 0.315).' },
+      { key: 'sharedLtcgPool', label: 'Remaining shared 1.25L equity-LTCG pool (Rs)', default: 125000, min: 0, step: 10000, hint: 'The 1.25L long-term equity CG exemption shared with shares and equity funds. A forward sale may land in a fresh pool, so treat that figure as a heuristic.' },
+    ],
+    assumptions: [
+      'Total return = distribution + NAV appreciation + change in the NAV premium/discount; the premium on entry drags your effective yield.',
+      'Long-term CG (held 12+ months) is 12.5% above the shared 1.25L equity pool (Section 112A, which expressly covers business-trust units); short-term is 20% (Section 111A).',
+      'Distribution income is after-taxed at your marginal slab rate (most REIT/InvIT payout components are slab-taxed under the 115UA pass-through).',
+    ],
+    limitations: [
+      'The forward sale may land in a different assessment year with a fresh 1.25L pool, so the forward figure is a heuristic, not a guarantee.',
+      'Distribution components (interest / dividend / rental) are taxed separately; a pure exempt-dividend payout would raise the after-tax income toward gross.',
+      'This models price vs NAV timing; it does not model a forced-liquidation or a NAV discount closing, which changes the realized gain.',
+    ],
+    compute: (v) => {
+      const r = businessTrustTiming({
+        units: v.units,
+        costPerUnit: v.costPerUnit,
+        currentPrice: v.currentPrice,
+        navPerUnit: v.navPerUnit,
+        annualDistPerUnit: v.annualDistPerUnit,
+        monthsHeld: v.monthsHeld,
+        forwardYears: v.forwardYears,
+        navGrowthRate: v.navGrowthRate,
+        marginalTaxRate: v.marginalTaxRate,
+        sharedLtcgPool: v.sharedLtcgPool,
+      });
+      const sign = (x: number) => (x >= 0 ? '+' : '');
+      return {
+        results: [
+          {
+            label: 'NAV premium / (discount)',
+            value: sign(r.premiumDiscountPct) + (r.premiumDiscountPct * 100).toFixed(1) + '%',
+            kind: 'text',
+            note: r.premiumDiscountPct >= 0
+              ? `Price is above NAV - the premium drags your effective yield by ${Math.round(r.premiumYieldDrag * 10000)} bps`
+              : `Price is below NAV - the discount lifts your effective yield`,
+          },
+          {
+            label: 'Yield on price (effective)',
+            value: (r.yieldOnPrice * 100).toFixed(2) + '%',
+            kind: 'text',
+            note: `Headline yield on cost is ${(r.headlineYield * 100).toFixed(2)}%`,
+          },
+          {
+            label: 'After-tax distribution income',
+            value: Math.round(r.afterTaxDistIncome),
+            kind: 'inr',
+            note: `Gross Rs ${Math.round(r.annualDistIncome).toLocaleString('en-IN')} after your ${(v.marginalTaxRate * 100).toFixed(0)}% slab`,
+          },
+          {
+            label: 'LTCG-qualified now?',
+            value: r.qualifiesLtcgNow ? 'Yes (12.5%)' : 'No (20% STCG)',
+            kind: 'text',
+            note: r.monthsHeld >= 12 ? `${v.monthsHeld} months held - long-term applies` : `${v.monthsHeld} months held - short-term rate applies`,
+          },
+          {
+            label: 'After-tax proceeds if sold now',
+            value: Math.round(r.afterTaxProceedsNow),
+            kind: 'inr',
+            note: `Gain Rs ${Math.round(r.gainIfSoldNow).toLocaleString('en-IN')} - tax Rs ${Math.round(r.taxIfSoldNow).toLocaleString('en-IN')}`,
+          },
+          {
+            label: 'Better exit',
+            value: r.betterChoice === 'now' ? 'Sell now' : 'Hold forward',
+            kind: 'text',
+            note:
+              r.betterChoice === 'now'
+                ? `Selling now beats the ${v.forwardYears}-yr forward exit on after-tax proceeds`
+                : `The forward exit (projected Rs ${Math.round(r.projectedMarketValueForward).toLocaleString('en-IN')}) beats selling now on after-tax proceeds`,
+          },
+        ],
+        chart: {
+          title: `Now vs ${v.forwardYears}-yr forward after-tax proceeds`,
+          alt: `After-tax proceeds: Rs ${Math.round(r.afterTaxProceedsNow).toLocaleString('en-IN')} if sold now vs Rs ${Math.round(r.afterTaxProceedsForward).toLocaleString('en-IN')} after ${v.forwardYears} years; the tool suggests ${r.betterChoice === 'now' ? 'selling now' : 'holding forward'}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${Math.round(x).toLocaleString('en-IN')}` },
+            xAxis: { type: 'category', data: ['Sell now', `After ${v.forwardYears} yrs`] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'After-tax proceeds',
+                type: 'bar',
+                data: [Math.round(r.afterTaxProceedsNow), Math.round(r.afterTaxProceedsForward)],
                 itemStyle: { color: '#1f7a5c' },
                 label: { show: true, formatter: (p: { value: number }) => `${Math.round(p.value / 1e5)}L` },
               },
