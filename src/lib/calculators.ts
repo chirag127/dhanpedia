@@ -20,6 +20,7 @@ import {
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
   npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
+  nriIndiaTaxFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1638,6 +1639,76 @@ export const CALCULATORS: CalcDef[] = [
                 label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
               },
             ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'nri-india-tax',
+    title: 'NRI India-Source Tax & TDS (with DTAA)',
+    category: 'International',
+    description: 'Work out your NRI residential status from your day counts, whether you owe Indian tax, the Section 195 domestic TDS rate on your India-source income, the DTAA-reduced rate (TRC + Form 10F), the 4% cess, and the relief the treaty actually saves you.',
+    inputs: [
+      { key: 'daysInIndia', label: 'Days in India this FY', default: 120, min: 0, step: 1, hint: 'Physical presence - arrival and departure days both count. Under 182 days is necessary (but not sufficient) for NRI status.' },
+      { key: 'daysInLastFourYears', label: 'Days in India in the 4 preceding FYs', default: 300, min: 0, step: 1, hint: 'For the long-term residency test: you are resident if you were in India 60+ days this FY AND 365+ days in the 4 preceding FYs (120+ this FY if Indian income tops Rs 15L).' },
+      { key: 'indianIncomeAbove15L', label: 'Indian income above Rs 15L this FY?', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No' }, { value: 1, label: 'Yes - the 120-day variant applies' }], hint: 'High Indian income switches the residency long-test from 60 to 120 days in the current year.' },
+      { key: 'indiaSourceIncome', label: 'India-source income (Rs)', default: 1000000, min: 0, step: 100000, hint: 'The income taxed in India: NRO interest, Indian rent, capital gains on Indian assets, salary for India services. NRE/FCNR interest and foreign income are NOT here.' },
+      { key: 'domesticRate', label: 'Domestic Section 195 TDS rate (decimal)', default: 0.3, min: 0, max: 0.4, step: 0.01, hint: 'NRO interest / rent: 0.30. Listed-equity STCG (111A): 0.20. Listed / property LTCG: 0.125 (no 112A pool for NRI property). Choose the rate for your specific head.' },
+      { key: 'dtaaRate', label: 'DTAA treaty rate, if a TRC applies (decimal)', default: 0.15, min: 0, max: 0.4, step: 0.01, hint: 'The treaty rate from your home country DTAA (e.g. 15% on interest under many treaties). Set 0 if the treaty exempts it. Only used when DTAA applies.' },
+      { key: 'dtaaApplies', label: 'DTAA relief claimed (TRC + Form 10F)?', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No - domestic rate applies' }, { value: 1, label: 'Yes - lower of domestic and treaty rate' }], hint: 'You need a Tax Residency Certificate from your home country plus Form 10F to get the treaty rate. NRIs cannot use Form 15G/15H.' },
+    ],
+    assumptions: [
+      'An NRI is taxed in India only on India-source income; the status is decided by the Section 6 day counts (182-day test, and the 60/365 or 120/365 long-term test).',
+      'TDS under Section 195 is withheld by the payer before remittance; you reconcile and claim any excess back by filing an Indian ITR (ITR-2, due 31 Jul).',
+      'The applicable TDS rate is the LOWER of the domestic rate and the DTAA treaty rate (only when a valid TRC + Form 10F is in place). Surcharge and the 4% cess are shown but surcharge is not band-modelled here.',
+    ],
+    limitations: [
+      'This computes the flat-head TDS rate; it does not run the full slab + surcharge + 87A (the 87A rebate is NOT available to NRIs - they are taxed on the whole India-source income).',
+      'DTAA rates vary by country and head; the treaty rate you enter must be the rate actually applicable to your income type - confirm against the specific DTAA.',
+      'NRE / FCNR interest is exempt (not a Section 195 head); only route taxable India-source income through this calculator.',
+    ],
+    compute: (v) => {
+      const r = nriIndiaTaxFY27({
+        daysInIndia: v.daysInIndia,
+        daysInLastFourYears: v.daysInLastFourYears,
+        indianIncomeAbove15L: v.indianIncomeAbove15L === 1,
+        indiaSourceIncome: v.indiaSourceIncome,
+        domesticRate: v.domesticRate,
+        dtaaRate: v.dtaaRate,
+        dtaaApplies: v.dtaaApplies === 1,
+      });
+      const inr = (x: number) => Math.round(x).toLocaleString('en-IN');
+      return {
+        results: [
+          { label: 'Residential status', value: r.residency === 'non-resident' ? 'Non-resident (NRI)' : 'Resident', kind: 'text', note: r.qualifyingTest },
+          { label: 'Applicable TDS rate', value: (r.applicableTdsRate * 100).toFixed(0) + '%', kind: 'text', note: v.dtaaApplies === 1 ? 'Lower of domestic ' + (v.domesticRate*100).toFixed(0) + '% and treaty ' + (v.dtaaRate*100).toFixed(0) + '%' : 'Domestic Section 195 rate (no DTAA claimed)' },
+          { label: 'TDS before cess', value: inr(r.tdsBeforeCess), kind: 'inr', note: `On ${inr(v.indiaSourceIncome)} of India-source income` },
+          { label: '4% Health & Education cess', value: inr(r.cess4Pct), kind: 'inr', note: 'Flat 4% on the TDS amount' },
+          { label: 'Total TDS with cess', value: inr(r.totalTdsWithCess), kind: 'inr', note: 'The amount withheld before you file and reclaim any excess' },
+          { label: 'DTAA relief (if claimed)', value: inr(r.dtaaRelief), kind: 'inr', note: v.dtaaApplies === 1 ? 'TDS saved by the treaty rate vs the domestic rate - recoverable only by filing an ITR' : 'Not claimed - set DTAA applies to see the saving' },
+        ],
+        chart: {
+          title: 'TDS on the India-source income (Rs)',
+          alt: `TDS ${inr(r.tdsBeforeCess)} + cess ${inr(r.cess4Pct)} = ${inr(r.totalTdsWithCess)} on ${inr(v.indiaSourceIncome)}; DTAA relief ${inr(r.dtaaRelief)}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${inr(x)}` },
+            xAxis: { type: 'category', data: ['TDS', 'Cess', 'Total'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.tdsBeforeCess), itemStyle: { color: '#334155' } },
+                  { value: Math.round(r.cess4Pct), itemStyle: { color: '#64748b' } },
+                  { value: Math.round(r.totalTdsWithCess), itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+            grid: { left: 70, right: 20, top: 30, bottom: 30 },
           },
         },
       };

@@ -286,6 +286,31 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('nri-india-tax calculator renders the residency status and TDS split', async ({ page }) => {
+    await page.goto('/calculators/nri-india-tax');
+    // "Residential status" also appears in the page TOC/nav, so match the
+    // result-card label specifically (a div, not a link).
+    await expect(page.getByText('Residential status', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Applicable TDS rate', { exact: true })).toBeVisible();
+    await expect(page.getByText('TDS before cess', { exact: true })).toBeVisible();
+    await expect(page.getByText('4% Health & Education cess', { exact: true })).toBeVisible();
+    await expect(page.getByText('DTAA relief (if claimed)', { exact: true })).toBeVisible();
+    // Chart container for the TDS/cess/total split is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('NRI tax article renders the residency, TDS, and DTAA sections', async ({ page }) => {
+    await page.goto('/articles/international-nri-tax-residency-tds-dtaa');
+    await expect(page.getByRole('heading', { name: /NRI Tax in India/ })).toBeVisible();
+    // Stable, unique H2 headings in the body (use the least-ambiguous names;
+    // the "Section 195 TDS" heading also appears in the page TOC).
+    await expect(page.getByRole('heading', { name: /What an NRI is actually taxed on/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /DTAA relief: how you actually cut/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The ITR picture/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

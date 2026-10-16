@@ -1,14 +1,40 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 15: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 44 → 45 articles; 28 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 16: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 45 → 46 articles; 29 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 45 on disk / registered. Wave 15 added 1: `tax-senior-citizen-regime-decision` (the terminal-rung / retiree layer: the age brackets (3L senior / 5L super-senior, old regime only — the new regime has no age benefit), the two old-regime-only senior benefits (80TTB interest deduction + the higher age exemption), the SCSS 8.2% tax mechanics, the ₹1L senior TDS threshold + Form 15H, the retiree advance-tax exemption, the Section 194P no-ITR convenience, and the **verified counterintuitive finding that the new regime usually still wins for a retiree in FY 2026-27** because its 87A-to-12L + widened slabs dominate, even with a full old-regime stack).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 15, indian-taxation 13 (+ tax-senior-citizen-regime-decision), p2p-lending 4, wealth-beyond-10l 15.
-- **Sources:** 54 in `sources.json` (Wave 15 added 1: src-senior-tax-fy2026-27, senior/super-senior brackets + 80TTB + TDS/15H/194P + SCSS tax).
-- **Update-log:** 51 tracked (Wave 15 added `ul-senior-80ttb-limit-2026` [conflict-open: 80TTB 50k confirmed vs reported 1L raise] + `ul-senior-regime-decision-2026`).
-- **Calculators:** 28 (Wave 15 added `senior-regime-tax`, powered by the new `seniorRegimeTaxFY27()` pure function, with 7 unit tests and an e2e test).
+- **Articles:** 46 on disk / registered. Wave 16 added 1: `international-nri-tax-residency-tds-dtaa` (the inbound NRI tax layer none of the investing-route articles covered: the Section 6 day-count residency tests (182-day / 60+365 / 120+365 with the ₹15L Indian-income variant), the NR/RNOR/ROR split, India-source-only taxation, the NRE/NRO/FCNR account choice, the Section 195 TDS table (30% flat, property TDS-on-value + 197), the DTAA relief sequence (TRC + Form 10F + Form 67, 15G/15H unavailable), the **87A-not-available-to-NRIs asymmetry**, and the ITR-2/ITR-3 filing map).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 16 (+ international-nri-tax-residency-tds-dtaa), indian-taxation 13, p2p-lending 4, wealth-beyond-10l 15.
+- **Sources:** 55 in `sources.json` (Wave 16 added 1: src-nri-tax-tds-dtaa-2026, Section 6 residency + 195 TDS heads + DTAA/197/10F/67 + 87A-exclusion + ITR-2/3 map).
+- **Update-log:** 52 tracked (Wave 16 added `ul-nri-195-dtaa-2026`).
+- **Calculators:** 29 (Wave 16 added `nri-india-tax`, powered by the new `nriIndiaTaxFY27()` pure function — residency day-counting + domestic-vs-DTAA TDS rate + cess — with 8 unit tests and 2 e2e tests).
+
+## Wave 16 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/international/international-nri-tax-residency-tds-dtaa.mdx` — the *inbound NRI tax* layer (international category went from 2 to 3, and the investing-route articles finally get their tax counterpart): the Section 6 residency tests (182-day / 60+365 / 120+365 with the ₹15L Indian-income variant), the NR/RNOR/ROR split, the India-source-only scope, the NRE/NRO/FCNR account choice (NRE/FCNR interest exempt, NRO taxable + USD 1M/yr repatriation cap), the Section 195 TDS table (30% flat, head rates, property TDS-on-value + the 197 fix), the DTAA sequence (TRC + Form 10F + Form 67; 15G/15H unavailable to NRIs), the 87A-not-available asymmetry, and the ITR-2/ITR-3 filing map.
+
+### New finance function + calculator + tests
+- [x] `nriIndiaTaxFY27()` in `src/lib/finance/index.ts` — Section 6 residency day-counting (182-day test + the 60/365 or 120/365 long-term test with the high-income variant), the lower-of-domestic-and-DTAA TDS rate, TDS + 4% cess, and the DTAA relief in ₹ terms.
+- [x] `nri-india-tax` calculator page (category: International) — 7 inputs (day counts, high-income flag, India-source income, domestic rate, DTAA rate + applies flag), residency verdict, applicable TDS rate, TDS/cess/total, DTAA relief, TDS-split bar chart.
+- [x] 8 new unit tests (120-day NR, the DTAA-rate-lowers-TDS math, no-DTAA full domestic, higher-treaty-ignored, 182-day resident, the 60/365 long test, the 120-day high-income variant flip, zero-income zero-TDS) — **112/112 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; the "Residential status" label and the "Section 195 TDS" heading each collide with the page TOC, so the assertions were switched to `.first()` / the least-ambiguous headings) — **68/68 pass**.
+
+### Research verified this session
+- [x] **Section 6 residency tests** — 182-day, and 60+365 (rising to 120+365 when Indian income > ₹15L); physical presence counts arrival + departure; the Income-tax Act 2025 did NOT change the individual residency day counts (NRI Blueprint, savetaxs, skla).
+- [x] **India-source-only taxation + the account split** — NRE interest exempt u/s 10(4)(ii), FCNR (B) exempt u/s 10(15) while non-resident; NRO taxable, repatriation capped at USD 1M/yr post-tax (TaxClue, Aug 2026).
+- [x] **Section 195 TDS + the DTAA sequence** — 30% flat with no exemption slabs; head rates (NRO/rent 30%, 111A 20%, 112A 12.5% above ₹1.25L, property LTCG 12.5% no indexation, property STCG 30%, dividends 20%); property TDS on the full value + the 197 certificate; DTAA = TRC + Form 10F + Form 67 at the lower of the two rates; 15G/15H unavailable to NRIs; 87A rebate NOT available to NRIs; ITR-2 (ITR-3 if business/foreign assets) due 31 Jul.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 112 passed.
+- [x] `node scripts/validate-content.mjs` → 46 articles, 4 books, 55 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 203 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (18,243 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 46/46 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 68 passed (34 desktop + 34 mobile).
 
 ## Wave 15 session (verified 2026-10-18 via web research)
 
@@ -309,12 +335,12 @@ Last updated: **2026-10-18** (Wave 15: 1 new article + 1 new finance function + 
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
 - [ ] Resolve the open 80TTB conflict (`ul-senior-80ttb-limit-2026`): confirm whether the Budget-2026 raise to Rs 1,00,000 is in the Finance Act text - re-run the senior-regime decision if so.
-- [ ] Phase 4 deeper expansion: Wave 16 candidate = NRI tax-structure article (DTAA, 194P/26AS NRI rules, LRS interplay), an ESOP-vesting tax walkthrough, or a GIFT City FoF deep-dive.
+- [ ] Phase 4 deeper expansion: Wave 17 candidate = an ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a GIFT City FoF deep-dive, or a DTAA-by-country rate reference table.
 
 ## Next 3 actions
-1. Commit Wave 15: 1 new article + seniorRegimeTaxFY27() function + senior-regime-tax calculator + 1 source + tests.
+1. Commit Wave 16: 1 new article + nriIndiaTaxFY27() function + nri-india-tax calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 16 candidate: NRI tax structure, ESOP-vesting tax walkthrough, or GIFT City FoF deep-dive).
+3. Continue the daily article habit (Wave 17 candidate: ESOP-vesting tax walkthrough, GIFT City FoF deep-dive, or a DTAA-by-country rate table).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

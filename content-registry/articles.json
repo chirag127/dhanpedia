@@ -1387,6 +1387,45 @@
    "books": [
     "book-indian-taxation"
    ]
+  },
+  {
+   "id": "international-nri-tax-residency-tds-dtaa",
+   "title": "NRI Tax in India: Residency, India-Source Income, Section 195 TDS & DTAA Relief (FY 2026-27)",
+   "category": "international",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "nri",
+    "non-resident",
+    "residency",
+    "section-6",
+    "195",
+    "tds",
+    "dtaa",
+    "nre",
+    "nro",
+    "fcnr",
+    "rnor",
+    "itr-2",
+    "87a"
+   ],
+   "summary": "The inbound NRI tax layer the investing-route articles do not cover: how the Section 6 day counts (182-day / 60+365 / 120+365, with the Rs 15L Indian-income variant) decide status, the NR/RNOR/ROR split, why only India-source income is taxed, the NRE/NRO/FCNR account choice, the Section 195 TDS table (30% flat, property TDS-on-value + 197), the DTAA relief sequence (TRC + Form 10F + Form 67, 15G/15H unavailable), the 87A-not-available asymmetry, and the ITR-2/ITR-3 filing map.",
+   "file": "src/content/international/international-nri-tax-residency-tds-dtaa.mdx",
+   "sources": [
+    "src-nri-tax-tds-dtaa-2026",
+    "src-it-slab-fy2026-27",
+    "src-intl-fof-cap-2026"
+   ],
+   "related": [
+    "international-investing-lrs",
+    "international-fof-gift-city-lrs",
+    "tax-india-investor-complete",
+    "tax-surcharge-cess-high-income",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-complete-indian-investor"
+   ]
   }
  ]
 }

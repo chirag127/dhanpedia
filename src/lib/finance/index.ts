@@ -1247,6 +1247,89 @@ export function seniorRegimeTaxFY27(s: SeniorTaxInput): SeniorRegimeResult {
 }
 
 /**
+ * NRI (non-resident) India-source tax + TDS position for FY 2026-27.
+ *
+ * Residential status (Section 6, carried into the Income-tax Act, 2025):
+ *  - Non-resident if IN India for fewer than 182 days in the FY AND fewer
+ *    than the longer test (60 days in the FY + 365 days in the 4 preceding
+ *    FYs, or 120 days in the FY + 365 days in the 4 preceding FYs if Indian
+ *    income exceeds Rs 15L). Fail the residency tests and you are an NRI.
+ *  - An NRI is taxed in India ONLY on India-source income; foreign income is
+ *    outside the Indian net (subject to the RNOR/ROR nuance).
+ *
+ * TDS: payments to a non-resident are withheld under Section 195, generally
+ * at a flat 30% (or the applicable CG rate: 20% listed STCG / 12.5% listed
+ * and property LTCG, no 112A pool for NRI property; NRE/FCNR interest is
+ * exempt), before surcharge and 4% cess. DTAA relief (a valid TRC + Form
+ * 10F) lowers the rate where the treaty rate is below the domestic rate.
+ *
+ * Conventions: `domesticRate` is the pre-cess, pre-surcharge rate that
+ * applies to this income head (0.30 for NRO interest / rent, 0.125 for a
+ * 112A-listed-equity long-term gain, 0.20 for 111A short-term, etc.);
+ * `dtaaRate` is the treaty rate (0.00 - 1.00) once a TRC + Form 10F is in
+ * place; the applicable TDS rate is the LOWER of the two. Surcharge and
+ * cess are applied on top where income is high enough (a flat flag, not a
+ * full slabs model - see the high-income calculator).
+ */
+export interface NriTaxInput {
+  daysInIndia: number;
+  daysInLastFourYears: number;
+  indianIncomeAbove15L: boolean;
+  indiaSourceIncome: number;
+  domesticRate: number;
+  dtaaRate: number;
+  dtaaApplies: boolean;
+}
+
+export interface NriTaxResult {
+  residency: 'non-resident' | 'resident';
+  qualifyingTest: string;
+  taxableIndiaIncome: number;
+  applicableTdsRate: number;
+  tdsBeforeCess: number;
+  cess4Pct: number;
+  totalTdsWithCess: number;
+  dtaaRelief: number; // TDS saved by the DTAA rate vs the domestic rate
+}
+
+export function nriIndiaTaxFY27(n: NriTaxInput): NriTaxResult {
+  // Residency: NON-resident requires failing BOTH the 182-day test and the
+  // long-term test (120-day variant when Indian income tops 15L).
+  const longerDaysNeeded = n.indianIncomeAbove15L ? 120 : 60;
+  const nonResident =
+    n.daysInIndia < 182 &&
+    !(
+      n.daysInIndia >= longerDaysNeeded && n.daysInLastFourYears >= 365
+    );
+  const qualifyingTest = nonResident
+    ? `Failed 182-day (${n.daysInIndia} days) and the ${longerDaysNeeded}-day + 365-day test (${n.daysInLastFourYears} prior-4-FY days)`
+    : `Resident: ${n.daysInIndia >= 182 ? '182-day test met' : 'the ' + longerDaysNeeded + '-day + 365-day test met'}`;
+
+  const domesticRate = Math.max(0, Math.min(1, n.domesticRate));
+  const dtaaRate = Math.max(0, Math.min(1, n.dtaaRate));
+  const treatyRate = n.dtaaApplies ? dtaaRate : domesticRate;
+  const applicableTdsRate = Math.min(domesticRate, treatyRate);
+
+  const tdsBeforeCess = n.indiaSourceIncome * applicableTdsRate;
+  const cess4Pct = 0.04 * tdsBeforeCess;
+  const totalTdsWithCess = tdsBeforeCess + cess4Pct;
+  const dtaaRelief = n.dtaaApplies
+    ? Math.max(0, (domesticRate - applicableTdsRate) * n.indiaSourceIncome)
+    : 0;
+
+  return {
+    residency: nonResident ? 'non-resident' : 'resident',
+    qualifyingTest,
+    taxableIndiaIncome: nonResident ? n.indiaSourceIncome : n.indiaSourceIncome,
+    applicableTdsRate,
+    tdsBeforeCess,
+    cess4Pct,
+    totalTdsWithCess,
+    dtaaRelief,
+  };
+}
+
+/**
  * AIF end-of-fund "2 and 20" waterfall (European-style, single distribution).
  *
  * Models a fund that returns `grossMultiple` on committed capital at the end of

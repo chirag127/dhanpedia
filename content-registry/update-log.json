@@ -446,6 +446,15 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "Base-slab model excludes surcharge; the new regime 25% surcharge cap vs the old 37% would only widen the new regime advantage at the very top. Re-verify at each Finance Act - any old-regime top-band change would flip this back."
+  },
+  {
+   "id": "ul-nri-195-dtaa-2026",
+   "claim": "NRI Section 195 TDS is a flat 30% (+surcharge +4% cess) with no exemption slabs (head rates: NRO/rent 30%, 111A 20%, 112A 12.5% above 1.25L, property LTCG 12.5% no indexation, property STCG 30%, dividends 20%); property sale TDS is on the full value (use 197 to fix); DTAA relief = TRC + Form 10F + Form 67 at the lower of domestic and treaty rate; 15G/15H unavailable to NRIs; 87A rebate NOT available to NRIs",
+   "source": "src-nri-tax-tds-dtaa-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "The 195 head rates and the 87A/15G-15H positions are as of the FY 2026-27 transition under the Income-tax Act 2025; the individual residency day counts were unchanged. Re-verify the 195 head rates and the 87A position at each Finance Act, and confirm the specific DTAA treaty rate against the treaty text."
   }
  ]
 }

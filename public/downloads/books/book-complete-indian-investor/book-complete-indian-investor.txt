@@ -2118,3 +2118,92 @@ UPDATE LOG
 • 2026-10-18 — Wave 13: PFRDA 16-Dec-2025 exit table (80/20, 85 deferral, Rs 8L 100% rule), the
 
 Section 10(10A) 60%-of-contributions exemption cap vs the PFRDA 80% exit (the "two 60/80 numbers" that get confused), the five annuity-variant comparison with a 6%-vs-5% income-gap worked figure, and the new-regime 80CCD(2) entry-vs-exit tax separation. The 60% 10(10A) cap and the Act-2025 renumbering must be confirmed with a CA for the exit year; the PFRDA 80/20 split and Rs 8L small-corpus threshold are per the 16-Dec-2025 amendment. Re-verify the annuity-rate bands at each PFRDA empanelment update.
+
+
+
+NRI TAX IN INDIA: RESIDENCY, INDIA-SOURCE INCOME, SECTION 195 TDS & DTAA RELIEF (FY 2026-27)
+
+The two international articles on this site covered how to invest abroad (the LRS route and GIFT City). This article covers the other half of the NRI picture that none of them touch: if you are a non-resident, what does India actually tax, at what rate, and how do you get it back? That is the question that decides whether your Indian rental income, NRO interest and property gains stay efficient or leak away to over-withheld TDS.
+
+HOW YOUR STATUS IS DECIDED (SECTION 6, NOW IN THE INCOME-TAX ACT 2025)
+======================================================================
+
+India taxes by residency, not citizenship. You are a resident for a financial year if you pass either of these tests:
+• The 182-day test: you were in India for 182 days or more in that FY.
+• The long-term test: you were in India for **60 days or more in that FY and 365 days or more
+
+across the four preceding FYs — and that 60-day figure rises to 120 days if your Indian income for the year exceeds Rs. 15L**.
+
+Fail both and you are a non-resident (NRI). The count is physical presence: arrival and departure days both count. The Income-tax Act 2025 (in force from 1 April 2026) did not rewrite these individual residency tests — the day counts carry over, so an NRI who "regularly visits India" should keep a day-count log: crossing 182 days, or the 60/120 + 365 combination, silently converts you to a resident and pulls your global income into the Indian net.
+
+THE NR / RNOR / ROR SPLIT
+=========================
+
+Status: **NR (non-resident)**,Fails both Section 6 tests,**India-source income only**  |  Test: **RNOR (resident, not ordinarily resident)**,Resident, but fails the "ordinarily resident" lookback (2 out of last 9 FYs in India < 90 days, OR last 3 FYs < 120 days),India-source + foreign income *earned in India*; most foreign income still stays outside  |  What India taxes: **ROR (resident, ordinarily resident)**,Resident + ordinarily resident,**Global income**
+
+The RNOR window is the one most returning NRIs need to understand: you can be a resident for tax purposes yet still keep much of your foreign income outside the Indian net, for a transitional period.
+
+WHAT AN NRI IS ACTUALLY TAXED ON IN INDIA
+=========================================
+
+Only India-source income. The common heads and the account that carries them:
+
+Income: Rent from Indian property,**Yes**,House property; 30% standard deduction under 24(a)  |  Taxable in India?: Capital gains on Indian shares / MF / property,**Yes**,111A STCG 20% / 112A LTCG 12.5% (property: 12.5% no indexation)  |  Account / head: Interest on an **NRO** account / deposits,**Yes**,Slab/30% + surcharge + cess
+
+The account choice is the single biggest NRI planning lever. NRE and FCNR interest is fully exempt and freely repatriable (FCNR is your currency); NRO interest is fully taxable (its repatriation is capped at USD 1M/year, post-tax). Route your foreign earnings into NRE/FCNR and your India-source income into NRO — but never park India-source income in NRE thinking it will avoid tax; the interest on NRO holdings is still taxed.
+
+SECTION 195 TDS: THE RATE THAT BITES BEFORE YOU FILE
+====================================================
+
+Payments to a non-resident are withheld under Section 195, generally at the flat 30% (plus surcharge and 4% cess) — much higher than the resident rate, with no TDS exemption slabs. The head-specific picture:
+
+Head: NRO / bank / FD interest,**30%** (+surcharge +cess),10%,DTAA may reduce  |  NRI TDS (195): Rent from Indian property,30%,10% (194-I),195 for the NRI  |  Resident TDS: STCG, listed equity / equity MF (111A),20%,20%,No surcharge on this head  |  Note: LTCG, listed equity / equity MF (112A),12.5% above ₹1.25L,12.5%,No indexation
+
+The property trap: when you sell Indian property, the buyer withholds TDS under 195 on the full sale value, not the gain — which routinely over-withholds by a large multiple. The fix is a Section 197 lower-deduction certificate before the sale, so only the actual gain is withheld. Without it, your refund is locked up for the length of the ITR process.
+
+DTAA RELIEF: HOW YOU ACTUALLY CUT THE 30%
+=========================================
+
+India has DTAAs with 90+ countries. The working sequence (and the forms that matter):
+1. Get a Tax Residency Certificate (TRC) from your home-country tax authority.
+2. File Form 10F (the NRI declaration) on the e-filing portal.
+3. Hand your PAN + TRC to the payer / bank.
+4. The payer applies the lower of the domestic rate and the treaty rate.
+5. File an Indian ITR (ITR-2, due 31 Jul) to reclaim any excess TDS; claim Form 67 for the
+
+foreign tax credit where the home country also taxed it.
+
+Two NRI-specific points that trip people up:
+• NRIs cannot use Form 15G / 15H (the nil-TDS declarations) — those are resident-only. Your two
+
+levers are the DTAA rate (TRC + Form 10F) or a Section 197 certificate.
+• The 87A rebate is NOT available to NRIs. The Rs. 12L tax-free threshold that protects a resident in
+
+the new regime does not apply — an NRI is taxed on the whole India-source income at the slab or special rates. That is why an NRI with, say, Rs. 8L of NRO interest pays tax where an identical resident pays zero. The senior-citizen regime article (../taxation/tax-senior-citizen-regime-decision.mdx) shows the resident side; this is the NRI asymmetry.
+
+THE ITR PICTURE
+===============
+
+An NRI files in India when total India-source income exceeds the basic exemption — even when TDS was already deducted, because the ITR is the only way to claim a refund of over-withheld TDS. The form and deadline:
+
+NRI situation: Salary / house property / other income (no CG, no foreign assets),**ITR-2**,31 Jul  |  ITR form: Capital gains on shares / property,**ITR-2**,31 Jul  |  Due date: Business or professional income in India,**ITR-3**,31 Jul / 31 Oct (if audit)
+
+NRIs generally cannot use ITR-1 (Sahaj) — the capital-gains and foreign-income schedules force ITR-2 or ITR-3. (The LRS investing article (./international-investing-lrs.mdx) and GIFT City article (./international-fof-gift-city-lrs.mdx) cover the outbound side of the same story — how much you can move and at what cost — while this article is the inbound tax side.)
+
+RELATED
+=======
+• International Investing & LRS: The Outbound Route (./international-investing-lrs.mdx)
+• GIFT City FoF & the Real Routes Abroad (./international-fof-gift-city-lrs.mdx)
+• India Taxation: The Complete Investor's Guide (../taxation/tax-india-investor-complete.mdx)
+• Surcharge, Cess & the High-Income Regime (../taxation/tax-surcharge-cess-high-income.mdx)
+
+SOURCES
+=======
+• NRI residential status (Section 6 182 / 60+365 / 120-day tests), India-source-only taxation, NRE/NRO/FCNR account split, Section 195 TDS table, property TDS-on-value + 197, DTAA (TRC + Form 10F + Form 67), 87A not available to NRIs, ITR-2/ITR-3 deadlines — <a href="https://www.taxclue.in/guide/tax-on-nri-income">TaxClue NRI tax guide (updated 18 Aug 2026)</a>
+• Day-count rules, RNOR window under Section 6(6), deemed residency 6(1A) — <a href="https://nriblueprint.com/guides/nri-residential-status-section-6">NRI Blueprint Section 6 guide</a>
+
+UPDATE LOG
+==========
+• 2026-10-18 — Wave 16: Section 6 residency tests (182-day + 60/120 + 365-day, with the Rs. 15L Indian
+
+income variant), the NR/RNOR/ROR split, the India-source-only scope, the NRE/NRO/FCNR account choice, the Section 195 TDS table (30% flat, property TDS-on-value + 197), the DTAA sequence (TRC + Form 10F + Form 67, 15G/15H unavailable to NRIs), the 87A-not-available asymmetry, and the ITR-2/ITR-3 filing map. The Income-tax Act 2025 did not change the individual residency day counts; re-verify the 195 head rates and the 87A position at each Finance Act.

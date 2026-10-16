@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -994,5 +994,67 @@ describe('Senior-citizen regime decision (age brackets + 80TTB + 87A)', () => {
     expect(r.old.tax).toBe(0);
     expect(r.new.tax).toBe(0);
     expect(r.winner).toBe('tie');
+  });
+});
+
+describe('NRI India-source tax & TDS (residency + DTAA)', () => {
+  const base = (over: Record<string, unknown> = {}) => ({
+    daysInIndia: 120, daysInLastFourYears: 300, indianIncomeAbove15L: false,
+    indiaSourceIncome: 1000000, domesticRate: 0.3, dtaaRate: 0.15, dtaaApplies: true, ...over,
+  });
+
+  it('120 days in the FY (and < 365 prior) is a non-resident', () => {
+    const r = nriIndiaTaxFY27(base({}));
+    expect(r.residency).toBe('non-resident');
+    expect(r.taxableIndiaIncome).toBe(1000000);
+  });
+
+  it('the DTAA treaty rate lowers the TDS, and the relief is the gap x income', () => {
+    const r = nriIndiaTaxFY27(base({}));
+    expect(r.applicableTdsRate).toBe(0.15); // lower of 0.30 domestic and 0.15 treaty
+    expect(r.tdsBeforeCess).toBe(150000); // 15% of 10L
+    expect(r.cess4Pct).toBe(6000); // 4% of 150000
+    expect(r.totalTdsWithCess).toBe(156000);
+    expect(r.dtaaRelief).toBe(150000); // (0.30 - 0.15) x 10L
+  });
+
+  it('without a DTAA the full domestic rate and cess apply, no relief', () => {
+    const r = nriIndiaTaxFY27(base({ dtaaApplies: false }));
+    expect(r.applicableTdsRate).toBe(0.3);
+    expect(r.tdsBeforeCess).toBe(300000);
+    expect(r.dtaaRelief).toBe(0);
+    expect(r.totalTdsWithCess).toBe(312000);
+  });
+
+  it('a treaty rate higher than the domestic rate is ignored (lower of the two)', () => {
+    const r = nriIndiaTaxFY27(base({ dtaaRate: 0.4, dtaaApplies: true }));
+    expect(r.applicableTdsRate).toBe(0.3); // min(0.30, 0.40)
+    expect(r.dtaaRelief).toBe(0);
+  });
+
+  it('182+ days makes you a resident (global income pulled in)', () => {
+    const r = nriIndiaTaxFY27(base({ daysInIndia: 200, daysInLastFourYears: 0 }));
+    expect(r.residency).toBe('resident');
+  });
+
+  it('the 60/365 long-term test flips you resident even under 182 days', () => {
+    const r = nriIndiaTaxFY27(base({ daysInIndia: 100, daysInLastFourYears: 400 }));
+    expect(r.residency).toBe('resident'); // 100 >= 60 and 400 >= 365
+  });
+
+  it('the 120-day variant applies when Indian income exceeds 15L', () => {
+    // 100 days in FY + 400 prior: resident under the 60-day variant,
+    // but NON-resident under the 120-day variant (Indian income > 15L).
+    const hi = nriIndiaTaxFY27(base({ daysInIndia: 100, daysInLastFourYears: 400, indianIncomeAbove15L: true }));
+    const lo = nriIndiaTaxFY27(base({ daysInIndia: 100, daysInLastFourYears: 400, indianIncomeAbove15L: false }));
+    expect(hi.residency).toBe('non-resident');
+    expect(lo.residency).toBe('resident');
+  });
+
+  it('zero India-source income: zero TDS, zero cess, zero relief', () => {
+    const r = nriIndiaTaxFY27(base({ indiaSourceIncome: 0 }));
+    expect(r.tdsBeforeCess).toBe(0);
+    expect(r.cess4Pct).toBe(0);
+    expect(r.dtaaRelief).toBe(0);
   });
 });
