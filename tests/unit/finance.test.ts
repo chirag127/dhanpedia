@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -781,5 +781,64 @@ describe('HUF income split (second slab + advance tax streams)', () => {
     expect(r.annualSaving).toBe(0);
     expect(r.hufNeedsAdvanceTax).toBe(false);
     expect(r.individualNeedsAdvanceTax).toBe(false);
+  });
+});
+
+describe('NPS retirement exit (PFRDA 16-Dec-2025 rules + 10(10A) cap)', () => {
+  const base = (over: Record<string, unknown> = {}) => ({
+    monthlyContribution: 20000, employerPct: 0.1, annualReturn: 0.09, years: 30,
+    smallCorpusThreshold: 800000, lumpSumPct: 0.8, annuityRate: 0.065,
+    marginalTaxRate: 0.3, prematureExit: false, ...over,
+  });
+
+  it('a 30-yr 20k/month NPS at 9% builds ~4.0 Cr corpus on an 80/20 exit', () => {
+    const r = npsRetirementExitFY27(base({}));
+    expect(r.corpus).toBeGreaterThan(3.9e7);
+    expect(r.corpus).toBeLessThan(4.2e7);
+    // 20k self + 20% employer = 22k/mo; contributions = 22k x 360 = 7.92M
+    expect(r.totalContributions).toBeCloseTo(7920000, 0);
+    expect(r.lumpSum).toBeCloseTo(r.corpus * 0.8, 0);
+    expect(r.annuityCorpus).toBeCloseTo(r.corpus * 0.2, 0);
+  });
+
+  it('the 60% 10(10A) exemption cap makes the extra 20% lump sum taxable', () => {
+    const r = npsRetirementExitFY27(base({}));
+    // exempt = min(lumpSum, 0.6 x contributions); corpus >> 1.33 x contributions so the cap binds
+    expect(r.exemptLumpSum).toBeCloseTo(0.6 * r.totalContributions, 0);
+    expect(r.taxableLumpSum).toBeCloseTo(r.lumpSum - r.exemptLumpSum, 0);
+    expect(r.taxableLumpSum).toBeGreaterThan(0);
+    expect(r.afterTaxLumpSum).toBeCloseTo(
+      r.exemptLumpSum + r.taxableLumpSum * 0.7,
+      0,
+    );
+  });
+
+  it('a corpus under Rs 8L is a 100% lump-sum exit with no annuity', () => {
+    const r = npsRetirementExitFY27(base({ monthlyContribution: 5000, employerPct: 0, years: 5 }));
+    expect(r.isSmallCorpus).toBe(true);
+    expect(r.lumpSum).toBeCloseTo(r.corpus, 0);
+    expect(r.annuityCorpus).toBe(0);
+    expect(r.annualAnnuityIncome).toBe(0);
+  });
+
+  it('a permitted premature exit forces the 20/80 split regardless of the lump-sum input', () => {
+    const r = npsRetirementExitFY27(base({ years: 15, prematureExit: true, lumpSumPct: 0.8 }));
+    expect(r.lumpSum).toBeCloseTo(r.corpus * 0.2, 0);
+    expect(r.annuityCorpus).toBeCloseTo(r.corpus * 0.8, 0);
+  });
+
+  it('a 100% annuity exit (lumpSumPct = 0) puts everything in the pension', () => {
+    const r = npsRetirementExitFY27(base({ lumpSumPct: 0 }));
+    expect(r.lumpSum).toBe(0);
+    expect(r.annuityCorpus).toBeCloseTo(r.corpus, 0);
+    expect(r.annualAnnuityIncome).toBeCloseTo(r.corpus * 0.065, 0);
+    expect(r.afterTaxAnnuityIncome).toBeCloseTo(r.annualAnnuityIncome * 0.7, 0);
+  });
+
+  it('zero contribution: zero corpus, zero everything, small-corpus flag', () => {
+    const r = npsRetirementExitFY27(base({ monthlyContribution: 0 }));
+    expect(r.corpus).toBe(0);
+    expect(r.totalAfterTax).toBe(0);
+    expect(r.isSmallCorpus).toBe(true);
   });
 });

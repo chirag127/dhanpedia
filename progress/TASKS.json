@@ -33,12 +33,12 @@
     "src/lib/finance/index.ts",
     "src/lib/calculators.ts"
    ],
-   "validation_status": "84/84 unit tests pass (Wave-12 added hufIncomeSplitFY27: solo vs two-PAN split through highIncomeTaxFY27, annual saving, effective rates, per-PAN advance-tax flags)",
+   "validation_status": "90/90 unit tests pass (Wave-13 added npsRetirementExitFY27: PFRDA 16-Dec-2025 exit split (small-corpus 100% / premature 20/80 / normal 80/20), 10(10A) 60%-of-contributions exemption cap -> taxable lump sum, annuity corpus x flat rate -> after-tax income at the marginal slab)",
    "next_action": null
   },
   {
    "id": "T-calc-ui",
-   "title": "React calculator islands + 25 calculator pages",
+   "title": "React calculator islands + 26 calculator pages",
    "workstream": "calculators",
    "status": "complete",
    "priority": 2,
@@ -49,12 +49,12 @@
     "src/components/CalculatorIsland.tsx",
     "src/pages/calculators/"
    ],
-   "validation_status": "builds; 25 calculator pages (Wave-12 added huf-income-split); data-driven via src/lib/calculators.ts + [id].astro",
+   "validation_status": "builds; 26 calculator pages (Wave-13 added nps-retirement-exit); data-driven via src/lib/calculators.ts + [id].astro",
    "next_action": "Playwright e2e interaction check"
   },
   {
    "id": "T-articles",
-   "title": "42 deep articles across all 17 avenues (source-cited, verified)",
+   "title": "43 deep articles across all 17 avenues (source-cited, verified)",
    "workstream": "content",
    "status": "complete",
    "priority": 2,
@@ -64,8 +64,8 @@
    "output_files": [
     "src/content/**"
    ],
-   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge; Wave-11 tax-surcharge-cess-high-income; Wave-12 tax-huf-second-slab-gifting-high-income (HUF second-slab, 56(2) gifting cliff, 64(2) self-acquired clubbing, two advance-tax clocks)",
-   "next_action": "Daily article habit: Wave-13 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), NPS 80CCD(1B)/(2) tax-shield calculator, or senior-citizen + NRI tax structures"
+   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge; Wave-11 tax-surcharge-cess-high-income; Wave-12 tax-huf-second-slab-gifting; Wave-13 retirement-nps-exit-annuity-tax-deep-dive (PFRDA 16-Dec-2025 80/20 exit, 10(10A) 60% cap, annuity variants)",
+   "next_action": "Daily article habit: Wave-14 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a senior-citizen + NRI tax-structure article, or a GIFT City FoF deep-dive"
   },
   {
    "id": "T-sources",

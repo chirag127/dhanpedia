@@ -19,6 +19,7 @@ import {
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
+  npsRetirementExitFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1419,6 +1420,80 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.splitBill), itemStyle: { color: r.annualSaving > 0 ? '#1f7a5c' : '#b45309' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'nps-retirement-exit',
+    title: 'NPS Retirement Exit: Corpus, 80/20 Split & After-Tax Position',
+    category: 'Retirement',
+    description: 'Run your NPS Tier-1 corpus through the PFRDA 16-Dec-2025 exit rules: the 80/20 lump-sum-to-annuity split (or the Rs 8L small-corpus 100% rule, or the 20/80 premature-exit split), the Section 10(10A) 60%-of-contributions exemption cap, and the after-tax value of the lump sum plus annuity income at your marginal slab.',
+    inputs: [
+      { key: 'monthlyContribution', label: 'Monthly NPS self-contribution (Rs)', default: 20000, min: 0, step: 1000, hint: 'Your monthly Tier-1 contribution. 80CCD(1) within the 80C basket and the 80CCD(1B) Rs 50,000 old-regime deduction both sit on this number - use the 80C-baskets article for the tax side.' },
+      { key: 'employerPct', label: 'Employer NPS as % of your contribution', default: 0, min: 0, max: 1, step: 0.05, hint: 'The 80CCD(2) employer contribution is up to 14% of Basic+DA in the new regime. Enter it as a fraction of your own monthly contribution (e.g. 0.1 for 10%). It is one of the few deductions that survives the new regime.' },
+      { key: 'annualReturn', label: 'Expected annual NPS return (decimal)', default: 0.09, min: 0, step: 0.005, hint: 'NPS equity/G/C blend - 9% is a reasonable long-run planning figure for a 60-70% equity mix; active-choice all-equity runs higher with more volatility.' },
+      { key: 'years', label: 'Subscription years', default: 30, min: 1, step: 1, hint: 'From your first contribution to the exit at 60 (or earlier for a premature exit).' },
+      { key: 'lumpSumPct', label: 'Lump-sum % at exit (0-100)', default: 80, min: 0, max: 100, step: 5, hint: 'PFRDA 16 Dec 2025: normal exit is up to 80% lump sum / min 20% annuity. The 60%-cap on the 10(10A) exemption means any lump sum above 60% of your total contributions is taxed at your slab - see the result below.' },
+      { key: 'annuityRate', label: 'Annuity annual rate (decimal)', default: 0.065, min: 0, max: 0.1, step: 0.005, hint: 'PFRDA-empanelled ASP life-annuity rates run roughly 6-7% at age 60; joint-life and return-of-purchase variants are lower. Older purchase = higher rate.' },
+      { key: 'marginalTaxRate', label: 'Your marginal slab rate at exit (decimal)', default: 0.3, min: 0, max: 0.4, step: 0.05, hint: 'Applies to the taxable lump-sum portion (above the 60% cap) and to the annuity income. A 30% slab = 0.30 (use 0.315 with cess).' },
+      { key: 'prematureExit', label: 'Premature exit (before 60)?', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No - normal exit at 60 (80/20)' }, { value: 1, label: 'Yes - premature exit (20% lump, 80% annuity)' }], hint: 'A premature exit forces the tighter 20/80 split regardless of the lump-sum input; the small-corpus Rs 8L 100% rule still applies if your corpus is at or below it.' },
+    ],
+    assumptions: [
+      'PFRDA Exits and Withdrawals (Amendment) Regulations, 16 Dec 2025: non-government subscriber - corpus <= Rs 8L is a 100% lump-sum exit; otherwise up to 80% lump sum with at least 20% into an annuity (deferred purchase allowed up to age 85); premature exit (< 60 after the lock-in) is 20% lump / 80% annuity.',
+      'Section 10(10A)/10(i)(xii): the NPS lump sum is exempt only up to 60% of your TOTAL contributions (self + employer) - so an 80% lump sum on a corpus that has appreciated well past 1.33x your contributions is partly taxable.',
+      'The annuity income is slab-taxed (EET on that leg); the annuity rate is a flat planning figure on the annuity corpus, not a guaranteed ASP quote.',
+      'Corpus is a monthly SIP FV at a single annual rate - no regime-switch, no equity drawdown, no contribution ramp.',
+    ],
+    limitations: [
+      'The 60% 10(10A) exemption cap and any new-regime annuity-income exemption should be confirmed with a CA for your exit year; the 16-Dec-2025 PFRDA amendment and the Income-tax Act 2025 renumbering are the authority on the current exit split.',
+      'A premature exit before the lock-in period (5 yrs for non-govt, or 3 yrs if enrolled after 60) is not available at all - the 20/80 split applies only to a permitted premature exit.',
+      'Government-subscriber exits follow service rules (a mandatory 40% annuity until the Dec-2025/2026 alignment) - this calculator models the non-government (All Citizen / Corporate) rules.',
+    ],
+    compute: (v) => {
+      const r = npsRetirementExitFY27({
+        monthlyContribution: v.monthlyContribution,
+        employerPct: v.employerPct,
+        annualReturn: v.annualReturn,
+        years: v.years,
+        smallCorpusThreshold: 800000,
+        lumpSumPct: v.lumpSumPct / 100,
+        annuityRate: v.annuityRate,
+        marginalTaxRate: v.marginalTaxRate,
+        prematureExit: v.prematureExit === 1,
+      });
+      const L = (x: number) => `${Math.round(x / 1e5).toLocaleString('en-IN')}`;
+      return {
+        results: [
+          { label: 'Projected NPS corpus', value: L(r.corpus) + ' L', kind: 'text', note: `On total contributions of ${L(r.totalContributions)}L over ${v.years} yrs` },
+          { label: 'Lump sum (after the 60% exemption cap)', value: L(r.lumpSum) + ' L', kind: 'text', note: r.isSmallCorpus ? 'Small corpus (<= Rs 8L) - 100% lump-sum exit' : `Exit split ${v.prematureExit === 1 ? '20/80 (premature)' : `${v.lumpSumPct}/${100 - v.lumpSumPct}`}` },
+          { label: 'Exempt lump sum (60% of contributions)', value: L(r.exemptLumpSum) + ' L', kind: 'text', note: 'Sec 10(10A) caps the exemption at 60% of your total NPS contributions' },
+          { label: 'Taxable lump-sum portion', value: L(r.taxableLumpSum) + ' L', kind: 'text', note: r.taxableLumpSum > 0 ? `This is taxed at your ${(v.marginalTaxRate * 100).toFixed(0)}% slab - the gap between an 80% exit and the 60% exemption cap` : 'None - your lump sum fits inside the 60% cap' },
+          { label: 'Annuity corpus', value: L(r.annuityCorpus) + ' L', kind: 'text', note: `Buys a life annuity at ${(v.annuityRate * 100).toFixed(1)}%/yr` },
+          { label: 'Annual annuity income (after tax)', value: L(r.afterTaxAnnuityIncome) + ' L', kind: 'text', note: `Gross ${L(r.annualAnnuityIncome)}L/yr, slab-taxed at ${(v.marginalTaxRate * 100).toFixed(0)}%` },
+          { label: 'Total after-tax retirement value', value: L(r.totalAfterTax) + ' L', kind: 'text', note: 'Lump sum (net of the taxable portion) + annual after-tax annuity income - a single planning figure, not a corpus' },
+        ],
+        chart: {
+          title: 'Where the NPS corpus goes at exit (Rs L)',
+          alt: `Corpus ${L(r.corpus)}L: exempt lump sum ${L(r.exemptLumpSum)}L, taxable lump sum ${L(r.taxableLumpSum)}L, annuity corpus ${L(r.annuityCorpus)}L.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${L(x)}L` },
+            xAxis: { type: 'category', data: ['Exempt lump', 'Taxable lump', 'Annuity corpus'] },
+            yAxis: { type: 'value', name: 'Rs L', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Corpus split',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.exemptLumpSum), itemStyle: { color: '#1f7a5c' } },
+                  { value: Math.round(r.taxableLumpSum), itemStyle: { color: '#b45309' } },
+                  { value: Math.round(r.annuityCorpus), itemStyle: { color: '#334155' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `${Math.round(p.value / 1e5)}L` },
               },
             ],
           },

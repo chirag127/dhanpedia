@@ -1275,6 +1275,42 @@
    "books": [
     "book-indian-taxation"
    ]
+  },
+  {
+   "id": "retirement-nps-exit-annuity-tax-deep-dive",
+   "title": "Your NPS at 60: The 80/20 Exit, the 60%-Exemption Cap, and What the Annuity Leg Actually Pays",
+   "category": "retirement-fire",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "nps",
+    "pfrda",
+    "annuity",
+    "exit",
+    "80-20",
+    "10-10a",
+    "tax",
+    "retirement",
+    "80ccd2",
+    "85-deferment"
+   ],
+   "summary": "The retirement-exit layer over NPS: the PFRDA 16-Dec-2025 80/20 split (and the Rs 8L small-corpus 100% rule + 85 deferral), why the Section 10(10A) exemption is capped at 60% of contributions even when you take 80%, the five PFRDA annuity variants and the rate band that decides monthly income, and the new-regime 80CCD(2) entry-vs-exit tax separation.",
+   "file": "src/content/retirement-fire/retirement-nps-exit-annuity-tax-deep-dive.mdx",
+   "sources": [
+    "src-nps-2025-exit",
+    "src-nps-deductions-2026",
+    "src-nps-exit-annuity-2026"
+   ],
+   "related": [
+    "retirement-fire-annuities",
+    "tax-india-investor-complete",
+    "tax-80c-baskets-regime-decision",
+    "govt-small-savings-schemes",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-complete-indian-investor"
+   ]
   }
  ]
 }

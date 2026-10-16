@@ -224,6 +224,26 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('nps-retirement-exit calculator renders the corpus split and after-tax position', async ({ page }) => {
+    await page.goto('/calculators/nps-retirement-exit');
+    await expect(page.getByText('Projected NPS corpus')).toBeVisible();
+    await expect(page.getByText('Lump sum (after the 60% exemption cap)')).toBeVisible();
+    await expect(page.getByText('Annuity corpus', { exact: true })).toBeVisible();
+    await expect(page.getByText('Annual annuity income (after tax)')).toBeVisible();
+    // Chart container for the corpus-split bar chart is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('NPS exit/annuity article renders the 80/20 exit table and 60%-cap section', async ({ page }) => {
+    await page.goto('/articles/retirement-nps-exit-annuity-tax-deep-dive');
+    await expect(page.getByRole('heading', { name: /Your NPS at 60/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /What the PFRDA 16-Dec-2025 amendment changed/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The exemption cap that surprises people/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

@@ -410,6 +410,15 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "Confirm the exact Act-2025 section numbers against the Income-tax Act, 2025 text before advising a HUF structure; the AIS cross-PAN matching makes the clubbing triggers leave an electronic audit trail."
+  },
+  {
+   "id": "ul-nps-exit-80-20-2025",
+   "claim": "PFRDA 16-Dec-2025 NPS exit (non-govt): up to 80% lump sum / min 20% annuity (was 60/40), annuity deferral to age 85, corpus <= Rs 8L is a 100% lump-sum withdrawal; premature exit 20/80; ASP life-annuity rates ~6-7% at 60; Sec 10(10A) exemption capped at 60% of contributions so the extra 20% lump sum is slab-taxed",
+   "source": "src-nps-exit-annuity-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "PFRDA 80/20 split, 85 deferral, and Rs 8L small-corpus threshold are per the 16-Dec-2025 amendment; the 60% 10(10A) cap and any new-regime annuity-income exemption are Income-tax-Act provisions under the Act-2025 transition - confirm with a CA for the exit year. Annuity rates are 2026 empanelment bands and move with interest rates."
   }
  ]
 }

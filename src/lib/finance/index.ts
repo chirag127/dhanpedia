@@ -1006,6 +1006,109 @@ export function hufIncomeSplitFY27(s: HufSplitInput): HufSplitResult {
 }
 
 /**
+ * NPS Tier-1 retirement exit (PFRDA 16 Dec 2025 amendment) + tax position.
+ *
+ * The Dec-2025 exit rules for non-government subscribers:
+ *  - Corpus below the small-corpus threshold (Rs 8L): 100% lump-sum withdrawal.
+ *  - Corpus at/above: up to 80% lump sum, at least 20% into a PFRDA-empanelled
+ *    annuity; annuity purchase may be deferred up to age 85.
+ *  - Premature exit (< 60, after the lock-in conditions): 20% lump sum, 80%
+ *    annuity.
+ *
+ * Tax position (the part most calculators skip):
+ *  - The lump-sum NPS corpus is exempt under Sec 10(10A)/10(i)(xii) only up
+ *    to 60% of your total NPS contributions (self + employer). The 2025 exit
+ *    rules let you TAKE 80% as a lump sum, but the extra 20% over the 60%
+ *    contribution cap is taxable at your slab.
+ *  - Annuity income is slab-taxed (EET on that leg).
+ *
+ * Conventions: corpus compounds monthly at a single annual rate; the annuity
+ * is priced at a flat annual rate on the annuity corpus (the ~6-7% life
+ * annuity band); the marginal rate applies to the taxable lump sum and to the
+ * annuity income. This is a planning aid; the Sec 10(10A) 60%-cap wording and
+ * any new-regime annuity exemption should be confirmed with a CA for the year.
+ */
+export interface NpsExitInput {
+  monthlyContribution: number;
+  employerPct: number;
+  annualReturn: number;
+  years: number;
+  smallCorpusThreshold: number;
+  lumpSumPct: number;
+  annuityRate: number;
+  marginalTaxRate: number;
+  prematureExit: boolean;
+  totalContributions?: number;
+}
+
+export interface NpsExitResult {
+  corpus: number;
+  totalContributions: number;
+  isSmallCorpus: boolean;
+  lumpSum: number;
+  annuityCorpus: number;
+  exemptLumpSum: number;
+  taxableLumpSum: number;
+  annualAnnuityIncome: number;
+  afterTaxAnnuityIncome: number;
+  afterTaxLumpSum: number;
+  totalAfterTax: number;
+}
+
+export function npsRetirementExitFY27(n: NpsExitInput): NpsExitResult {
+  const mRate = n.annualReturn / 12;
+  const months = Math.max(0, Math.round(n.years * 12));
+  const monthlyTotal = n.monthlyContribution * (1 + Math.max(0, n.employerPct));
+  const corpus =
+    months > 0 && mRate > 0
+      ? monthlyTotal * ((Math.pow(1 + mRate, months) - 1) / mRate)
+      : monthlyTotal * months;
+  const totalContributions = n.totalContributions ?? monthlyTotal * months;
+
+  const isSmallCorpus = corpus <= n.smallCorpusThreshold;
+  // PFRDA 16 Dec 2025: a permitted premature exit (< 60) forces the tighter
+  // 20/80 split; a normal exit at 60 defaults to up to 80% lump / 20% annuity
+  // and lets the caller pick any lump-sum share up to 100%.
+  let lumpPct: number;
+  if (isSmallCorpus) {
+    lumpPct = 1.0;
+  } else if (n.prematureExit) {
+    lumpPct = 0.2;
+  } else {
+    // Normal exit: the caller supplies the lump-sum share (0 = 100% annuity,
+    // up to 1 = 100% lump). No default fallback - 0 is a valid 100%-annuity input.
+    lumpPct = Math.min(1, Math.max(0, n.lumpSumPct));
+  }
+
+  const lumpSum = corpus * lumpPct;
+  const annuityCorpus = corpus - lumpSum;
+
+  // Statutory exemption capped at 60% of contributions (Sec 10(10A)/10(i)(xii)).
+  const exemptLumpSum = Math.min(lumpSum, 0.6 * totalContributions);
+  const taxableLumpSum = Math.max(0, lumpSum - exemptLumpSum);
+
+  const annualAnnuityIncome = annuityCorpus * n.annuityRate;
+  const t = Math.max(0, Math.min(1, n.marginalTaxRate));
+  const afterTaxAnnuityIncome = annualAnnuityIncome * (1 - t);
+  const afterTaxLumpSum = exemptLumpSum + taxableLumpSum * (1 - t);
+  const totalAfterTax = afterTaxLumpSum + afterTaxAnnuityIncome;
+
+  return {
+    corpus,
+    totalContributions,
+    isSmallCorpus,
+    lumpSum,
+    annuityCorpus,
+    exemptLumpSum,
+    taxableLumpSum,
+    annualAnnuityIncome,
+    afterTaxAnnuityIncome,
+    afterTaxLumpSum,
+    totalAfterTax,
+  };
+}
+
+/**
  * AIF end-of-fund "2 and 20" waterfall (European-style, single distribution).
  *
  * Models a fund that returns `grossMultiple` on committed capital at the end of

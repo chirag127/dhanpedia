@@ -1,14 +1,43 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 12: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 41 → 42 articles; 25 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 13: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 42 → 43 articles; 26 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 42 on disk / registered. Wave 12 added 1: `tax-huf-second-slab-gifting-high-income` (the high-income HUF layer: the second-assessable-person math — a worked 30L+5L new-regime split saves ₹1.56L/yr because the HUF's own 87A threshold zeroes its leg; the income-eligibility table (coparcenary income yes, 64(2)/99(3)-(4) self-acquired conversion no, spouse/minor clubbing); the 56(2) gifting rules incl. the ₹50k non-relative cliff and the "exempt gift, taxed income" trap; and the two-advance-tax-clocks consequence).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 12 (+ tax-huf-second-slab-gifting-high-income), p2p-lending 4, wealth-beyond-10l 14.
-- **Sources:** 51 in `sources.json` (Wave 12 added 1: src-gifts-clubbing-fy2026-27, 56(2) gift cliffs + 64(1)/(2) clubbing + Act-2025 renumbering).
-- **Update-log:** 47 tracked (Wave 12 added `ul-56-2-gift-cliff-2026` + `ul-64-2-huf-renumber-act-2025`).
-- **Calculators:** 25 (Wave 12 added `huf-income-split`, powered by the new `hufIncomeSplitFY27()` pure function built on highIncomeTaxFY27(), with 5 unit tests and an e2e test).
+- **Articles:** 43 on disk / registered. Wave 13 added 1: `retirement-nps-exit-annuity-tax-deep-dive` (the NPS retirement-exit layer: the PFRDA 16-Dec-2025 amendment table — 80/20 split, 85 deferral, Rs 8L small-corpus 100% rule, premature 20/80; the Section 10(10A) 60%-of-contributions exemption cap vs the PFRDA 80% exit; the five PFRDA annuity variants and the ~6-7% life-annuity rate band; and the new-regime 80CCD(2) entry-vs-exit tax separation).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 15 (+ retirement-nps-exit-annuity-tax-deep-dive), indian-taxation 12, p2p-lending 4, wealth-beyond-10l 14.
+- **Sources:** 52 in `sources.json` (Wave 13 added 1: src-nps-exit-annuity-2026, PFRDA 16-Dec-2025 exit rules + annuity rate bands + 10(10A) 60% cap).
+- **Update-log:** 48 tracked (Wave 13 added `ul-nps-exit-80-20-2025`).
+- **Calculators:** 26 (Wave 13 added `nps-retirement-exit`, powered by the new `npsRetirementExitFY27()` pure function with 6 unit tests and an e2e test).
+
+## Wave 13 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/retirement-fire/retirement-nps-exit-annuity-tax-deep-dive.mdx` — the *NPS retirement-exit* layer (retirement category went from 1 to 2 articles): the PFRDA 16-Dec-2025 amendment table (80/20 split, 85 deferral, Rs 8L small-corpus 100% rule, premature 20/80), the Section 10(10A) 60%-of-contributions exemption cap vs the PFRDA 80% exit (the "two 60/80 numbers that get confused"), the five PFRDA annuity variants with the ~6-7% life-annuity rate band and a 6%-vs-5% income-gap worked figure, and the new-regime 80CCD(2) entry-vs-exit tax separation.
+
+### New finance function + calculator + tests
+- [x] `npsRetirementExitFY27()` in `src/lib/finance/index.ts` — monthly SIP corpus build, the PFRDA exit split (small-corpus 100%, premature 20/80, normal 80/20 or caller-chosen), the 10(10A) 60%-of-contributions exemption cap → taxable lump sum, annuity corpus + flat annuity rate → after-tax annuity income at the marginal slab, and a single after-tax planning figure.
+- [x] `nps-retirement-exit` calculator page (category: Retirement) — 8 inputs, corpus-split bar chart (exempt / taxable / annuity legs), 7 result rows.
+- [x] 6 new unit tests (30-yr corpus + 80/20, the 60% cap binding + taxable-lump arithmetic, small-corpus 100%, premature 20/80 override, 100%-annuity exit, zero-contribution tie) — **90/90 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; one `exact: true` fix on the "Annuity corpus" label that also matches the chart alt) — **56/56 pass**.
+
+### Research verified this session
+- [x] **PFRDA 16-Dec-2025 exit amendment** — 80% lump / min 20% annuity (was 60/40), deferral to age 85 (was 75), small-corpus 100% threshold raised 5L → 8L, premature 20/80 (PFRDA press release + PFRDA Exits & Withdrawals Regulations, last amended 20 Jul 2026; thewealthblog / etmoney 2026 summaries).
+- [x] **Annuity rate bands** — PFRDA-empanelled ASP life annuity ~6-7% at 60, joint-life and return-of-purchase lower (npscalculators / invsify 2026; 15-ASP empanelment list).
+- [x] **Section 10(10A) 60% exemption cap** — the lump sum is exempt only up to 60% of total contributions even though PFRDA allows an 80% exit; the extra 20% is slab-taxed (cross-checked against the toolisky / npscalculators "80% lump sum doesn't mean 80% tax-free" note).
+
+### Build gotcha hit this session
+- Bare `=` and `<=` in the new article's table cell + prose broke the MDX/JSX build (`Unexpected character =`). Fixed by rewording to "corpus up to Rs 8L is a 100% lump-sum exit", "equals", and "entry is / exit is" — re-adding to the known-gotchas list (the KaTeX `\;=\;` inside the `$...$` block is fine; only bare `=` outside math/attributes breaks).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 90 passed.
+- [x] `node scripts/validate-content.mjs` → 43 articles, 4 books, 52 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 191 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (17,816 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 43/43 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 56 passed (28 desktop + 28 mobile).
 
 ## Wave 12 session (verified 2026-10-18 via web research)
 
@@ -220,14 +249,15 @@ Last updated: **2026-10-18** (Wave 12: 1 new article + 1 new finance function + 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion: Wave 13 candidate = ESOP-vesting tax-walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), or a senior-citizen / NRI tax-structure article, or an NPS 80CCD(1B) + 80CCD(2) standalone tax-shield calculator.
+- [ ] Phase 4 deeper expansion: Wave 14 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a senior-citizen / NRI tax-structure article, or a GIFT City FoF deep-dive.
 
 ## Next 3 actions
-1. Commit Wave 12: 1 new article + hufIncomeSplitFY27() function + huf-income-split calculator + 1 source + tests.
+1. Commit Wave 13: 1 new article + npsRetirementExitFY27() function + nps-retirement-exit calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 13 candidate: ESOP-vesting tax walkthrough, or NPS 80CCD(1B)/(2) tax-shield calculator, or senior-citizen + NRI structures).
+3. Continue the daily article habit (Wave 14 candidate: ESOP-vesting tax walkthrough, senior-citizen + NRI structures, or GIFT City FoF deep-dive).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.
+- **MDX bare `=` / `<=`:** a bare `=` (or `<=`) outside a `$...$` math block or an attribute value breaks the MDX/JSX build with "Unexpected character `=`" (hit in Wave 13). Reword to "is" / "up to" / "equals"; `\;=\;` inside `$...$` and `href="..."` are safe.
 - **Node version:** `npx astro build` via the Agnes wrapper (Node v22.14) fails — Astro 7 needs ≥22.22. Use `"C:\Program Files\nodejs\npx.cmd" astro build` (system Node v24.18.0).
 - **Scratch scripts:** keep one-off registry scripts (`_register-waveN.mjs`) for audit; delete transient inspection scripts.
