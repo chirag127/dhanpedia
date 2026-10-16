@@ -1,469 +1,478 @@
 {
- "note": "Time-sensitive claims tracked for re-verification. CI may flag items past reviewAfter but MUST NOT auto-publish changes.",
- "version": "1.0",
- "entries": [
-  {
-   "id": "tl-scoss-rate",
-   "claim": "SCSS interest rate 8.2% p.a. (FY 2025-26)",
-   "source": "src-scss-8-2",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-01-01",
-   "status": "needs-review",
-   "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
-  },
-  {
-   "id": "tl-repo-rate",
-   "claim": "RBI repo rate near 5.25%",
-   "source": "src-rbi-repo",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-30",
-   "status": "ok",
-   "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
-  },
-  {
-   "id": "tl-sgb-status",
-   "claim": "SGB scheme discontinued; no new tranches since FY 2024-25 (last tranche Feb 2024)",
-   "source": "src-sgb-discontinued",
-   "lastVerified": "2026-08-06",
-   "reviewAfter": "2026-12-31",
-   "status": "ok"
-  },
-  {
-   "id": "tl-nps-exit",
-   "claim": "NPS 2025 exit rules: up to 80% lump sum at retirement; 100% equity option (private sector)",
-   "source": "src-nps-2025-exit",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok",
-   "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
-  },
-  {
-   "id": "tl-p2p-directions",
-   "claim": "RBI P2P Directions, 2025 notified 2025-11-28 (RBI/DOR/2025-26/370)",
-   "source": "src-rbi-p2p-directions-2025",
-   "lastVerified": "2026-08-06",
-   "reviewAfter": "2027-01-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-tax-slabs",
-   "claim": "FY 2025-26 new-regime slabs; Rs.12L effectively tax-free for salaried after standard deduction",
-   "source": "src-it-slab-calculator",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-02-28",
-   "status": "ok",
-   "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
-  },
-  {
-   "id": "tl-sif-2026",
-   "claim": "SEBI SIF (Specialized Investment Fund) category, effective 1 Apr 2026: Rs.10L minimum, long-short strategy categories, MF Lite sibling framework; PMS Rs.50L and AIF Rs.1Cr minimums unchanged",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "articles": [
-    "alternatives-sif-specialized-funds",
-    "alternatives-pms-aif-private"
-   ],
-   "notes": "Minimum, breach rules, and cost caps were sourced from secondary guides summarizing the SEBI text. Confirm against SEBI circulars and scheme documents before advising."
-  },
-  {
-   "id": "tl-fo-fy26",
-   "claim": "SEBI FY26 retail F&O data: 78.6 lakh individual traders, net losses Rs 91,685 cr, avg loss Rs 1,16,654; 87.7% of traders lost; F&O STT collections Rs 27,695 cr (FY26)",
-   "source": "src-sebi-fo-fy26",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok",
-   "articles": [
-    "derivatives-fno-retail-realities"
-   ]
-  },
-  {
-   "id": "tl-sgb-tax-2026",
-   "claim": "Budget 2026 removed the capital-gains exemption on SGBs purchased from the secondary market (effective 1 Apr 2026); only original subscribers holding to maturity retain the tax-free redemption; no new SGB tranches in FY 2026-27",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok",
-   "articles": [
-    "govt-sovereign-gold-bonds",
-    "gold-silver-commodities",
-    "tax-india-investor-complete"
-   ]
-  },
-  {
-   "id": "tl-lrs-tcs-2026",
-   "claim": "FY 2026-27 LRS TCS structure (Finance Act 2026, eff. 1 Apr 2026): loan-funded education 0%; self-funded education/medical 2% above Rs 10L; overseas tour packages 2% flat (no threshold); other LRS purposes 20% above Rs 10L; LRS limit USD 250,000/FY unchanged",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok",
-   "articles": [
-    "international-investing-lrs",
-    "tax-india-investor-complete"
-   ]
-  },
-  {
-   "id": "tl-irdai-2026-reforms",
-   "claim": "IRDAI 2025-26 health-insurance reforms: PED waiting capped at 3 years; entry-age limit removed; moratorium period cut from 8 years to 5 (60 months, Feb 2026) - post-60-month repudiation only on proven fraud",
-   "source": "src-irdai-moratorium-2026",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-02-28",
-   "status": "ok",
-   "articles": [
-    "insurance-protection"
-   ]
-  },
-  {
-   "id": "tl-dicgc-5l",
-   "claim": "DICGC deposit-insurance limit is ₹5 lakh per depositor, per bank, per same right & capacity (unchanged since the 2015 limit revision; joint accounts: ₹5L per joint holder)",
-   "source": "src-dicgc-deposit-insurance",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-06-30",
-   "status": "ok"
-  },
-  {
-   "id": "tl-sfb-fd-rates-2026",
-   "claim": "FD rates Aug–Oct 2026: major banks 1-yr ~6.25–7.10% (SBI 6.25%, 444-day Amrit Vrishti 6.45%); small-finance banks up to 8.5% senior / 8.25% general; SFB per-depositor liability cap ₹25L",
-   "source": "src-fd-rates-aug2026",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-01-31",
-   "status": "ok"
-  },
-  {
-   "id": "tl-rbi-weekly-credit-reporting",
-   "claim": "RBI phased weekly credit-bureau reporting: framework w.e.f. 1 Apr 2026, lenders to file borrower data 4×/month (9th/16th/23rd/last day) from 1 Jul 2026, replacing monthly/fortnightly cycles",
-   "source": "src-rbi-credit-reporting-2026",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-esop-two-stage",
-   "claim": "ESOP/RSU two-stage taxation (Sec 17(2)(vi) perquisite at exercise + capital gain at sale) unchanged in the IT Act 2025; listed-equity CG FY 2026-27: LTCG 12.5% after 12 months, STCG 20%",
-   "source": "src-esop-tax-it-dept",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-gift-57xii",
-   "claim": "Gifts > ₹50,000 in a year from a non-relative (or outside the Sec 57(xii) 'relative' list) are taxable to the recipient at slab rates; gifts from the specified relative list and on marriage are exempt",
-   "source": "src-gift-tax-it-dept",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-sec70-3-carryforward",
-   "claim": "Unabsorbed capital losses carry forward 8 assessment years under Sec 70(3) only if the ITR for the loss year is filed by the Sec 139(1) due date; STCL is flexible (STCG+LTCG), LTCL is LTCG-only; speculation losses do not carry under 70(3)",
-   "source": "src-loss-carry-forward-2026",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-87a-rebate-trap",
-   "claim": "Sec 87A rebate makes total tax zero when total taxable income ≤ ₹12 lakh (FY 2026-27 new regime; unchanged from the Budget 2025 reset) — harvesting a capital loss in a below-threshold year has no in-year value",
-   "source": "src-it-slab-fy2026-27",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-home-loan-24b",
-   "claim": "Home-loan interest deduction under Sec 24(b): up to ₹2L p.a. for self-occupied property; new-regime slabs FY 2026-27 unchanged from the Budget 2025 reset",
-   "source": "src-it-slab-fy2026-27",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-epf-8-25",
-   "claim": "EPF interest rate 8.25% for FY 2025-26 (retained by CBT 239th meeting, Mar 2026; second consecutive year); EPF Scheme 2026 keeps 8.25%",
-   "source": "src-epf-rate-2026",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "tl-irdai-claims-2026",
-   "claim": "IRDAI FY 2025-26: life death-claim settlement ~99%; ~1 in 12 (~8%) health claims rejected; 1-hour cashless pre-auth met in 86.8% of cases; avg health payout ~Rs 29,000; ICR public >100%, private 75-85%",
-   "source": "src-irdai-annual-report-2026",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-03-31",
-   "status": "ok"
-  },
-  {
-   "id": "tl-sebi-7b-cap",
-   "claim": "SEBI+RBI cap the Indian MF industry's direct overseas equity at USD 7B (+ USD 1B global ETFs + USD 1B/AMC), set 2008, unraised; ceiling breached Jan 2022; as of 10 Jul 2026 only one domestic international fund open for fresh SIPs; GIFT City IFSCA funds are outside the cap",
-   "source": "src-intl-fof-cap-2026",
-   "lastVerified": "2026-10-16",
-   "reviewAfter": "2027-04-01",
-   "status": "ok"
-  },
-  {
-   "id": "ul-nps-exit-80-20",
-   "claim": "Non-government NPS exit: PFRDA 16 Dec 2025 amendment allows 80% lump sum / 20% min annuity (was 60/40), deferment to age 85, 100% withdrawal for corpus under Rs 8L; Section 10(12A) tax exemption still covers only 60% of the corpus",
-   "source": "src-nps-2025-exit",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-01",
-   "status": "verified"
-  },
-  {
-   "id": "ul-nps-80ccd-structure",
-   "claim": "NPS deductions: 80CCD(1B) Rs 50,000 extra (old regime, incl. NPS Vatsalya from FY 2025-26); 80CCD(2) employer up to 14% both regimes (raised from 10% private, FY 2025-26); combined employer EPF+NPS+superannuation exempt cap Rs 7.5L/yr",
-   "source": "src-nps-deductions-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-01",
-   "status": "verified"
-  },
-  {
-   "id": "ul-elss-ltcg-bucket",
-   "claim": "ELSS: Rs 1.5L 80C (old regime only), 3-year lock-in per allotment; equity MF LTCG 12.5% above Rs 1.25L/yr shared bucket (Finance No.2 Act 2024); REIT/InvIT units share the same Sec 112A exemption",
-   "source": "src-elss-ltcg-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-01",
-   "status": "verified"
-  },
-  {
-   "id": "ul-80ttb-reported-hike",
-   "claim": "REPORTED (secondary): Budget 2026 raised 80TTB senior-citizen interest deduction to Rs 1L and doubled the TDS threshold; Income Tax Department threshold page still shows Rs 50,000 - verify before AY 2026-27 filing",
-   "source": "src-eldeductions-fy2026-27",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2026-12-31",
-   "status": "unverified-conflict"
-  },
-  {
-   "id": "ul-huf-clubbing-2025act",
-   "claim": "HUF: separate taxable person (Sec 2(31)), own PAN, ITR-2/ITR-3; clubbing of member-gifted property income under Sec 64(2) of the 1961 Act = Sec 99(3)-(4) of the Income Tax Act 2025 (in force 1 Apr 2026); Vineeta Sharma partition is not taxable",
-   "source": "src-huf-tax-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-01",
-   "status": "verified"
-  },
-  {
-   "id": "ul-reit-115ua-treatment",
-   "claim": "REIT/InvIT: Sec 115UA pass-through; dividend exempt only if SPV NOT under 115BAA; 194LBA TDS 10% no threshold (resident); return-of-capital 56(2)(xii) from AY 2024-25; 112A LTCG 12.5% above Rs 1.25L, 111A STCG 20% under 12 months; TA Amendment Act 2026 (assent 17 Aug 2026) touched dividend wording - re-verify",
-   "source": "src-reit-invit-tax-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-01",
-   "status": "verified"
-  },
-  {
-   "id": "ul-ncd-yield-ladder",
-   "claim": "Q2 2026 NCD bands: AAA 7.0-8.0%, AA 8.0-9.5%, A 9.5-11.5%, BBB 11.5-13%+; repo floor 5.25%, 10-yr G-Sec ~6.5-6.8%; NCD tax FY 2026-27: coupon at slab, no TDS (listed, resident demat), LTCG 12.5% no indexation; CRISIL 3-yr cohort defaults A 1.5-3%, BBB 3-5%",
-   "source": "src-ncd-rates-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-01-17",
-   "status": "verified"
-  },
-  {
-   "id": "ul-sif-pan-minimum-2026",
-   "claim": "SIF: Rs.10L aggregate minimum at the PAN level (excludes AMC-mandated employee investments); accredited-investor exemption; framework effective 1 April 2026 - the first professional rung a Rs.10L reader is already eligible for",
-   "source": "src-sebi-sif-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-17",
-   "status": "verified"
-  },
-  {
-   "id": "ul-mf-only-pms-route-2027",
-   "claim": "SEBI notified a revamped PMS regulation effective April 2027 introducing a mutual-fund-only PMS route at a Rs.25L minimum (below the classic Rs.50L PMS floor) - a new low-ticket pooled rung between SIF and classic PMS; re-verify the exact minimum and go-live date",
-   "source": "src-pms-aif-fees-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-17",
-   "status": "verified"
-  },
-  {
-   "id": "ul-aif-category-minima-2026",
-   "claim": "AIF: Rs.1Cr minimum (Rs.25L for angel funds and manager-employee/director investors); Cat I/II close-ended with a 3-year minimum tenure; up to 1000 investors per scheme (49 angel)",
-   "source": "src-aif-categories-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-17",
-   "status": "verified"
-  },
-  {
-   "id": "ul-advance-tax-fy2026-27",
-   "claim": "Advance tax FY 2026-27: duty when tax after TDS exceeds Rs.10,000; cumulative 15/45/75/100% on 15 Jun / 15 Sep / 15 Dec / 15 Mar; 234C 1%/mo on each shortfall (3-month tails first three, 1-month last); 234B 1%/mo from 1 Apr when advance paid under 90% of assessed; capital-gains 31-Mar relief; 44AD/44ADA single 15-Mar payment",
-   "source": "src-advance-tax-fy2026-27",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-04-17",
-   "status": "verified"
-  },
-  {
-   "id": "ul-itr-final-dates-2026",
-   "claim": "FY 2026-27 ITR standard deadline 31 July 2027 (non-audited), 15 July 2027 (audited); the exact dates are a published annual notification to re-verify at year-end",
-   "source": "src-it-dept-final-dates-2026",
-   "lastVerified": "2026-10-17",
-   "reviewAfter": "2027-07-31",
-   "status": "verified"
-  },
-  {
-   "id": "ul-sif-strategy-families-2026",
-   "claim": "SIF strategy families (SEBI MF Regs 2026, secondary): seven permitted long-short / relative-value families; illustrative 75/25 blend with ~25% naked-short cap; ~2.25% management + ~2% distribution expense; daily NAV pricing; SIP/STP allowed",
-   "source": "src-sif-strategy-families-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "The \"seven families\" and the 75/25 blend are secondary-guide readings, not a fixed SEBI named list; verify the exact caps against the SEBI circular and each scheme document."
-  },
-  {
-   "id": "ul-reit-invit-dividend-uniformity-2026",
-   "claim": "Finance Bill 2026 (assent 17 Aug 2026) makes the REIT/InvIT dividend component more uniformly exempt to unitholders regardless of the SPV regime, with a higher 25% SPV surcharge trade-off; interest / rental components stay slab-taxed; 115UA(2) current-year wording must be verified with a CA",
-   "source": "src-reit-invit-premium-discount-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-02-28",
-   "status": "verified",
-   "notes": "The 25% SPV-surcharge figure and the dividend-uniformity mechanics are from the Lok Sabha 2026 amendment report; confirm against the final Finance Act text and the REIT/InvIT distribution statement."
-  },
-  {
-   "id": "ul-aif-sebi-amendment-2026",
-   "claim": "SEBI AIF Amendment 2026: accredited-investor-only schemes waive the 1,000-investor cap; angel funds are a distinct Category I class (49-investor, accredited-only, re-registration deadline 8 Sep 2026); inoperative-fund classification and Regulation 29 retained-liquidation-proceeds changes; AIF Master Circular 3 Jun 2026",
-   "source": "src-aif-sebi-amendment-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Secondary reading of the SEBI amendment; confirm deadlines and amendment numbers against the SEBI AIF Master Circular (3 Jun 2026)."
-  },
-  {
-   "id": "ul-aif-tax-forms-migration-2026",
-   "claim": "AIF tax forms: 64C/64D migrate to 78/79 under the Income-tax Act 2025 (effective 1 Apr 2026, Sec 224 / Rule 145); income for years beginning before 1 Apr 2026 stays on the old forms; 194LBB 10% TDS on credited pass-through income; business income not passed through; losses need a 12-month hold",
-   "source": "src-aif-tax-forms-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-07-31",
-   "status": "verified",
-   "notes": "The 115UB pass-through and 194LBB TDS are current; the form renumbering is a 2026 framework change - re-verify at each Finance Act and against the Income-tax Department ITR-2 documentation."
-  },
-  {
-   "id": "ul-aif-waterfall-standard-ladder-2026",
-   "claim": "Standard AIF GP-LP ladder: 2%/yr mgmt fee (committed capital in investment period, NAV/invested in harvest), 20% carry, 8% IRR hurdle, 100% catch-up; worked 3x/10-yr fund gives LP ~2.6x net, GP ~5-6% of fund value all-in; GP earns fee-only on a failure",
-   "source": "src-aif-waterfall-economics-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Practitioner reading; verify the specific ladder against each fund PPM before advising."
-  },
-  {
-   "id": "ul-80ccd1b-regime-clarification-2026",
-   "claim": "80CCD(1B) Rs 50,000 extra NPS deduction is OLD-REGIME-only (disallowed under new regime Sec 115BAC); only 80CCD(2) employer NPS (14% of Basic+DA for all employers, raised from 10% private-sector by Budget 2024) survives in the new regime. A blog intro claimed 80CCD(1B) is 'available even under the New Regime', but the same site's CA-reviewed body (15 Oct 2026) and FAQ table state old-regime-only - consistent with existing src-nps-deductions-2026",
-   "source": "src-nps-deductions-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "conflict-resolved",
-   "notes": "Conflicting claims found during Wave 8 research (ELSS/NPS tax-shield planning). Resolution: old-regime-only, per the CA-reviewed 15 Oct 2026 review plus 1 Finance/ClearTax coverage. Re-verify at each Finance Act; Wave 9 ELSS/NPS tax-shield calculators must use 80CCD(1B) old-regime-only."
-  },
-  {
-   "id": "ul-ppf-rate-fy2026-27",
-   "claim": "PPF interest rate 7.1% p.a. for FY 2026-27 Q1 (unchanged, 8th straight quarter); re-notified quarterly",
-   "source": "src-ppf-rate-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2026-12-31",
-   "status": "verified",
-   "notes": "Re-verify at the January 2027 notification for Q4 FY 2026-27."
-  },
-  {
-   "id": "ul-regime-decision-new-wins-fy2026-27",
-   "claim": "Modeled FY 2026-27 result: with the Budget 2025-widened new-regime slabs + 87A to 12L + 75k standard deduction, the NEW regime is cheaper than the old regime up to ~45L of income even with a full ~5L old-regime stack (80C 1.5L + 80CCD(1B) 0.5L + 24(b) 2L + 80D 1L); the old regime can only win with larger relative deductions (heavy 80D + 80E + top bands with surcharge). Verified by the deductionShieldFY27() unit-test scan.",
-   "source": "src-it-slab-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Model excludes surcharge + 4% cess above 50L - the regime flip for >50L earners must be re-checked including surcharge. Re-verify at each Finance Act because any new-regime slab change flips the boundary."
-  },
-  {
-   "id": "ul-unlisted-ltcg-slab-2026",
-   "claim": "Unlisted shares: 24-month LTCG holding period (unchanged by Budget 2024; the 36-month period was removed for most other assets), long-term gain taxed at slab rates without indexation; listed equity-type (shares, equity MF, business-trust units) is 12-month LTCG at 12.5% above the shared Rs 1.25L 112A pool",
-   "source": "src-elss-ltcg-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Verified against the PIB Budget-2024 FAQ and the Finance Bill 2024 memo (holding periods: 12-month listed, 24-month unlisted/property/gold, 36-month removed). This is the rate the AIF Cat I/II pass-through wedge in the tax-wedge article uses at the investor slab."
-  },
-  {
-   "id": "ul-cat3-fund-level-rate-2026",
-   "claim": "Category III AIFs are taxed at the fund level, frequently at the maximum marginal rate ~42.7% including surcharge; unitholders receive distributions net of that tax; specific vehicles may qualify for 10(4D)/10(23FF)/10(23FBC)/115AD exemptions",
-   "source": "src-aif-categories-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Secondary reading (Altportfunds / Treelife 2026); confirm the specific fund tax note and the exact current-year rate before advising on a Cat III sleeve."
-  },
-  {
-   "id": "ul-new-regime-surcharge-cap-25-2026",
-   "claim": "FY 2026-27 individual surcharge: new regime 10%/15%/25% capped above 2Cr (the 37% top rate abolished for the new regime under the Income-tax Act, 2025, effective 1 Apr 2026); old regime keeps 37% above 5Cr; 15% surcharge cap on listed-equity 111A/112A tax; 4% HEC on (tax + surcharge after marginal relief)",
-   "source": "src-surcharge-cess-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Income-tax Act, 2025 (assent 21 Aug 2025) position per CA-published secondary source; re-verify the bands at each Finance Act and against the Income-tax Department threshold tables. The highIncomeTaxFY27() function models these bands."
-  },
-  {
-   "id": "ul-56-2-gift-cliff-2026",
-   "claim": "Sec 56(2) gifts: relative gifts exempt with no limit; non-relative gifts aggregate over Rs 50,000 in a year makes the entire amount taxable at slab (a cliff); wedding/inheritance/12A-trust gifts always exempt; Budget 2025 did not change the threshold",
-   "source": "src-gifts-clubbing-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "The 50k cliff and the relative-list are stable; re-verify at each Finance Act."
-  },
-  {
-   "id": "ul-64-2-huf-renumber-act-2025",
-   "claim": "Sec 64(2) self-acquired-to-HUF clubbing is renumbered Sec 99(3)-(4) in the Income-tax Act, 2025 (effective 1 Apr 2026); Sec 64(1)(iv) spouse-income and 64(1A) minor-income carry through; Sec 65 joint-and-several liability of the transferee remains",
-   "source": "src-gifts-clubbing-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Confirm the exact Act-2025 section numbers against the Income-tax Act, 2025 text before advising a HUF structure; the AIS cross-PAN matching makes the clubbing triggers leave an electronic audit trail."
-  },
-  {
-   "id": "ul-nps-exit-80-20-2025",
-   "claim": "PFRDA 16-Dec-2025 NPS exit (non-govt): up to 80% lump sum / min 20% annuity (was 60/40), annuity deferral to age 85, corpus <= Rs 8L is a 100% lump-sum withdrawal; premature exit 20/80; ASP life-annuity rates ~6-7% at 60; Sec 10(10A) exemption capped at 60% of contributions so the extra 20% lump sum is slab-taxed",
-   "source": "src-nps-exit-annuity-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "PFRDA 80/20 split, 85 deferral, and Rs 8L small-corpus threshold are per the 16-Dec-2025 amendment; the 60% 10(10A) cap and any new-regime annuity-income exemption are Income-tax-Act provisions under the Act-2025 transition - confirm with a CA for the exit year. Annuity rates are 2026 empanelment bands and move with interest rates."
-  },
-  {
-   "id": "ul-pre-ipo-reg17-lockin-2026",
-   "claim": "ICDR Reg 17: pre-IPO shares held by non-promoters are locked 6 months from IPO allotment (no selling into the listing pop); SEBI advisories (Aug 2016 / Dec 2024 / Jun 2026): off-market unlisted-trade platforms are not SEBI-recognised, no clearing guarantee; unlisted >24m LTCG 12.5% (Sec 112, no indexation, no pool), unlisted <=24m STCG at slab; listed sale >12m 112A pool / <=12m 111A 20%; holding clock starts at transfer",
-   "source": "src-pre-ipo-unlisted-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "The Reg 17 six-month lock-in and the SEBI platform position are stable regulatory points; re-verify the 12.5% 112/112A section numbers and any Act-2025 renumbering at each Finance Act, and confirm the current SEBI advisory list before relying on it."
-  },
-  {
-   "id": "ul-senior-80ttb-limit-2026",
-   "claim": "80TTB interest-income deduction for senior citizens: Rs 50,000 confirmed for FY 2026-27; a Budget-2026 report of a raise to Rs 1,00,000 is UNVERIFIED (department portal still shows 50k). Old-regime-only. The senior TDS threshold on interest is Rs 1,00,000 (raised from 50,000).",
-   "source": "src-senior-tax-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "conflict-open",
-   "notes": "Conflicting figures found during Wave 15 research: CalcGuru/TaxClue show 80TTB at Rs 50,000 (old-only); some 2026 budget coverage reports a Rs 1,00,000 raise. Resolution pending - the Income-tax Act 2025 / Finance Act text must be checked before advising. The seniorRegimeTaxFY27() function takes the 80TTB limit as a user-settable input so the article does not hardcode a disputed figure."
-  },
-  {
-   "id": "ul-senior-regime-decision-2026",
-   "claim": "Modeled FY 2026-27 finding: with the widened new-regime slabs + 87A-to-12L, the NEW regime is cheaper for a retiree at typical income levels (below ~Rs 20L) even after giving up 80TTB/80D; even a full old-regime stack (80C 1.5L + 24b 2L + 80D 50k + 80TTB 50k = ~4.55L) does not flip the decision up to ~Rs 1 Cr in the base-slab model. The stale 'old regime wins for retirees' advice no longer holds below ~Rs 20L.",
-   "source": "src-senior-tax-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "Base-slab model excludes surcharge; the new regime 25% surcharge cap vs the old 37% would only widen the new regime advantage at the very top. Re-verify at each Finance Act - any old-regime top-band change would flip this back."
-  },
-  {
-   "id": "ul-nri-195-dtaa-2026",
-   "claim": "NRI Section 195 TDS is a flat 30% (+surcharge +4% cess) with no exemption slabs (head rates: NRO/rent 30%, 111A 20%, 112A 12.5% above 1.25L, property LTCG 12.5% no indexation, property STCG 30%, dividends 20%); property sale TDS is on the full value (use 197 to fix); DTAA relief = TRC + Form 10F + Form 67 at the lower of domestic and treaty rate; 15G/15H unavailable to NRIs; 87A rebate NOT available to NRIs",
-   "source": "src-nri-tax-tds-dtaa-2026",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-04-17",
-   "status": "verified",
-   "notes": "The 195 head rates and the 87A/15G-15H positions are as of the FY 2026-27 transition under the Income-tax Act 2025; the individual residency day counts were unchanged. Re-verify the 195 head rates and the 87A position at each Finance Act, and confirm the specific DTAA treaty rate against the treaty text."
-  },
-  {
-   "id": "ul-54ec-notified-bonds-fy2026-27",
-   "claim": "Section 54EC reinvestment is capped at Rs 50,00,000 and must be into government-notified infrastructure bonds (NHAI / REC / PFC / IRFC etc.) within 6 months of the sale; the notified-bond list is refreshed quarterly and a tranche must be open to invest",
-   "source": "src-54-rollover-fy2026-27",
-   "lastVerified": "2026-10-18",
-   "reviewAfter": "2027-01-31",
-   "status": "verified",
-   "notes": "The 50L cap and the 6-month window are stable; the specific notified-bond issuers and tranche dates are re-notified each quarter - confirm the open tranche before acting. Re-verify the 12.5% no-indexation base and the 1-yr / 2-yr holding periods at each Finance Act."
-  }
- ]
+  "note": "Time-sensitive claims tracked for re-verification. CI may flag items past reviewAfter but MUST NOT auto-publish changes.",
+  "version": "1.0",
+  "entries": [
+    {
+      "id": "tl-scoss-rate",
+      "claim": "SCSS interest rate 8.2% p.a. (FY 2025-26)",
+      "source": "src-scss-8-2",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-01-01",
+      "status": "needs-review",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-repo-rate",
+      "claim": "RBI repo rate near 5.25%",
+      "source": "src-rbi-repo",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-30",
+      "status": "ok",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-sgb-status",
+      "claim": "SGB scheme discontinued; no new tranches since FY 2024-25 (last tranche Feb 2024)",
+      "source": "src-sgb-discontinued",
+      "lastVerified": "2026-08-06",
+      "reviewAfter": "2026-12-31",
+      "status": "ok"
+    },
+    {
+      "id": "tl-nps-exit",
+      "claim": "NPS 2025 exit rules: up to 80% lump sum at retirement; 100% equity option (private sector)",
+      "source": "src-nps-2025-exit",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-p2p-directions",
+      "claim": "RBI P2P Directions, 2025 notified 2025-11-28 (RBI/DOR/2025-26/370)",
+      "source": "src-rbi-p2p-directions-2025",
+      "lastVerified": "2026-08-06",
+      "reviewAfter": "2027-01-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-tax-slabs",
+      "claim": "FY 2025-26 new-regime slabs; Rs.12L effectively tax-free for salaried after standard deduction",
+      "source": "src-it-slab-calculator",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-02-28",
+      "status": "ok",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-sif-2026",
+      "claim": "SEBI SIF (Specialized Investment Fund) category, effective 1 Apr 2026: Rs.10L minimum, long-short strategy categories, MF Lite sibling framework; PMS Rs.50L and AIF Rs.1Cr minimums unchanged",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "articles": [
+        "alternatives-sif-specialized-funds",
+        "alternatives-pms-aif-private"
+      ],
+      "notes": "Minimum, breach rules, and cost caps were sourced from secondary guides summarizing the SEBI text. Confirm against SEBI circulars and scheme documents before advising."
+    },
+    {
+      "id": "tl-fo-fy26",
+      "claim": "SEBI FY26 retail F&O data: 78.6 lakh individual traders, net losses Rs 91,685 cr, avg loss Rs 1,16,654; 87.7% of traders lost; F&O STT collections Rs 27,695 cr (FY26)",
+      "source": "src-sebi-fo-fy26",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "articles": [
+        "derivatives-fno-retail-realities"
+      ]
+    },
+    {
+      "id": "tl-sgb-tax-2026",
+      "claim": "Budget 2026 removed the capital-gains exemption on SGBs purchased from the secondary market (effective 1 Apr 2026); only original subscribers holding to maturity retain the tax-free redemption; no new SGB tranches in FY 2026-27",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "articles": [
+        "govt-sovereign-gold-bonds",
+        "gold-silver-commodities",
+        "tax-india-investor-complete"
+      ]
+    },
+    {
+      "id": "tl-lrs-tcs-2026",
+      "claim": "FY 2026-27 LRS TCS structure (Finance Act 2026, eff. 1 Apr 2026): loan-funded education 0%; self-funded education/medical 2% above Rs 10L; overseas tour packages 2% flat (no threshold); other LRS purposes 20% above Rs 10L; LRS limit USD 250,000/FY unchanged",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "articles": [
+        "international-investing-lrs",
+        "tax-india-investor-complete"
+      ]
+    },
+    {
+      "id": "tl-irdai-2026-reforms",
+      "claim": "IRDAI 2025-26 health-insurance reforms: PED waiting capped at 3 years; entry-age limit removed; moratorium period cut from 8 years to 5 (60 months, Feb 2026) - post-60-month repudiation only on proven fraud",
+      "source": "src-irdai-moratorium-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-02-28",
+      "status": "ok",
+      "articles": [
+        "insurance-protection"
+      ]
+    },
+    {
+      "id": "tl-dicgc-5l",
+      "claim": "DICGC deposit-insurance limit is ₹5 lakh per depositor, per bank, per same right & capacity (unchanged since the 2015 limit revision; joint accounts: ₹5L per joint holder)",
+      "source": "src-dicgc-deposit-insurance",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-06-30",
+      "status": "ok"
+    },
+    {
+      "id": "tl-sfb-fd-rates-2026",
+      "claim": "FD rates Aug–Oct 2026: major banks 1-yr ~6.25–7.10% (SBI 6.25%, 444-day Amrit Vrishti 6.45%); small-finance banks up to 8.5% senior / 8.25% general; SFB per-depositor liability cap ₹25L",
+      "source": "src-fd-rates-aug2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-01-31",
+      "status": "ok"
+    },
+    {
+      "id": "tl-rbi-weekly-credit-reporting",
+      "claim": "RBI phased weekly credit-bureau reporting: framework w.e.f. 1 Apr 2026, lenders to file borrower data 4×/month (9th/16th/23rd/last day) from 1 Jul 2026, replacing monthly/fortnightly cycles",
+      "source": "src-rbi-credit-reporting-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-esop-two-stage",
+      "claim": "ESOP/RSU two-stage taxation (Sec 17(2)(vi) perquisite at exercise + capital gain at sale) unchanged in the IT Act 2025; listed-equity CG FY 2026-27: LTCG 12.5% after 12 months, STCG 20%",
+      "source": "src-esop-tax-it-dept",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-gift-57xii",
+      "claim": "Gifts > ₹50,000 in a year from a non-relative (or outside the Sec 57(xii) 'relative' list) are taxable to the recipient at slab rates; gifts from the specified relative list and on marriage are exempt",
+      "source": "src-gift-tax-it-dept",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-sec70-3-carryforward",
+      "claim": "Unabsorbed capital losses carry forward 8 assessment years under Sec 70(3) only if the ITR for the loss year is filed by the Sec 139(1) due date; STCL is flexible (STCG+LTCG), LTCL is LTCG-only; speculation losses do not carry under 70(3)",
+      "source": "src-loss-carry-forward-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-87a-rebate-trap",
+      "claim": "Sec 87A rebate makes total tax zero when total taxable income ≤ ₹12 lakh (FY 2026-27 new regime; unchanged from the Budget 2025 reset) — harvesting a capital loss in a below-threshold year has no in-year value",
+      "source": "src-it-slab-fy2026-27",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-home-loan-24b",
+      "claim": "Home-loan interest deduction under Sec 24(b): up to ₹2L p.a. for self-occupied property; new-regime slabs FY 2026-27 unchanged from the Budget 2025 reset",
+      "source": "src-it-slab-fy2026-27",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-epf-8-25",
+      "claim": "EPF interest rate 8.25% for FY 2025-26 (retained by CBT 239th meeting, Mar 2026; second consecutive year); EPF Scheme 2026 keeps 8.25%",
+      "source": "src-epf-rate-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-irdai-claims-2026",
+      "claim": "IRDAI FY 2025-26: life death-claim settlement ~99%; ~1 in 12 (~8%) health claims rejected; 1-hour cashless pre-auth met in 86.8% of cases; avg health payout ~Rs 29,000; ICR public >100%, private 75-85%",
+      "source": "src-irdai-annual-report-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-03-31",
+      "status": "ok"
+    },
+    {
+      "id": "tl-sebi-7b-cap",
+      "claim": "SEBI+RBI cap the Indian MF industry's direct overseas equity at USD 7B (+ USD 1B global ETFs + USD 1B/AMC), set 2008, unraised; ceiling breached Jan 2022; as of 10 Jul 2026 only one domestic international fund open for fresh SIPs; GIFT City IFSCA funds are outside the cap",
+      "source": "src-intl-fof-cap-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "ul-nps-exit-80-20",
+      "claim": "Non-government NPS exit: PFRDA 16 Dec 2025 amendment allows 80% lump sum / 20% min annuity (was 60/40), deferment to age 85, 100% withdrawal for corpus under Rs 8L; Section 10(12A) tax exemption still covers only 60% of the corpus",
+      "source": "src-nps-2025-exit",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-01",
+      "status": "verified"
+    },
+    {
+      "id": "ul-nps-80ccd-structure",
+      "claim": "NPS deductions: 80CCD(1B) Rs 50,000 extra (old regime, incl. NPS Vatsalya from FY 2025-26); 80CCD(2) employer up to 14% both regimes (raised from 10% private, FY 2025-26); combined employer EPF+NPS+superannuation exempt cap Rs 7.5L/yr",
+      "source": "src-nps-deductions-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-01",
+      "status": "verified"
+    },
+    {
+      "id": "ul-elss-ltcg-bucket",
+      "claim": "ELSS: Rs 1.5L 80C (old regime only), 3-year lock-in per allotment; equity MF LTCG 12.5% above Rs 1.25L/yr shared bucket (Finance No.2 Act 2024); REIT/InvIT units share the same Sec 112A exemption",
+      "source": "src-elss-ltcg-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-01",
+      "status": "verified"
+    },
+    {
+      "id": "ul-80ttb-reported-hike",
+      "claim": "REPORTED (secondary): Budget 2026 raised 80TTB senior-citizen interest deduction to Rs 1L and doubled the TDS threshold; Income Tax Department threshold page still shows Rs 50,000 - verify before AY 2026-27 filing",
+      "source": "src-eldeductions-fy2026-27",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2026-12-31",
+      "status": "unverified-conflict"
+    },
+    {
+      "id": "ul-huf-clubbing-2025act",
+      "claim": "HUF: separate taxable person (Sec 2(31)), own PAN, ITR-2/ITR-3; clubbing of member-gifted property income under Sec 64(2) of the 1961 Act = Sec 99(3)-(4) of the Income Tax Act 2025 (in force 1 Apr 2026); Vineeta Sharma partition is not taxable",
+      "source": "src-huf-tax-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-01",
+      "status": "verified"
+    },
+    {
+      "id": "ul-reit-115ua-treatment",
+      "claim": "REIT/InvIT: Sec 115UA pass-through; dividend exempt only if SPV NOT under 115BAA; 194LBA TDS 10% no threshold (resident); return-of-capital 56(2)(xii) from AY 2024-25; 112A LTCG 12.5% above Rs 1.25L, 111A STCG 20% under 12 months; TA Amendment Act 2026 (assent 17 Aug 2026) touched dividend wording - re-verify",
+      "source": "src-reit-invit-tax-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-01",
+      "status": "verified"
+    },
+    {
+      "id": "ul-ncd-yield-ladder",
+      "claim": "Q2 2026 NCD bands: AAA 7.0-8.0%, AA 8.0-9.5%, A 9.5-11.5%, BBB 11.5-13%+; repo floor 5.25%, 10-yr G-Sec ~6.5-6.8%; NCD tax FY 2026-27: coupon at slab, no TDS (listed, resident demat), LTCG 12.5% no indexation; CRISIL 3-yr cohort defaults A 1.5-3%, BBB 3-5%",
+      "source": "src-ncd-rates-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-01-17",
+      "status": "verified"
+    },
+    {
+      "id": "ul-sif-pan-minimum-2026",
+      "claim": "SIF: Rs.10L aggregate minimum at the PAN level (excludes AMC-mandated employee investments); accredited-investor exemption; framework effective 1 April 2026 - the first professional rung a Rs.10L reader is already eligible for",
+      "source": "src-sebi-sif-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-17",
+      "status": "verified"
+    },
+    {
+      "id": "ul-mf-only-pms-route-2027",
+      "claim": "SEBI notified a revamped PMS regulation effective April 2027 introducing a mutual-fund-only PMS route at a Rs.25L minimum (below the classic Rs.50L PMS floor) - a new low-ticket pooled rung between SIF and classic PMS; re-verify the exact minimum and go-live date",
+      "source": "src-pms-aif-fees-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-17",
+      "status": "verified"
+    },
+    {
+      "id": "ul-aif-category-minima-2026",
+      "claim": "AIF: Rs.1Cr minimum (Rs.25L for angel funds and manager-employee/director investors); Cat I/II close-ended with a 3-year minimum tenure; up to 1000 investors per scheme (49 angel)",
+      "source": "src-aif-categories-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-17",
+      "status": "verified"
+    },
+    {
+      "id": "ul-advance-tax-fy2026-27",
+      "claim": "Advance tax FY 2026-27: duty when tax after TDS exceeds Rs.10,000; cumulative 15/45/75/100% on 15 Jun / 15 Sep / 15 Dec / 15 Mar; 234C 1%/mo on each shortfall (3-month tails first three, 1-month last); 234B 1%/mo from 1 Apr when advance paid under 90% of assessed; capital-gains 31-Mar relief; 44AD/44ADA single 15-Mar payment",
+      "source": "src-advance-tax-fy2026-27",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-04-17",
+      "status": "verified"
+    },
+    {
+      "id": "ul-itr-final-dates-2026",
+      "claim": "FY 2026-27 ITR standard deadline 31 July 2027 (non-audited), 15 July 2027 (audited); the exact dates are a published annual notification to re-verify at year-end",
+      "source": "src-it-dept-final-dates-2026",
+      "lastVerified": "2026-10-17",
+      "reviewAfter": "2027-07-31",
+      "status": "verified"
+    },
+    {
+      "id": "ul-sif-strategy-families-2026",
+      "claim": "SIF strategy families (SEBI MF Regs 2026, secondary): seven permitted long-short / relative-value families; illustrative 75/25 blend with ~25% naked-short cap; ~2.25% management + ~2% distribution expense; daily NAV pricing; SIP/STP allowed",
+      "source": "src-sif-strategy-families-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "The \"seven families\" and the 75/25 blend are secondary-guide readings, not a fixed SEBI named list; verify the exact caps against the SEBI circular and each scheme document."
+    },
+    {
+      "id": "ul-reit-invit-dividend-uniformity-2026",
+      "claim": "Finance Bill 2026 (assent 17 Aug 2026) makes the REIT/InvIT dividend component more uniformly exempt to unitholders regardless of the SPV regime, with a higher 25% SPV surcharge trade-off; interest / rental components stay slab-taxed; 115UA(2) current-year wording must be verified with a CA",
+      "source": "src-reit-invit-premium-discount-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-02-28",
+      "status": "verified",
+      "notes": "The 25% SPV-surcharge figure and the dividend-uniformity mechanics are from the Lok Sabha 2026 amendment report; confirm against the final Finance Act text and the REIT/InvIT distribution statement."
+    },
+    {
+      "id": "ul-aif-sebi-amendment-2026",
+      "claim": "SEBI AIF Amendment 2026: accredited-investor-only schemes waive the 1,000-investor cap; angel funds are a distinct Category I class (49-investor, accredited-only, re-registration deadline 8 Sep 2026); inoperative-fund classification and Regulation 29 retained-liquidation-proceeds changes; AIF Master Circular 3 Jun 2026",
+      "source": "src-aif-sebi-amendment-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Secondary reading of the SEBI amendment; confirm deadlines and amendment numbers against the SEBI AIF Master Circular (3 Jun 2026)."
+    },
+    {
+      "id": "ul-aif-tax-forms-migration-2026",
+      "claim": "AIF tax forms: 64C/64D migrate to 78/79 under the Income-tax Act 2025 (effective 1 Apr 2026, Sec 224 / Rule 145); income for years beginning before 1 Apr 2026 stays on the old forms; 194LBB 10% TDS on credited pass-through income; business income not passed through; losses need a 12-month hold",
+      "source": "src-aif-tax-forms-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-07-31",
+      "status": "verified",
+      "notes": "The 115UB pass-through and 194LBB TDS are current; the form renumbering is a 2026 framework change - re-verify at each Finance Act and against the Income-tax Department ITR-2 documentation."
+    },
+    {
+      "id": "ul-aif-waterfall-standard-ladder-2026",
+      "claim": "Standard AIF GP-LP ladder: 2%/yr mgmt fee (committed capital in investment period, NAV/invested in harvest), 20% carry, 8% IRR hurdle, 100% catch-up; worked 3x/10-yr fund gives LP ~2.6x net, GP ~5-6% of fund value all-in; GP earns fee-only on a failure",
+      "source": "src-aif-waterfall-economics-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Practitioner reading; verify the specific ladder against each fund PPM before advising."
+    },
+    {
+      "id": "ul-80ccd1b-regime-clarification-2026",
+      "claim": "80CCD(1B) Rs 50,000 extra NPS deduction is OLD-REGIME-only (disallowed under new regime Sec 115BAC); only 80CCD(2) employer NPS (14% of Basic+DA for all employers, raised from 10% private-sector by Budget 2024) survives in the new regime. A blog intro claimed 80CCD(1B) is 'available even under the New Regime', but the same site's CA-reviewed body (15 Oct 2026) and FAQ table state old-regime-only - consistent with existing src-nps-deductions-2026",
+      "source": "src-nps-deductions-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "conflict-resolved",
+      "notes": "Conflicting claims found during Wave 8 research (ELSS/NPS tax-shield planning). Resolution: old-regime-only, per the CA-reviewed 15 Oct 2026 review plus 1 Finance/ClearTax coverage. Re-verify at each Finance Act; Wave 9 ELSS/NPS tax-shield calculators must use 80CCD(1B) old-regime-only."
+    },
+    {
+      "id": "ul-ppf-rate-fy2026-27",
+      "claim": "PPF interest rate 7.1% p.a. for FY 2026-27 Q1 (unchanged, 8th straight quarter); re-notified quarterly",
+      "source": "src-ppf-rate-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2026-12-31",
+      "status": "verified",
+      "notes": "Re-verify at the January 2027 notification for Q4 FY 2026-27."
+    },
+    {
+      "id": "ul-regime-decision-new-wins-fy2026-27",
+      "claim": "Modeled FY 2026-27 result: with the Budget 2025-widened new-regime slabs + 87A to 12L + 75k standard deduction, the NEW regime is cheaper than the old regime up to ~45L of income even with a full ~5L old-regime stack (80C 1.5L + 80CCD(1B) 0.5L + 24(b) 2L + 80D 1L); the old regime can only win with larger relative deductions (heavy 80D + 80E + top bands with surcharge). Verified by the deductionShieldFY27() unit-test scan.",
+      "source": "src-it-slab-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Model excludes surcharge + 4% cess above 50L - the regime flip for >50L earners must be re-checked including surcharge. Re-verify at each Finance Act because any new-regime slab change flips the boundary."
+    },
+    {
+      "id": "ul-unlisted-ltcg-slab-2026",
+      "claim": "Unlisted shares: 24-month LTCG holding period (unchanged by Budget 2024; the 36-month period was removed for most other assets), long-term gain taxed at slab rates without indexation; listed equity-type (shares, equity MF, business-trust units) is 12-month LTCG at 12.5% above the shared Rs 1.25L 112A pool",
+      "source": "src-elss-ltcg-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Verified against the PIB Budget-2024 FAQ and the Finance Bill 2024 memo (holding periods: 12-month listed, 24-month unlisted/property/gold, 36-month removed). This is the rate the AIF Cat I/II pass-through wedge in the tax-wedge article uses at the investor slab."
+    },
+    {
+      "id": "ul-cat3-fund-level-rate-2026",
+      "claim": "Category III AIFs are taxed at the fund level, frequently at the maximum marginal rate ~42.7% including surcharge; unitholders receive distributions net of that tax; specific vehicles may qualify for 10(4D)/10(23FF)/10(23FBC)/115AD exemptions",
+      "source": "src-aif-categories-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Secondary reading (Altportfunds / Treelife 2026); confirm the specific fund tax note and the exact current-year rate before advising on a Cat III sleeve."
+    },
+    {
+      "id": "ul-new-regime-surcharge-cap-25-2026",
+      "claim": "FY 2026-27 individual surcharge: new regime 10%/15%/25% capped above 2Cr (the 37% top rate abolished for the new regime under the Income-tax Act, 2025, effective 1 Apr 2026); old regime keeps 37% above 5Cr; 15% surcharge cap on listed-equity 111A/112A tax; 4% HEC on (tax + surcharge after marginal relief)",
+      "source": "src-surcharge-cess-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Income-tax Act, 2025 (assent 21 Aug 2025) position per CA-published secondary source; re-verify the bands at each Finance Act and against the Income-tax Department threshold tables. The highIncomeTaxFY27() function models these bands."
+    },
+    {
+      "id": "ul-56-2-gift-cliff-2026",
+      "claim": "Sec 56(2) gifts: relative gifts exempt with no limit; non-relative gifts aggregate over Rs 50,000 in a year makes the entire amount taxable at slab (a cliff); wedding/inheritance/12A-trust gifts always exempt; Budget 2025 did not change the threshold",
+      "source": "src-gifts-clubbing-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "The 50k cliff and the relative-list are stable; re-verify at each Finance Act."
+    },
+    {
+      "id": "ul-64-2-huf-renumber-act-2025",
+      "claim": "Sec 64(2) self-acquired-to-HUF clubbing is renumbered Sec 99(3)-(4) in the Income-tax Act, 2025 (effective 1 Apr 2026); Sec 64(1)(iv) spouse-income and 64(1A) minor-income carry through; Sec 65 joint-and-several liability of the transferee remains",
+      "source": "src-gifts-clubbing-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Confirm the exact Act-2025 section numbers against the Income-tax Act, 2025 text before advising a HUF structure; the AIS cross-PAN matching makes the clubbing triggers leave an electronic audit trail."
+    },
+    {
+      "id": "ul-nps-exit-80-20-2025",
+      "claim": "PFRDA 16-Dec-2025 NPS exit (non-govt): up to 80% lump sum / min 20% annuity (was 60/40), annuity deferral to age 85, corpus <= Rs 8L is a 100% lump-sum withdrawal; premature exit 20/80; ASP life-annuity rates ~6-7% at 60; Sec 10(10A) exemption capped at 60% of contributions so the extra 20% lump sum is slab-taxed",
+      "source": "src-nps-exit-annuity-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "PFRDA 80/20 split, 85 deferral, and Rs 8L small-corpus threshold are per the 16-Dec-2025 amendment; the 60% 10(10A) cap and any new-regime annuity-income exemption are Income-tax-Act provisions under the Act-2025 transition - confirm with a CA for the exit year. Annuity rates are 2026 empanelment bands and move with interest rates."
+    },
+    {
+      "id": "ul-pre-ipo-reg17-lockin-2026",
+      "claim": "ICDR Reg 17: pre-IPO shares held by non-promoters are locked 6 months from IPO allotment (no selling into the listing pop); SEBI advisories (Aug 2016 / Dec 2024 / Jun 2026): off-market unlisted-trade platforms are not SEBI-recognised, no clearing guarantee; unlisted >24m LTCG 12.5% (Sec 112, no indexation, no pool), unlisted <=24m STCG at slab; listed sale >12m 112A pool / <=12m 111A 20%; holding clock starts at transfer",
+      "source": "src-pre-ipo-unlisted-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "The Reg 17 six-month lock-in and the SEBI platform position are stable regulatory points; re-verify the 12.5% 112/112A section numbers and any Act-2025 renumbering at each Finance Act, and confirm the current SEBI advisory list before relying on it."
+    },
+    {
+      "id": "ul-senior-80ttb-limit-2026",
+      "claim": "80TTB interest-income deduction for senior citizens: Rs 50,000 confirmed for FY 2026-27; a Budget-2026 report of a raise to Rs 1,00,000 is UNVERIFIED (department portal still shows 50k). Old-regime-only. The senior TDS threshold on interest is Rs 1,00,000 (raised from 50,000).",
+      "source": "src-senior-tax-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "conflict-open",
+      "notes": "Conflicting figures found during Wave 15 research: CalcGuru/TaxClue show 80TTB at Rs 50,000 (old-only); some 2026 budget coverage reports a Rs 1,00,000 raise. Resolution pending - the Income-tax Act 2025 / Finance Act text must be checked before advising. The seniorRegimeTaxFY27() function takes the 80TTB limit as a user-settable input so the article does not hardcode a disputed figure."
+    },
+    {
+      "id": "ul-senior-regime-decision-2026",
+      "claim": "Modeled FY 2026-27 finding: with the widened new-regime slabs + 87A-to-12L, the NEW regime is cheaper for a retiree at typical income levels (below ~Rs 20L) even after giving up 80TTB/80D; even a full old-regime stack (80C 1.5L + 24b 2L + 80D 50k + 80TTB 50k = ~4.55L) does not flip the decision up to ~Rs 1 Cr in the base-slab model. The stale 'old regime wins for retirees' advice no longer holds below ~Rs 20L.",
+      "source": "src-senior-tax-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Base-slab model excludes surcharge; the new regime 25% surcharge cap vs the old 37% would only widen the new regime advantage at the very top. Re-verify at each Finance Act - any old-regime top-band change would flip this back."
+    },
+    {
+      "id": "ul-nri-195-dtaa-2026",
+      "claim": "NRI Section 195 TDS is a flat 30% (+surcharge +4% cess) with no exemption slabs (head rates: NRO/rent 30%, 111A 20%, 112A 12.5% above 1.25L, property LTCG 12.5% no indexation, property STCG 30%, dividends 20%); property sale TDS is on the full value (use 197 to fix); DTAA relief = TRC + Form 10F + Form 67 at the lower of domestic and treaty rate; 15G/15H unavailable to NRIs; 87A rebate NOT available to NRIs",
+      "source": "src-nri-tax-tds-dtaa-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "The 195 head rates and the 87A/15G-15H positions are as of the FY 2026-27 transition under the Income-tax Act 2025; the individual residency day counts were unchanged. Re-verify the 195 head rates and the 87A position at each Finance Act, and confirm the specific DTAA treaty rate against the treaty text."
+    },
+    {
+      "id": "ul-54ec-notified-bonds-fy2026-27",
+      "claim": "Section 54EC reinvestment is capped at Rs 50,00,000 and must be into government-notified infrastructure bonds (NHAI / REC / PFC / IRFC etc.) within 6 months of the sale; the notified-bond list is refreshed quarterly and a tranche must be open to invest",
+      "source": "src-54-rollover-fy2026-27",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-01-31",
+      "status": "verified",
+      "notes": "The 50L cap and the 6-month window are stable; the specific notified-bond issuers and tranche dates are re-notified each quarter - confirm the open tranche before acting. Re-verify the 12.5% no-indexation base and the 1-yr / 2-yr holding periods at each Finance Act."
+    },
+    {
+      "id": "ul-dtaa-corridor-rates-fy2026-27",
+      "claim": "Typical DTAA corridor rates FY 2026-27: DE/NL/JP/FR 10%, US/UK/AU/CA/SG ~15%, UAE 12.5% interest / 10% dividends (exemption method) vs domestic fallback 30% interest / 20% dividends; most treaties do NOT reduce capital-gains tax on Indian shares / property; Form 10F renamed Form 41 under the Income-tax Act 2025; surcharge + 4% cess still ride on the treaty base rate",
+      "source": "src-dtaa-country-rates-2026",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "verified",
+      "notes": "Corridor headline rates are stable but specific treaty texts (holding conditions, MLI Principal Purpose Test, the exact 10%/15% dividend threshold) shift at each treaty ratification - re-verify the corridor table against the Income-tax Department country-wise withholding chart at review time. The 54EC/12.5% no-indexation base and the 112A threshold also ride the Finance Act cycle."
+    }
+  ]
 }

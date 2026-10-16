@@ -362,4 +362,27 @@ test.describe('DhanPedia smoke tests', () => {
     // astro preview returns 404.html for unknown routes.
     await expect(page.getByText('Page not found')).toBeVisible();
   });
+
+  test('dtaa-rate-reference calculator renders the treaty vs domestic split', async ({ page }) => {
+    await page.goto('/calculators/dtaa-rate-reference');
+    await expect(page.getByText('TDS @ domestic rate', { exact: true })).toBeVisible();
+    await expect(page.getByText('TDS @ treaty rate', { exact: true })).toBeVisible();
+    await expect(page.getByText('All-in tax @ treaty (surcharge + cess)', { exact: true })).toBeVisible();
+    await expect(page.getByText('Foreign tax credit (s.91, capped)', { exact: true })).toBeVisible();
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('DTAA country-rate reference article renders the corridor table', async ({ page }) => {
+    await page.goto('/articles/international-dtaa-country-rate-reference');
+    await expect(
+      page.getByRole('heading', { name: /Corridor reference/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /How to claim/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Sources & citations/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

@@ -3,7 +3,7 @@
  * Uses known numerical answers and independent cross-checks so a regression
  * in any formula is caught. Run with `npm test` (vitest).
  */
-import { describe, it, expect } from 'vitest';
+import {  describe, it, expect } from 'vitest';
 import {
   simpleInterest, simpleInterestMaturity, compoundFutureValue, effectiveAnnualRate,
   presentValue, cagr, sipFutureValue, lumpSumFutureValue, sipRequiredForGoal,
@@ -14,7 +14,7 @@ import {
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
-} from '@lib/finance/index';
+  dtaaReliefFY27 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1114,5 +1114,67 @@ describe('Capital gains rollover (54 / 54F / 54EC reinvestment)', () => {
     expect(r.exemptAmount).toBe(0);
     expect(r.taxableGain).toBe(0);
     expect(r.taxSaved).toBe(0);
+  });
+});
+
+
+describe('dtaaReliefFY27', () => {
+  const base = (o: Record<string, unknown> = {}) => ({
+    income: 1000000,
+    domesticRate: 0.3,
+    treatyRate: 0.15,
+    surchargePct: 0,
+    cessPct: 0.04,
+    residenceTax: 0,
+    ...o,
+  });
+
+  it('treaty route halves the pre-cess withholding vs 30% domestic', () => {
+    const r = dtaaReliefFY27(base());
+    expect(r.domesticWithholding).toBe(300000);
+    expect(r.treatyWithholding).toBe(150000);
+    expect(r.tdsSaved).toBe(150000);
+  });
+
+  it('applies surcharge + 4% cess to both routes for the all-in figure', () => {
+    const r = dtaaReliefFY27(base({ surchargePct: 0.1 }));
+    expect(r.domesticAllIn).toBeCloseTo(300000 * 1.1 * 1.04, 0);
+    expect(r.treatyAllIn).toBeCloseTo(150000 * 1.1 * 1.04, 0);
+    expect(r.savingAllIn).toBeCloseTo(r.domesticAllIn - r.treatyAllIn, 0);
+  });
+
+  it('effective rate reflects the cess+surcharge multiplier', () => {
+    const r = dtaaReliefFY27(base({ surchargePct: 0 }));
+    expect(r.effectiveRateDomestic).toBeCloseTo(0.3 * 1.04, 6);
+    expect(r.effectiveRateTreaty).toBeCloseTo(0.15 * 1.04, 6);
+  });
+
+  it('exemption-method corridor (residenceTax 0) shows India as the only tax', () => {
+    const r = dtaaReliefFY27(base({ residenceTax: 0 }));
+    expect(r.creditMethod).toBe(false);
+    expect(r.totalTaxBurdenTreatyRoute).toBeCloseTo(r.treatyAllIn, 0);
+    expect(r.netAdditionalTax).toBe(0);
+  });
+
+  it('credit-method corridor caps the s.91 credit at the lesser of India-paid and home-tax', () => {
+    const r = dtaaReliefFY27(base({ residenceTax: 120000 }));
+    expect(r.creditMethod).toBe(true);
+    expect(r.foreignTaxCredit).toBe(120000);
+    expect(r.netAdditionalTax).toBe(0);
+    expect(r.totalTaxBurdenTreatyRoute).toBeCloseTo(r.treatyAllIn, 0);
+  });
+
+  it('when home tax exceeds the India-side, the net extra is the difference', () => {
+    const r = dtaaReliefFY27(base({ residenceTax: 400000 }));
+    const cap = r.treatyAllIn;
+    expect(r.foreignTaxCredit).toBeCloseTo(cap, 0);
+    expect(r.netAdditionalTax).toBeCloseTo(400000 - cap, 0);
+    expect(r.totalTaxBurdenTreatyRoute).toBeCloseTo(400000, 0);
+  });
+
+  it('clamps rates to 0-1 and floors savings at zero when treaty >= domestic', () => {
+    const r = dtaaReliefFY27(base({ domesticRate: 0.2, treatyRate: 0.35 }));
+    expect(r.tdsSaved).toBe(0);
+    expect(r.savingAllIn).toBe(0);
   });
 });

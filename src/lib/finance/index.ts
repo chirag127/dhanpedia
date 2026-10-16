@@ -1942,3 +1942,123 @@ export function aifWaterfall(w: AifWaterfallInput): AifWaterfallResult {
     beatsHurdle,
   };
 }
+
+/**
+ * DTAA (Double Taxation Avoidance Agreement) relief for India-source income of a
+ * non-resident, FY 2026-27.
+ *
+ * A non-resident's India-source income (NRO interest, dividends, royalties, FTS)
+ * is withheld at the *domestic* TDS rate unless the resident of a treaty country
+ * claims the lower *treaty* rate by supplying a Tax Residency Certificate and
+ * Form 41 (formerly 10F). This model compares the two routes, adds surcharge +
+ * the 4% Health & Education cess on top, and (optionally) models the
+ * residence-country foreign tax credit under section 91.
+ *
+ * Convention:
+ *  - `domesticRate` / `treatyRate` are fractions before surcharge/cess
+ *    (e.g. 0.30 for Section 195 on NRO interest, 0.20 for dividends).
+ *  - All-in figure = rate x income x (1 + surchargePct) x (1 + cessPct).
+ *  - Foreign tax credit (section 91) in the residence country is capped at the
+ *    lesser of the India-side tax actually paid and the residence-country tax on
+ *    the same income. `residenceTax` of 0 models an exemption-method country
+ *    (UAE / Saudi / Kuwait) where no residence-side tax is levied.
+ */
+export interface DtaaReliefFY27Input {
+  /** Gross India-source income to be withheld on, in Rs. */
+  income: number;
+  /** Domestic TDS rate before surcharge/cess (fraction). E.g. 0.30 (NRO interest). */
+  domesticRate: number;
+  /** DTAA treaty rate (fraction). E.g. 0.15 (US/UK/SG/AU) or 0.10 (DE/NL/JP/FR). */
+  treatyRate: number;
+  /** Surcharge applied to the withholding tax as a fraction of that tax. Default 0. */
+  surchargePct?: number | null;
+  /** Health & Education cess as a fraction of (tax + surcharge). Default 0.04. */
+  cessPct?: number | null;
+  /** Residence-country tax on the same income, in Rs (for the section 91 credit). Default 0. */
+  residenceTax?: number | null;
+}
+
+export interface DtaaReliefFY27Output {
+  income: number;
+  domesticRate: number;
+  treatyRate: number;
+  /** income x domesticRate, before surcharge/cess. */
+  domesticWithholding: number;
+  /** income x treatyRate, before surcharge/cess. */
+  treatyWithholding: number;
+  /** domesticWithholding - treatyWithholding, floored at 0. */
+  tdsSaved: number;
+  /** All-in domestic route: (tax + surcharge) x (1 + cess). */
+  domesticAllIn: number;
+  /** All-in treaty route: (tax + surcharge) x (1 + cess). */
+  treatyAllIn: number;
+  /** domesticAllIn - treatyAllIn, floored at 0. */
+  savingAllIn: number;
+  /** domesticAllIn / income. */
+  effectiveRateDomestic: number;
+  /** treatyAllIn / income. */
+  effectiveRateTreaty: number;
+  residenceTax: number;
+  /** section 91 credit: min(residenceTax, treatyAllIn). */
+  foreignTaxCredit: number;
+  /** max(0, residenceTax - foreignTaxCredit): the net extra the residence country still takes. */
+  netAdditionalTax: number;
+  /** Total across both countries on the treaty route: treatyAllIn + netAdditionalTax. */
+  totalTaxBurdenTreatyRoute: number;
+  /** Total across both countries on the domestic route: domesticAllIn + net extra vs domestic. */
+  totalTaxBurdenDomesticRoute: number;
+  /** True when a residence-country tax is present (credit-method corridor). */
+  creditMethod: boolean;
+}
+
+export function dtaaReliefFY27(inp: DtaaReliefFY27Input): DtaaReliefFY27Output {
+  const income = Math.max(0, inp.income);
+  const domesticRate = Math.min(1, Math.max(0, inp.domesticRate));
+  const treatyRate = Math.min(1, Math.max(0, inp.treatyRate));
+  const surchargePct =
+    inp.surchargePct !== null && inp.surchargePct !== undefined ? inp.surchargePct : 0;
+  const cessPct =
+    inp.cessPct !== null && inp.cessPct !== undefined ? inp.cessPct : 0.04;
+  const residenceTax = Math.max(0, inp.residenceTax ?? 0);
+
+  const domesticWithholding = income * domesticRate;
+  const treatyWithholding = income * treatyRate;
+  const tdsSaved = Math.max(0, domesticWithholding - treatyWithholding);
+
+  const allIn = (rate: number) =>
+    income * rate * (1 + surchargePct) * (1 + cessPct);
+  const domesticAllIn = allIn(domesticRate);
+  const treatyAllIn = allIn(treatyRate);
+  const savingAllIn = Math.max(0, domesticAllIn - treatyAllIn);
+
+  const effectiveRateDomestic = income > 0 ? domesticAllIn / income : 0;
+  const effectiveRateTreaty = income > 0 ? treatyAllIn / income : 0;
+
+  const foreignTaxCredit = Math.min(residenceTax, treatyAllIn);
+  const netAdditionalTax = Math.max(0, residenceTax - foreignTaxCredit);
+  const totalTaxBurdenTreatyRoute = treatyAllIn + netAdditionalTax;
+
+  const domesticFtc = Math.min(residenceTax, domesticAllIn);
+  const totalTaxBurdenDomesticRoute =
+    domesticAllIn + Math.max(0, residenceTax - domesticFtc);
+
+  return {
+    income,
+    domesticRate,
+    treatyRate,
+    domesticWithholding,
+    treatyWithholding,
+    tdsSaved,
+    domesticAllIn,
+    treatyAllIn,
+    savingAllIn,
+    effectiveRateDomestic,
+    effectiveRateTreaty,
+    residenceTax,
+    foreignTaxCredit,
+    netAdditionalTax,
+    totalTaxBurdenTreatyRoute,
+    totalTaxBurdenDomesticRoute,
+    creditMethod: residenceTax > 0,
+  };
+}

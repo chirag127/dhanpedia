@@ -20,7 +20,7 @@ import {
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
   npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
-  nriIndiaTaxFY27, rolloverExemption,
+  nriIndiaTaxFY27, rolloverExemption, dtaaReliefFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1801,6 +1801,149 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.taxableGain), itemStyle: { color: '#64748b' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+  {
+    id: 'dtaa-rate-reference',
+    title: 'DTAA Treaty-Rate vs Domestic TDS (NRI India-Source Income)',
+    category: 'Tax',
+    description:
+      'Compare the withholding a non-resident pays on India-source income (NRO interest, dividends, royalties) under the domestic TDS rate versus the lower DTAA treaty rate for your country of residence — with surcharge + 4% cess, the TDS saved, the effective rates, and the section 91 foreign-tax-credit when the home country also taxes the same income (exemption-method corridors like the UAE pay nothing there).',
+    inputs: [
+      {
+        key: 'income',
+        label: 'India-source income (Rs)',
+        default: 1000000,
+        min: 0,
+        step: 50000,
+        hint: 'Gross income paid to you in India (NRO account interest, dividends, royalties, fees). This is what gets withheld at source.',
+      },
+      {
+        key: 'corridor',
+        label: 'Country of residence (DTAA corridor)',
+        default: 0,
+        min: 0,
+        max: 10,
+        step: 1,
+        type: 'select',
+        options: [
+          { value: 0, label: 'United States - 15% (interest / dividends, >10% holding)' },
+          { value: 1, label: 'United Kingdom - 15% (dividends / interest)' },
+          { value: 2, label: 'Singapore - 15% (interest) / 10-15% (dividends)' },
+          { value: 3, label: 'Australia - 15% (dividends / interest)' },
+          { value: 4, label: 'Canada - 15% (dividends >10%) / 15% interest' },
+          { value: 5, label: 'Germany - 10% (dividends / interest / royalties)' },
+          { value: 6, label: 'Netherlands - 10% (dividends / interest / royalties)' },
+          { value: 7, label: 'Japan - 10% (dividends / interest / royalties)' },
+          { value: 8, label: 'France - 10% (dividends / interest / royalties)' },
+          { value: 9, label: 'UAE - 12.5% interest / 10% dividends (exemption method, no home tax)' },
+          { value: 10, label: 'Domestic rate only (no DTAA claim) - 30%' },
+        ],
+        hint: 'Picks the typical treaty rate for that corridor. Treatments differ by income type - verify the exact article rate for your case before acting.',
+      },
+      {
+        key: 'domesticRate',
+        label: 'Domestic TDS rate (fraction, e.g. 0.30)',
+        default: 0.3,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        hint: 'The Act rate without a treaty claim. Section 195 on NRO interest / rent is 30% (surcharge + cess on top); dividends 20%.',
+      },
+      {
+        key: 'residenceTax',
+        label: 'Home-country tax on this income (Rs)',
+        default: 0,
+        min: 0,
+        step: 10000,
+        hint: 'The tax your country of residence levies on the same income. 0 models an exemption-method corridor (UAE / Saudi / Kuwait) where the home side taxes nothing, so India is your only tax.',
+      },
+      {
+        key: 'surchargePct',
+        label: 'Surcharge on the TDS (fraction of tax, e.g. 0.05)',
+        default: 0,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        hint: 'Applied as a % of the withholding itself before the 4% cess. For most NRI TDS the surcharge is nil, but large amounts attract it.',
+      },
+    ],
+    assumptions: [
+      'Treaty rate is the typical corridor rate and is set before surcharge and the 4% Health & Education cess; the all-in figure applies (1 + surcharge) x (1 + 4%).',
+      'Treaty benefit requires a Tax Residency Certificate (TRC) from your home country plus Form 41 (formerly 10F) to the payer, filed before the deduction.',
+      'Foreign tax credit (section 91) in the residence country is capped at the lesser of the India-side tax paid and the home-country tax on the same income.',
+      'Capital gains on the sale of Indian property are NOT reduced by most DTAAs - India keeps its taxing right; the treaty helps on dividends, interest, royalties and FTS.',
+    ],
+    limitations: [
+      'Treaty rates differ by income type and holding - this shows the corridor typical, not your exact article; confirm with a CA / the treaty text.',
+      'Does not model a section 197 lower-deduction certificate (used when the payer over-withholds on property).',
+      'Home-country tax is entered by you; it is not computed here. Exemption-method corridors (residenceTax 0) simply show India as the only tax.',
+    ],
+    compute: (v) => {
+      const CORRIDOR_TREATY: number[] = [
+        0.15, 0.15, 0.15, 0.15, 0.15, // US, UK, SG, AU, CA
+        0.1, 0.1, 0.1, 0.1, // DE, NL, JP, FR
+        0.125, // UAE
+        0.3, // domestic-only
+      ];
+      const cIdx = Math.min(CORRIDOR_TREATY.length - 1, Math.max(0, Math.round(v.corridor || 0)));
+      const treatyRate = CORRIDOR_TREATY[cIdx];
+      const r = dtaaReliefFY27({
+        income: v.income,
+        domesticRate: v.domesticRate,
+        treatyRate: v.corridor === 10 ? 0.3 : treatyRate,
+        surchargePct: v.surchargePct,
+        residenceTax: v.residenceTax,
+      });
+      const inr = (n: number) => `Rs ${Math.round(n).toLocaleString('en-IN')}`;
+      const pct = (x: number) => `${(x * 100).toFixed(2)}%`;
+      const results: CalcResult[] = [
+        { label: 'Route', value: v.corridor === 10 ? 'Domestic TDS only (no treaty)' : 'Treaty (DTAA) route', type: 'text' },
+        { label: 'Treaty rate applied', value: pct(r.treatyRate) },
+        { label: 'TDS @ domestic rate', value: inr(r.domesticWithholding) },
+        { label: 'TDS @ treaty rate', value: inr(r.treatyWithholding) },
+        { label: 'TDS saved (pre-cess)', value: inr(r.tdsSaved) },
+        { label: 'All-in tax @ domestic (surcharge + cess)', value: inr(r.domesticAllIn) },
+        { label: 'All-in tax @ treaty (surcharge + cess)', value: inr(r.treatyAllIn) },
+        { label: 'Total saving (all-in)', value: inr(r.savingAllIn) },
+        { label: 'Effective rate - domestic', value: pct(r.effectiveRateDomestic) },
+        { label: 'Effective rate - treaty', value: pct(r.effectiveRateTreaty) },
+        { label: 'Home-country tax (entered)', value: inr(r.residenceTax) },
+        { label: 'Foreign tax credit (s.91, capped)', value: inr(r.foreignTaxCredit) },
+        { label: 'Net extra home-country tax', value: inr(r.netAdditionalTax) },
+        { label: 'Total two-country burden - treaty route', value: inr(r.totalTaxBurdenTreatyRoute) },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'Withholding: domestic vs treaty (all-in)',
+          alt: 'Bar chart comparing the all-in tax on the income under the domestic TDS route and the DTAA treaty route, with the saving shown.',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: { type: 'category', data: ['Domestic TDS', 'Treaty (DTAA)'] },
+            yAxis: {
+              type: 'value',
+              axisLabel: { formatter: (x: number) => `Rs ${Math.round(x / 1e5)}L` },
+            },
+            grid: { left: 70, right: 20, top: 30, bottom: 40 },
+            series: [
+              {
+                name: 'All-in tax (surcharge + cess)',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.domesticAllIn), itemStyle: { color: '#64748b' } },
+                  { value: Math.round(r.treatyAllIn), itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: {
+                  show: true,
+                  formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L`,
+                },
               },
             ],
           },
