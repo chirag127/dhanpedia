@@ -329,6 +329,24 @@
    "reviewAfter": "2027-07-31",
    "status": "verified",
    "notes": "The 115UB pass-through and 194LBB TDS are current; the form renumbering is a 2026 framework change - re-verify at each Finance Act and against the Income-tax Department ITR-2 documentation."
+  },
+  {
+   "id": "ul-aif-waterfall-standard-ladder-2026",
+   "claim": "Standard AIF GP-LP ladder: 2%/yr mgmt fee (committed capital in investment period, NAV/invested in harvest), 20% carry, 8% IRR hurdle, 100% catch-up; worked 3x/10-yr fund gives LP ~2.6x net, GP ~5-6% of fund value all-in; GP earns fee-only on a failure",
+   "source": "src-aif-waterfall-economics-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Practitioner reading; verify the specific ladder against each fund PPM before advising."
+  },
+  {
+   "id": "ul-80ccd1b-regime-clarification-2026",
+   "claim": "80CCD(1B) Rs 50,000 extra NPS deduction is OLD-REGIME-only (disallowed under new regime Sec 115BAC); only 80CCD(2) employer NPS (14% of Basic+DA for all employers, raised from 10% private-sector by Budget 2024) survives in the new regime. A blog intro claimed 80CCD(1B) is 'available even under the New Regime', but the same site's CA-reviewed body (15 Oct 2026) and FAQ table state old-regime-only - consistent with existing src-nps-deductions-2026",
+   "source": "src-nps-deductions-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "conflict-resolved",
+   "notes": "Conflicting claims found during Wave 8 research (ELSS/NPS tax-shield planning). Resolution: old-regime-only, per the CA-reviewed 15 Oct 2026 review plus 1 Finance/ClearTax coverage. Re-verify at each Finance Act; Wave 9 ELSS/NPS tax-shield calculators must use 80CCD(1B) old-regime-only."
   }
  ]
 }

@@ -805,3 +805,106 @@ export function businessTrustTiming(i: BtTimingInput): BtTimingResult {
     betterChoice,
   };
 }
+
+/**
+ * AIF end-of-fund "2 and 20" waterfall (European-style, single distribution).
+ *
+ * Models a fund that returns `grossMultiple` on committed capital at the end of
+ * its life, with a preferred-return (hurdle) paid to LPs first, then a GP
+ * catch-up, then the 80/20 (or custom) split. A management fee is removed from
+ * the final LP proceeds.
+ *
+ * Conventions:
+ *  - The hurdle is compounded over `years` on the committed capital; the
+ *    catch-up is the 100% variant (the GP takes everything between the hurdle
+ *    and the point where cumulative GP profit is `carryPct` of total profit).
+ *  - `mgmtFeePct` is applied to the gross final value to approximate the
+ *    cumulative management-fee drag; it is not a precise quarterly-fee model.
+ *  - Clawback is NOT modelled: a clawback only matters if the fund ends below
+ *    hurdle, in which case the GP returns carry paid earlier.
+ *
+ * This is a decision aid for comparing fund terms (hurdle, catch-up, fee base),
+ * not a backtest.
+ */
+export interface AifWaterfallInput {
+  committedCapital: number;
+  grossMultiple: number;
+  years: number;
+  hurdleRate: number;
+  carryPct: number;
+  catchUp: boolean;
+  mgmtFeePct: number;
+}
+
+export interface AifWaterfallResult {
+  grossFinalValue: number;
+  totalProfit: number;
+  lpPreferredReturn: number;
+  lpCashReturn: number;
+  gpCatchUpAmount: number;
+  lpProfitAfterCatchUp: number;
+  gpFinalSplit: number;
+  lpFinalProceeds: number;
+  mgmtFeeDrag: number;
+  lpNetProceeds: number;
+  lpNetMultiple: number;
+  lpNetIrr: number;
+  gpTotalEconomics: number;
+  gpShareOfProfit: number;
+  beatsHurdle: boolean;
+}
+
+export function aifWaterfall(w: AifWaterfallInput): AifWaterfallResult {
+  const grossFinalValue = w.committedCapital * w.grossMultiple;
+  const totalProfit = Math.max(0, grossFinalValue - w.committedCapital);
+  // Preferred return includes the capital back: total = committed x (1 + hurdle)^years.
+  const lpPreferredReturn = w.committedCapital * Math.pow(1 + w.hurdleRate, w.years);
+  const lpPrefIncremental = Math.max(0, lpPreferredReturn - w.committedCapital);
+  const profitAboveHurdle = Math.max(0, grossFinalValue - lpPreferredReturn);
+
+  // 100% catch-up: the GP takes everything in the zone between the hurdle and the
+  // point where GP cumulative profit = carryPct of LP cumulative profit:
+  // C / (lpPrefIncremental + C) = carryPct  =>  C = lpPrefIncremental*carry/(1-carry).
+  const gpCatchUpAmount = w.catchUp
+    ? Math.min(profitAboveHurdle, (lpPrefIncremental * w.carryPct) / (1 - w.carryPct))
+    : 0;
+  const remaining = Math.max(0, profitAboveHurdle - gpCatchUpAmount);
+  const gpFinalSplit = remaining * w.carryPct;
+  // If the fund does not reach the hurdle, the LP takes the whole final value.
+  const lpCashReturn =
+    profitAboveHurdle > 0
+      ? lpPreferredReturn + remaining * (1 - w.carryPct)
+      : grossFinalValue;
+  const lpProfitAfterCatchUp = Math.max(0, lpCashReturn - w.committedCapital);
+
+  // Cumulative management-fee drag (approx): annual fee x years on committed capital.
+  const mgmtFeeDrag = w.mgmtFeePct * w.years * w.committedCapital;
+  const lpNetProceeds = lpCashReturn - mgmtFeeDrag;
+  const lpNetMultiple = w.committedCapital > 0 ? lpNetProceeds / w.committedCapital : 0;
+  const lpNetIrr =
+    w.years > 0 && lpNetProceeds > 0
+      ? Math.pow(lpNetProceeds / w.committedCapital, 1 / w.years) - 1
+      : 0;
+  const gpTotalEconomics = gpCatchUpAmount + gpFinalSplit + mgmtFeeDrag;
+  const gpShareOfProfit =
+    totalProfit > 0 ? (gpCatchUpAmount + gpFinalSplit) / totalProfit : 0;
+  const beatsHurdle = lpNetIrr > w.hurdleRate;
+
+  return {
+    grossFinalValue,
+    totalProfit,
+    lpPreferredReturn,
+    lpCashReturn,
+    gpCatchUpAmount,
+    lpProfitAfterCatchUp,
+    gpFinalSplit,
+    lpFinalProceeds: lpCashReturn,
+    mgmtFeeDrag,
+    lpNetProceeds,
+    lpNetMultiple,
+    lpNetIrr,
+    gpTotalEconomics,
+    gpShareOfProfit,
+    beatsHurdle,
+  };
+}

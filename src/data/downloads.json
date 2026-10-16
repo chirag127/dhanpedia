@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-16T20:34:12.745Z",
+  "generated": "2026-10-16T20:44:40.350Z",
   "books": [
     {
       "id": "book-complete-indian-investor",
@@ -30,42 +30,42 @@
           "name": "book-complete-indian-investor.md",
           "ext": "md",
           "bytes": 255338,
-          "mtime": "2026-10-16T20:34:12.789Z",
+          "mtime": "2026-10-16T20:44:40.391Z",
           "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.md"
         },
         {
           "name": "book-complete-indian-investor.html",
           "ext": "html",
           "bytes": 274777,
-          "mtime": "2026-10-16T20:34:12.835Z",
+          "mtime": "2026-10-16T20:44:40.440Z",
           "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.html"
         },
         {
           "name": "book-complete-indian-investor.txt",
           "ext": "txt",
           "bytes": 235614,
-          "mtime": "2026-10-16T20:34:12.858Z",
+          "mtime": "2026-10-16T20:44:40.465Z",
           "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.txt"
         },
         {
           "name": "book-complete-indian-investor.tts.txt",
           "ext": "txt",
           "bytes": 237463,
-          "mtime": "2026-10-16T20:34:12.881Z",
+          "mtime": "2026-10-16T20:44:40.488Z",
           "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.tts.txt"
         },
         {
           "name": "book-complete-indian-investor.epub",
           "ext": "epub",
           "bytes": 113296,
-          "mtime": "2026-10-16T20:34:12.987Z",
+          "mtime": "2026-10-16T20:44:40.596Z",
           "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.epub"
         },
         {
           "name": "book-complete-indian-investor.pdf",
           "ext": "pdf",
           "bytes": 278054,
-          "mtime": "2026-10-16T20:34:13.326Z",
+          "mtime": "2026-10-16T20:44:40.936Z",
           "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.pdf"
         }
       ]
@@ -89,42 +89,42 @@
           "name": "book-p2p-lending.md",
           "ext": "md",
           "bytes": 95224,
-          "mtime": "2026-10-16T20:34:13.338Z",
+          "mtime": "2026-10-16T20:44:40.947Z",
           "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.md"
         },
         {
           "name": "book-p2p-lending.html",
           "ext": "html",
           "bytes": 108826,
-          "mtime": "2026-10-16T20:34:13.350Z",
+          "mtime": "2026-10-16T20:44:40.959Z",
           "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.html"
         },
         {
           "name": "book-p2p-lending.txt",
           "ext": "txt",
           "bytes": 87594,
-          "mtime": "2026-10-16T20:34:13.356Z",
+          "mtime": "2026-10-16T20:44:40.966Z",
           "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.txt"
         },
         {
           "name": "book-p2p-lending.tts.txt",
           "ext": "txt",
           "bytes": 87990,
-          "mtime": "2026-10-16T20:34:13.364Z",
+          "mtime": "2026-10-16T20:44:40.974Z",
           "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.tts.txt"
         },
         {
           "name": "book-p2p-lending.epub",
           "ext": "epub",
           "bytes": 42072,
-          "mtime": "2026-10-16T20:34:13.394Z",
+          "mtime": "2026-10-16T20:44:41.010Z",
           "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.epub"
         },
         {
           "name": "book-p2p-lending.pdf",
           "ext": "pdf",
           "bytes": 101093,
-          "mtime": "2026-10-16T20:34:13.513Z",
+          "mtime": "2026-10-16T20:44:41.127Z",
           "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.pdf"
         }
       ]
@@ -153,42 +153,42 @@
           "name": "book-indian-taxation.md",
           "ext": "md",
           "bytes": 168505,
-          "mtime": "2026-10-16T20:34:13.535Z",
+          "mtime": "2026-10-16T20:44:41.149Z",
           "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.md"
         },
         {
           "name": "book-indian-taxation.html",
           "ext": "html",
           "bytes": 190688,
-          "mtime": "2026-10-16T20:34:13.561Z",
+          "mtime": "2026-10-16T20:44:41.175Z",
           "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.html"
         },
         {
           "name": "book-indian-taxation.txt",
           "ext": "txt",
           "bytes": 146100,
-          "mtime": "2026-10-16T20:34:13.576Z",
+          "mtime": "2026-10-16T20:44:41.189Z",
           "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.txt"
         },
         {
           "name": "book-indian-taxation.tts.txt",
           "ext": "txt",
           "bytes": 147204,
-          "mtime": "2026-10-16T20:34:13.591Z",
+          "mtime": "2026-10-16T20:44:41.205Z",
           "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.tts.txt"
         },
         {
           "name": "book-indian-taxation.epub",
           "ext": "epub",
           "bytes": 71180,
-          "mtime": "2026-10-16T20:34:13.645Z",
+          "mtime": "2026-10-16T20:44:41.261Z",
           "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.epub"
         },
         {
           "name": "book-indian-taxation.pdf",
           "ext": "pdf",
           "bytes": 173706,
-          "mtime": "2026-10-16T20:34:13.896Z",
+          "mtime": "2026-10-16T20:44:41.441Z",
           "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.pdf"
         }
       ]
@@ -213,49 +213,50 @@
         "international-fof-gift-city-lrs",
         "alternatives-hnw-pms-aif-sif-selection",
         "alternatives-sif-strategy-families-deep-dive",
-        "alternatives-aif-category-selection-guide"
+        "alternatives-aif-category-selection-guide",
+        "alternatives-aif-waterfall-economics"
       ],
       "formats": [
         {
           "name": "book-wealth-beyond-10l.md",
           "ext": "md",
-          "bytes": 244965,
-          "mtime": "2026-10-16T20:34:13.925Z",
+          "bytes": 254326,
+          "mtime": "2026-10-16T20:44:41.473Z",
           "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.md"
         },
         {
           "name": "book-wealth-beyond-10l.html",
           "ext": "html",
-          "bytes": 275247,
-          "mtime": "2026-10-16T20:34:13.957Z",
+          "bytes": 284607,
+          "mtime": "2026-10-16T20:44:41.511Z",
           "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.html"
         },
         {
           "name": "book-wealth-beyond-10l.txt",
           "ext": "txt",
-          "bytes": 225962,
-          "mtime": "2026-10-16T20:34:13.976Z",
+          "bytes": 233750,
+          "mtime": "2026-10-16T20:44:41.530Z",
           "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.txt"
         },
         {
           "name": "book-wealth-beyond-10l.tts.txt",
           "ext": "txt",
-          "bytes": 227751,
-          "mtime": "2026-10-16T20:34:13.994Z",
+          "bytes": 235630,
+          "mtime": "2026-10-16T20:44:41.551Z",
           "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.tts.txt"
         },
         {
           "name": "book-wealth-beyond-10l.epub",
           "ext": "epub",
-          "bytes": 105588,
-          "mtime": "2026-10-16T20:34:14.064Z",
+          "bytes": 109830,
+          "mtime": "2026-10-16T20:44:41.624Z",
           "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.epub"
         },
         {
           "name": "book-wealth-beyond-10l.pdf",
           "ext": "pdf",
-          "bytes": 259032,
-          "mtime": "2026-10-16T20:34:14.320Z",
+          "bytes": 269229,
+          "mtime": "2026-10-16T20:44:41.893Z",
           "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.pdf"
         }
       ]
@@ -271,21 +272,21 @@
           "name": "pf-wealth-plan-10-lakh.md",
           "ext": "md",
           "bytes": 22141,
-          "mtime": "2026-10-16T20:34:14.322Z",
+          "mtime": "2026-10-16T20:44:41.896Z",
           "path": "public/downloads/articles/pf-wealth-plan-10-lakh.md"
         },
         {
           "name": "pf-wealth-plan-10-lakh.txt",
           "ext": "txt",
           "bytes": 20766,
-          "mtime": "2026-10-16T20:34:14.324Z",
+          "mtime": "2026-10-16T20:44:41.898Z",
           "path": "public/downloads/articles/pf-wealth-plan-10-lakh.txt"
         },
         {
           "name": "pf-wealth-plan-10-lakh.html",
           "ext": "html",
           "bytes": 25208,
-          "mtime": "2026-10-16T20:34:14.325Z",
+          "mtime": "2026-10-16T20:44:41.899Z",
           "path": "public/downloads/articles/pf-wealth-plan-10-lakh.html"
         }
       ]
@@ -299,21 +300,21 @@
           "name": "foundations-compounding-returns.md",
           "ext": "md",
           "bytes": 11355,
-          "mtime": "2026-10-16T20:34:14.327Z",
+          "mtime": "2026-10-16T20:44:41.902Z",
           "path": "public/downloads/articles/foundations-compounding-returns.md"
         },
         {
           "name": "foundations-compounding-returns.txt",
           "ext": "txt",
           "bytes": 11320,
-          "mtime": "2026-10-16T20:34:14.328Z",
+          "mtime": "2026-10-16T20:44:41.903Z",
           "path": "public/downloads/articles/foundations-compounding-returns.txt"
         },
         {
           "name": "foundations-compounding-returns.html",
           "ext": "html",
           "bytes": 13670,
-          "mtime": "2026-10-16T20:34:14.329Z",
+          "mtime": "2026-10-16T20:44:41.904Z",
           "path": "public/downloads/articles/foundations-compounding-returns.html"
         }
       ]
@@ -327,21 +328,21 @@
           "name": "foundations-risk-allocation-behavior.md",
           "ext": "md",
           "bytes": 13981,
-          "mtime": "2026-10-16T20:34:14.332Z",
+          "mtime": "2026-10-16T20:44:41.906Z",
           "path": "public/downloads/articles/foundations-risk-allocation-behavior.md"
         },
         {
           "name": "foundations-risk-allocation-behavior.txt",
           "ext": "txt",
           "bytes": 13902,
-          "mtime": "2026-10-16T20:34:14.333Z",
+          "mtime": "2026-10-16T20:44:41.907Z",
           "path": "public/downloads/articles/foundations-risk-allocation-behavior.txt"
         },
         {
           "name": "foundations-risk-allocation-behavior.html",
           "ext": "html",
           "bytes": 16306,
-          "mtime": "2026-10-16T20:34:14.334Z",
+          "mtime": "2026-10-16T20:44:41.908Z",
           "path": "public/downloads/articles/foundations-risk-allocation-behavior.html"
         }
       ]
@@ -355,21 +356,21 @@
           "name": "tax-india-investor-complete.md",
           "ext": "md",
           "bytes": 27019,
-          "mtime": "2026-10-16T20:34:14.336Z",
+          "mtime": "2026-10-16T20:44:41.910Z",
           "path": "public/downloads/articles/tax-india-investor-complete.md"
         },
         {
           "name": "tax-india-investor-complete.txt",
           "ext": "txt",
           "bytes": 24921,
-          "mtime": "2026-10-16T20:34:14.337Z",
+          "mtime": "2026-10-16T20:44:41.912Z",
           "path": "public/downloads/articles/tax-india-investor-complete.txt"
         },
         {
           "name": "tax-india-investor-complete.html",
           "ext": "html",
           "bytes": 31109,
-          "mtime": "2026-10-16T20:34:14.339Z",
+          "mtime": "2026-10-16T20:44:41.913Z",
           "path": "public/downloads/articles/tax-india-investor-complete.html"
         }
       ]
@@ -383,21 +384,21 @@
           "name": "govt-small-savings-schemes.md",
           "ext": "md",
           "bytes": 21389,
-          "mtime": "2026-10-16T20:34:14.341Z",
+          "mtime": "2026-10-16T20:44:41.915Z",
           "path": "public/downloads/articles/govt-small-savings-schemes.md"
         },
         {
           "name": "govt-small-savings-schemes.txt",
           "ext": "txt",
           "bytes": 20043,
-          "mtime": "2026-10-16T20:34:14.342Z",
+          "mtime": "2026-10-16T20:44:41.916Z",
           "path": "public/downloads/articles/govt-small-savings-schemes.txt"
         },
         {
           "name": "govt-small-savings-schemes.html",
           "ext": "html",
           "bytes": 25391,
-          "mtime": "2026-10-16T20:34:14.343Z",
+          "mtime": "2026-10-16T20:44:41.918Z",
           "path": "public/downloads/articles/govt-small-savings-schemes.html"
         }
       ]
@@ -411,21 +412,21 @@
           "name": "govt-sovereign-gold-bonds.md",
           "ext": "md",
           "bytes": 22068,
-          "mtime": "2026-10-16T20:34:14.346Z",
+          "mtime": "2026-10-16T20:44:41.920Z",
           "path": "public/downloads/articles/govt-sovereign-gold-bonds.md"
         },
         {
           "name": "govt-sovereign-gold-bonds.txt",
           "ext": "txt",
           "bytes": 19595,
-          "mtime": "2026-10-16T20:34:14.347Z",
+          "mtime": "2026-10-16T20:44:41.921Z",
           "path": "public/downloads/articles/govt-sovereign-gold-bonds.txt"
         },
         {
           "name": "govt-sovereign-gold-bonds.html",
           "ext": "html",
           "bytes": 27731,
-          "mtime": "2026-10-16T20:34:14.348Z",
+          "mtime": "2026-10-16T20:44:41.922Z",
           "path": "public/downloads/articles/govt-sovereign-gold-bonds.html"
         }
       ]
@@ -439,21 +440,21 @@
           "name": "mf-index-etf-direct-regular.md",
           "ext": "md",
           "bytes": 18769,
-          "mtime": "2026-10-16T20:34:14.350Z",
+          "mtime": "2026-10-16T20:44:41.924Z",
           "path": "public/downloads/articles/mf-index-etf-direct-regular.md"
         },
         {
           "name": "mf-index-etf-direct-regular.txt",
           "ext": "txt",
           "bytes": 18301,
-          "mtime": "2026-10-16T20:34:14.351Z",
+          "mtime": "2026-10-16T20:44:41.926Z",
           "path": "public/downloads/articles/mf-index-etf-direct-regular.txt"
         },
         {
           "name": "mf-index-etf-direct-regular.html",
           "ext": "html",
           "bytes": 21603,
-          "mtime": "2026-10-16T20:34:14.352Z",
+          "mtime": "2026-10-16T20:44:41.927Z",
           "path": "public/downloads/articles/mf-index-etf-direct-regular.html"
         }
       ]
@@ -467,21 +468,21 @@
           "name": "mf-sip-swp-stp-goals.md",
           "ext": "md",
           "bytes": 20537,
-          "mtime": "2026-10-16T20:34:14.355Z",
+          "mtime": "2026-10-16T20:44:41.929Z",
           "path": "public/downloads/articles/mf-sip-swp-stp-goals.md"
         },
         {
           "name": "mf-sip-swp-stp-goals.txt",
           "ext": "txt",
           "bytes": 20490,
-          "mtime": "2026-10-16T20:34:14.356Z",
+          "mtime": "2026-10-16T20:44:41.930Z",
           "path": "public/downloads/articles/mf-sip-swp-stp-goals.txt"
         },
         {
           "name": "mf-sip-swp-stp-goals.html",
           "ext": "html",
           "bytes": 23529,
-          "mtime": "2026-10-16T20:34:14.357Z",
+          "mtime": "2026-10-16T20:44:41.931Z",
           "path": "public/downloads/articles/mf-sip-swp-stp-goals.html"
         }
       ]
@@ -495,21 +496,21 @@
           "name": "mf-choosing-comparing-funds.md",
           "ext": "md",
           "bytes": 19504,
-          "mtime": "2026-10-16T20:34:14.359Z",
+          "mtime": "2026-10-16T20:44:41.933Z",
           "path": "public/downloads/articles/mf-choosing-comparing-funds.md"
         },
         {
           "name": "mf-choosing-comparing-funds.txt",
           "ext": "txt",
           "bytes": 19317,
-          "mtime": "2026-10-16T20:34:14.360Z",
+          "mtime": "2026-10-16T20:44:41.934Z",
           "path": "public/downloads/articles/mf-choosing-comparing-funds.txt"
         },
         {
           "name": "mf-choosing-comparing-funds.html",
           "ext": "html",
           "bytes": 22522,
-          "mtime": "2026-10-16T20:34:14.361Z",
+          "mtime": "2026-10-16T20:44:41.936Z",
           "path": "public/downloads/articles/mf-choosing-comparing-funds.html"
         }
       ]
@@ -523,21 +524,21 @@
           "name": "equity-fundamental-valuation.md",
           "ext": "md",
           "bytes": 22674,
-          "mtime": "2026-10-16T20:34:14.363Z",
+          "mtime": "2026-10-16T20:44:41.938Z",
           "path": "public/downloads/articles/equity-fundamental-valuation.md"
         },
         {
           "name": "equity-fundamental-valuation.txt",
           "ext": "txt",
           "bytes": 22953,
-          "mtime": "2026-10-16T20:34:14.365Z",
+          "mtime": "2026-10-16T20:44:41.939Z",
           "path": "public/downloads/articles/equity-fundamental-valuation.txt"
         },
         {
           "name": "equity-fundamental-valuation.html",
           "ext": "html",
           "bytes": 25150,
-          "mtime": "2026-10-16T20:34:14.366Z",
+          "mtime": "2026-10-16T20:44:41.940Z",
           "path": "public/downloads/articles/equity-fundamental-valuation.html"
         }
       ]
@@ -551,21 +552,21 @@
           "name": "fixed-income-bonds-credit.md",
           "ext": "md",
           "bytes": 21484,
-          "mtime": "2026-10-16T20:34:14.368Z",
+          "mtime": "2026-10-16T20:44:41.942Z",
           "path": "public/downloads/articles/fixed-income-bonds-credit.md"
         },
         {
           "name": "fixed-income-bonds-credit.txt",
           "ext": "txt",
           "bytes": 20973,
-          "mtime": "2026-10-16T20:34:14.369Z",
+          "mtime": "2026-10-16T20:44:41.944Z",
           "path": "public/downloads/articles/fixed-income-bonds-credit.txt"
         },
         {
           "name": "fixed-income-bonds-credit.html",
           "ext": "html",
           "bytes": 24372,
-          "mtime": "2026-10-16T20:34:14.370Z",
+          "mtime": "2026-10-16T20:44:41.945Z",
           "path": "public/downloads/articles/fixed-income-bonds-credit.html"
         }
       ]
@@ -579,21 +580,21 @@
           "name": "p2p-lending-complete.md",
           "ext": "md",
           "bytes": 21548,
-          "mtime": "2026-10-16T20:34:14.372Z",
+          "mtime": "2026-10-16T20:44:41.947Z",
           "path": "public/downloads/articles/p2p-lending-complete.md"
         },
         {
           "name": "p2p-lending-complete.txt",
           "ext": "txt",
           "bytes": 21191,
-          "mtime": "2026-10-16T20:34:14.373Z",
+          "mtime": "2026-10-16T20:44:41.948Z",
           "path": "public/downloads/articles/p2p-lending-complete.txt"
         },
         {
           "name": "p2p-lending-complete.html",
           "ext": "html",
           "bytes": 24698,
-          "mtime": "2026-10-16T20:34:14.374Z",
+          "mtime": "2026-10-16T20:44:41.949Z",
           "path": "public/downloads/articles/p2p-lending-complete.html"
         }
       ]
@@ -607,21 +608,21 @@
           "name": "gold-silver-commodities.md",
           "ext": "md",
           "bytes": 19481,
-          "mtime": "2026-10-16T20:34:14.377Z",
+          "mtime": "2026-10-16T20:44:41.951Z",
           "path": "public/downloads/articles/gold-silver-commodities.md"
         },
         {
           "name": "gold-silver-commodities.txt",
           "ext": "txt",
           "bytes": 18956,
-          "mtime": "2026-10-16T20:34:14.378Z",
+          "mtime": "2026-10-16T20:44:41.952Z",
           "path": "public/downloads/articles/gold-silver-commodities.txt"
         },
         {
           "name": "gold-silver-commodities.html",
           "ext": "html",
           "bytes": 21858,
-          "mtime": "2026-10-16T20:34:14.379Z",
+          "mtime": "2026-10-16T20:44:41.953Z",
           "path": "public/downloads/articles/gold-silver-commodities.html"
         }
       ]
@@ -635,21 +636,21 @@
           "name": "real-estate-reit-invit.md",
           "ext": "md",
           "bytes": 27323,
-          "mtime": "2026-10-16T20:34:14.381Z",
+          "mtime": "2026-10-16T20:44:41.956Z",
           "path": "public/downloads/articles/real-estate-reit-invit.md"
         },
         {
           "name": "real-estate-reit-invit.txt",
           "ext": "txt",
           "bytes": 25848,
-          "mtime": "2026-10-16T20:34:14.382Z",
+          "mtime": "2026-10-16T20:44:41.957Z",
           "path": "public/downloads/articles/real-estate-reit-invit.txt"
         },
         {
           "name": "real-estate-reit-invit.html",
           "ext": "html",
           "bytes": 30573,
-          "mtime": "2026-10-16T20:34:14.384Z",
+          "mtime": "2026-10-16T20:44:41.958Z",
           "path": "public/downloads/articles/real-estate-reit-invit.html"
         }
       ]
@@ -663,21 +664,21 @@
           "name": "alternatives-pms-aif-private.md",
           "ext": "md",
           "bytes": 22835,
-          "mtime": "2026-10-16T20:34:14.386Z",
+          "mtime": "2026-10-16T20:44:41.960Z",
           "path": "public/downloads/articles/alternatives-pms-aif-private.md"
         },
         {
           "name": "alternatives-pms-aif-private.txt",
           "ext": "txt",
           "bytes": 22857,
-          "mtime": "2026-10-16T20:34:14.388Z",
+          "mtime": "2026-10-16T20:44:41.961Z",
           "path": "public/downloads/articles/alternatives-pms-aif-private.txt"
         },
         {
           "name": "alternatives-pms-aif-private.html",
           "ext": "html",
           "bytes": 25662,
-          "mtime": "2026-10-16T20:34:14.389Z",
+          "mtime": "2026-10-16T20:44:41.963Z",
           "path": "public/downloads/articles/alternatives-pms-aif-private.html"
         }
       ]
@@ -691,21 +692,21 @@
           "name": "insurance-protection.md",
           "ext": "md",
           "bytes": 34453,
-          "mtime": "2026-10-16T20:34:14.391Z",
+          "mtime": "2026-10-16T20:44:41.965Z",
           "path": "public/downloads/articles/insurance-protection.md"
         },
         {
           "name": "insurance-protection.txt",
           "ext": "txt",
           "bytes": 32267,
-          "mtime": "2026-10-16T20:34:14.392Z",
+          "mtime": "2026-10-16T20:44:41.966Z",
           "path": "public/downloads/articles/insurance-protection.txt"
         },
         {
           "name": "insurance-protection.html",
           "ext": "html",
           "bytes": 45450,
-          "mtime": "2026-10-16T20:34:14.394Z",
+          "mtime": "2026-10-16T20:44:41.968Z",
           "path": "public/downloads/articles/insurance-protection.html"
         }
       ]
@@ -719,21 +720,21 @@
           "name": "retirement-fire-annuities.md",
           "ext": "md",
           "bytes": 24523,
-          "mtime": "2026-10-16T20:34:14.396Z",
+          "mtime": "2026-10-16T20:44:41.971Z",
           "path": "public/downloads/articles/retirement-fire-annuities.md"
         },
         {
           "name": "retirement-fire-annuities.txt",
           "ext": "txt",
           "bytes": 24138,
-          "mtime": "2026-10-16T20:34:14.397Z",
+          "mtime": "2026-10-16T20:44:41.972Z",
           "path": "public/downloads/articles/retirement-fire-annuities.txt"
         },
         {
           "name": "retirement-fire-annuities.html",
           "ext": "html",
           "bytes": 27602,
-          "mtime": "2026-10-16T20:34:14.398Z",
+          "mtime": "2026-10-16T20:44:41.974Z",
           "path": "public/downloads/articles/retirement-fire-annuities.html"
         }
       ]
@@ -747,21 +748,21 @@
           "name": "international-investing-lrs.md",
           "ext": "md",
           "bytes": 25686,
-          "mtime": "2026-10-16T20:34:14.401Z",
+          "mtime": "2026-10-16T20:44:41.977Z",
           "path": "public/downloads/articles/international-investing-lrs.md"
         },
         {
           "name": "international-investing-lrs.txt",
           "ext": "txt",
           "bytes": 20864,
-          "mtime": "2026-10-16T20:34:14.403Z",
+          "mtime": "2026-10-16T20:44:41.978Z",
           "path": "public/downloads/articles/international-investing-lrs.txt"
         },
         {
           "name": "international-investing-lrs.html",
           "ext": "html",
           "bytes": 43186,
-          "mtime": "2026-10-16T20:34:14.405Z",
+          "mtime": "2026-10-16T20:44:41.980Z",
           "path": "public/downloads/articles/international-investing-lrs.html"
         }
       ]
@@ -775,21 +776,21 @@
           "name": "portfolio-construction-rebalancing.md",
           "ext": "md",
           "bytes": 16254,
-          "mtime": "2026-10-16T20:34:14.407Z",
+          "mtime": "2026-10-16T20:44:41.982Z",
           "path": "public/downloads/articles/portfolio-construction-rebalancing.md"
         },
         {
           "name": "portfolio-construction-rebalancing.txt",
           "ext": "txt",
           "bytes": 16165,
-          "mtime": "2026-10-16T20:34:14.408Z",
+          "mtime": "2026-10-16T20:44:41.983Z",
           "path": "public/downloads/articles/portfolio-construction-rebalancing.txt"
         },
         {
           "name": "portfolio-construction-rebalancing.html",
           "ext": "html",
           "bytes": 19202,
-          "mtime": "2026-10-16T20:34:14.409Z",
+          "mtime": "2026-10-16T20:44:41.984Z",
           "path": "public/downloads/articles/portfolio-construction-rebalancing.html"
         }
       ]
@@ -803,21 +804,21 @@
           "name": "alternatives-sif-specialized-funds.md",
           "ext": "md",
           "bytes": 27579,
-          "mtime": "2026-10-16T20:34:14.411Z",
+          "mtime": "2026-10-16T20:44:41.987Z",
           "path": "public/downloads/articles/alternatives-sif-specialized-funds.md"
         },
         {
           "name": "alternatives-sif-specialized-funds.txt",
           "ext": "txt",
           "bytes": 27299,
-          "mtime": "2026-10-16T20:34:14.414Z",
+          "mtime": "2026-10-16T20:44:41.988Z",
           "path": "public/downloads/articles/alternatives-sif-specialized-funds.txt"
         },
         {
           "name": "alternatives-sif-specialized-funds.html",
           "ext": "html",
           "bytes": 31009,
-          "mtime": "2026-10-16T20:34:14.415Z",
+          "mtime": "2026-10-16T20:44:41.990Z",
           "path": "public/downloads/articles/alternatives-sif-specialized-funds.html"
         }
       ]
@@ -831,21 +832,21 @@
           "name": "derivatives-fno-retail-realities.md",
           "ext": "md",
           "bytes": 24127,
-          "mtime": "2026-10-16T20:34:14.417Z",
+          "mtime": "2026-10-16T20:44:41.993Z",
           "path": "public/downloads/articles/derivatives-fno-retail-realities.md"
         },
         {
           "name": "derivatives-fno-retail-realities.txt",
           "ext": "txt",
           "bytes": 23667,
-          "mtime": "2026-10-16T20:34:14.419Z",
+          "mtime": "2026-10-16T20:44:41.994Z",
           "path": "public/downloads/articles/derivatives-fno-retail-realities.txt"
         },
         {
           "name": "derivatives-fno-retail-realities.html",
           "ext": "html",
           "bytes": 27427,
-          "mtime": "2026-10-16T20:34:14.420Z",
+          "mtime": "2026-10-16T20:44:41.996Z",
           "path": "public/downloads/articles/derivatives-fno-retail-realities.html"
         }
       ]
@@ -859,21 +860,21 @@
           "name": "banking-safety-deposits-fd.md",
           "ext": "md",
           "bytes": 16409,
-          "mtime": "2026-10-16T20:34:14.422Z",
+          "mtime": "2026-10-16T20:44:41.998Z",
           "path": "public/downloads/articles/banking-safety-deposits-fd.md"
         },
         {
           "name": "banking-safety-deposits-fd.txt",
           "ext": "txt",
           "bytes": 14493,
-          "mtime": "2026-10-16T20:34:14.423Z",
+          "mtime": "2026-10-16T20:44:41.999Z",
           "path": "public/downloads/articles/banking-safety-deposits-fd.txt"
         },
         {
           "name": "banking-safety-deposits-fd.html",
           "ext": "html",
           "bytes": 19845,
-          "mtime": "2026-10-16T20:34:14.425Z",
+          "mtime": "2026-10-16T20:44:42.001Z",
           "path": "public/downloads/articles/banking-safety-deposits-fd.html"
         }
       ]
@@ -887,21 +888,21 @@
           "name": "pf-credit-loans-debt.md",
           "ext": "md",
           "bytes": 11356,
-          "mtime": "2026-10-16T20:34:14.427Z",
+          "mtime": "2026-10-16T20:44:42.003Z",
           "path": "public/downloads/articles/pf-credit-loans-debt.md"
         },
         {
           "name": "pf-credit-loans-debt.txt",
           "ext": "txt",
           "bytes": 9734,
-          "mtime": "2026-10-16T20:34:14.428Z",
+          "mtime": "2026-10-16T20:44:42.004Z",
           "path": "public/downloads/articles/pf-credit-loans-debt.txt"
         },
         {
           "name": "pf-credit-loans-debt.html",
           "ext": "html",
           "bytes": 14065,
-          "mtime": "2026-10-16T20:34:14.429Z",
+          "mtime": "2026-10-16T20:44:42.005Z",
           "path": "public/downloads/articles/pf-credit-loans-debt.html"
         }
       ]
@@ -915,21 +916,21 @@
           "name": "tax-esop-stock-grants.md",
           "ext": "md",
           "bytes": 10243,
-          "mtime": "2026-10-16T20:34:14.431Z",
+          "mtime": "2026-10-16T20:44:42.007Z",
           "path": "public/downloads/articles/tax-esop-stock-grants.md"
         },
         {
           "name": "tax-esop-stock-grants.txt",
           "ext": "txt",
           "bytes": 9554,
-          "mtime": "2026-10-16T20:34:14.432Z",
+          "mtime": "2026-10-16T20:44:42.008Z",
           "path": "public/downloads/articles/tax-esop-stock-grants.txt"
         },
         {
           "name": "tax-esop-stock-grants.html",
           "ext": "html",
           "bytes": 13221,
-          "mtime": "2026-10-16T20:34:14.433Z",
+          "mtime": "2026-10-16T20:44:42.010Z",
           "path": "public/downloads/articles/tax-esop-stock-grants.html"
         }
       ]
@@ -943,21 +944,21 @@
           "name": "pf-wills-succession.md",
           "ext": "md",
           "bytes": 10785,
-          "mtime": "2026-10-16T20:34:14.435Z",
+          "mtime": "2026-10-16T20:44:42.012Z",
           "path": "public/downloads/articles/pf-wills-succession.md"
         },
         {
           "name": "pf-wills-succession.txt",
           "ext": "txt",
           "bytes": 9740,
-          "mtime": "2026-10-16T20:34:14.436Z",
+          "mtime": "2026-10-16T20:44:42.013Z",
           "path": "public/downloads/articles/pf-wills-succession.txt"
         },
         {
           "name": "pf-wills-succession.html",
           "ext": "html",
           "bytes": 14415,
-          "mtime": "2026-10-16T20:34:14.437Z",
+          "mtime": "2026-10-16T20:44:42.014Z",
           "path": "public/downloads/articles/pf-wills-succession.html"
         }
       ]
@@ -971,21 +972,21 @@
           "name": "tax-loss-harvesting.md",
           "ext": "md",
           "bytes": 14340,
-          "mtime": "2026-10-16T20:34:14.439Z",
+          "mtime": "2026-10-16T20:44:42.017Z",
           "path": "public/downloads/articles/tax-loss-harvesting.md"
         },
         {
           "name": "tax-loss-harvesting.txt",
           "ext": "txt",
           "bytes": 12940,
-          "mtime": "2026-10-16T20:34:14.440Z",
+          "mtime": "2026-10-16T20:44:42.019Z",
           "path": "public/downloads/articles/tax-loss-harvesting.txt"
         },
         {
           "name": "tax-loss-harvesting.html",
           "ext": "html",
           "bytes": 18673,
-          "mtime": "2026-10-16T20:34:14.442Z",
+          "mtime": "2026-10-16T20:44:42.021Z",
           "path": "public/downloads/articles/tax-loss-harvesting.html"
         }
       ]
@@ -999,21 +1000,21 @@
           "name": "insurance-claims-ulip-mis-selling.md",
           "ext": "md",
           "bytes": 13549,
-          "mtime": "2026-10-16T20:34:14.444Z",
+          "mtime": "2026-10-16T20:44:42.023Z",
           "path": "public/downloads/articles/insurance-claims-ulip-mis-selling.md"
         },
         {
           "name": "insurance-claims-ulip-mis-selling.txt",
           "ext": "txt",
           "bytes": 12055,
-          "mtime": "2026-10-16T20:34:14.445Z",
+          "mtime": "2026-10-16T20:44:42.025Z",
           "path": "public/downloads/articles/insurance-claims-ulip-mis-selling.txt"
         },
         {
           "name": "insurance-claims-ulip-mis-selling.html",
           "ext": "html",
           "bytes": 17168,
-          "mtime": "2026-10-16T20:34:14.447Z",
+          "mtime": "2026-10-16T20:44:42.026Z",
           "path": "public/downloads/articles/insurance-claims-ulip-mis-selling.html"
         }
       ]
@@ -1027,21 +1028,21 @@
           "name": "international-fof-gift-city-lrs.md",
           "ext": "md",
           "bytes": 12181,
-          "mtime": "2026-10-16T20:34:14.449Z",
+          "mtime": "2026-10-16T20:44:42.029Z",
           "path": "public/downloads/articles/international-fof-gift-city-lrs.md"
         },
         {
           "name": "international-fof-gift-city-lrs.txt",
           "ext": "txt",
           "bytes": 11399,
-          "mtime": "2026-10-16T20:34:14.449Z",
+          "mtime": "2026-10-16T20:44:42.031Z",
           "path": "public/downloads/articles/international-fof-gift-city-lrs.txt"
         },
         {
           "name": "international-fof-gift-city-lrs.html",
           "ext": "html",
           "bytes": 15518,
-          "mtime": "2026-10-16T20:34:14.451Z",
+          "mtime": "2026-10-16T20:44:42.032Z",
           "path": "public/downloads/articles/international-fof-gift-city-lrs.html"
         }
       ]
@@ -1055,21 +1056,21 @@
           "name": "tax-tax-free-wealth-stack.md",
           "ext": "md",
           "bytes": 22034,
-          "mtime": "2026-10-16T20:34:14.453Z",
+          "mtime": "2026-10-16T20:44:42.034Z",
           "path": "public/downloads/articles/tax-tax-free-wealth-stack.md"
         },
         {
           "name": "tax-tax-free-wealth-stack.txt",
           "ext": "txt",
           "bytes": 18105,
-          "mtime": "2026-10-16T20:34:14.454Z",
+          "mtime": "2026-10-16T20:44:42.035Z",
           "path": "public/downloads/articles/tax-tax-free-wealth-stack.txt"
         },
         {
           "name": "tax-tax-free-wealth-stack.html",
           "ext": "html",
           "bytes": 25077,
-          "mtime": "2026-10-16T20:34:14.455Z",
+          "mtime": "2026-10-16T20:44:42.037Z",
           "path": "public/downloads/articles/tax-tax-free-wealth-stack.html"
         }
       ]
@@ -1083,21 +1084,21 @@
           "name": "tax-huf-wealth-structure.md",
           "ext": "md",
           "bytes": 16555,
-          "mtime": "2026-10-16T20:34:14.457Z",
+          "mtime": "2026-10-16T20:44:42.039Z",
           "path": "public/downloads/articles/tax-huf-wealth-structure.md"
         },
         {
           "name": "tax-huf-wealth-structure.txt",
           "ext": "txt",
           "bytes": 15102,
-          "mtime": "2026-10-16T20:34:14.458Z",
+          "mtime": "2026-10-16T20:44:42.040Z",
           "path": "public/downloads/articles/tax-huf-wealth-structure.txt"
         },
         {
           "name": "tax-huf-wealth-structure.html",
           "ext": "html",
           "bytes": 19279,
-          "mtime": "2026-10-16T20:34:14.459Z",
+          "mtime": "2026-10-16T20:44:42.041Z",
           "path": "public/downloads/articles/tax-huf-wealth-structure.html"
         }
       ]
@@ -1111,21 +1112,21 @@
           "name": "fixed-income-nbfc-debentures.md",
           "ext": "md",
           "bytes": 16730,
-          "mtime": "2026-10-16T20:34:14.461Z",
+          "mtime": "2026-10-16T20:44:42.043Z",
           "path": "public/downloads/articles/fixed-income-nbfc-debentures.md"
         },
         {
           "name": "fixed-income-nbfc-debentures.txt",
           "ext": "txt",
           "bytes": 13909,
-          "mtime": "2026-10-16T20:34:14.463Z",
+          "mtime": "2026-10-16T20:44:42.045Z",
           "path": "public/downloads/articles/fixed-income-nbfc-debentures.txt"
         },
         {
           "name": "fixed-income-nbfc-debentures.html",
           "ext": "html",
           "bytes": 19515,
-          "mtime": "2026-10-16T20:34:14.464Z",
+          "mtime": "2026-10-16T20:44:42.046Z",
           "path": "public/downloads/articles/fixed-income-nbfc-debentures.html"
         }
       ]
@@ -1139,21 +1140,21 @@
           "name": "alternatives-hnw-pms-aif-sif-selection.md",
           "ext": "md",
           "bytes": 19764,
-          "mtime": "2026-10-16T20:34:14.466Z",
+          "mtime": "2026-10-16T20:44:42.048Z",
           "path": "public/downloads/articles/alternatives-hnw-pms-aif-sif-selection.md"
         },
         {
           "name": "alternatives-hnw-pms-aif-sif-selection.txt",
           "ext": "txt",
           "bytes": 18817,
-          "mtime": "2026-10-16T20:34:14.467Z",
+          "mtime": "2026-10-16T20:44:42.049Z",
           "path": "public/downloads/articles/alternatives-hnw-pms-aif-sif-selection.txt"
         },
         {
           "name": "alternatives-hnw-pms-aif-sif-selection.html",
           "ext": "html",
           "bytes": 22985,
-          "mtime": "2026-10-16T20:34:14.468Z",
+          "mtime": "2026-10-16T20:44:42.051Z",
           "path": "public/downloads/articles/alternatives-hnw-pms-aif-sif-selection.html"
         }
       ]
@@ -1167,21 +1168,21 @@
           "name": "tax-advance-itr-final-checklist.md",
           "ext": "md",
           "bytes": 17900,
-          "mtime": "2026-10-16T20:34:14.471Z",
+          "mtime": "2026-10-16T20:44:42.053Z",
           "path": "public/downloads/articles/tax-advance-itr-final-checklist.md"
         },
         {
           "name": "tax-advance-itr-final-checklist.txt",
           "ext": "txt",
           "bytes": 16752,
-          "mtime": "2026-10-16T20:34:14.472Z",
+          "mtime": "2026-10-16T20:44:42.054Z",
           "path": "public/downloads/articles/tax-advance-itr-final-checklist.txt"
         },
         {
           "name": "tax-advance-itr-final-checklist.html",
           "ext": "html",
           "bytes": 20923,
-          "mtime": "2026-10-16T20:34:14.473Z",
+          "mtime": "2026-10-16T20:44:42.055Z",
           "path": "public/downloads/articles/tax-advance-itr-final-checklist.html"
         }
       ]
@@ -1195,21 +1196,21 @@
           "name": "alternatives-sif-strategy-families-deep-dive.md",
           "ext": "md",
           "bytes": 16318,
-          "mtime": "2026-10-16T20:34:14.475Z",
+          "mtime": "2026-10-16T20:44:42.057Z",
           "path": "public/downloads/articles/alternatives-sif-strategy-families-deep-dive.md"
         },
         {
           "name": "alternatives-sif-strategy-families-deep-dive.txt",
           "ext": "txt",
           "bytes": 15038,
-          "mtime": "2026-10-16T20:34:14.476Z",
+          "mtime": "2026-10-16T20:44:42.058Z",
           "path": "public/downloads/articles/alternatives-sif-strategy-families-deep-dive.txt"
         },
         {
           "name": "alternatives-sif-strategy-families-deep-dive.html",
           "ext": "html",
           "bytes": 19086,
-          "mtime": "2026-10-16T20:34:14.477Z",
+          "mtime": "2026-10-16T20:44:42.060Z",
           "path": "public/downloads/articles/alternatives-sif-strategy-families-deep-dive.html"
         }
       ]
@@ -1223,21 +1224,21 @@
           "name": "real-estate-reit-invit-dividend-timing-tax.md",
           "ext": "md",
           "bytes": 17043,
-          "mtime": "2026-10-16T20:34:14.480Z",
+          "mtime": "2026-10-16T20:44:42.062Z",
           "path": "public/downloads/articles/real-estate-reit-invit-dividend-timing-tax.md"
         },
         {
           "name": "real-estate-reit-invit-dividend-timing-tax.txt",
           "ext": "txt",
           "bytes": 15232,
-          "mtime": "2026-10-16T20:34:14.481Z",
+          "mtime": "2026-10-16T20:44:42.064Z",
           "path": "public/downloads/articles/real-estate-reit-invit-dividend-timing-tax.txt"
         },
         {
           "name": "real-estate-reit-invit-dividend-timing-tax.html",
           "ext": "html",
           "bytes": 20180,
-          "mtime": "2026-10-16T20:34:14.483Z",
+          "mtime": "2026-10-16T20:44:42.065Z",
           "path": "public/downloads/articles/real-estate-reit-invit-dividend-timing-tax.html"
         }
       ]
@@ -1251,21 +1252,21 @@
           "name": "alternatives-aif-category-selection-guide.md",
           "ext": "md",
           "bytes": 13554,
-          "mtime": "2026-10-16T20:34:14.484Z",
+          "mtime": "2026-10-16T20:44:42.066Z",
           "path": "public/downloads/articles/alternatives-aif-category-selection-guide.md"
         },
         {
           "name": "alternatives-aif-category-selection-guide.txt",
           "ext": "txt",
           "bytes": 11110,
-          "mtime": "2026-10-16T20:34:14.485Z",
+          "mtime": "2026-10-16T20:44:42.067Z",
           "path": "public/downloads/articles/alternatives-aif-category-selection-guide.txt"
         },
         {
           "name": "alternatives-aif-category-selection-guide.html",
           "ext": "html",
           "bytes": 16255,
-          "mtime": "2026-10-16T20:34:14.487Z",
+          "mtime": "2026-10-16T20:44:42.069Z",
           "path": "public/downloads/articles/alternatives-aif-category-selection-guide.html"
         }
       ]
@@ -1279,22 +1280,50 @@
           "name": "tax-aif-pcc-115bb-deep-dive.md",
           "ext": "md",
           "bytes": 11894,
-          "mtime": "2026-10-16T20:34:14.488Z",
+          "mtime": "2026-10-16T20:44:42.070Z",
           "path": "public/downloads/articles/tax-aif-pcc-115bb-deep-dive.md"
         },
         {
           "name": "tax-aif-pcc-115bb-deep-dive.txt",
           "ext": "txt",
           "bytes": 9817,
-          "mtime": "2026-10-16T20:34:14.489Z",
+          "mtime": "2026-10-16T20:44:42.072Z",
           "path": "public/downloads/articles/tax-aif-pcc-115bb-deep-dive.txt"
         },
         {
           "name": "tax-aif-pcc-115bb-deep-dive.html",
           "ext": "html",
           "bytes": 14503,
-          "mtime": "2026-10-16T20:34:14.490Z",
+          "mtime": "2026-10-16T20:44:42.073Z",
           "path": "public/downloads/articles/tax-aif-pcc-115bb-deep-dive.html"
+        }
+      ]
+    },
+    {
+      "id": "alternatives-aif-waterfall-economics",
+      "title": "The 2/20 Waterfall: How Carried Interest Actually Splits an AIF's Money (and What to Negotiate)",
+      "category": "alternatives",
+      "formats": [
+        {
+          "name": "alternatives-aif-waterfall-economics.md",
+          "ext": "md",
+          "bytes": 9253,
+          "mtime": "2026-10-16T20:44:42.074Z",
+          "path": "public/downloads/articles/alternatives-aif-waterfall-economics.md"
+        },
+        {
+          "name": "alternatives-aif-waterfall-economics.txt",
+          "ext": "txt",
+          "bytes": 8080,
+          "mtime": "2026-10-16T20:44:42.076Z",
+          "path": "public/downloads/articles/alternatives-aif-waterfall-economics.txt"
+        },
+        {
+          "name": "alternatives-aif-waterfall-economics.html",
+          "ext": "html",
+          "bytes": 11690,
+          "mtime": "2026-10-16T20:44:42.077Z",
+          "path": "public/downloads/articles/alternatives-aif-waterfall-economics.html"
         }
       ]
     }

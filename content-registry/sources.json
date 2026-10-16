@@ -633,5 +633,24 @@
    "Pass-through income is reported in Schedule PTI of ITR-2, by head and by fund, including the deemed-credit mechanism"
   ],
   "notes": "The ~42.7% Cat III fund-level rate and the specific-exemption sections are secondary readings; confirm the exact rate and sections against the Income-tax Act 2025 text and a CA for the assessment year."
+ },
+ {
+  "id": "src-aif-waterfall-economics-2026",
+  "title": "AIF GP-LP economics: the '2 and 20' standard ladder - management fee 2%/yr (committed capital during investment period, then NAV/invested during harvest), 20% carried interest, 8% IRR preferred return (hurdle), 100% GP catch-up; worked 500 Cr / 3x / 10-yr fund lands LPs at ~1300 Cr (2.6x net) and the GP at ~200 Cr carry + 70-80 Cr fee (~5-6% of fund value); the hurdle and catch-up are the terms that move in negotiation (raising the hurdle 8 to 10% cut GP carry ~20-25 Cr); clawback via 20-30% escrow holdback; GP all-in ~5-6% of fund value on a success, fee-only on a failure",
+  "publisher": "Nucleus Advisors, \"GP-LP economics: management fee, carry, hurdle - the standard ladder\" (07 Jan 2026)",
+  "url": "https://www.nucleusadvisors.in/insights/gp-lp-economics-fee-carry-hurdle",
+  "type": "financial-publication",
+  "authority": "secondary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "Management fee standard: 2%/yr on committed capital during the ~5-year investment period, then 2%/yr on invested capital or NAV during the harvest period",
+   "Carry standard 20%; preferred-return hurdle standard 8% IRR compounded; 100% GP catch-up is standard and GP-friendly, 50% or no catch-up is LP-friendly",
+   "Worked fund: 500 Cr committed, 3x over 10 years, 8% hurdle, 20% carry, 100% catch-up - LPs total ~1300 Cr, GP carry ~200 Cr, cumulative management fee ~70-80 Cr; GP all-in ~5-6% of fund value",
+   "The hurdle is the single most-negotiated term (institutional LPs push 9-10% on debt/infra); a 200 bps hurdle change moves GP carry meaningfully",
+   "Clawback standard fix: escrow holdback of 20-30% of carry payments until fund wind-up; without it the clause can be unenforceable years later",
+   "On an unsuccessful fund the GP earns only the management fee - the structural alignment between GP and LP"
+  ],
+  "notes": "Practitioner secondary source; the exact ladder numbers vary LPA-by-LPA. Read each fund's PPM waterfall page and confirm the specific hurdle, catch-up, fee base, and clawback/escrow language before committing."
  }
 ]

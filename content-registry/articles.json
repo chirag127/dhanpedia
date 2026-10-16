@@ -1090,6 +1090,41 @@
    "books": [
     "book-indian-taxation"
    ]
+  },
+  {
+   "id": "alternatives-aif-waterfall-economics",
+   "title": "The 2/20 Waterfall: How Carried Interest Actually Splits an AIF's Money (and What to Negotiate)",
+   "category": "alternatives",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "aif",
+    "waterfall",
+    "carried-interest",
+    "hurdle",
+    "catch-up",
+    "clawback",
+    "2-and-20",
+    "gp-lp",
+    "private-equity",
+    "fee-stack"
+   ],
+   "summary": "The LP economics layer over AIFs: how the \"two and twenty\" ladder really works - management fee, 8% hurdle, 100% catch-up and 80/20 split - with a worked 500 Cr fund example; why the hurdle and catch-up are the terms that actually move; what a clawback does when the fund misses; and the decision test for the 1 Cr smallest ticket.",
+   "file": "src/content/alternatives/alternatives-aif-waterfall-economics.mdx",
+   "sources": [
+    "src-aif-waterfall-economics-2026",
+    "src-pms-aif-fees-2026"
+   ],
+   "related": [
+    "alternatives-aif-category-selection-guide",
+    "alternatives-hnw-pms-aif-sif-selection",
+    "alternatives-pms-aif-private",
+    "pf-wealth-plan-10-lakh",
+    "tax-tax-free-wealth-stack"
+   ],
+   "books": [
+    "book-wealth-beyond-10l"
+   ]
   }
  ]
 }

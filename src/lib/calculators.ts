@@ -17,7 +17,7 @@ import {
   bondPrice, macaulayDuration, feeImpact, currencyScenario, rentalYield,
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -921,6 +921,102 @@ export const CALCULATORS: CalcDef[] = [
                 label: { show: true, formatter: (p: { value: number }) => `${Math.round(p.value / 1e5)}L` },
               },
             ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'aif-waterfall',
+    title: 'AIF 2/20 Waterfall & Carry (End-of-Fund)',
+    category: 'Alternatives',
+    description: 'Run a Category I/II AIF distribution waterfall on your committed capital: the 8% preferred-return hurdle, the 100% GP catch-up, the 80/20 split, the management-fee drag, and your net multiple and net IRR. Toggle the catch-up off to see the LP-friendlier variant.',
+    inputs: [
+      { key: 'committedCapital', label: 'Committed capital (Rs Cr)', default: 1, min: 0.01, step: 0.1, hint: 'Your ticket in crore rupees. Enter 1 for Rs 1 Cr. The same math scales linearly, so keep this small - the fee percentage is your biggest relative drag.' },
+      { key: 'grossMultiple', label: 'Expected gross multiple (x)', default: 3, min: 0.1, step: 0.1, hint: 'Gross exit multiple on committed capital: 3x means the fund returns 3x what was committed. A fund that returns only 0.8x does not clear the hurdle and pays no carry.' },
+      { key: 'years', label: 'Fund tenure (years)', default: 10, min: 1, step: 1, hint: 'Total life of the fund. The 8% preferred return compounds over this period.' },
+      { key: 'hurdleRate', label: 'Preferred return / hurdle (decimal)', default: 0.08, min: 0, step: 0.005, hint: 'The minimum compounded IRR the LPs receive before any carry. Standard 0.08 (8%); institutional LPs push 0.09-0.10 on debt and infrastructure strategies.' },
+      { key: 'carryPct', label: 'Carried interest % (decimal)', default: 0.2, min: 0, step: 0.01, hint: 'The GP share of profits above the hurdle. Standard 0.20; premium GPs sometimes take 0.25 on absolute-return strategies.' },
+      { key: 'catchUp', label: 'GP catch-up', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - 100% catch-up (standard, GP-friendly)' }, { value: 0, label: 'No - straight 80/20 above hurdle (LP-friendly)' }], hint: 'With the catch-up on, the GP takes 100% of the profit between the hurdle and its proportional share. Without it, the split is 80/20 from the first rupee above the hurdle.' },
+      { key: 'mgmtFeePct', label: 'Annual management fee (decimal)', default: 0.02, min: 0, step: 0.0025, hint: 'Annual fee on committed capital: standard 0.02 (2%). Junior GPs sometimes offer 0.015. The model charges fee x years on committed capital as cumulative drag.' },
+    ],
+    assumptions: [
+      'End-of-fund (European-style) waterfall: capital back, then the compounded 8% preferred return, then the 100% GP catch-up, then 80/20 on the remainder.',
+      'If the fund does not reach the hurdle, the LPs take the whole final value and the GP earns only the management fee.',
+      'Management-fee drag is approximated as annual fee x years x committed capital; a real fund fees on committed during the investment period and on NAV/invested during harvest.',
+    ],
+    limitations: [
+      'No clawback is modelled: in a real LPA, a fund that ends below the hurdle makes the GP return earlier carry, usually via a 20-30% escrow holdback.',
+      'This is a decision aid for comparing fund terms (hurdle, catch-up, fee base), not a backtest; distribution timing and interim distributions change the actual cash flows.',
+      'Carry taxation (and the 115UB pass-through vs fund-level tax of the category) is not modelled here - see the AIF taxation article for where that lands.',
+    ],
+    compute: (v) => {
+      const r = aifWaterfall({
+        committedCapital: v.committedCapital,
+        grossMultiple: v.grossMultiple,
+        years: v.years,
+        hurdleRate: v.hurdleRate,
+        carryPct: v.carryPct,
+        catchUp: v.catchUp === 1,
+        mgmtFeePct: v.mgmtFeePct,
+      });
+      const cr = (x: number) => Math.round(x * 100) / 100;
+      return {
+        results: [
+          {
+            label: 'LP net proceeds (after fee)',
+            value: cr(r.lpNetProceeds),
+            kind: 'number',
+            note: `Rs Cr on Rs ${v.committedCapital} Cr committed - a ${r.lpNetMultiple.toFixed(2)}x net multiple`,
+          },
+          {
+            label: 'LP net IRR',
+            value: (r.lpNetIrr * 100).toFixed(2) + '%',
+            kind: 'text',
+            note: r.beatsHurdle
+              ? 'Above the hurdle - the GP earns carry on this outcome'
+              : 'Below the hurdle - GP earns only the management fee, no carry',
+          },
+          {
+            label: 'GP total carry (before fees)',
+            value: cr(r.gpCatchUpAmount + r.gpFinalSplit),
+            kind: 'number',
+            note: `Catch-up ${cr(r.gpCatchUpAmount)} Cr + final split ${cr(r.gpFinalSplit)} Cr`,
+          },
+          {
+            label: 'Cumulative management-fee drag',
+            value: cr(r.mgmtFeeDrag),
+            kind: 'number',
+            note: `${(v.mgmtFeePct * 100).toFixed(1)}%/yr x ${v.years} yrs on committed capital - this is why your ticket size matters`,
+          },
+          {
+            label: 'GP share of gross profit',
+            value: (r.gpShareOfProfit * 100).toFixed(1) + '%',
+            kind: 'text',
+            note: 'Carry only, excluding the management fee',
+          },
+        ],
+        chart: {
+          title: 'Where the money goes (Rs Cr)',
+          alt: `Split of the gross final value ${cr(r.grossFinalValue)} Cr: LP net proceeds ${cr(r.lpNetProceeds)} Cr, GP carry ${cr(r.gpCatchUpAmount + r.gpFinalSplit)} Cr, management-fee drag ${cr(r.mgmtFeeDrag)} Cr, committed capital ${v.committedCapital} Cr.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${Math.round(x * 100) / 100} Cr` },
+            yAxis: { type: 'category', data: ['LP net', 'GP carry', 'Mgmt fee drag'] },
+            xAxis: { type: 'value', name: 'Rs Cr' },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: cr(r.lpNetProceeds), itemStyle: { color: '#1f7a5c' } },
+                  { value: cr(r.gpCatchUpAmount + r.gpFinalSplit), itemStyle: { color: '#b45309' } },
+                  { value: cr(r.mgmtFeeDrag), itemStyle: { color: '#64748b' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `${p.value} Cr` },
+              },
+            ],
+            grid: { left: 110, right: 30, top: 30, bottom: 30 },
           },
         },
       };

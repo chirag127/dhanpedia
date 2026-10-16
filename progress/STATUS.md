@@ -1,14 +1,39 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 7: 2 new articles + 2 new calculators + 2 new sources; 35 → 37 articles; 20 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 8: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 37 → 38 articles; 21 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 37 on disk / registered. Wave 7 added 2: `alternatives-aif-category-selection-guide` (the Cat I/II/III decision layer: leverage/lock-in/tax/fee comparison, 2/20 fee-decay math, profile-to-category mapping, 8-point due-diligence Mermaid, SEBI AIF Amendment 2026 regulatory watch) and `tax-aif-pcc-115bb-deep-dive` (the AIF taxation layer: 115UB pass-through vs Cat III fund-level tax, 194LBB TDS trap, the 64C/64D → 78/79 form migration under the Income-tax Act 2025, Schedule PTI, and the advance-tax clock interaction).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 9 (+ tax-aif-pcc-115bb-deep-dive), p2p-lending 4, wealth-beyond-10l 12 (+ alternatives-aif-category-selection-guide).
-- **Sources:** 47 in `sources.json` (Wave 7 added 2: src-aif-sebi-amendment-2026, src-aif-tax-forms-2026).
-- **Update-log:** 38 tracked.
-- **Calculators:** 20 (Wave 7 wired the two Wave-6 finance functions into new pages: `sif-sleeve-sizing` and `reit-invit-timing`).
+- **Articles:** 38 on disk / registered. Wave 8 added 1: `alternatives-aif-waterfall-economics` (the GP-LP "2 and 20" ladder: management fee / hurdle / catch-up / carry in the exact order money flows, a worked ₹500 Cr / 3x / 10-yr fund that lands LPs at ~₹1,300 Cr net (2.6x) and the GP at ~₹200 Cr carry + ₹70-80 Cr fee, the negotiation table showing the hurdle and catch-up are the terms that actually move, the clawback / escrow-fragility note, and the ₹1 Cr smallest-ticket decision test).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 9, p2p-lending 4, wealth-beyond-10l 13 (+ alternatives-aif-waterfall-economics).
+- **Sources:** 48 in `sources.json` (Wave 8 added 1: src-aif-waterfall-economics-2026).
+- **Update-log:** 40 tracked (Wave 8 added 2, incl. a **conflict-resolved** note: 80CCD(1B) is old-regime-only — a blog intro claimed otherwise, the CA-reviewed body and 1 Finance/ClearTax coverage say old-regime-only; that resolution is flagged for Wave 9's ELSS/NPS tax-shield work).
+- **Calculators:** 21 (Wave 8 added `aif-waterfall`, powered by the new `aifWaterfall()` pure function with a European-style end-of-fund model, 6 unit tests, and an e2e test).
+
+## Wave 8 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/alternatives/alternatives-aif-waterfall-economics.mdx` — the *GP-LP economics* layer: the four levers in money-flow order (mgmt fee → 20% carry → 8% hurdle → 100% catch-up), a worked ₹500 Cr / 3x / 10-yr fund (LP ~₹1,300 Cr = 2.6x net; GP ~₹200 Cr carry + ₹70-80 Cr fee ≈ 5-6% of fund value), the negotiation table (hurdle and catch-up are the terms that move; 200 bps hurdle change cut GP carry ~₹20-25 Cr on the worked fund), the clawback / 20-30% escrow-holdback fragility note, and the ₹1 Cr smallest-ticket decision test.
+
+### New finance function + calculator + tests
+- [x] `aifWaterfall()` in `src/lib/finance/index.ts` — European-style end-of-fund waterfall: compounded preferred return, capped 100% catch-up, 80/20 (or straight) split, below-hurdle = LP-takes-all branch, cumulative mgmt-fee drag; verified against the Nucleus worked example (LP 1300 / GP carry 200 on 500 Cr / 3x / 10 yr / 8% / 20% / catch-up on).
+- [x] `aif-waterfall` calculator page (category: Alternatives) — inputs in ₹Cr, catch-up toggle, where-the-money-goes bar chart.
+- [x] 5 new unit tests (Nucleus match, fee drag, no-catch-up LP-friendlier, below-hurdle zero carry, GP share-of-profit) — **60/60 unit tests pass**.
+- [x] 2 new e2e tests (calculator page + article page, desktop + mobile) — **36/36 pass**.
+
+### Research verified this session
+- [x] **GP-LP 2/20 ladder** — Nucleus Advisors practitioner article (07 Jan 2026): worked 500 Cr example, hurdle/catch-up negotiation points, escrow-holdback clawback fix, GP fee-only-on-failure alignment.
+- [x] **80CCD(1B) regime conflict found and resolved** — a SmartTaxCalc blog *intro* claimed the ₹50k extra NPS deduction is "available even under the New Regime", but the same site's CA-reviewed body (reviewed 15 Oct 2026) + FAQ table + 1 Finance/ClearTax coverage all say **old-regime-only**; recorded as a `conflict-resolved` update-log entry (`ul-80ccd1b-regime-clarification-2026`) for Wave 9's ELSS/NPS tax-shield calculators.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 60 passed.
+- [x] `node scripts/validate-content.mjs` → 38 articles, 4 books, 48 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npx astro build` → 171 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (17,094 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 38/38 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 36 passed (18 desktop + 18 mobile).
 
 ## Wave 7 session (verified 2026-10-18 via web research)
 
@@ -94,12 +119,12 @@ Last updated: **2026-10-18** (Wave 7: 2 new articles + 2 new calculators + 2 new
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion if the user confirms: AIF carry-return calculator (high-water-line), ELSS/NPS tax-shield standalone, a PMS-vs-AIF net-return after-tax comparator.
+- [ ] Phase 4 deeper expansion: Wave 9 = ELSS + NPS tax-shield standalone calculators (must use 80CCD(1B) old-regime-only per `ul-80ccd1b-regime-clarification-2026`; new-regime only has 80CCD(2) employer NPS), a PMS-vs-AIF net-return after-tax comparator, or an ELSS lock-in / tax-shield standalone article.
 
 ## Next 3 actions
-1. Commit Wave 7: 2 new articles + 2 new calculators + 2 new sources + tests.
+1. Commit Wave 8: 1 new article + aifWaterfall() function + aif-waterfall calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 8 candidates: AIF carry-return / high-water-line calculator, ELSS + NPS tax-shield standalone calculators, or a PMS-vs-AIF after-tax net-return comparator).
+3. Continue the daily article habit (Wave 9 candidate: ELSS + NPS tax-shield calculators with the new-regime-only 80CCD(2) rule, or a PMS-vs-AIF after-tax net-return comparator).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

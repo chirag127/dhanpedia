@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -449,5 +449,84 @@ describe('REIT / InvIT business-trust timing', () => {
     expect(neg.yieldOnPrice).toBeGreaterThan(neg.headlineYield);
     expect(neg.headlineYield).toBe(0.075);
     expect(neg.yieldOnPrice).toBeCloseTo(30 / 380, 6);
+  });
+});
+
+describe('AIF end-of-fund waterfall (2/20)', () => {
+  // Nucleus worked example: Rs 500 Cr committed, 3x over 10 yrs, 8% hurdle,
+  // 20% carry, 100% catch-up, no fee.
+  // Preferred total = 500 * 1.08^10 = 500 * 2.158925 = 1079.46; incremental 579.46
+  // profitAboveHurdle = 1500 - 1079.46 = 420.54
+  // catch-up = min(420.54, 579.46 * 0.2 / 0.8 = 144.87) = 144.87
+  // remaining = 420.54 - 144.87 = 275.67; GP split = 55.13; LP share = 220.53
+  // LP total = 1079.46 + 220.53 = 1299.99 ≈ 1300; GP carry = 200.00
+  it('Nucleus worked example: LP net 1300, GP carry 200 (8% hurdle, catch-up)', () => {
+    const r = aifWaterfall({
+      committedCapital: 500,
+      grossMultiple: 3,
+      years: 10,
+      hurdleRate: 0.08,
+      carryPct: 0.2,
+      catchUp: true,
+      mgmtFeePct: 0,
+    });
+    expect(r.lpNetProceeds).toBeCloseTo(1300, 0);
+    expect(r.gpCatchUpAmount + r.gpFinalSplit).toBeCloseTo(200, 0);
+    expect(r.lpNetMultiple).toBeCloseTo(1300 / 500, 1); // 2.6x net
+    expect(r.beatsHurdle).toBe(true);
+  });
+
+  it('management fee drag reduces the LP net proceeds', () => {
+    const noFee = aifWaterfall({
+      committedCapital: 1, grossMultiple: 3, years: 10,
+      hurdleRate: 0.08, carryPct: 0.2, catchUp: true, mgmtFeePct: 0,
+    });
+    const withFee = aifWaterfall({
+      committedCapital: 1, grossMultiple: 3, years: 10,
+      hurdleRate: 0.08, carryPct: 0.2, catchUp: true, mgmtFeePct: 0.02,
+    });
+    // fee drag = 0.02 * 10 * 1 = 0.2 Cr
+    expect(withFee.mgmtFeeDrag).toBeCloseTo(0.2, 6);
+    expect(withFee.lpNetProceeds).toBeCloseTo(noFee.lpNetProceeds - 0.2, 6);
+    expect(withFee.lpNetProceeds).toBeLessThan(noFee.lpNetProceeds);
+  });
+
+  it('no-catch-up (LP-friendly) leaves more with the LPs', () => {
+    const catchUp = aifWaterfall({
+      committedCapital: 500, grossMultiple: 3, years: 10,
+      hurdleRate: 0.08, carryPct: 0.2, catchUp: true, mgmtFeePct: 0,
+    });
+    const straight = aifWaterfall({
+      committedCapital: 500, grossMultiple: 3, years: 10,
+      hurdleRate: 0.08, carryPct: 0.2, catchUp: false, mgmtFeePct: 0,
+    });
+    expect(straight.gpCatchUpAmount).toBe(0);
+    expect(straight.lpNetProceeds).toBeGreaterThan(catchUp.lpNetProceeds);
+  });
+
+  it('a fund below the hurdle pays no carry; the LP takes the whole final value', () => {
+    const r = aifWaterfall({
+      committedCapital: 500, grossMultiple: 0.8, years: 10,
+      hurdleRate: 0.08, carryPct: 0.2, catchUp: true, mgmtFeePct: 0,
+    });
+    // gross final = 400; preferred total = 1079.46 > 400 => no carry zone
+    expect(r.gpCatchUpAmount + r.gpFinalSplit).toBe(0);
+    expect(r.lpNetProceeds).toBe(400); // whole final value to LPs
+    expect(r.lpNetIrr).toBeCloseTo(Math.pow(400 / 500, 1 / 10) - 1, 6);
+    expect(r.beatsHurdle).toBe(false);
+  });
+
+  it('GP share of gross profit tracks the carry zone', () => {
+    const r = aifWaterfall({
+      committedCapital: 500, grossMultiple: 3, years: 10,
+      hurdleRate: 0.08, carryPct: 0.2, catchUp: true, mgmtFeePct: 0,
+    });
+    // GP carry 200 on gross profit 1000 = 20%
+    expect(r.gpShareOfProfit).toBeCloseTo(0.2, 3);
+    const zero = aifWaterfall({
+      committedCapital: 500, grossMultiple: 1, years: 10,
+      hurdleRate: 0.08, carryPct: 0.2, catchUp: true, mgmtFeePct: 0,
+    });
+    expect(zero.gpShareOfProfit).toBe(0); // no profit at 1x
   });
 });

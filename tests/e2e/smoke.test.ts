@@ -126,6 +126,25 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('aif-waterfall calculator renders the 2/20 split and the LP net outcome', async ({ page }) => {
+    await page.goto('/calculators/aif-waterfall');
+    await expect(page.getByText('LP net proceeds (after fee)')).toBeVisible();
+    await expect(page.getByText('LP net IRR')).toBeVisible();
+    await expect(page.getByText('GP total carry (before fees)')).toBeVisible();
+    // Chart container for the where-the-money-goes bar chart is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('AIF waterfall article renders the four levers and negotiation table', async ({ page }) => {
+    await page.goto('/articles/alternatives-aif-waterfall-economics');
+    await expect(page.getByRole('heading', { name: /The 2\/20 Waterfall/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /What actually moves in negotiation/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The clawback/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

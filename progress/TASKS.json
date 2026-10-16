@@ -33,12 +33,12 @@
     "src/lib/finance/index.ts",
     "src/lib/calculators.ts"
    ],
-   "validation_status": "55/55 unit tests pass (Wave-6 added sifSleeveSizing + businessTrustTiming)",
+   "validation_status": "60/60 unit tests pass (Wave-8 added aifWaterfall: end-of-fund 2/20 waterfall, verified vs Nucleus 500Cr/3x/10yr worked example LP 1300 / GP carry 200)",
    "next_action": null
   },
   {
    "id": "T-calc-ui",
-   "title": "React calculator islands + 12 calculator pages",
+   "title": "React calculator islands + 21 calculator pages",
    "workstream": "calculators",
    "status": "complete",
    "priority": 2,
@@ -49,12 +49,12 @@
     "src/components/CalculatorIsland.tsx",
     "src/pages/calculators/"
    ],
-   "validation_status": "builds; 12 pages generated in dist",
+   "validation_status": "builds; 21 calculator pages (Wave-8 added aif-waterfall); data-driven via src/lib/calculators.ts + [id].astro",
    "next_action": "Playwright e2e interaction check"
   },
   {
    "id": "T-articles",
-   "title": "37 deep articles across all 17 avenues (source-cited, verified)",
+   "title": "38 deep articles across all 17 avenues (source-cited, verified)",
    "workstream": "content",
    "status": "complete",
    "priority": 2,
@@ -64,8 +64,8 @@
    "output_files": [
     "src/content/**"
    ],
-   "validation_status": "Wave-4 added tax-free-stack, HUF, NCD + REIT tax; Wave-5 added hnw-pms-aif-sif-selection + advance-tax/itr-checklist; Wave-6 added sif-strategy-families-deep-dive + reit-invit-dividend-timing-tax; Wave-7 added alternatives-aif-category-selection-guide + tax-aif-pcc-115bb-deep-dive (115UB pass-through / 64C-to-78 migration) and wired sif-sleeve-sizing + reit-invit-timing calculators",
-   "next_action": "Daily article habit: Wave-8 candidate = AIF carry-return / high-water-line calculator, ELSS + NPS tax-shield standalone calculators, or a PMS-vs-AIF after-tax net-return comparator"
+   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation(115UB/64C-to-78)+sif-sleeve-sizing+reit-invit-timing calculators; Wave-8 alternatives-aif-waterfall-economics (2/20 ladder, 500Cr worked, clawback)",
+   "next_action": "Daily article habit: Wave-9 candidate = ELSS + NPS tax-shield standalone calculators (80CCD(1B) old-regime-only per ul-80ccd1b-regime-clarification-2026; new regime = 80CCD(2) employer NPS only), or a PMS-vs-AIF after-tax net-return comparator"
   },
   {
    "id": "T-sources",
