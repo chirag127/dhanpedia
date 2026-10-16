@@ -19,6 +19,7 @@ Higher-return avenues usually require higher capital and longer lock-ins. This b
 5. International Investing & LRS for Indian Residents
 6. Real Estate, REITs & InvITs: Cash Flow, Title, RERA & How They Compare to Equities
 7. Retirement & FIRE: Corpus, the 4% Rule, Sequence Risk & Annuities
+8. Wills, Nominations & Succession: Making Sure Your Money Actually Reaches Your Intended Heirs
 
 
 
@@ -1293,6 +1294,114 @@ The blueprint is a *structure*; the numbers in it (8.2%, 80%, 20%, 4%, 10–15%)
 
 - **PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025** — PFRDA (Exits and Withdrawals under the NPS) (Amendment) Regulations, 2025, w.e.f. 16 Dec 2025. https://www.pfrda.org.in/documents/33652/184762/Gazette+PFRDA+Exit+and+Withdrawals+under+the+NPS+Amendment+Regulations+2025.pdf (verified 2026-10-16)
 - **Economic Times / Moneycontrol (quoting govt. quarterly review)** — Senior Citizens' Savings Scheme interest rate 8.2% p.a. for FY 2025-26. https://economictimes.indiatimes.com/wealth/invest/senior-citizens-savings-scheme-has-the-government-revised-scss-interest-rate-for-the-december-quarter/ (verified 2026-10-16)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.
+
+
+
+---
+
+
+**Scope note.** Most Indian wealth transfers freeze for months — or years — not because of the *law* but because of a **confusion of four different instruments**: a **will**, a **nomination**, a **succession certificate**, and **probate**. Each governs a different asset, and using one in place of another is what locks a family out of a demat account or a flat. This article untangles them, and covers the *lifetime-gifting* tax that surprises people who think "giving is free." This is general education; a will and succession plan should be drafted/reviewed by a lawyer.
+
+## The core confusion: nominee ≠ legal heir
+
+The single most damaging myth: **"I named my daughter as nominee, so the money is hers."** It is not. [src-wills-succession-2026]
+
+- A **nominee** is a *payee / facilitator*. The bank, demat broker, or insurer pays the nominee because it is *safer* to pay someone than to guess. The nominee is, in law, a **trustee** who must hand the asset to the **legal heirs** — the *real* owners under succession law.
+- A **legal heir** is determined by the applicable succession statute (the *Indian Succession Act* for Christians/ Parsis, the *Hindu Succession Act* for Hindus, the *Muslim* personal law, etc.). If there is **no will**, this statute decides who gets what.
+- **The Supreme Court has settled this:** a nomination is *not* a transfer of ownership. If the nominee and the legal heirs disagree, the *legal heirs win* (the nominee holds the asset on trust).
+
+**So a nomination is a *logistical* tool, not a *legal* one.** It makes receiving the money *faster and easier* (the institution will not freeze the account waiting to prove heirship), but it **cannot override the succession law or your will.**
+
+**The practical pairing:** name a nominee **who is also your intended legal heir** (spouse / child) on *every* account, *and* have a **valid will** that fixes the *distribution*. The nomination speeds the *release*; the will fixes the *outcome*.
+
+## What a will actually does (and what it does not)
+
+A **will** is your *last* legal word on how *your* assets are distributed. Key facts most people get wrong:
+
+1. **A will does not automatically transfer property.** It becomes operative *only on death* and must be *probated* (for certain assets) or *proved* before the courts/banks will act on it. A "registered will transfers my flat automatically" is *false* — the *title* transfer still needs the *legal heirs* (or the will, once probated).
+2. **Registration is strongly advised but not always mandatory.** A *registered will* is far harder to dispute. An *unregistered* will *can* be valid, but it invites more legal challenge.
+3. **A will covers *movable and immovable* property** you *own* — savings, demat holdings, MF folios, flat, car, jewellery, insurance *sum-assured* (via nominee), etc.
+4. **Jointly-held assets** (a flat with your spouse, a joint FD) pass by *survivorship / tenancy* first, *not* by will — the surviving co-owner gets their share automatically; the will governs only *your* share.
+
+**The biggest gap:** most families have *no* valid will and assume "the law will sort it out." The law does sort it out — but by *statutory share*, which *rarely* matches what the person actually wanted, and *after* *years* of litigation if heirs disagree. [src-wills-succession-2026]
+
+## The four instruments, matched to the assets
+
+| Instrument | Governs | Speed without it |
+|---|---|---|
+| **Nomination** | *Release* of: bank accounts, demat, MF folios, FDs, insurance sum-assured | *Fast* — institution pays the nominee |
+| **Will** | *Distribution* of *your* entire estate (movable + immovable) | Moderate — probate / court proof |
+| **Succession Certificate** | *Specific financial assets* (bank/debt/deposits) *when there is no will* | *Slow* — court application; heirs get "heirship" letter |
+| **Probate** (testate) | Estate *per the will*; *mandatory* in some states for *immovable* property / demat | *Slowest* — probate court |
+
+**The mapping that prevents the freeze:**
+
+- **Bank savings / FDs / recurring** → *nomination* (fast release) + *will* (final distribution). If no will: *succession certificate* for the heirs.
+- **Demat / listed shares / mutual funds** → *nomination* (fast release to the nominee) + *will*. A demat *nominee* speeds the *transmission*, but the *ownership* is still by succession law.
+- **Immovable (flat / land)** → *will* is the primary tool; *probate* may be needed in *certain states* (traditionally, *mandatory probate* states included cities where a will involves immovable property; **verify current state law** — a will is *always safest*, probate *state-dependent*).
+
+**The "succession certificate vs will" trap:** if you have a *valid, probated will*, you do *not* need a *succession certificate* for the *same* asset — the will *replaces* the statutory-heir process. If you *have no will*, the *succession certificate* (court) proves who the *legal heirs* are so the bank can release the asset to *them*. [src-wills-succession-2026]
+
+## Lifetime gifting: the §57(xii) bomb
+
+The *alternative* to a will is *giving assets now* (lifetime gifts). For *most people*, that is **free** — but **only among a specific list of "relatives."** [src-gift-tax-it-dept]
+
+- **Gifts from a "relative" are exempt** from tax: spouse, *parents / grandparents / sons / daughters / their spouses*, brothers / sisters / uncles / aunts (lineal), and specified others. Giving to these people is **tax-free** in their hands.
+- **Gifts from anyone *else*** (a friend, a cousin, a sibling's *child* who is not a "relative" for this purpose, a non-relative) of **>₹50,000** in a year are **taxable to the *recipient*** at slab (Income from Other Sources) under **§57(xii)**. [src-gift-tax-it-dept]
+
+**The practical danger:** many families *gift* large sums (a flat, a lump sum) to *non-relatives or "relatives" who are actually outside the exempt list* (e.g., a *niece* who is a *cousin's* child, or an *in-law* beyond the exempt circle), and the *recipient* owes *slab-rate tax on a "gift" that was never income to the giver.*
+
+**Also, a gift *in a marriage* (to a relative's spouse) or *on the occasion of marriage* and *by certain relatives* has specific exempt rules — confirm the *exact* category before structuring a transfer.**
+
+**For a ₹10L+ family:** structure *lifetime* transfers (to a son/daughter) to stay *inside* the exempt-"relative" circle, and let the *will* handle the *immoveable + bulk*, rather than a *taxable gift to a non-relative*.
+
+## Estate planning for the modern family (the layer above the will)
+
+Beyond the will, three tools matter as the corpus grows:
+
+1. **HUF (Hindu Undivided Family):** a *separate* tax entity that holds assets *during life*, with a *separate slab*. Gifting *to* the HUF (not the individual) can spread ownership. (Note: gifts *to* an HUF are still subject to §57(xii) if from a non-relative; an *individual-to-HUF-of-their-own-family* gift among relatives is typically exempt.)
+2. **Private / family trust:** for larger estates; holds assets for *beneficiaries*, provides *succession continuity*, but is *complex* and *costly* to administer.
+3. **Insurance + nominee alignment:** the *term-life sum-assured* passes via *nomination* (to the *legal heir*), and is *typically outside* the *estate* in most cases (verify), so it is the *fastest* transfer tool you have. **Align the insurance nominee with the will's intended beneficiary.**
+
+## The 6-point "no-freeze" checklist
+
+1. **Draft (and *register*) a will** naming the *distribution* (who gets *what %* of *which* asset).
+2. **Nominate on *every* account, demat, folio, and insurance policy** — and keep the *nominee = intended heir*.
+3. **For immoveable property,** have a lawyer confirm whether *probate* is *required in your state* and *when*.
+4. **For lifetime gifts,** confirm the *recipient is a "relative"* (exempt) *or* plan for the *§57(xii)* slab tax on the *recipient*.
+5. **Keep a *master inventory***: banks, demat/AMCs, folios, policies, flat/title docs, car, jewellery, *safe-deposit box*, *digital assets*, *loans against assets* (a *loan* dies with you but the *asset* is *encumbered*).
+6. **Appoint a *primary + backup* executor** (for the will) and *review every 3–5 years* (or on *marriage / divorce / birth / death / big asset shift*).
+
+**The one-line version:** *nomination* moves the *asset* to the *right hands fast*, *the will* decides *who gets what*, *succession certificate / probate* is the *legal proof* when the *other two are missing or disputed*, and *§57(xii)* turns *non-relative lifetime gifts* into *slab-tax income*. **Do all four; they are not substitutes.**
+
+## Update log
+
+| id | claim | lastVerified | reviewAfter | status |
+|---|---|---|---|---|
+| tl-nominee-not-heir | A nominee is a *trustee / facilitator*, not a *legal heir*; ownership passes by *succession law / will*; *succession certificate* vs *probate* differ by *asset type and state* (general 2026 guide) | 2026-10-16 | 2027-12-31 | ok |
+| tl-gift-57xii | Gift >₹50,000 in a year from a *non-relative* (or outside the "relative" circle) is *taxable to the recipient* at slab under §57(xii) (Income from Other Sources) | 2026-10-16 | 2027-04-01 | ok |
+
+## Sources & citations
+
+- [src-wills-succession-2026] — GHAR.tv / Harunraaj / iWills: *nominee vs heir / will vs succession certificate / probate state rules*, 2026 guides
+- [src-gift-tax-it-dept] — Income-tax Department: *Tax treatment of gifts received by an individual / HUF* (§57(xii), "relative" list)
+
+## Related
+
+- [Insurance & Protection](/articles/insurance-protection)
+- [Retirement & FIRE](/articles/retirement-fire-annuities)
+- [Credit, Loans & Debt](/articles/pf-credit-loans-debt)
+- [Banking & Cash](/articles/banking-safety-deposits-fd)
+
+
+## Sources & Citations
+
+- **GHAR.tv Intelligence / Harunraaj / iWills estate-planning guides (2026)** — Property inheritance & succession law in India 2026: will vs nominee vs succession certificate vs probate — a nominee is a trustee, not an owner; probate requirements vary by state for immovable property. https://www.ghar.tv/intelligence/property-inheritance-succession-law-india-2026-wills-nominee-legal-heir/artgi133 (verified 2026-10-16)
+- **Income Tax Department, India** — Tax treatment of gifts received by an individual or HUF: gifts from specified 'relatives' (and on marriage occasion) are exempt; gifts > ₹50,000 from non-relatives are taxable to the recipient under Sec 57(xii). https://www.incometaxindia.gov.in/w/tax-treatment-of-gifts-received-by-an-individual-or-huf-1 (verified 2026-10-16)
 
 ---
 Educational content, not individualized investment, tax, accounting, or legal advice.

@@ -109,6 +109,70 @@
       "articles": [
         "insurance-protection"
       ]
+    },
+    {
+      "id": "tl-dicgc-5l",
+      "claim": "DICGC deposit-insurance limit is ₹5 lakh per depositor, per bank, per same right & capacity (unchanged since the 2015 limit revision; joint accounts: ₹5L per joint holder)",
+      "source": "src-dicgc-deposit-insurance",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-06-30",
+      "status": "ok"
+    },
+    {
+      "id": "tl-sfb-fd-rates-2026",
+      "claim": "FD rates Aug–Oct 2026: major banks 1-yr ~6.25–7.10% (SBI 6.25%, 444-day Amrit Vrishti 6.45%); small-finance banks up to 8.5% senior / 8.25% general; SFB per-depositor liability cap ₹25L",
+      "source": "src-fd-rates-aug2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-01-31",
+      "status": "ok"
+    },
+    {
+      "id": "tl-rbi-weekly-credit-reporting",
+      "claim": "RBI phased weekly credit-bureau reporting: framework w.e.f. 1 Apr 2026, lenders to file borrower data 4×/month (9th/16th/23rd/last day) from 1 Jul 2026, replacing monthly/fortnightly cycles",
+      "source": "src-rbi-credit-reporting-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-esop-two-stage",
+      "claim": "ESOP/RSU two-stage taxation (Sec 17(2)(vi) perquisite at exercise + capital gain at sale) unchanged in the IT Act 2025; listed-equity CG FY 2026-27: LTCG 12.5% after 12 months, STCG 20%",
+      "source": "src-esop-tax-it-dept",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-gift-57xii",
+      "claim": "Gifts > ₹50,000 in a year from a non-relative (or outside the Sec 57(xii) 'relative' list) are taxable to the recipient at slab rates; gifts from the specified relative list and on marriage are exempt",
+      "source": "src-gift-tax-it-dept",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-sec70-3-carryforward",
+      "claim": "Unabsorbed capital losses carry forward 8 assessment years under Sec 70(3) only if the ITR for the loss year is filed by the Sec 139(1) due date; STCL is flexible (STCG+LTCG), LTCL is LTCG-only; speculation losses do not carry under 70(3)",
+      "source": "src-loss-carry-forward-2026",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-87a-rebate-trap",
+      "claim": "Sec 87A rebate makes total tax zero when total taxable income ≤ ₹12 lakh (FY 2026-27 new regime; unchanged from the Budget 2025 reset) — harvesting a capital loss in a below-threshold year has no in-year value",
+      "source": "src-it-slab-fy2026-27",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-home-loan-24b",
+      "claim": "Home-loan interest deduction under Sec 24(b): up to ₹2L p.a. for self-occupied property; new-regime slabs FY 2026-27 unchanged from the Budget 2025 reset",
+      "source": "src-it-slab-fy2026-27",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok"
     }
   ]
 }

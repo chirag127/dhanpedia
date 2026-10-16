@@ -554,6 +554,163 @@
       "books": [
         "book-complete-indian-investor"
       ]
+    },
+    {
+      "id": "banking-safety-deposits-fd",
+      "title": "Banking & Cash in India: Deposit Safety, FDs, Small-Finance Banks, and Where to Actually Keep Cash",
+      "category": "banking-cash",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "banking",
+        "fd",
+        "dicgc",
+        "sfb",
+        "payment-bank",
+        "emergency-fund",
+        "cash-management",
+        "deposit-insurance"
+      ],
+      "summary": "DICGC ₹5 lakh limit mechanics, bank categories, FD economics at current rates, small-finance & payment-bank differences, sweep-in yield traps, and a cash-bucket framework for a ₹10 lakh investor.",
+      "file": "src/content/banking-cash/banking-safety-deposits-fd.mdx",
+      "sources": [
+        "src-dicgc-deposit-insurance",
+        "src-rbi-repo",
+        "src-fd-rates-aug2026",
+        "src-rbi-credit-reporting-2026"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "pf-credit-loans-debt",
+        "fixed-income-bonds-credit"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "pf-credit-loans-debt",
+      "title": "Credit, Loans & Debt: EMI Math, Prepay-vs-Invest, and Credit Scores in 2026",
+      "category": "personal-finance",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "credit",
+        "loan",
+        "emi",
+        "prepayment",
+        "credit-score",
+        "home-loan",
+        "personal-loan"
+      ],
+      "summary": "EMI amortization math, the productive-vs-consumptive debt split, home-loan prepay-vs-invest decision (8.5% vs after-tax surplus returns), RBI's 2026 weekly credit-bureau reporting, and a cash-flow stress rule for a ₹10L investor.",
+      "file": "src/content/personal-finance/pf-credit-loans-debt.mdx",
+      "sources": [
+        "src-rbi-credit-reporting-2026",
+        "src-it-slab-fy2026-27",
+        "src-prepay-vs-invest-2026",
+        "src-rbi-repo"
+      ],
+      "related": [
+        "banking-safety-deposits-fd",
+        "pf-wealth-plan-10-lakh",
+        "foundations-compounding-returns"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "tax-esop-stock-grants",
+      "title": "ESOPs & RSUs for Indian Employees: The Two-Stage Tax That Everyone Gets Wrong",
+      "category": "taxation",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "esop",
+        "rsu",
+        "perquisite",
+        "17(2)",
+        "stock-options",
+        "employee-equity",
+        "capital-gains"
+      ],
+      "summary": "ESOP/RSU two-stage taxation (Sec 17(2)(vi) perquisite at exercise, capital gains at sale) across listed, pre-IPO, and foreign-listed variants — including the 'taxed before you can sell' trap and Schedule FA disclosure.",
+      "file": "src/content/taxation/tax-esop-stock-grants.mdx",
+      "sources": [
+        "src-esop-tax-it-dept",
+        "src-it-slab-fy2026-27"
+      ],
+      "related": [
+        "tax-india-investor-complete",
+        "equity-fundamental-valuation",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "books": [
+        "book-indian-taxation"
+      ]
+    },
+    {
+      "id": "pf-wills-succession",
+      "title": "Wills, Nominations & Succession: Making Sure Your Money Actually Reaches Your Intended Heirs",
+      "category": "personal-finance",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "will",
+        "nomination",
+        "succession",
+        "estate-planning",
+        "probate",
+        "legal-heir",
+        "gift-tax"
+      ],
+      "summary": "Nominee ≠ legal heir, what a will does and does not transfer, succession certificate vs probate by asset type, the Sec 57(xii) gift-tax bomb for lifetime transfers, and a 6-point no-freeze checklist.",
+      "file": "src/content/personal-finance/pf-wills-succession.mdx",
+      "sources": [
+        "src-wills-succession-2026",
+        "src-gift-tax-it-dept"
+      ],
+      "related": [
+        "insurance-protection",
+        "retirement-fire-annuities",
+        "pf-credit-loans-debt"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
+    },
+    {
+      "id": "tax-loss-harvesting",
+      "title": "Tax Loss Harvesting & Set-Off in India: The 8-Year Loss Asset Most Investors Let Expire",
+      "category": "taxation",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "capital-gains",
+        "loss-harvesting",
+        "carry-forward",
+        "70(3)",
+        "stcl",
+        "ltcl",
+        "tax-planning"
+      ],
+      "summary": "Sec 70/71 set-off waterfall, Sec 70(3) 8-year capital-loss carry-forward and the Sec 139(1) filing gate, the Sec 87A rebate trap, F&O speculation-loss constraints, and a yearly harvesting workflow for a ₹10L portfolio.",
+      "file": "src/content/taxation/tax-loss-harvesting.mdx",
+      "sources": [
+        "src-loss-carry-forward-2026",
+        "src-it-slab-fy2026-27",
+        "src-sebi-fo-fy26"
+      ],
+      "related": [
+        "tax-india-investor-complete",
+        "tax-esop-stock-grants",
+        "derivatives-fno-retail-realities",
+        "equity-fundamental-valuation"
+      ],
+      "books": [
+        "book-indian-taxation"
+      ]
     }
   ]
 }

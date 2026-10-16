@@ -1,45 +1,44 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-16** (content push: derivatives article + Budget-2026 fact fixes)
+Last updated: **2026-10-16** (content push #2: 5 new articles, 21 → 26; all pipeline green)
 
 ## State
 
-- **Articles:** 21 on disk / registered (derivatives category now filled: `derivatives-fno-retail-realities`, ~3,590 words).
-- **Books:** 4 × 6 formats (PDF/EPUB/MD/HTML/TXT/TTS) → `public/downloads/`.
-- **Sources:** 20 in `sources.json` (added `src-budget-2026-sgb-tax`, `src-lrs-tcs-sc-2026`, `src-irdai-moratorium-2026`, `src-sebi-fo-fy26`, `src-et-fo-retail-exodus`, `src-toi-big-boys`).
-- **Update-log:** 11 tracked time-sensitive claims.
+- **Articles:** 26 on disk / registered (banking-cash category now filled: `banking-safety-deposits-fd`; new tax articles: `tax-esop-stock-grants`, `tax-loss-harvesting`; new personal-finance articles: `pf-credit-loans-debt`, `pf-wills-succession`).
+- **Books:** 4 × 6 formats (PDF/EPUB/MD/HTML/TXT/TTS) → `public/downloads/books/`. Chapter counts: complete-investor 12, indian-taxation 5, p2p-lending 3, wealth-beyond-10l 8.
+- **Sources:** 28 in `sources.json` (added 8: src-fd-rates-aug2026, src-rbi-credit-reporting-2026, src-prepay-vs-invest-2026, src-esop-tax-it-dept, src-wills-succession-2026, src-gift-tax-it-dept, src-loss-carry-forward-2026, src-it-slab-fy2026-27).
+- **Update-log:** 19 tracked time-sensitive claims.
 
 ## This session (verified 2026-10-16 via web research)
 
-### New article
-- [x] `src/content/derivatives/derivatives-fno-retail-realities.mdx` — "Why 9 in 10 Lose — and When Hedging Actually Works." SEBI 5-year retail F&O loss table, negative-sum options structure, hedging decision framework, F&O tax treatment, and where F&O fits a ₹10L portfolio. Registered in `articles.json`, added to `book-complete-indian-investor` (now 10 chapters), 3 sources + 3 update-log entries added.
+### New articles (Wave 2)
+- [x] `src/content/banking-cash/banking-safety-deposits-fd.mdx` — DICGC ₹5L mechanics, bank categories, FD rates (verified Oct 2026), SFB/payment-bank differences, sweep-in traps, cash-bucket framework, RBI weekly credit-reporting.
+- [x] `src/content/personal-finance/pf-credit-loans-debt.mdx` — EMI amortization math, productive vs consumptive debt split, prepay-vs-invest decision (8.5% loan vs 8–8.5% safe debt, verified), credit-score mechanics post-RBI-weekly-reporting, cash-flow stress rules for ₹10L.
+- [x] `src/content/taxation/tax-esop-stock-grants.mdx` — two-stage ESOP/RSU tax (§17(2)(vi) perquisite + capital gain), listed / pre-IPO / foreign-listed variants, the "taxed before you can sell" trap, Schedule FA, §87A interaction.
+- [x] `src/content/personal-finance/pf-wills-succession.mdx` — nominee ≠ legal heir, will vs succession certificate vs probate by asset type, §57(xii) gift-tax bomb, 6-point no-freeze checklist, HUF / trust layer.
+- [x] `src/content/taxation/tax-loss-harvesting.mdx` — §70–74 set-off waterfall, §70(3) 8-year carry-forward + §139(1) filing gate, §87A rebate trap, F&O speculation-loss constraint (SEBI FY26 data), yearly harvesting workflow.
 
-### Stale-fact fixes (Budget 2026 / IRDAI / SEBI, all cross-checked)
-- [x] **SGB tax change** — Budget 2026 (eff. 1 Apr 2026) limited the SGB maturity redemption CGT exemption to *original subscribers*; secondary-market buyers are now slab-taxed on both pre-maturity sale and maturity. Fixed in: SGB article (rewrote secondary-market paragraphs, comparison table, worked example, update-log, sources section), gold-commodities article, and tax article. New source `src-budget-2026-sgb-tax` (TOI Carat & Stick).
-- [x] **LRS TCS FY 2026-27 structure** — threshold ₹7L→₹10L; loan-funded education 0%; self-funded education/medical 2% above threshold; tour packages 2% flat; other LRS 20% above threshold. Added a dedicated TCS table + section to the LRS article. New source `src-lrs-tcs-sc-2026` (Standard Chartered Finance Act 2026 notice).
-- [x] **IRDAI health-insurance reforms** — no entry-age cap; PED waiting capped at 3 years; moratorium cut 8→5 years (60 months). Added a new "IRDAI 2025-26 reforms" section + updated the PED waiting bullet in the insurance article. New source `src-irdai-moratorium-2026` (India Today).
-- [x] **SEBI F&O FY26 data** — 78.6 lakh individual traders, ₹91,685 cr losses, avg ₹1,16,654/trader, 87.7% lost, F&O STT ₹27,695 cr. Used as the primary data spine in the new derivatives article. New sources `src-sebi-fo-fy26`, `src-et-fo-retail-exodus`, `src-toi-big-boys`.
-
-### Pipeline (all green)
-- [x] `node scripts/validate-content.mjs` → **21 articles, 4 books, 20 sources, 0 warnings**.
+### Pipeline (all green this session)
+- [x] `node scripts/validate-content.mjs` → **26 articles, 4 books, 28 sources, 26 MDX on disk, 0 warnings**.
 - [x] `node scripts/check-links.mjs` → all registry refs resolve.
-- [x] `npx vitest run` → 41/41.
-- [x] `npx astro build` → 88 pages, local base OK **and** `BASE_PATH=/dhanpedia` production OK.
-- [x] `npx pagefind --site dist` → search index built (derivatives included).
-- [x] `node scripts/build-report.mjs` → manifest files present on disk.
+- [x] `npx vitest run` → **41/41**.
+- [x] `npx playwright test` → **12/12** passed in 54.7s.
+- [x] `npx astro build` (system Node v24.18, not the Agnes wrapper's v22) → Complete, local base OK **and** `--base /dhanpedia` production OK.
+- [x] `npx pagefind --site dist` → indexed **128 pages / 13943 words**.
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 26/26 article downloads, all 6 formats present on disk in `public/downloads/books/`.
+- [x] `node scripts/build-report.mjs` → manifest OK, all files present.
 
-## Known issues / fixes this session
-- Subagent MDX used bare `<https://...>` autolinks (MDX-incompatible) → converted to markdown links.
-- One-shot frontmatter patch dropped the closing `]` on 5 articles' `sources:` arrays → repaired.
-- SGB/insurance/gold anchors use em-dashes (`—`), not hyphens → follow-up patch with exact text.
+### Known build-gotchas this session
+- **MDX parse error:** `<digit` / `<₹` in prose/tables (`<3mo`, `<₹5L`, `<30%`) break JSX parsing. Fixed 5 occurrences by rewording to "under / less than".
+- **Node version:** `npx astro build` via the Agnes wrapper fails ("Node.js v22.14.0 not supported by Astro, need ≥22.22"). Use `"C:\Program Files\nodejs\npx.cmd" astro build` (system Node v24.18.0).
 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
-- [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 2 article depth expansion (bank safety, ESOP/RSU tax, REIT/InvIT, gold SGB-vs-ETF worked example).
-- [ ] More calculators (ELSS tax shield, NPS tax shield, PMS fee-drag, AIF carry, SIF sleeve sizing).
+- [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions (the 5 new articles already give richer context for a later rewrite).
+- [ ] Phase 3 calculators (ELSS tax shield, NPS tax shield, PMS fee-drag, AIF carry, SIF sleeve sizing).
+- [ ] Phase 4 deeper expansion: banking "recurring deposits / savings account comparison" sub-articles; "corporate FD vs NBFC debenture" underwriting guide; "credit card vs UPI vs NBFD" personal loans matrix; 40+ total if user confirms.
 
 ## Next 3 actions
 1. Commit this session's changes.
-2. Present the updated books (esp. `book-complete-indian-investor`, now with the derivatives chapter) as downloadable artifacts.
-3. Ask the user the personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
+2. Re-present the 4 books (esp. `book-complete-indian-investor` now with 12 chapters including banking + credit, and `book-indian-taxation` now with 5 chapters including ESOP + loss-harvesting) as downloadable artifacts.
+3. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
