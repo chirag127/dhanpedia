@@ -18,6 +18,7 @@ import {
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
+  afterTaxProductWedge,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1130,6 +1131,99 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.oldRegimeTax), itemStyle: { color: r.winRegime === 'old' ? '#1f7a5c' : '#b45309' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'pms-sif-aif-tax-wedge',
+    title: 'PMS / SIF / AIF After-Tax Return Wedge',
+    category: 'Alternatives',
+    description: 'Compare what an equal gross return actually leaves you across an index fund, a PMS, a SIF, a Category I/II AIF (unlisted pass-through at your slab), and a Category III AIF (fund-level tax): the gross final value, the fee drag, the tax rate applied, and your annualized after-tax CAGR.',
+    inputs: [
+      { key: 'grossAnnualReturn', label: 'Gross annual return (decimal)', default: 0.14, min: 0, step: 0.01, hint: 'The gross return the product quotes, before fees and tax. Use the same number for every product to see the wedge.' },
+      { key: 'years', label: 'Hold period (years)', default: 10, min: 1, step: 1, hint: 'The horizon over which the gross return compounds before the one-time exit tax.' },
+      { key: 'product', label: 'Product', default: 0, min: 0, max: 5, step: 1, type: 'select', options: [
+        { value: 0, label: 'Index fund / listed equity (112A 12.5%)' },
+        { value: 1, label: 'PMS (listed, 112A 12.5% + fees)' },
+        { value: 2, label: 'SIF (112A 12.5% + all-in fee)' },
+        { value: 3, label: 'AIF Cat I/II unlisted (pass-through at your slab)' },
+        { value: 4, label: 'AIF Cat III (fund-level ~42.7%, net of tax)' },
+      ], hint: 'The tax landing place differs by product: listed equity-type products get the 12.5% 112A rate; an unlisted private-market AIF passes the gain through at your marginal slab; a Cat III fund is taxed at the fund level and you receive it net.' },
+      { key: 'marginalSlabRate', label: 'Your marginal slab rate (decimal)', default: 0.3, min: 0, max: 0.4, step: 0.05, hint: 'Only used by the unlisted Cat I/II AIF, which taxes the pass-through gain at your slab. Enter 0.3 for the 30% slab (0.315 with cess).' },
+      { key: 'mgmtFee', label: 'Annual management fee (decimal)', default: 0, min: 0, step: 0.0025, hint: 'Per-year fee on the corpus: 0.02 is 2%/yr (PMS/AIF standard), 0.0025-0.01 for most index/SIF plans. Compounds over the hold.' },
+      { key: 'perfFee', label: 'Performance fee on the gain (decimal)', default: 0, min: 0, step: 0.01, hint: 'Fraction of the total gain taken once at exit: 0.15-0.20 is the AIF/PMS carry range (a real waterfall has a hurdle the calculator does not model - use the AIF Waterfall tool for that).' },
+    ],
+    assumptions: [
+      'End-of-horizon tax: one exit tax on the total gain at the product-specific rate; no interim distributions.',
+      'Equity-type products (index, PMS, SIF) apply the 112A long-term rate of 12.5%; the shared Rs 1.25L annual pool is zero here because one exit after years >> 1 uses a single-year pool.',
+      'Unlisted Cat I/II pass-through gain is taxed at your marginal slab (no indexation, no pool); Cat III applies the ~42.7% fund-level rate so the investor receives the gain net of it.',
+      'The performance fee is a flat fraction of the gain with no hurdle or catch-up - a simplification; the AIF Waterfall calculator models the full 2/20 ladder.',
+    ],
+    limitations: [
+      'This is an exit-time approximation to compare products at equal gross; it does not model the 194LBB 10% TDS cash-flow timing that Cat I/II AIFs credit you, which is why the advance-tax clocks still matter.',
+      'Surcharge above Rs 50L on a slab-tax gain is not modelled; at very high incomes the unlisted wedge is even wider than shown.',
+      'A real Cat III trust deed and tax note can change the effective fund-level rate - read the specific fund tax note before acting.',
+    ],
+    compute: (v) => {
+      const productKeys = ['index', 'pms', 'sif', 'aifCat12', 'aifCat3'] as const;
+      const r = afterTaxProductWedge({
+        grossAnnualReturn: v.grossAnnualReturn,
+        years: v.years,
+        product: productKeys[v.product],
+        marginalSlabRate: v.marginalSlabRate,
+        sharedLtcgPool: 0,
+        mgmtFee: v.mgmtFee,
+        perfFee: v.perfFee,
+      });
+      const p2 = (x: number) => (x * 100).toFixed(2) + '%';
+      return {
+        results: [
+          {
+            label: 'Gross final value (per Rs 1)',
+            value: r.grossFinalValue.toFixed(3),
+            kind: 'number',
+            note: `Gross CAGR ${p2(r.cagrGross)}`,
+          },
+          {
+            label: 'Tax rate applied',
+            value: p2(r.taxRateApplied),
+            kind: 'text',
+            note: v.product === 3 ? 'Your slab on the unlisted pass-through gain' : v.product === 4 ? 'Fund-level rate (incl. surcharge), you receive net' : '112A long-term equity rate',
+          },
+          {
+            label: 'After-tax final value (per Rs 1)',
+            value: r.afterTaxFinalValue.toFixed(3),
+            kind: 'number',
+            note: `After-tax CAGR ${p2(r.cagrAfterTax)} - the number that actually compounds in your pocket`,
+          },
+          {
+            label: 'Total wedge (fee + tax)',
+            value: p2(r.totalWedgePct),
+            kind: 'text',
+            note: `Fee drag ${r.feeDrag.toFixed(3)} + tax paid ${r.taxPaid.toFixed(3)} on a gross gain of ${(r.grossFinalValue - 1).toFixed(3)}`,
+          },
+        ],
+        chart: {
+          title: 'After-tax CAGR vs gross CAGR',
+          alt: `After-tax CAGR ${p2(r.cagrAfterTax)} vs gross ${p2(r.cagrGross)}; the total wedge is ${p2(r.totalWedgePct)} across the ${v.years}-year hold.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => p2(x / 100) },
+            xAxis: { type: 'category', data: ['Gross CAGR', 'After-tax CAGR'] },
+            yAxis: { type: 'value', name: '%', axisLabel: { formatter: (x: number) => `${Math.round(x)}%` } },
+            series: [
+              {
+                name: 'CAGR',
+                type: 'bar',
+                data: [
+                  { value: r.cagrGross * 100, itemStyle: { color: '#64748b' } },
+                  { value: r.cagrAfterTax * 100, itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `${p.value.toFixed(1)}%` },
               },
             ],
           },

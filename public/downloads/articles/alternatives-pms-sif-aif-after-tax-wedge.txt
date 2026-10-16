@@ -1,0 +1,72 @@
+# The After-Tax Wedge: Why Equal Gross Returns Leave You Different Money (Index vs PMS vs SIF vs AIF)
+
+The 'what actually lands in your pocket' layer over the capital ladder: an index fund, a PMS, a SIF, a Category I/II AIF and a Category III AIF can all quote the same gross return - but the net CAGR that compounds in your hands differs because of where the tax lands and the fee stack. A worked 10-year comparison on 14% gross.
+
+You now have the three layers of the professional rungs: the selection & fee-decay test (./alternatives-hnw-pms-aif-sif-selection.mdx), the category decision (./alternatives-aif-category-selection-guide.mdx), and the 2/20 waterfall (./alternatives-aif-waterfall-economics.mdx). This article is the layer most investors skip, and the one that quietly decides the answer to "which of these is actually better for me?": what the return is after tax and after fees, on the same gross number.
+
+THE SINGLE QUESTION TO ASK ANY PRODUCT
+======================================
+
+Every product on the ladder will quote you a gross return: a PMS and a SIF show net-of-fee portfolios, an AIF PPM shows a gross IRR, an index fund shows the index. Those are not comparable until you answer one question:
+
+Note: If I put the same Rs. 10L into each, at the same gross return, over the same years — which one leaves me the most money in my own bank account, and at what annualized rate does that grow?
+
+The gap between a product's gross CAGR and its after-tax, after-fee CAGR is the wedge. The wedge is wider the more the tax lands at a high rate on your gain, and the more fees drag the compounding.
+
+WHERE THE TAX LANDS: THE FIVE PRODUCTS
+======================================
+
+Product: **Index fund**,Your ITR (112A),**12.5%** above the shared ₹1.25L pool,0.15-0.25% p.a.  |  Where the tax lands: **PMS**,Your ITR, scrip-by-scrip (112A),**12.5%** on listed-equity LTCG,2% mgmt + 15-20% carry  |  Rate on a long-term gain: **SIF**,Your ITR (112A-equity-type),**12.5%** on the long-term equity slice,~2.25% mgmt + ~2% distribution cap  |  Fee convention: **AIF Cat I/II (unlisted)**,Your ITR, **pass-through at your slab**,**Your marginal rate** (no indexation, no pool),2% mgmt + 20% carry
+
+The two rows that decide the comparison are the unlisted Cat I/II AIF (your 30% slab beats the 12.5% 112A rate — a much wider wedge) and the Cat III AIF (the fund already paid ~42.7%, so you receive it net — the widest wedge of all, but with tax deferral during the hold).
+
+A WORKED 10-YEAR COMPARISON AT 14% GROSS
+========================================
+
+Run Rs. 1 through a 14% gross annual return for 10 years, then apply each product's tax and a realistic fee stack. Gross final value: $1.14^{10} = 3.707$ (a 270.7% gain).
+
+Product: **Index fund** (0.2% fee),~₹3.37,**~12.9%**,~9%  |  After-tax final (per ₹1): **PMS** (2% mgmt + 15% carry),~₹2.67,**~10.0%**,~28%  |  After-tax CAGR: **SIF** (~4.25% all-in),~₹2.95,**~11.3%**,~20%  |  Total wedge: **AIF Cat I/II unlisted** (2% + 20% carry, 30% slab tax),~₹2.44,**~9.4%**,~34%
+
+(Computed by the tax-wedge calculator (/calculators/pms-sif-aif-tax-wedge); exact figures depend on your fee inputs.)
+
+Read that table the right way: at 14% gross, an index fund is the most tax-efficient home for that return. A PMS earns its fees by outperforming the index — but you only benefit net if its alpha exceeds its fee-and-tax wedge over a plain index, which is the exact test in the selection guide (./alternatives-hnw-pms-aif-sif-selection.mdx). The AIFs are not "better returns" at equal gross; they are different-asset-class returns (unlisted, pre-IPO, private credit) that a listed fund cannot reach — the wedge is the price of that access.
+
+WHAT THIS MEANS FOR YOUR LADDER
+===============================
+
+Your rung: **₹10L (you, now)**,An index fund + a SIF sleeve beats a PMS *net* at equal gross. Your PMS/SIF edge must come from **alpha or a different asset**, not from the ticket size.  |  The honest read: **₹50L**,A PMS is a reasonable core; the Cat I/II unlisted wedge only pays off if the private-market *alpha* clears ~2-3× the index's wedge.
+
+The decision rule: a higher-fee, higher-tax product is only worth it if its gross edge over the cheaper alternative × (1 − wedge) is still positive. That multiplication is why a PMS that "beats the index by 300 bps gross" can lose to the index after its own fee-and-tax wedge — and why an unlisted AIF that returns 14% gross can hand you less per rupee than a 12% index.
+
+THREE TRAPS THAT MAKE THE WEDGE LOOK SMALLER THAN IT IS
+=======================================================
+1. The 194LBB TDS cash-flow trap. A Cat I/II AIF credits you income (and 10% TDS) before you are
+
+paid out. You can owe advance tax on money that never hit your bank account — the advance-tax clocks (../taxation/tax-advance-itr-final-checklist.mdx) still run on the credit. The calculator shows the exit tax; the TDS is a cash-flow problem on top of it.
+1. The shared Rs. 1.25L pool resets yearly but a 10-year exit uses one. The calculator zeroes the pool
+
+for a multi-year single exit because the pool is an annual equity-LTCG bucket; a huge exit in one year is taxed above that one year's Rs. 1.25L, not a 10-year accumulated pool.
+1. Cat III "net of tax" can hide the surcharge. The ~42.7% is with surcharge at the fund level; a
+
+specific trust deed and tax note can change it. Read the fund tax note, as the AIF taxation article (../taxation/tax-aif-pcc-115bb-deep-dive.mdx) says.
+
+RELATED
+=======
+• Picking Your Own Rung: The SIF / PMS / AIF Selection & Fee-Decay Decision Guide (./alternatives-hnw-pms-aif-sif-selection.mdx)
+• AIF Category Selection: Which Rung of Rs. 1Cr Fits Your Capital (./alternatives-aif-category-selection-guide.mdx)
+• The 2/20 Waterfall: How Carried Interest Actually Splits an AIF's Money (./alternatives-aif-waterfall-economics.mdx)
+• SIF Strategy Families Decoded (./alternatives-sif-strategy-families-deep-dive.mdx)
+• AIF Taxation Decoded (115UB pass-through / 64C-to-78) (../taxation/tax-aif-pcc-115bb-deep-dive.mdx)
+
+SOURCES
+=======
+• 112A equity-LTCG 12.5% above Rs. 1.25L shared pool; unlisted-equity 24-month LTCG at slab — <a href="https://taxguru.in/income-tax/budget-2024-transforms-capital-gains.html">TaxGuru Budget-2024 capital-gains change / Finance Bill 2024 memo</a>
+• PMS/AIF fee conventions (2% mgmt, 15-20% carry, Cat III up to 25% perf) — <a href="https://www.nucleusadvisors.in/insights/gp-lp-economics-fee-carry-hurdle">Nucleus Advisors GP-LP economics</a>
+• Cat I/II/III structure, 30% slab pass-through for unlisted, ~42.7% Cat III fund-level — <a href="https://altportfunds.com/understanding-category-i-ii-iii-aifs-whats-the-difference/">Altportfunds AIF categories</a>
+
+UPDATE LOG
+==========
+• 2026-10-18 — Wave 10: the after-tax wedge table (index / PMS / SIF / AIF Cat I-II / Cat III at equal
+
+14% gross over 10 years), the 194LBB cash-flow trap, the shared-pool caveat, and the decision rule (gross edge × (1 − wedge) must be positive). The SIF 12.5% 112A-equity treatment and the ~42.7% Cat III fund-level rate are secondary readings — verify the specific SIF/ Cat III scheme tax note before acting. Exact wedge figures are produced by the afterTaxProductWedge() function and the pms-sif-aif-tax-wedge calculator, which you should re-run with your own fee and slab inputs.
+

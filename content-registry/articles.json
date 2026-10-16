@@ -1164,6 +1164,44 @@
    "books": [
     "book-indian-taxation"
    ]
+  },
+  {
+   "id": "alternatives-pms-sif-aif-after-tax-wedge",
+   "title": "The After-Tax Wedge: Why Equal Gross Returns Leave You Different Money (Index vs PMS vs SIF vs AIF)",
+   "category": "alternatives",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "aif",
+    "pms",
+    "sif",
+    "index-fund",
+    "after-tax",
+    "112a",
+    "slab-rate",
+    "tax-wedge",
+    "cagr",
+    "fee-stack",
+    "capital-ladder"
+   ],
+   "summary": "The 'what actually lands in your pocket' layer over the capital ladder: an index fund, a PMS, a SIF, a Category I/II AIF and a Category III AIF can all quote the same gross return - but the net CAGR that compounds differs by where the tax lands and the fee stack. Worked 10-year comparison at 14% gross, the decision rule, and the 194LBB cash-flow trap.",
+   "file": "src/content/alternatives/alternatives-pms-sif-aif-after-tax-wedge.mdx",
+   "sources": [
+    "src-elss-ltcg-2026",
+    "src-pms-aif-fees-2026",
+    "src-aif-categories-2026",
+    "src-aif-waterfall-economics-2026"
+   ],
+   "related": [
+    "alternatives-hnw-pms-aif-sif-selection",
+    "alternatives-aif-category-selection-guide",
+    "alternatives-aif-waterfall-economics",
+    "alternatives-sif-strategy-families-deep-dive",
+    "tax-aif-pcc-115bb-deep-dive"
+   ],
+   "books": [
+    "book-wealth-beyond-10l"
+   ]
   }
  ]
 }

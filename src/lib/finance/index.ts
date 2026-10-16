@@ -956,6 +956,122 @@ export interface AifWaterfallResult {
   beatsHurdle: boolean;
 }
 
+/**
+ * After-tax "wedge" between a gross product return and what actually reaches
+ * the investor, by product type and by where the tax lands.
+ *
+ * This is the comparison layer for the capital ladder: an index fund, a SIF,
+ * a PMS, a Category I/II AIF (unlisted pass-through), and a Category III AIF
+ * (fund-level tax) can all quote the same gross return, but the *net* return
+ * that compounds in your hands differs because the tax rate applied to the
+ * profit differs by product and by where the tax is paid.
+ *
+ * Conventions:
+ *  - End-of-horizon model: corpus = 1, gross final value = (1+g)^years.
+ *  - `mgmtFee` is a per-year fraction of corpus (approximated against a
+ *    corpus of 1); `perfFee` is a fraction of the total gross profit, taken
+ *    once at exit (no hurdle modelled here - see the PMS simulation for a
+ *    layered version).
+ *  - Equity-type products ('index', 'equity', 'sif', 'pms') tax the profit
+ *    at the 112A long-term rate (12.5%) after the shared Rs 1.25L annual pool.
+ *  - 'aifCat12' (unlisted private-market pass-through) taxes the profit at
+ *    your marginal slab rate (no indexation, no pool) - the biggest wedge.
+ *  - 'aifCat3' applies a fund-level rate (default ~42.7% incl. surcharge) to
+ *    the profit, so the investor receives it net of that; character is lost.
+ *
+ * This is a decision aid for comparing products at equal gross; it does not
+ * model interim distributions, the 194LBB TDS cash-flow timing, or surcharge
+ * on the slab for very high incomes.
+ */
+export type AfterTaxProduct =
+  | 'index'
+  | 'equity'
+  | 'sif'
+  | 'pms'
+  | 'aifCat12'
+  | 'aifCat3';
+
+export interface AfterTaxWedgeInput {
+  grossAnnualReturn: number;
+  years: number;
+  product: AfterTaxProduct;
+  marginalSlabRate: number;
+  sharedLtcgPool: number;
+  mgmtFee: number;
+  perfFee: number;
+  aifCat3FundRate?: number;
+}
+
+export interface AfterTaxWedgeResult {
+  grossFinalValue: number;
+  feeDrag: number;
+  taxableProfit: number;
+  taxPaid: number;
+  afterTaxFinalValue: number;
+  cagrAfterTax: number;
+  cagrGross: number;
+  totalWedgePct: number;
+  taxRateApplied: number;
+}
+
+export function afterTaxProductWedge(w: AfterTaxWedgeInput): AfterTaxWedgeResult {
+  const grossFinalValue = Math.pow(1 + w.grossAnnualReturn, w.years);
+  const totalGrossProfit = grossFinalValue - 1;
+  // Management fee compounds: each year charges mgmtFee on the growing corpus.
+  // Approximate as mgmtFee * years applied to the average corpus level; a close
+  // enough planning figure without a full year-by-year simulation.
+  const mgmtFeeDrag = w.mgmtFee > 0 ? (Math.pow(1 + w.mgmtFee, w.years) - 1) * grossFinalValue : 0;
+  const perfFeeDrag = w.perfFee * Math.max(0, totalGrossProfit);
+  const feeDrag = Math.max(0, mgmtFeeDrag + perfFeeDrag);
+
+  // Tax rate applied to the profit, by where the tax lands.
+  let taxRateApplied: number;
+  let pool: number;
+  switch (w.product) {
+    case 'aifCat12':
+      taxRateApplied = w.marginalSlabRate; // unlisted pass-through at slab
+      pool = 0;
+      break;
+    case 'aifCat3':
+      taxRateApplied = w.aifCat3FundRate ?? 0.427; // fund-level, incl. surcharge
+      pool = 0;
+      break;
+    case 'index':
+    case 'equity':
+    case 'sif':
+    case 'pms':
+    default:
+      taxRateApplied = 0.125; // 112A long-term equity
+      pool = Math.max(0, w.sharedLtcgPool);
+      break;
+  }
+
+  const preTaxProfit = Math.max(0, totalGrossProfit - feeDrag);
+  const taxableProfit = Math.max(0, preTaxProfit - pool);
+  const taxPaid = taxableProfit * taxRateApplied;
+  const afterTaxFinalValue = grossFinalValue - feeDrag - taxPaid;
+
+  const cagrAfterTax =
+    w.years > 0 && afterTaxFinalValue > 0
+      ? Math.pow(afterTaxFinalValue, 1 / w.years) - 1
+      : -1;
+  const cagrGross = w.years > 0 ? Math.pow(grossFinalValue, 1 / w.years) - 1 : 0;
+  const totalWedgePct =
+    grossFinalValue > 1 ? 1 - afterTaxFinalValue / grossFinalValue : 0;
+
+  return {
+    grossFinalValue,
+    feeDrag,
+    taxableProfit,
+    taxPaid,
+    afterTaxFinalValue,
+    cagrAfterTax,
+    cagrGross,
+    totalWedgePct,
+    taxRateApplied,
+  };
+}
+
 export function aifWaterfall(w: AifWaterfallInput): AifWaterfallResult {
   const grossFinalValue = w.committedCapital * w.grossMultiple;
   const totalProfit = Math.max(0, grossFinalValue - w.committedCapital);

@@ -1,14 +1,39 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 9: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 38 → 39 articles; 22 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 10: 1 new article + 1 new finance function + 1 new calculator; 39 → 40 articles; 23 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 39 on disk / registered. Wave 9 added 1: `tax-80c-baskets-regime-decision` (the tax-shield layer: filling the ₹1.5L 80C basket by risk not habit — ELSS vs PPF vs EPF vs home-loan vs the LIC trap; the ₹50K NPS side-door is old-regime-only; the 80CCD(2) employer-NPS lever that survives the new regime; and the **verified FY 2026-27 finding that the new regime wins up to ~₹45L even with a full ~₹5L deduction stack**).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 10 (+ tax-80c-baskets-regime-decision), p2p-lending 4, wealth-beyond-10l 13.
-- **Sources:** 49 in `sources.json` (Wave 9 added 1: src-ppf-rate-fy2026-27, PPF 7.1% FY 2026-27 Q1).
-- **Update-log:** 42 tracked (Wave 9 added 2, incl. the `ul-regime-decision-new-wins-fy2026-27` modeled result + `ul-ppf-rate-fy2026-27`).
-- **Calculators:** 22 (Wave 9 added `regime-80c-shield`, powered by the new `deductionShieldFY27()` pure function, with 6 unit tests and an e2e test).
+- **Articles:** 40 on disk / registered. Wave 10 added 1: `alternatives-pms-sif-aif-after-tax-wedge` (the "what actually lands in your pocket" layer: index / PMS / SIF / AIF Cat I-II / Cat III at equal gross, the where-the-tax-lands table, a worked 10-year 14%-gross comparison, the decision rule `gross edge × (1 − wedge)`, and the 194LBB cash-flow trap).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 10, p2p-lending 4, wealth-beyond-10l 14 (+ alternatives-pms-sif-aif-after-tax-wedge).
+- **Sources:** 49 in `sources.json` (Wave 10 needed no new source — the article cites only existing registry sources: src-elss-ltcg-2026, src-pms-aif-fees-2026, src-aif-categories-2026, src-aif-waterfall-economics-2026).
+- **Update-log:** 44 tracked (Wave 10 added 2: `ul-unlisted-ltcg-slab-2026`, `ul-cat3-fund-level-rate-2026`).
+- **Calculators:** 23 (Wave 10 added `pms-sif-aif-tax-wedge`, powered by the new `afterTaxProductWedge()` pure function, with 5 unit tests and an e2e test).
+
+## Wave 10 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/alternatives/alternatives-pms-sif-aif-after-tax-wedge.mdx` — the *after-tax "what lands in your pocket"* layer over the capital ladder: the where-the-tax-lands table (index/PMS/SIF → 112A 12.5%; AIF Cat I/II unlisted → investor slab; AIF Cat III → ~42.7% fund-level net), a worked 10-year 14%-gross comparison across all five products, the decision rule (**gross edge × (1 − wedge) must stay positive**), the 194LBB TDS cash-flow trap, and the shared-₹1.25L-pool caveat.
+
+### New finance function + calculator + tests
+- [x] `afterTaxProductWedge()` in `src/lib/finance/index.ts` — end-of-horizon gross-final-value model with product-specific tax landing (112A 12.5% for equity-type, slab for unlisted Cat I/II pass-through, ~42.7% fund-level for Cat III), compounding management-fee drag + exit performance fee, the shared-LTCG-pool subtraction, and after-tax CAGR + total wedge.
+- [x] `pms-sif-aif-tax-wedge` calculator page (category: Alternatives) — product select, slab/fee inputs, gross-vs-after-tax CAGR bar chart.
+- [x] 5 new unit tests (index-smallest-wedge, unlisted slab widens the wedge, fees drag value, pool reduces tax, zero-gross zero-wedge) — **72/72 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile) — **44/44 pass**.
+
+### Research verified this session
+- [x] **Unlisted-equity LTCG at slab, 24-month holding** — confirmed against the PIB Budget-2024 FAQ + Finance Bill 2024 memo (36-month period removed; unlisted/property/gold now 24-month; listed 12-month). This is the rate the Cat I/II pass-through wedge uses.
+- [x] **Cat III ~42.7% fund-level** — secondary reading recorded as `ul-cat3-fund-level-rate-2026` for CA confirmation per fund.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 72 passed.
+- [x] `node scripts/validate-content.mjs` → 40 articles, 4 books, 49 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 179 pages; new article + new calculator pages generated (one transient syntax error — a duplicate array-close `];` from the Wave 10 calculator edit — fixed).
+- [x] `npx pagefind --site dist` → indexed (17,367 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 40/40 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 44 passed (22 desktop + 22 mobile).
 
 ## Wave 9 session (verified 2026-10-18 via web research)
 
@@ -146,12 +171,12 @@ Last updated: **2026-10-18** (Wave 9: 1 new article + 1 new finance function + 1
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion: Wave 10 candidate = a PMS-vs-AIF after-tax net-return comparator, an ELSS lock-in / tax-shield standalone calculator, or re-model the regime decision including surcharge above 50L.
+- [ ] Phase 4 deeper expansion: Wave 11 candidate = a PMS-vs-AIF after-tax net-return comparator, re-model the regime decision including surcharge above 50L, or an ELSS lock-in / tax-shield standalone calculator.
 
 ## Next 3 actions
-1. Commit Wave 9: 1 new article + deductionShieldFY27() function + regime-80c-shield calculator + 1 source + tests.
+1. Commit Wave 10: 1 new article + afterTaxProductWedge() function + pms-sif-aif-tax-wedge calculator + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 10 candidate: PMS-vs-AIF after-tax net-return comparator, or an ELSS lock-in / tax-shield standalone calculator).
+3. Continue the daily article habit (Wave 11 candidate: PMS-vs-AIF after-tax net-return comparator, or re-model the regime decision with surcharge above 50L).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

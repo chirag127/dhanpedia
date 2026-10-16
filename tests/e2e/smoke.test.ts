@@ -166,6 +166,25 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('pms-sif-aif-tax-wedge calculator renders the after-tax comparison', async ({ page }) => {
+    await page.goto('/calculators/pms-sif-aif-tax-wedge');
+    await expect(page.getByText('Gross final value (per Rs 1)')).toBeVisible();
+    await expect(page.getByText('After-tax final value (per Rs 1)')).toBeVisible();
+    await expect(page.getByText('Total wedge (fee + tax)')).toBeVisible();
+    // Chart container for the gross vs after-tax CAGR comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('after-tax wedge article renders the product comparison table', async ({ page }) => {
+    await page.goto('/articles/alternatives-pms-sif-aif-after-tax-wedge');
+    await expect(page.getByRole('heading', { name: /After-Tax Wedge/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /Where the tax lands/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /What this means for your ladder/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

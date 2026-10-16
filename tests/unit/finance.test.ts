@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -589,5 +589,73 @@ describe('Old vs new regime deduction shield', () => {
     const r = deductionShieldFY27({ grossIncome: 1800000, eightyC: 150000, npsSelf: 0, npsEmployer: 0, homeLoanInterest: 0, healthInsurance: 0, salaried: false });
     expect(r.newRegimeTaxable).toBe(1800000);
     expect(r.oldRegimeTaxable).toBe(1650000); // 18L - 1.5L 80C
+  });
+});
+
+describe('After-tax product wedge', () => {
+  it('an index fund has the smallest wedge at equal gross', () => {
+    const idx = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 10, product: 'index',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0, perfFee: 0,
+    });
+    const cat3 = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 10, product: 'aifCat3',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0, perfFee: 0,
+    });
+    expect(idx.cagrAfterTax).toBeGreaterThan(cat3.cagrAfterTax);
+    expect(idx.totalWedgePct).toBeLessThan(cat3.totalWedgePct);
+    // 14% gross over 10 yrs = 3.707x; 12.5% tax on the 2.707 gain
+    expect(idx.grossFinalValue).toBeCloseTo(3.7072, 3);
+    expect(idx.taxRateApplied).toBeCloseTo(0.125, 6);
+  });
+
+  it('an unlisted Cat I/II AIF taxes the gain at the marginal slab, widening the wedge', () => {
+    const r = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 10, product: 'aifCat12',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0, perfFee: 0,
+    });
+    expect(r.taxRateApplied).toBeCloseTo(0.3, 6);
+    // 30% slab tax beats the 12.5% index rate -> larger wedge
+    const idx = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 10, product: 'index',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0, perfFee: 0,
+    });
+    expect(r.totalWedgePct).toBeGreaterThan(idx.totalWedgePct);
+  });
+
+  it('fees drag the after-tax value below the no-fee baseline', () => {
+    const noFees = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 10, product: 'pms',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0, perfFee: 0,
+    });
+    const withFees = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 10, product: 'pms',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0.02, perfFee: 0.15,
+    });
+    expect(withFees.feeDrag).toBeGreaterThan(0);
+    expect(withFees.afterTaxFinalValue).toBeLessThan(noFees.afterTaxFinalValue);
+  });
+
+  it('a shared LTCG pool reduces the taxable profit for equity-type products', () => {
+    const withPool = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 5, product: 'index',
+      marginalSlabRate: 0.3, sharedLtcgPool: 1.25, mgmtFee: 0, perfFee: 0,
+    });
+    const noPool = afterTaxProductWedge({
+      grossAnnualReturn: 0.14, years: 5, product: 'index',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0, perfFee: 0,
+    });
+    expect(withPool.taxPaid).toBeLessThan(noPool.taxPaid);
+    expect(withPool.afterTaxFinalValue).toBeGreaterThan(noPool.afterTaxFinalValue);
+  });
+
+  it('a zero-gross return produces no tax and a zero wedge', () => {
+    const r = afterTaxProductWedge({
+      grossAnnualReturn: 0, years: 10, product: 'pms',
+      marginalSlabRate: 0.3, sharedLtcgPool: 0, mgmtFee: 0, perfFee: 0,
+    });
+    expect(r.taxPaid).toBe(0);
+    expect(r.totalWedgePct).toBe(0);
+    expect(r.afterTaxFinalValue).toBeCloseTo(1, 6);
   });
 });

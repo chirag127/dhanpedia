@@ -365,6 +365,24 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "Model excludes surcharge + 4% cess above 50L - the regime flip for >50L earners must be re-checked including surcharge. Re-verify at each Finance Act because any new-regime slab change flips the boundary."
+  },
+  {
+   "id": "ul-unlisted-ltcg-slab-2026",
+   "claim": "Unlisted shares: 24-month LTCG holding period (unchanged by Budget 2024; the 36-month period was removed for most other assets), long-term gain taxed at slab rates without indexation; listed equity-type (shares, equity MF, business-trust units) is 12-month LTCG at 12.5% above the shared Rs 1.25L 112A pool",
+   "source": "src-elss-ltcg-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Verified against the PIB Budget-2024 FAQ and the Finance Bill 2024 memo (holding periods: 12-month listed, 24-month unlisted/property/gold, 36-month removed). This is the rate the AIF Cat I/II pass-through wedge in the tax-wedge article uses at the investor slab."
+  },
+  {
+   "id": "ul-cat3-fund-level-rate-2026",
+   "claim": "Category III AIFs are taxed at the fund level, frequently at the maximum marginal rate ~42.7% including surcharge; unitholders receive distributions net of that tax; specific vehicles may qualify for 10(4D)/10(23FF)/10(23FBC)/115AD exemptions",
+   "source": "src-aif-categories-2026",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Secondary reading (Altportfunds / Treelife 2026); confirm the specific fund tax note and the exact current-year rate before advising on a Cat III sleeve."
   }
  ]
 }
