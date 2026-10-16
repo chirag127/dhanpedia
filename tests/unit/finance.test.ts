@@ -12,7 +12,7 @@ import {
   p2pExpectedNetReturn, portfolioExpectedReturn, maxDrawdown, feeImpact,
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
-  newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend,
+  newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -330,5 +330,27 @@ describe('FY 2026-27 tax slabs', () => {
     expect(r.singleDefaultLoss).toBeCloseTo(75000, 6); // 30% of 10L across 4 names
     const none = coreSatelliteBlend(0, 0.7, 0.082, 0.11, 4);
     expect(none.blendedYield).toBe(0);
+  });
+
+  it('advance tax FY 2026-27 installment math', () => {
+    // totalTax 1.8L, tds 30k -> balance 1.5L; 4 installments 15/45/75/100%
+    const r = advanceTaxFY27(180000, 30000);
+    expect(r.advanceTaxDue).toBe(150000);
+    expect(r.needsAdvanceTax).toBe(true);
+    expect(r.installments.length).toBe(4);
+    expect(r.installments[0].amountDue).toBe(150000 * 0.15); // 22500
+    expect(r.installments[1].amountDue).toBe(150000 * 0.45); // 67500
+    expect(r.installments[2].amountDue).toBe(150000 * 0.75); // 112500
+    expect(r.installments[3].amountDue).toBe(150000 * 1.0); // 150000
+    // Approx 234C: 0.03 * (0.15+0.45+0.75) * 150000 = 0.03 * 1.35 * 150000 = 6075
+    expect(r.interest234CApprox).toBeCloseTo(6075, 4);
+    // Below the 10k threshold -> no duty
+    const low = advanceTaxFY27(50000, 48000);
+    expect(low.advanceTaxDue).toBe(2000);
+    expect(low.needsAdvanceTax).toBe(false);
+    // TDS exceeding the tax -> balance clamps to zero
+    const clamped = advanceTaxFY27(100000, 200000);
+    expect(clamped.advanceTaxDue).toBe(0);
+    expect(clamped.needsAdvanceTax).toBe(false);
   });
 });

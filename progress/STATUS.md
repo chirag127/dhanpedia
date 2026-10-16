@@ -1,73 +1,55 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-17** (Wave 4: 3 new articles + 2 new calculators + old-regime slab fix, 28 → 31 articles; all pipeline green)
+Last updated: **2026-10-17** (Wave 5: 2 new articles + 1 new calculator + 4 new sources; 31 → 33 articles; all pipeline green)
 
 ## State
 
-- **Articles:** 31 on disk / registered. Wave 4 added 3 (tax-tax-free-wealth-stack, tax-huf-wealth-structure, fixed-income-nbfc-debentures) and upgraded real-estate-reit-invit with the Section 115UA/194LBA tax treatment. Wave 3 added `insurance-claims-ulip-mis-selling` (IRDAI 2026 claims data + ULIP vs term math) and `international-fof-gift-city-lrs` (the $7B SEBI cap, GIFT City IFSCA route, FoF-vs-LRS cost/tax comparison).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 7, p2p-lending 4, wealth-beyond-10l 9.
-- **Sources:** 39 in `sources.json` (Wave 4 added 7: src-nps-deductions-2026, src-elss-ltcg-2026, src-eldeductions-fy2026-27, src-huf-tax-2026, src-reit-invit-tax-2026, src-ncd-rates-2026, src-hyb-bonds-2026).
-- **Update-log:** 29 tracked time-sensitive claims.
-- **Calculators:** 17 pages, including Wave 4 `tax-shield` (new-vs-old regime, `newRegimeTaxFY27`/`oldRegimeTaxFY27`) and `core-satellite` (NCD blend, `coreSatelliteBlend()`).
+- **Articles:** 33 on disk / registered. Wave 5 added 2: `alternatives-hnw-pms-aif-sif-selection` (the selection + fee-decay layer over SIF/PMS/AIF) and `tax-advance-itr-final-checklist` (advance tax, 234B/234C interest clocks, surcharge, ITR form selection, end-of-year checklist).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 8, p2p-lending 4, wealth-beyond-10l 10.
+- **Sources:** 43 in `sources.json` (Wave 5 added 4: src-pms-aif-fees-2026, src-aif-categories-2026, src-advance-tax-fy2026-27, src-it-dept-final-dates-2026).
+- **Update-log:** 34 tracked time-sensitive claims.
+- **Calculators:** 18 pages, including Wave 5 `advance-tax` (4-installment schedule + 234B/234C approximation, `advanceTaxFY27()`).
 
-## Wave 4 session (verified 2026-10-17 via web research)
+## Wave 5 session (verified 2026-10-17 via web research)
 
-### New articles + REIT tax upgrade
-- [x] `src/content/taxation/tax-tax-free-wealth-stack.mdx` — the full 80C/NPS/PPF/ELSS/interest-income stack worked out, the 80/20 NPS exit (PFRDA 16 Dec 2025), the 12L new-regime tax-free corridor, and the new-vs-old break-even (links to the new `tax-shield` calculator).
-- [x] `src/content/taxation/tax-huf-wealth-structure.mdx` — HUF as a separate taxable entity: creation, Karta/deed, PAN-49A, ITR-2/3, what income may sit in it, the Sec 64(2) / ITA-2025 Sec 99(3)-(4) clubbing traps, Vineeta Sharma partition, and a two-entity worked example.
-- [x] `src/content/fixed-income/fixed-income-nbfc-debentures.mdx` — NCD pricing off the G-Sec benchmark + credit spread, the 2026 yield bands by rating (AAA 7–8 / AA 8–9.5 / A 9.5–11.5 / BBB 11.5+), a 7-point underwriting checklist, default data, and the coupon-vs-YTM + tax position.
-- [x] `src/content/real-estate/real-estate-reit-invit.mdx` — added the Section 115UA pass-through + 194LBA 10% TDS + 56(2)(xii) return-of-capital + 112A/111A shared-bucket tax treatment.
+### New articles
+- [x] `src/content/alternatives/alternatives-hnw-pms-aif-sif-selection.mdx` — the *selection* layer over the professional rungs: the forward-edge-minus-fee-drag decision test, the fee-decay math (one-year PMS worked example: 14% gross → 10.3% net after a 2% mgmt + 15%-above-10%-hurdle perf fee), the SIF/PMS/AIF screen table, the 10L→50L→1Cr roadmap (incl. the April-2027 ₹25L MF-only PMS route), a 10-point due-diligence checklist, and "when to say no to all three." ECharts-free by design; uses the PMS/AIF-fee, core-satellite, fee-drag, and tax-shield calculators.
+- [x] `src/content/taxation/tax-advance-itr-final-checklist.mdx` — who owes advance tax in FY 2026-27 (the ₹10k threshold), the 15/45/75/100% cumulative schedule (15 Jun / 15 Sep / 15 Dec / 15 Mar), the 234C 3-month vs 1-month interest tails (worked ₹7,575 example), the 234B 90% backstop, the capital-gains 31-Mar relief, the surcharge thresholds (10/15/25% at 50L/1Cr/2Cr, new-regime cap 25%), ITR-1/2/3 selection, and a 6-step end-of-year checklist.
 
-### Critical fact fix (old-regime slabs)
-- [x] **FY 2026-27 old-regime slabs corrected.** Confirmed against Economic Times/Grant Thornton (Budget 2026), TaxFetch, and Cleartax: the old regime is **nil up to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above** — the 5/10/15% intermediate bands found in some pre-2013 references no longer exist (Budget 2025 widened only the NEW regime). Fixed `oldRegimeTaxFY27()` in `src/lib/finance/index.ts`, the `tax-india-investor-complete` worked example (now ₹1,50,000 old vs ₹97,500 new), the HUF worked example, and the tax-free-stack worked example (also corrected its 80C pool to respect the ₹1.5L cap and added the HUF no-87A note).
+### New finance function + calculator
+- [x] `advanceTaxFY27(annualTax, tds)` in `src/lib/finance/index.ts` (AdvanceTaxResult: four installments, 234C approximation) + the `advance-tax` calculator page.
+- [x] 3 new finance unit tests: `advanceTaxFY27` installment/234C math + threshold + clamp — **49/49 unit tests pass**.
+- [x] 1 new e2e test for the `advance-tax` page — **20/20 pass** (desktop + mobile).
 
-### New calculators
-- [x] `tax-shield` and `core-satellite` registered in `src/lib/calculators.ts` (auto-generate their pages via `[id].astro`).
-
-### Tests
-- [x] 3 new finance functions covered: `newRegimeTaxFY27`, `oldRegimeTaxFY27`, `coreSatelliteBlend` — **48/48 unit tests pass**.
-- [x] e2e: 2 new tests for the `tax-shield` and `core-satellite` pages — **18/18 pass** (desktop + mobile).
+### Research verified this session
+- [x] **SIF minimum** — ₹10L at the PAN level, accredited-investor exemption, effective 1 Apr 2026 (SEBI circulars Feb–Jul 2025; Business Standard). The first professional rung a ₹10L reader is already eligible for.
+- [x] **MF-only PMS route** — SEBI's revamped PMS regulation (effective April 2027) adds a mutual-fund-only PMS at a ₹25L minimum (CNBC-TV18, Moneycontrol) — a new low-ticket rung between SIF and classic PMS.
+- [x] **Advance tax FY 2026-27** — 15/45/75/100% on 15 Jun / 15 Sep / 15 Dec / 15 Mar; ₹10k threshold; 234C 1%/mo (3-month tails first three, 1-month last); 234B 90% backstop; capital-gains 31-Mar relief; 44AD/44ADA single payment (TaxClue, Cleartax). Surcharge 10/15/25% at 50L/1Cr/2Cr, new-regime cap 25% (Budget 2026 changed nothing).
 
 ### Pipeline (all green)
-- [x] `npm test` → 48 passed.
-- [x] `node scripts/validate-content.mjs` → 31 articles, 4 books, 39 sources, 0 warnings.
+- [x] `npx vitest run` → 49 passed.
+- [x] `node scripts/validate-content.mjs` → 33 articles, 4 books, 43 sources, 0 warnings.
 - [x] `node scripts/check-links.mjs` → all registry references resolve.
-- [x] `node scripts/generate-books.mjs` → 4/4 books, 31/31 article downloads.
-- [x] `astro build` → 111 pages; both new calculator pages generated.
-- [x] `npx pagefind --site dist` → 146 pages / 15467 words.
+- [x] `npx astro build` → 116 pages; both new article pages + the `advance-tax` calculator page generated.
+- [x] `npx pagefind --site dist` → indexed.
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 33/33 article downloads.
 - [x] `node scripts/build-report.mjs` → manifest OK.
-- [x] `npx playwright test` → 18 passed (desktop + mobile).
+- [x] `npx playwright test` → 20 passed (desktop + mobile).
 
-## This session (verified 2026-10-16 via web research)
-
-### New articles (Wave 3)
-- [x] `src/content/insurance/insurance-claims-ulip-mis-selling.mdx` — IRDAI FY 2025-26 claims data (life death-claim settlement ~99%; ~8% health-claim rejection; 1-hour cashless pre-auth met 86.8%; avg payout ~₹29,000; ICR public >100% / private 75-85%), the term-vs-ULIP 20-yr worked math (~₹30L+ gap), mis-selling red flags (insurance-as-FD, compulsory bundling, investment-linked pushed on risk-averse), solvency checks, and the IRDAI 2025-26 reforms (no entry-age cap, PED 3yr, moratorium 5yr, GST removed).
-- [x] `src/content/international/international-fof-gift-city-lrs.mdx` — Why most domestic international FoFs closed to fresh SIPs in 2026 (SEBI/RBI $7B industry cap breached Jan 2022; only 1 fund open as of 10 Jul 2026 per Creso/Value Research), the GIFT City IFSCA route that sidesteps the cap (USD-denominated, LRS), and a 3-route cost/tax comparison (domestic FoF vs GIFT City vs direct LRS) with the FY 2026-27 investment TCS (20% above threshold) gotcha and a ₹10L decision framework.
-- [x] **New calculator `pms-aif-fees`** — `pmsSimulation()` in `src/lib/finance/index.ts` (layered mgmt fee on opening corpus + performance fee on gain-above-benchmark, no clawback modelled); 3 known-answer unit tests; 14/14 e2e pass including the new page on desktop + mobile.
-
-### Stale-fact fix this session
-- [x] **EPF rate** — banking article had "8.5% (assumed return; PFRDA)" on the EPF row; corrected to **8.25% (FY 2025-26, EPFO CBT 239th meeting, Mar 2026)** with new source `src-epf-rate-2026`. (The 8.5% was a fabricated figure; the PFRDA NPS route, not EPF, is the 80CCD(1B) route.)
-
-### Pipeline (all green this session)
-- [x] `node scripts/validate-content.mjs` → **28 articles, 4 books, 32 sources, 28 MDX on disk, 0 warnings**.
-- [x] `node scripts/check-links.mjs` → all registry refs resolve.
-- [x] `npx vitest run` → **44/44** (3 new PMS/AIF fee tests).
-- [x] `npx playwright test` → **14/14** (1 new PMS/AIF calculator test; desktop + mobile).
-- [x] `astro build` (system Node v24.18) → Complete, local base OK **and** `--base /dhanpedia` production OK.
-- [x] `npx pagefind --site dist` → **133 pages / 14179 words**.
-- [x] `node scripts/generate-books.mjs` → 4/4 books, 28/28 article downloads, all 6 formats present on disk.
-- [x] `node scripts/build-report.mjs` → manifest OK.
-
-### Known build-gotchas (recurring)
-- **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Pattern: use "up to ₹X" / "under N months" instead of "< ₹X" / "< Nmo". Fixed 5 occurrences in Wave 2, 1 in Wave 3.
-- **Node version:** `npx astro build` via the Agnes wrapper (Node v22.14) fails — Astro 7 needs ≥22.22. Use `"C:\Program Files\nodejs\npx.cmd" astro build` (system Node v24.18.0).
+## Wave 4 (prior session, commit 48a4b28)
+- [x] 3 new articles + REIT tax upgrade + old-regime slab fix + 2 calculators. 31 articles, 39 sources, 17 calculators. Critical fix: old-regime tax slabs corrected from wrong 5/10/15/30 to correct 5/20/30 structure (nil ≤₹2.5L, 5%→₹5L, 20%→₹10L, 30%+), verified against ET/Grant Thornton, TaxFetch, Cleartax.
 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] More calculators: AIF carry-return (with high-water-line), SIF sleeve sizing. (ELSS/NPS tax shield now folded into `tax-shield` + the tax-free-stack article.)
+- [ ] Phase 4 deeper expansion if the user confirms: SIF sleeve-sizing calculator, AIF carry-return calculator (high-water-line), ELSS/NPS tax-shield standalone (already folded into `tax-shield`).
 
 ## Next 3 actions
-1. Commit Wave 4: 3 new articles + REIT tax upgrade + old-regime slab fix + 2 calculators + tests.
-2. Re-present the 4 books (complete-investor now 14 chapters; indian-taxation now 7) as downloadable artifacts.
-3. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
+1. Commit Wave 5: 2 new articles + `advance-tax` calculator + 4 sources + tests.
+2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
+3. Continue the daily article habit (Wave 6 candidates: a SIF strategy-category deep-dive, or an AIF-category selection guide, or a REIT/InvIT dividend-timing article).
+
+## Known build-gotchas (recurring)
+- **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.
+- **Node version:** `npx astro build` via the Agnes wrapper (Node v22.14) fails — Astro 7 needs ≥22.22. Use `"C:\Program Files\nodejs\npx.cmd" astro build` (system Node v24.18.0).
+- **Scratch scripts:** keep one-off registry scripts (`_register-waveN.mjs`) for audit; delete transient inspection scripts.

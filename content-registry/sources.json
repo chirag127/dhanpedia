@@ -495,5 +495,72 @@
   "type": "industry",
   "verified": "2026-10-17",
   "lastVerified": "2026-10-17"
+ },
+ {
+  "id": "src-pms-aif-fees-2026",
+  "title": "PMS / AIF fee convention 2026: management fee on opening corpus (2-2.5% flat, or ~1-1.75% + 15-20% performance above an 8-12% hurdle), performance on gain-above-benchmark, no clawback in the SEBI recurring-fee model; PMS gains pass through and are taxed as the investor own CGT",
+  "publisher": "PMS Sahi Hai / SEBI PMS notification coverage (2026)",
+  "url": "https://www.pmssahihai.com/insights/pms-charges",
+  "type": "industry-guide",
+  "authority": "secondary",
+  "verified": "2026-10-17",
+  "lastVerified": "2026-10-17",
+  "claims": [
+   "Management fee charged on the opening corpus each year; performance fee on the gain that exceeds the hurdle, computed after the management fee",
+   "Typical fixed fees 2-2.5%/yr, or ~1-1.75% + 15-20% of profits above an 8-12% hurdle (the SEBI PMS recurring-fee convention)",
+   "PMS is a pass-through structure: the investor holds direct securities and the gains are taxed as the investor own capital gains (no vehicle-level tax)",
+   "SEBI notified a revamped PMS regulation (effective April 2027) incl. a mutual-fund-only PMS route; re-check the management/performance mechanics and the new low-ticket minimum at go-live"
+  ],
+  "notes": "Fee percentages are market quotes, not a single official table; confirm the exact contract (fixed vs performance, hurdle, clawback) in each PMS/AIF agreement."
+ },
+ {
+  "id": "src-aif-categories-2026",
+  "title": "SEBI AIF categories (2026): Cat I (non-debt, venture, private equity), Cat II (non-leveraged, structured), Cat III (leveraged/hedge funds); Rs.1Cr minimum for most AIFs (Rs.25L for angel funds and manager-employee/director investors); Cat I/II close-ended with a 3-year minimum tenure; up to 1000 investors per scheme (49 for angel funds)",
+  "publisher": "Planify / SEBI (AIF) Regulations, 2012 (2026 coverage)",
+  "url": "https://www.planify.in/article/sebi_regulations",
+  "type": "regulator",
+  "authority": "secondary",
+  "verified": "2026-10-17",
+  "lastVerified": "2026-10-17",
+  "claims": [
+   "Rs.1Cr minimum per investor for most AIFs; Rs.25L for angel-fund investors and for employees/directors of the manager",
+   "Category I and II AIFs are close-ended with a minimum 3-year tenure",
+   "Up to 1000 investors per scheme (waived for accredited-investor-only funds); 49 for angel funds"
+  ],
+  "notes": "Confirm the category-specific and current AIF numbers against the SEBI AIF Regulations text and each fund LPR before advising."
+ },
+ {
+  "id": "src-advance-tax-fy2026-27",
+  "title": "Advance tax FY 2026-27: duty when tax after TDS exceeds Rs.10,000; four cumulative installments 15 Jun (15%) / 15 Sep (45%) / 15 Dec (75%) / 15 Mar (100%); Sec 234C interest 1%/mo on each quarterly shortfall (3-month tails on the first three, 1-month on the last); Sec 234B 1%/mo from 1 Apr when advance paid is under 90% of assessed tax; capital-gains/lottery/dividend income arising after a date attracts no 234C if paid in the remaining installments (last quarter by 31 Mar); 44AD/44ADA presumptive taxpayers may pay 100% by 15 Mar in one installment",
+  "publisher": "Income-tax Act, 2025 (FY 2026-27), Sec 207-211, 234B, 234C — via TaxClue advance-tax guide",
+  "url": "https://taxclue.in/guide/advance-tax-calculator",
+  "type": "regulator",
+  "authority": "secondary",
+  "verified": "2026-10-17",
+  "lastVerified": "2026-10-17",
+  "claims": [
+   "The advance-tax duty applies only when the balance after TDS/TCS exceeds Rs.10,000",
+   "Installments are cumulative (15/45/75/100%), not four independent payments; a missed earlier installment carries its own 234C tail",
+   "234C: 1% per month on each installment shortfall - 3 months (Jun/Aug) on the first three quarters and 1 month on the final installment",
+   "234B: 1% per month from 1 April on the shortfall when advance paid is less than 90% of the assessed tax",
+   "Capital-gains, lottery, and dividend income arising after an installment date incur no 234C if the tax on it is paid in the remaining installments; last-quarter gains by 31 March",
+   "44AD/44ADA presumptive taxpayers may pay the entire advance tax in a single installment by 15 March"
+  ],
+  "notes": "The ITR utility and the Income-tax Act 2025 section text are the authority on the specific 234B/234C computation; re-verify the schedule dates at each Finance Act."
+ },
+ {
+  "id": "src-it-dept-final-dates-2026",
+  "title": "Income-tax filing and advance-payment final dates for FY 2026-27: ITR-1/2/3/4 standard deadline 31 July 2027 (non-audited), 15 July 2027 (audited); verify the exact dates against the Income-tax Department each year-end",
+  "publisher": "Income-tax Department of India (e-filing portal)",
+  "url": "https://www.incometax.gov.in",
+  "type": "regulator",
+  "authority": "primary",
+  "verified": "2026-10-17",
+  "lastVerified": "2026-10-17",
+  "claims": [
+   "Standard ITR deadline for non-audited individuals is 31 July of the assessment year; 15 July for audited entities",
+   "The exact filing and advance-payment dates are published by the Income-tax Department each year-end and should be re-verified before the last mile of the checklist"
+  ],
+  "notes": "Cited as the authoritative check-line for year-end dates; the specific published dates are a re-verify-each-year item, not a stable figure."
  }
 ]

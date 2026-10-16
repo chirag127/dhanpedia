@@ -566,3 +566,68 @@ export function coreSatelliteBlend(
   const singleDefaultLoss = issuers > 0 ? (corpus * (1 - corePct)) / issuers : 0;
   return { blendedYield, coreInterest, satelliteInterest: satInterest, totalInterest, singleDefaultLoss };
 }
+
+/* ------------------------------------------------------------------ *
+ * Advance tax (FY 2026-27 installment schedule + 234B/234C illustration)
+ * ------------------------------------------------------------------ */
+
+export interface AdvanceTaxInstallment {
+  /** Human due date, e.g. "15 Jun 2026". */
+  dueDate: string;
+  /** Cumulative % of the total advance tax that must be paid by this date. */
+  cumulativePct: number;
+  /** Rs amount due on this installment (cumulativePct of the advance-tax balance). */
+  amountDue: number;
+}
+
+export interface AdvanceTaxResult {
+  /** Total advance tax = max(0, annualTax - tds), i.e. tax after TDS credit. */
+  advanceTaxDue: number;
+  /** True when advanceTaxDue exceeds the Rs 10,000 threshold that triggers the duty. */
+  needsAdvanceTax: boolean;
+  /** The four installment dues (15 Jun / 15 Sep / 15 Dec / 15 Mar, cumulative 15/45/75/100%). */
+  installments: AdvanceTaxInstallment[];
+  /**
+   * Approximate Sec 234C interest if the entire balance is deferred to the last
+   * installment. Modelled on cumulative shortfalls: 1% x 3 months on each of the
+   * first three quarters' shortfalls (15%, 45%, 75% of the balance) and 1% x 1
+   * month on the fourth (100%, shortfall 0). Clearly an illustration, not a CA
+   * computation — verify against the official ITR utility before acting.
+   */
+  interest234CApprox: number;
+}
+
+/**
+ * Advance-tax installment schedule for FY 2026-27 (AY 2027-28).
+ *
+ * Conventions (documented on the calculator page):
+ *  - `annualTax` is your estimated total tax for the year INCLUDING cess
+ *    (and surcharge, if any), before TDS credit.
+ *  - `tds` is the total TDS/TCS expected to be credited against that tax over
+ *    the year.
+ *  - Advance tax is payable in four cumulative installments: 15% by 15 Jun,
+ *    45% by 15 Sep, 75% by 15 Dec, 100% by 15 Mar.
+ *  - The duty applies only when the balance after TDS exceeds Rs 10,000.
+ *  - Presumptive-income (44AD/44ADA) taxpayers may instead pay 100% by 15 Mar
+ *    in one installment; this function returns the standard 4-step schedule and
+ *    the page notes the single-installment alternative.
+ */
+export function advanceTaxFY27(annualTax: number, tds: number): AdvanceTaxResult {
+  const balance = Math.max(0, annualTax - Math.max(0, tds));
+  const needsAdvanceTax = balance > 10000;
+  const steps: Array<[string, number]> = [
+    ['15 Jun 2026', 0.15],
+    ['15 Sep 2026', 0.45],
+    ['15 Dec 2026', 0.75],
+    ['15 Mar 2027', 1.0],
+  ];
+  const installments = steps.map(([dueDate, cumulativePct]) => ({
+    dueDate,
+    cumulativePct,
+    amountDue: balance * cumulativePct,
+  }));
+  // Approx 234C: 1% x 3 months on each of the first three quarters' cumulative
+  // shortfalls (15/45/75%) and 1% x 1 month on the fourth (shortfall 0 at 100%).
+  const interest234CApprox = 0.03 * (0.15 + 0.45 + 0.75) * balance;
+  return { advanceTaxDue: balance, needsAdvanceTax, installments, interest234CApprox };
+}

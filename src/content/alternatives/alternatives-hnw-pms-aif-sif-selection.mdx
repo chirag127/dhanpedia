@@ -1,0 +1,152 @@
+---
+title: "Picking Your Own Rung: The SIF / PMS / AIF Selection & Fee-Decay Decision Guide"
+description: "For the household that has outgrown the mutual-fund bottom rung: how to choose between a SIF (from Rs.10L), PMS (from Rs.50L) and AIF (from Rs.1Cr+), the fee-decay math that decides when each one pays for itself, a 10-point due-diligence checklist, and the 10L -> 50L -> 1Cr capital roadmap."
+id: "alternatives-hnw-pms-aif-sif-selection"
+category: "alternatives"
+tags: ["sif","pms","aif","hni","fee-drag","due-diligence","sebi-2026","allocation","wealth-roads-map"]
+difficulty: "advanced"
+status: "published"
+author: "Chirag Singhal"
+created: "2026-10-17"
+updated: "2026-10-17"
+lastVerified: "2026-10-17"
+reviewAfter: "2027-04-17"
+sources: ["src-sebi-sif-2026","src-sebi-mf-regulations-2026","src-pms-aif-fees-2026","src-aif-categories-2026"]
+relatedArticles: ["alternatives-pms-aif-private","alternatives-sif-specialized-funds","pf-wealth-plan-10-lakh","portfolio-construction-rebalancing","tax-india-investor-complete"]
+books: ["book-wealth-beyond-10l"]
+---
+
+The three "professional" rungs of the Indian investment ladder — the Specialized Investment Fund (SIF, from ₹10L), Portfolio Management Services (PMS, from ₹50L), and the Alternative Investment Fund (AIF, from ₹1Cr) — are all sold on the same promise: *a person with a mandate and a strategy, managing money the way you would if you could not do it yourself*. The promise is real. But it is also a promise with a price, and the price — a management fee of 1–2.5% p.a. plus, in PMS/AIF, a performance fee of 10–20% on the gain above a hurdle — is not a small tax on a small number. On a ₹50L corpus it is ₹5L–₹12L of gross *future* returns being redirected to the manager every single year the market rises. The entire question of "should I use a professional structure at all" therefore reduces to one arithmetic test, which is the spine of this article: **does the manager's expected edge exceed the fee drag, net of the tax position of the structure you are entering?**
+
+The two general overviews on this site — [PMS & AIF, Private and Structured Products](./alternatives-pms-aif-private.mdx) and [SIF, India's New ₹10L Tier](./alternatives-sif-specialized-funds.mdx) — tell you *what each instrument is*. This article tells you *how to choose between them for your own corpus*, and when to refuse all three. It is written for the household that has a ₹10L corpus today but expects more over the next decade — the exact "minimum books, maximum depth, growing capital" situation this site is built around — and it routes every rung back to the same handful of calculators that the site ships.
+
+## The decision question, stated precisely
+
+You should not ask "is a PMS better than a mutual fund?" You should ask:
+
+$$\text{Expected net manager edge} = \big(\bar r_{\text{mgr}} - \bar r_{\text{bench}}\big) - \text{fee drag} \;>\; 0$$
+
+where $\bar r_{\text{mgr}}$ is the strategy's *forward* expected return (a range, never a point), $\bar r_{\text{bench}}$ is the passively reachable return for the same risk (an index plus, for a credit strategy, a duration-matched G-Sec position), and *fee drag* is the annualised slice of the gross outcome the structure takes — management fee on the opening corpus, performance fee on excess gain, plus the tax treatment of the structure. Two structural facts make this test sharper than it looks:
+
+- **The management fee is a *linear* drag that compounds.** Every year it cuts the base on which the strategy compounds. A 2% fee on a portfolio growing at 12% is not "2% of one year" — it is a permanent 2% off the growth rate, which over a decade is a corpus multiple of roughly $(1.10/1.12)^{10} \approx 0.83$, i.e. about **17% of the terminal corpus handed to the fee schedule** at that spread. The [PMS / AIF fee calculator](/calculators/pms-aif-fees) computes this exactly; run it before you sign anything.
+- **The performance fee is a *convex* drag that is worst in your best years.** A 15% share of gain-above-hurdle costs you nothing in a flat year and a meaningful slice in a bull year — precisely the years that carry a long-horizon goal. No clawback / high-water line is modelled in the site's calculator (the [PMS/AIF fee simulation](/calculators/pms-aif-fees) states this limitation explicitly), so treat any performance-fee quote as *at least* the number you compute.
+
+The test above is why the *entry ticket* matters less than people think. A ₹50L PMS is not automatically "too small to be worthwhile" — the ticket is a *screen*, not a *value judgement*. What matters is whether, at *your* corpus and *your* expected horizon, the manager's edge clears the drag. The sections below give you the screen, then the numbers.
+
+## The screen: when each rung is the *default* answer
+
+SEBI's minimums are floor rules, not recommendations, and the ladder is deliberate. Read it as a set of *defaults with exceptions*, not as a scale you must climb:
+
+| Rung | SEBI floor (PAN level) | Structure | When it is the *default* tool | When to skip it |
+| --- | --- | --- | --- | --- |
+| **Index / direct MF** | ₹500 SIP | Pooled, units, expense ratio 0.05–0.5% | The base of *every* portfolio; the risk-asset workhorse | When you need a *concentrated* active view, or a strategy a mutual fund category cannot hold (long-short, dynamic allocation above limits) |
+| **SIF** | ₹10L aggregate | Pooled units, one AMC, SEBI MF rules | You want a *sophisticated but liquid, pooled, SEBI-regulated* strategy from ₹10L — the gap between plain MF and PMS (`src-sebi-sif-2026`) | When the SIF strategy is just an index with a marketing name; when the fee is near a plain fund's |
+| **PMS** | ₹50L | Segregated portfolio, direct securities in *your* demat | You want a *named manager with a mandate*, and the fee clears the edge test at your corpus | If a good SIF or a self-run index does the same job cheaper |
+| **AIF (Cat I/II/III)** | ₹1Cr | Pooled trust/LLP; you hold units | You need *private markets, structured strategies, or a concentrated venture/growth mandate* that only AIF packaging allows; you can lock in 3+ years | If you are paying AIF fees for what a PMS or SIF does at less money |
+
+The rows that matter for the "I have ₹10L now, more later" reader are the **SIF row** (you are *already* above it today) and the **PMS/AIF rows** (the rungs you are *walking toward*). The SIF row is the one most ₹10L readers never consider because they assume the next professional step is ₹50L. It is not: **effective 1 April 2026, the SIF minimum is ₹10L at the PAN level, and it does not apply to accredited investors** (`src-sebi-sif-2026`). That single fact changes the map for this reader — the *first* professional structure you can buy is not PMS, it is the SIF, at the very corpus you already hold.
+
+## The fee-drag math, done once
+
+Let me make the test above a number you can reuse, because it is the most reusable calculation in this whole article. A PMS/AIF structure with a fixed management fee $f_m$ and a 15% performance fee on the gain above a hurdle $h$ (SEBI PMS recurring-fee convention: management on *opening* corpus, performance on *excess* gain, no clawback — the convention the site's simulator uses, `src-pms-aif-fees-2026`):
+
+$$\text{Net}_t = \text{Open}_t\,(1 + r) - \text{Open}_t\,f_m - \max\big(0,\;\text{Open}_t(r - f_m) - \text{Open}_t\,h\big)\,0.15$$
+
+Run that for one year on a ₹50L corpus, a 14% gross strategy, a 2% management fee, a 10% hurdle, a 15% performance share:
+
+- Opening = ₹50,00,000; gross value = ₹56,90,000.
+- Management fee = 2% × ₹50L = ₹1,00,000 → after-mgmt = ₹55,90,000.
+- Net gain = ₹9,90,000; gain above the 10% hurdle (₹5,00,000) = ₹4,90,000.
+- Performance fee = 15% × ₹4,90,000 = ₹73,500.
+- Net corpus = ₹55,16,500, a **10.3% net** against a **14% gross** — the structure took **3.7 points of the year** in fees, *in an above-hurdle bull year*.
+
+On a *flat or below-hurdle* year the performance fee vanishes, but the management fee does not, so the structure still drags 2 points. **In both branches the fee is asymmetric in the wrong direction for you:** it is a fixed 2% *plus a variable slice of exactly the upside you were buying a manager for*. The [PMS / AIF fee calculator](/calculators/pms-aif-fees) reproduces this year-by-year over your horizon; the number above is the "one-year, no-compounding" version so you can see the mechanism cleanly.
+
+Two corollaries that decide most real purchases:
+
+1. **The hurdle matters more than the percentage.** A 20% performance share on a 12% hurdle costs far more than a 15% share on an 8% hurdle, even though the raw percentage is lower. Ask for the *hurdle* and the *share* and compute both.
+2. **A fixed-fee-only strategy is the cheaper contract.** "1.75% flat, no performance fee" beats "1% + 20% above 12%" in every down and flat year and only loses in the biggest up years. For a long-horizon goal, the *certainty* of a fixed fee usually wins, which is why the SIF's near-pure-expense-ratio cost model (`src-sebi-sif-2026`) is the cleanest of the three contracts.
+
+## The ₹10L → ₹50L → ₹1Cr roadmap
+
+This is the part that turns the general ladder into *your* plan. The rule that governs the whole roadmap is **never concentrate a structure you cannot afford to lose.** Every rung below is sized so that a *single-manager failure* (fee dispute, mandate blow-up, AIF default on a private-credit portfolio) costs you a survivable slice, not the corpus.
+
+### Today: ₹10L
+
+- **Base (the non-negotiable).** The bulk of ₹10L stays where it already is cheap and boring: direct index funds / ETFs plus the tax-free core the [tax-free wealth stack](../taxation/tax-tax-free-wealth-stack.mdx) builds (PPF, SGB, ELSS, NPS). This is the part you never hand to a manager.
+- **The SIF option (new this year).** If you want a *single sophisticated, liquid, SEBI-regulated strategy* — say, a market-neutral or dynamic-allocation sleeve — you are *eligible now* at the ₹10L floor. But keep the SIF at **a minority of the ₹10L** (a 20–30% sleeve, ₹2–3L) and verify the expense model against the equivalent index-plus-duration position. A SIF you cannot distinguish from a mutual fund on cost is a mutual fund with extra steps (`src-sebi-sif-2026`).
+- **No PMS, no AIF.** At ₹10L both are out of reach by design (PMS ₹50L, AIF ₹1Cr). Do not split a corpus across three professional structures — that is fee-drag with a diversification costume.
+
+### ₹50L: PMS enters the map
+
+- When the corpus reaches ~₹50L, the first professional *segregated* structure available is the PMS. Run the edge test above. The default posture: **index base, one PMS mandate as a concentrated satellite at under half the corpus**, and only a *fixed-fee* PMS unless a performance-only structure clears the hurdle math at a meaningful hurdle.
+- The [core-satellite](/calculators/core-satellite) and [fee-drag](/calculators/fee-drag) calculators are your two hands: one sizes the satellite so a *single* default is survivable (its `singleDefaultLoss` is the number to keep under ~10–15% of the fixed-income sleeve), the other proves the fee does not eat the edge.
+
+### ₹1Cr: AIF and the private rung
+
+- AIF unlocks *private markets, venture/growth, and concentrated structured strategies* that neither SIF nor PMS can package. AIFs are close-ended with 3-year minimums for Cat I/II (`src-aif-categories-2026`), so an AIF allocation is a **lock-in decision, not a liquid one** — size it to the portion of the corpus you genuinely will not need for 3+ years.
+- The 2026 SEBI PMS regulation overhaul also introduced a **mutual-fund-only PMS route at a ₹25L minimum, effective April 2027** (`src-pms-aif-fees-2026`, `src-sebi-mf-regulations-2026`) — a *fourth* rung that lands between SIF and the classic PMS. That is the single most useful piece of 2026 regulatory news for a growing ₹10L reader: the professional ladder gained a *low-ticket, liquid, pooled* rung for exactly the 25L–50L band most readers sit in by 2027. Re-run the SIF-vs-MF-only-PMS choice at that date.
+- Even at ₹1Cr, the *base* is still the index plus tax-free core. The AIF is the *satellite on top of a finished base*, never a substitute for it.
+
+## The due-diligence checklist (the part that beats the fee table)
+
+A fee schedule is public and bounded; the strategy is not. This is the ten-point screen to apply to *any* SIF/PMS/AIF before the edge test is even meaningful, in order:
+
+```mermaid
+flowchart TD
+A[1. Mandate: what risk, what universe,<br/>what it will NOT do] --> B[2. Forward edge vs a passive<br/>same-risk bench]
+B --> C[3. Fee contract: fixed vs perf,<br/>hurdle, clawback? <br/>model both branches]
+C --> D[4. Track record: net-of-fee,<br/>longest period, the bad years]
+D --> E[5. Capacity & key-person risk:<br/>who runs it if the PM leaves]
+E --> F[6. Liquidity: PMS exit days,<br/>AIF lock-in, SIF open/close]
+F --> G[7. Tax structure of the vehicle:<br/>pass-through vs 115UA vs CGT]
+G --> H[8. Concentration: max single-name<br/>and single-sector exposure]
+H --> I[9. Independent audit: SEBI<br/>compliance, annual audited NAV]
+I --> J[10. Does the edge clear the drag?<br/>run pms-aif-fees calculator]
+J -->|yes, and size is survivable| K[Enter at a minority sleeve]
+J -->|no| L[Stay in the index + tax-free core]
+```
+
+The two points that most retail readers skip, and the two most expensive:
+
+- **Point 2 is the whole ballgame, and it is forward, not backward.** A strategy that beat Nifty in 2020–24 *for a specific reason that is now priced in* is not a forward edge. "Beat the index by 4% over the last three years" is a *claim*; "here is the risk it took that the index does not take, and here is why that risk still pays" is an *argument*. If a manager cannot state the forward edge and the risk that pays for it, the fee test above has no $\bar r_{\text{mgr}}$ to plug in, and the answer defaults to *the cheaper passive structure*.
+- **Point 7 — the tax structure of the vehicle — is the one that changes the *after-tax* edge.** A PMS's gain is a *pass-through* taxed as your own capital gain (long-term equity gains at the current rate, no indexation, `src-pms-aif-fees-2026`); an AIF and a SIF can be pooled with their own tax treatment; a private-credit AIF's *income* is tax-in-the-year. Two "14% strategies" with different tax wrappers are not the same 14%. Compare them *after tax*, using the [new-vs-old regime calculator](/calculators/tax-shield) for your own position and the vehicle's wrapper for the structure's.
+
+## When to say no to all three
+
+The professional rungs are real, but they are not the answer by default. Skip all of them — and stay in index plus the tax-free core — when *any* of these is true:
+
+- **The corpus is below the *meaningful* minimum for the strategy.** ₹50L into a PMS whose mandate needs ₹5L per position to work is a PMS where you cannot hold the mandate properly. The *effective* minimum is often far above SEBI's floor; ask the provider what their minimum is *per position*, not the regulatory one.
+- **The only stated edge is "our people are good."** Goodness is not a strategy. If the forward edge cannot be stated in one sentence, you are paying a fee for a coin flip with a brand on it.
+- **The horizon is short.** A performance-fee structure whose best year is the year you must exit is a structural loss. A 1–2 year goal belongs in the index and the tax-free core, full stop.
+- **You cannot afford the *lock-in* or a *bad-manager year* without selling into the trough.** If the worst plausible 3-year drawdown of the strategy would force you to de-risk at the bottom, the structure's volatility is not your volatility.
+
+## The honest bottom line for the growing ₹10L reader
+
+You are, as of 1 April 2026, **already inside the SIF minimum**, which is the first professional rung. That is a fact to use calmly: it does not mean you *should* buy a SIF, it means you are *permitted* to, if a specific SIF strategy genuinely clears the edge test on a *minority sleeve*. The PMS and AIF are the rungs you are *walking toward*, and the 2027 MF-only-PMS route (₹25L) is a rung that will appear between them. The discipline that keeps the whole roadmap sane is unchanged at every corpus size:
+
+1. **The base is always index plus the tax-free core** — never a manager's job.
+2. **A professional structure is always a satellite, a minority, and sized so one failure is survivable** — the [core-satellite](/calculators/core-satellite) `singleDefaultLoss` is your ceiling.
+3. **Every structure must clear the forward-edge-minus-fee-drag test after tax** — the [PMS / AIF fee calculator](/calculators/pms-aif-fees) and the [tax-shield calculator](/calculators/tax-shield) are the two hands that run it.
+
+Get those three habits right and the ticket size becomes the least of your worries. Get them wrong and no amount of capital fixes a fee that does not earn its edge.
+
+## Related
+
+- [PMS & AIF, Private and Structured Products](./alternatives-pms-aif-private.mdx) — the general instrument overviews this guide is the *selection* layer on top of.
+- [SIF: India's New ₹10 Lakh Tier](./alternatives-sif-specialized-funds.mdx) — the instrument-specific SIF deep-dive; read it before applying the SIF rows above.
+- [The ₹10 Lakh Wealth Plan](../personal-finance/pf-wealth-plan-10-lakh.mdx) — the base this ladder is built *on top of*; never replace it with a professional structure.
+- [Building the Tax-Efficient Wealth Stack](../taxation/tax-tax-free-wealth-stack.mdx) — the tax-free core that must stay *out* of every fee-dragged vehicle.
+- [India's Income-Tax System for Investors](../taxation/tax-india-investor-complete.mdx) — the pass-through / CGT substrate for point 7 of the checklist.
+
+## Sources
+
+- `src-sebi-sif-2026` — SEBI SIF framework (circulars Feb–Jul 2025): the ₹10L PAN-level minimum, the accredited-investor exemption, the pooled-unit structure, and the 1 April 2026 effectiveness date used in the SIF rows and the "eligible now" fact.
+- `src-sebi-mf-regulations-2026` — the SEBI MF Regulations 2026 overhaul, the source of the SIF category and the proposed ₹25L mutual-fund-only PMS route effective April 2027.
+- `src-pms-aif-fees-2026` — the PMS/AIF fee convention the edge test is built on: management fee on opening corpus, performance fee on gain-above-hurdle, the 14% / 2% / 10% / 15% one-year example, the pass-through tax treatment, and the SEBI PMS notification revamp.
+- `src-aif-categories-2026` — AIF Category I/II/III structure, the ₹1Cr minimum (₹25L for angel funds), and the 3-year close-ended minimum tenure for Cat I/II.
+
+## Update log
+
+- 2026-10-17: New article. SIF minimum (₹10L PAN, effective 1 April 2026), PMS ₹50L / AIF ₹1Cr minimums, the fee-decay convention and the one-year worked example, and the April-2027 ₹25L MF-only PMS route verified against `src-sebi-sif-2026`, `src-sebi-mf-regulations-2026`, `src-pms-aif-fees-2026`, `src-aif-categories-2026`.
+- 2027-04-17: Scheduled re-verification: the April-2027 MF-only-PMS route (confirm it is live and re-run the SIF-vs-MF-only-PMS choice), the PMS/AIF fee convention (SEBI's PMS notification revamp re-checks the management/performance mechanics), and the SIF accredited-investor exemption wording.

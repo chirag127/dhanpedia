@@ -253,6 +253,46 @@
    "lastVerified": "2026-10-17",
    "reviewAfter": "2027-01-17",
    "status": "verified"
+  },
+  {
+   "id": "ul-sif-pan-minimum-2026",
+   "claim": "SIF: Rs.10L aggregate minimum at the PAN level (excludes AMC-mandated employee investments); accredited-investor exemption; framework effective 1 April 2026 - the first professional rung a Rs.10L reader is already eligible for",
+   "source": "src-sebi-sif-2026",
+   "lastVerified": "2026-10-17",
+   "reviewAfter": "2027-04-17",
+   "status": "verified"
+  },
+  {
+   "id": "ul-mf-only-pms-route-2027",
+   "claim": "SEBI notified a revamped PMS regulation effective April 2027 introducing a mutual-fund-only PMS route at a Rs.25L minimum (below the classic Rs.50L PMS floor) - a new low-ticket pooled rung between SIF and classic PMS; re-verify the exact minimum and go-live date",
+   "source": "src-pms-aif-fees-2026",
+   "lastVerified": "2026-10-17",
+   "reviewAfter": "2027-04-17",
+   "status": "verified"
+  },
+  {
+   "id": "ul-aif-category-minima-2026",
+   "claim": "AIF: Rs.1Cr minimum (Rs.25L for angel funds and manager-employee/director investors); Cat I/II close-ended with a 3-year minimum tenure; up to 1000 investors per scheme (49 angel)",
+   "source": "src-aif-categories-2026",
+   "lastVerified": "2026-10-17",
+   "reviewAfter": "2027-04-17",
+   "status": "verified"
+  },
+  {
+   "id": "ul-advance-tax-fy2026-27",
+   "claim": "Advance tax FY 2026-27: duty when tax after TDS exceeds Rs.10,000; cumulative 15/45/75/100% on 15 Jun / 15 Sep / 15 Dec / 15 Mar; 234C 1%/mo on each shortfall (3-month tails first three, 1-month last); 234B 1%/mo from 1 Apr when advance paid under 90% of assessed; capital-gains 31-Mar relief; 44AD/44ADA single 15-Mar payment",
+   "source": "src-advance-tax-fy2026-27",
+   "lastVerified": "2026-10-17",
+   "reviewAfter": "2027-04-17",
+   "status": "verified"
+  },
+  {
+   "id": "ul-itr-final-dates-2026",
+   "claim": "FY 2026-27 ITR standard deadline 31 July 2027 (non-audited), 15 July 2027 (audited); the exact dates are a published annual notification to re-verify at year-end",
+   "source": "src-it-dept-final-dates-2026",
+   "lastVerified": "2026-10-17",
+   "reviewAfter": "2027-07-31",
+   "status": "verified"
   }
  ]
 }

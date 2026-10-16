@@ -61,6 +61,15 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.getByText(/If one satellite issuer defaults/)).toBeVisible();
   });
 
+  test('advance-tax calculator renders the installment schedule', async ({ page }) => {
+    await page.goto('/calculators/advance-tax');
+    await expect(page.getByText('Total tax + cess (est.)')).toBeVisible();
+    await expect(page.getByText('Advance tax due after TDS')).toBeVisible();
+    await expect(page.getByText(/Approx 234C interest if fully deferred/)).toBeVisible();
+    // Chart container for the installment bar chart is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

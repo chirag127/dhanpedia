@@ -877,6 +877,74 @@
    "books": [
     "book-p2p-lending"
    ]
+  },
+  {
+   "id": "alternatives-hnw-pms-aif-sif-selection",
+   "title": "Picking Your Own Rung: The SIF / PMS / AIF Selection & Fee-Decay Decision Guide",
+   "category": "alternatives",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "sif",
+    "pms",
+    "aif",
+    "hni",
+    "fee-drag",
+    "due-diligence",
+    "sebi-2026",
+    "allocation"
+   ],
+   "summary": "The selection layer over the professional rungs: when a SIF (Rs.10L), PMS (Rs.50L) or AIF (Rs.1Cr) beats the plain index, the fee-decay math that decides when each pays for itself, a 10-point due-diligence checklist, and the 10L -> 50L -> 1Cr capital roadmap (including the April-2027 MF-only PMS route).",
+   "file": "src/content/alternatives/alternatives-hnw-pms-aif-sif-selection.mdx",
+   "sources": [
+    "src-sebi-sif-2026",
+    "src-sebi-mf-regulations-2026",
+    "src-pms-aif-fees-2026",
+    "src-aif-categories-2026"
+   ],
+   "related": [
+    "alternatives-pms-aif-private",
+    "alternatives-sif-specialized-funds",
+    "pf-wealth-plan-10-lakh",
+    "portfolio-construction-rebalancing",
+    "tax-india-investor-complete"
+   ],
+   "books": [
+    "book-wealth-beyond-10l"
+   ]
+  },
+  {
+   "id": "tax-advance-itr-final-checklist",
+   "title": "Advance Tax, the 234B/234C Interest Clock, and the Final ITR Checklist for FY 2026-27",
+   "category": "taxation",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "advance-tax",
+    "234b",
+    "234c",
+    "itr",
+    "tax-planning",
+    "fy-2026-27",
+    "compliance"
+   ],
+   "summary": "Who must pay advance tax in FY 2026-27, the four cumulative installment dates, the 234B and 234C interest clocks with the capital-gains 31-Mar relief, the surcharge thresholds, which ITR form to file, and the end-of-year checklist that turns estimate into settled.",
+   "file": "src/content/taxation/tax-advance-itr-final-checklist.mdx",
+   "sources": [
+    "src-advance-tax-fy2026-27",
+    "src-it-slab-fy2026-27",
+    "src-it-dept-final-dates-2026"
+   ],
+   "related": [
+    "tax-india-investor-complete",
+    "tax-tax-free-wealth-stack",
+    "tax-loss-harvesting",
+    "tax-huf-wealth-structure",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-indian-taxation"
+   ]
   }
  ]
 }

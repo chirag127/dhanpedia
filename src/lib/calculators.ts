@@ -16,7 +16,7 @@ import {
   withdrawalSustainability, sustainableInitialWithdrawal, p2pExpectedNetReturn,
   bondPrice, macaulayDuration, feeImpact, currencyScenario, rentalYield,
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
-  newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend,
+  newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -630,6 +630,92 @@ export const CALCULATORS: CalcDef[] = [
               ],
               label: { show: true, formatter: (p: { value: number }) => `${p.value}%` },
             }],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'advance-tax',
+    title: 'Advance Tax Installments (FY 2026-27)',
+    category: 'Tax',
+    description: 'Plan your four advance-tax installments (15 Jun / 15 Sep / 15 Dec / 15 Mar) under FY 2026-27 new-regime slabs, after TDS credit, and see an approximate Section 234C interest cost if you defer everything to the last date.',
+    inputs: [
+      { key: 'income', label: 'Estimated annual taxable income (Rs)', default: 2000000, min: 0, step: 100000, hint: 'All income for the year (salary, rent, business, capital gains). The calculator applies new-regime slabs, the 87A rebate, surcharge and 4% cess. If you use the old regime, compute your own total tax and enter it in the "total tax" box instead.' },
+      { key: 'useTaxInput', label: 'Use a pre-computed total tax (Rs)', default: 0, min: 0, step: 10000, hint: 'Optional: enter your own total tax + cess (from a CA or the ITR utility) and it will replace the slab computation. Leave at 0 to compute from income.' },
+      { key: 'tds', label: 'TDS / TCS expected to be credited (Rs)', default: 200000, min: 0, step: 10000, hint: 'Salaried employees mostly clear their advance-tax duty via TDS. Freelancers and rental income usually need the rest paid in installments.' },
+      { key: 'presumptive', label: 'Presumptive 44AD/44ADA taxpayer', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No' }, { value: 1, label: 'Yes - may pay 100% by 15 Mar' }], hint: 'Presumptive-income taxpayers can skip the four installments and pay the full amount by 15 March instead.' },
+    ],
+    assumptions: [
+      'FY 2026-27 new-regime slabs: nil to Rs 4L, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30% above; 87A rebate keeps income up to Rs 12L tax-free.',
+      'Surcharge: 10% above Rs 50L, 15% above Rs 1Cr, 25% above Rs 2Cr (new regime cap), plus 4% health & education cess on (tax + surcharge).',
+      'The advance-tax duty applies when the balance after TDS exceeds Rs 10,000; the four cumulative dates are 15 / 45 / 75 / 100%.',
+    ],
+    limitations: [
+      'Old-regime filers should compute their own total tax and use the "pre-computed total tax" input; the slab computation here is new-regime only.',
+      'The 234C figure is an approximation (1% x 3 months on each of the first three quarterly shortfalls); actual liability depends on how much you paid on each date - verify with the ITR utility.',
+      'This is an illustration, not a filing - pay via Challan 280 (Advance Tax) on the income-tax portal.',
+    ],
+    compute: (v) => {
+      const totalTax =
+        v.useTaxInput > 0
+          ? v.useTaxInput
+          : (() => {
+              const slabTax = newRegimeTaxFY27(v.income);
+              let surcharge = 0;
+              if (v.income > 5000000) surcharge = slabTax * 0.1;
+              if (v.income > 10000000) surcharge = slabTax * 0.15;
+              if (v.income > 20000000) surcharge = slabTax * 0.25;
+              return (slabTax + surcharge) * 1.04;
+            })();
+      const r = advanceTaxFY27(totalTax, v.tds);
+      const schedule =
+        v.presumptive === 1
+          ? [
+              { dueDate: '15 Mar 2027 (single installment)', cumulativePct: 1.0, amountDue: r.advanceTaxDue },
+            ]
+          : r.installments;
+      const totalWithInterest = r.advanceTaxDue + r.interest234CApprox;
+      return {
+        results: [
+          {
+            label: 'Total tax + cess (est.)',
+            value: Math.round(totalTax),
+            kind: 'inr',
+            note: v.useTaxInput > 0 ? 'Your pre-computed figure' : 'Computed on new-regime slabs',
+          },
+          {
+            label: 'Advance tax due after TDS',
+            value: Math.round(r.advanceTaxDue),
+            kind: 'inr',
+            note: r.needsAdvanceTax
+              ? `Above the Rs 10,000 threshold - installments required${v.presumptive === 1 ? ' (or one 15 Mar installment if 44AD/44ADA)' : ''}`
+              : 'At or below the Rs 10,000 threshold - no advance tax',
+          },
+          {
+            label: 'Approx 234C interest if fully deferred',
+            value: Math.round(r.interest234CApprox),
+            kind: 'inr',
+            note: '1% x 3 months on each of the first three quarterly shortfalls; zero if all installments are paid on time',
+          },
+        ],
+        chart: {
+          title: r.needsAdvanceTax ? 'Installment schedule (Rs cumulative)' : 'No advance tax due at these inputs',
+          alt: `Bar chart of the cumulative advance-tax dues: ${r.installments.map((s) => `${s.dueDate} Rs ${Math.round(s.amountDue).toLocaleString('en-IN')}`).join(', ')}; total ${Math.round(r.advanceTaxDue).toLocaleString('en-IN')}.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${Math.round(x).toLocaleString('en-IN')}` },
+            xAxis: { type: 'category', data: schedule.map((s) => s.dueDate), name: 'Due date' },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Cumulative due',
+                type: 'bar',
+                data: schedule.map((s) => Math.round(s.amountDue)),
+                itemStyle: { color: '#1f7a5c' },
+                label: { show: true, formatter: (p: { value: number }) => `${Math.round(p.value / 1e5)}L` },
+              },
+            ],
           },
         },
       };
