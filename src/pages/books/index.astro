@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { DOWNLOAD_MANIFEST } from '@lib/downloads';
+
+// Only books that have at least one successfully generated format are shown
+// with download links; books that failed the pipeline are flagged, not linked.
+const books = DOWNLOAD_MANIFEST.books.filter((b) => !b.failed && b.formats?.length);
+const failed = DOWNLOAD_MANIFEST.books.filter((b) => b.failed);
+const extLabel = (e) => ({ md: 'Markdown', html: 'HTML', txt: 'Plain text', tts: 'TTS text', epub: 'EPUB', pdf: 'PDF' }[e] || e.toUpperCase());
+const icon = (e) => ({ md: '📄', html: '🌐', txt: '📝', tts: '🔊', epub: '📚', pdf: '📕' }[e] || '📦');
+---
+
+<BaseLayout title="Books & Downloads" description="Download DhanPedia's books in Markdown, HTML, plain text, TTS, EPUB and PDF.">
+  <section style="padding:3rem 0 1rem;">
+    <div class="container" style="max-width:52rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Books &amp; downloads</h1>
+      <p style="color:var(--ink-soft);">
+        {books.length} books, assembled from the same reviewed articles that power the site.
+        Every download below is a real, generated file — no broken links.
+        {failed.length > 0 && <strong style="color:var(--warn);"> {failed.length} book(s) failed generation this build.</strong>}
+      </p>
+    </div>
+  </section>
+
+  <section style="padding:1rem 0 3rem;">
+    <div class="container" style="max-width:52rem;">
+      <div style="display:grid; gap:1.4rem;">
+        {books.map((b) => (
+          <div style="background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:1.4rem;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+              <div>
+                <a href={link(`/books/${b.id}`)} style="font-family:var(--font-serif); font-weight:600; font-size:1.3rem; color:var(--ink); text-decoration:none;">{b.title}</a>
+                {b.subtitle && <div style="font-size:.9rem; color:var(--ink-soft); margin-top:.2rem;">{b.subtitle}</div>}
+              </div>
+              <span style="font-size:.72rem; color:var(--ink-soft); border:1px solid var(--line); border-radius:20px; padding:.2rem .6rem;">v{b.version} · {b.published}</span>
+            </div>
+
+            <p style="font-size:.92rem; color:var(--ink-soft); line-height:1.6; margin:.8rem 0;">{b.description}</p>
+            <div style="font-size:.8rem; color:var(--ink-soft);"><strong style="color:var(--ink);">Audience:</strong> {b.audience} · <strong style="color:var(--ink);">Chapters:</strong> {b.chapters.length}</div>
+
+            <div style="margin-top:1rem; display:flex; flex-wrap:wrap; gap:.5rem;">
+              {b.formats.map((f) => (
+                <a href={link(`/downloads/${f.path.replace('public/downloads/', '')}`)} download
+                   style="display:inline-flex; align-items:center; gap:.35rem; border:1px solid var(--line); background:var(--surface-2); border-radius:9px; padding:.4rem .7rem; text-decoration:none; font-size:.82rem; color:var(--ink);">
+                  <span>{icon(f.ext)}</span> {extLabel(f.ext)}
+                  <span style="color:var(--ink-soft); font-size:.7rem;">{Math.ceil(f.bytes / 1024)} KB</span>
+                </a>
+              ))}
+            </div>
+
+            <details style="margin-top:1rem; font-size:.85rem;">
+              <summary style="cursor:pointer; color:var(--ink-soft); font-weight:600;">Chapters</summary>
+              <ol style="margin:.5rem 0 0; padding-left:1.2rem; color:var(--ink-soft); line-height:1.8;">
+                {b.chapters.map((c, i) => <li>{i + 1}. {c}</li>)}
+              </ol>
+            </details>
+          </div>
+        ))}
+
+        {failed.map((b) => (
+          <div style="border:1px solid var(--warn); border-radius:12px; padding:1rem; font-size:.85rem; color:var(--warn);">
+            <strong>{b.title}</strong> — generation failed this build ({b.error}). No download links are shown to avoid broken files.
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line); font-size:.85rem; color:var(--ink-soft);">
+        <strong style="color:var(--ink);">Every article is also downloadable.</strong> Use the download menu on any article page (Markdown, plain text, HTML).
+        Generated {DOWNLOAD_MANIFEST.generated !== 'seed' ? DOWNLOAD_MANIFEST.generated.slice(0, 10) : 'in the current build'} · files ship under <code>/downloads/</code>.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

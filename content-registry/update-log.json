@@ -1,0 +1,69 @@
+{
+  "note": "Time-sensitive claims tracked for re-verification. CI may flag items past reviewAfter but MUST NOT auto-publish changes.",
+  "version": "1.0",
+  "entries": [
+    {
+      "id": "tl-scoss-rate",
+      "claim": "SCSS interest rate 8.2% p.a. (FY 2025-26)",
+      "source": "src-scss-8-2",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-01-01",
+      "status": "needs-review",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-repo-rate",
+      "claim": "RBI repo rate near 5.25%",
+      "source": "src-rbi-repo",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-30",
+      "status": "ok",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-sgb-status",
+      "claim": "SGB scheme discontinued; no new tranches since FY 2024-25 (last tranche Feb 2024)",
+      "source": "src-sgb-discontinued",
+      "lastVerified": "2026-08-06",
+      "reviewAfter": "2026-12-31",
+      "status": "ok"
+    },
+    {
+      "id": "tl-nps-exit",
+      "claim": "NPS 2025 exit rules: up to 80% lump sum at retirement; 100% equity option (private sector)",
+      "source": "src-nps-2025-exit",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "status": "ok",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-p2p-directions",
+      "claim": "RBI P2P Directions, 2025 notified 2025-11-28 (RBI/DOR/2025-26/370)",
+      "source": "src-rbi-p2p-directions-2025",
+      "lastVerified": "2026-08-06",
+      "reviewAfter": "2027-01-01",
+      "status": "ok"
+    },
+    {
+      "id": "tl-tax-slabs",
+      "claim": "FY 2025-26 new-regime slabs; Rs.12L effectively tax-free for salaried after standard deduction",
+      "source": "src-it-slab-calculator",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-02-28",
+      "status": "ok",
+      "notes": "Re-verified 2026-10-16 against primary/secondary sources (RBI Bulletin Aug-2026 MPC; eGazette AY 2026-27 rates; PFRDA Gazette 16.12.2025; Outlook Money Q1 FY 2026-27 small-savings unchanged)."
+    },
+    {
+      "id": "tl-sif-2026",
+      "claim": "SEBI SIF (Specialized Investment Fund) category, effective 1 Apr 2026: Rs.10L minimum, long-short strategy categories, MF Lite sibling framework; PMS Rs.50L and AIF Rs.1Cr minimums unchanged",
+      "lastVerified": "2026-10-16",
+      "reviewAfter": "2027-04-01",
+      "articles": [
+        "alternatives-sif-specialized-funds",
+        "alternatives-pms-aif-private"
+      ],
+      "notes": "Minimum, breach rules, and cost caps were sourced from secondary guides summarizing the SEBI text. Confirm against SEBI circulars and scheme documents before advising."
+    }
+  ]
+}

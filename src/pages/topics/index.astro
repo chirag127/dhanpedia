@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { CATEGORIES } from '@lib/site';
+import { ARTICLES, INSTRUMENTS } from '@lib/content';
+---
+
+<BaseLayout title="Explore Topics" description="Browse every investment avenue covered by DhanPedia, from foundations to alternative investments.">
+  <section style="padding:3rem 0 1rem;">
+    <div class="container" style="max-width:48rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Explore topics</h1>
+      <p style="color:var(--ink-soft);">Seventeen avenues, each with deep, source-cited articles, quick-reference instrument cards, related calculators, and books.</p>
+    </div>
+  </section>
+
+  <section style="padding:1rem 0 3rem;">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.1rem;">
+        {CATEGORIES.map((c) => {
+          const items = ARTICLES.filter((a) => a.category === c.id && a.status === 'published');
+          const cards = INSTRUMENTS.filter((i) => i.category === c.id);
+          return (
+            <a href={link(`/topics/${c.slug}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:1.2rem; text-decoration:none; display:block; transition:border-color .15s;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem;">
+                <span style="font-family:var(--font-serif); font-weight:600; font-size:1.15rem; color:var(--ink);">{c.title}</span>
+                <span style="font-size:.72rem; color:var(--ink-soft); border:1px solid var(--line); border-radius:20px; padding:.15rem .5rem; white-space:nowrap;">{items.length} articles</span>
+              </div>
+              <p style="font-size:.88rem; color:var(--ink-soft); margin:.6rem 0 0; line-height:1.55;">{c.blurb}</p>
+              {items.length > 0 && (
+                <ul style="margin:.9rem 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:.4rem;">
+                  {items.slice(0, 4).map((a) => (
+                    <li style="font-size:.78rem; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:.25rem .5rem; color:var(--ink);">
+                      <a href={link(`/articles/${a.id}`)} style="color:var(--ink); text-decoration:none;">{a.title.length > 42 ? a.title.slice(0, 40) + '…' : a.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

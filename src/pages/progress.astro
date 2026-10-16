@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { UPDATE_LOG, ARTICLES } from '@lib/content';
+
+// Read progress/STATUS.md at build time so the page always mirrors the real state.
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../');
+let statusMd = '';
+try {
+  statusMd = await readFile(path.join(repoRoot, 'progress', 'STATUS.md'), 'utf8');
+} catch {
+  statusMd = '# Status\n\nProgress file not found at build time. Run `npm run books` first.';
+}
+const published = ARTICLES.filter((a) => a.status === 'published').length;
+---
+
+<BaseLayout title="Project Status" description="Honest, machine-readable progress: what is complete, what is in progress, and what is next.">
+  <section style="padding:3rem 0 3rem;">
+    <div class="container" style="max-width:48rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Project status</h1>
+      <p style="color:var(--ink-soft);">
+        DhanPedia is built to be resumable. This page mirrors
+        <code>progress/STATUS.md</code> from the repository — no exaggerated claims:
+        what is done is verified; what is not, is labelled.
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:.8rem; margin:1.5rem 0;">
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1rem;"><div style="font-size:1.4rem; font-weight:700; font-family:var(--font-serif);">{published}</div><div style="font-size:.8rem; color:var(--ink-soft);">published articles</div></div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1rem;"><div style="font-size:1.4rem; font-weight:700; font-family:var(--font-serif);">{UPDATE_LOG.filter((u) => u.status === 'needs-review').length}</div><div style="font-size:.8rem; color:var(--ink-soft);">claims needing re-verification</div></div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1rem;"><div style="font-size:1.4rem; font-weight:700; font-family:var(--font-serif);">{UPDATE_LOG.length}</div><div style="font-size:.8rem; color:var(--ink-soft);">time-sensitive claims tracked</div></div>
+      </div>
+
+      <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.4rem;">
+        <pre style="white-space:pre-wrap; font-family:var(--font-mono); font-size:.82rem; color:var(--ink-soft); line-height:1.7; margin:0;">{statusMd}</pre>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

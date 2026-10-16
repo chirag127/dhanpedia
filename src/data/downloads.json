@@ -1,0 +1,809 @@
+{
+  "generated": "2026-10-16T17:28:56.080Z",
+  "books": [
+    {
+      "id": "book-complete-indian-investor",
+      "title": "The Complete Indian Investor",
+      "subtitle": "Foundations, Allocation, Mutual Funds, Small-Savings Schemes & Your 10L Plan",
+      "description": "A single-volume reference from first principles (compounding, risk, behavior) through index funds, SIPs, PPF/EPF/NPS/SSY/NSC, gold bonds, and a concrete Rs.10 lakh starting allocation.",
+      "audience": "Beginner-to-intermediate Indian investor with basic financial literacy",
+      "version": "1.0",
+      "published": "2026-10-16",
+      "chapters": [
+        "foundations-compounding-returns",
+        "foundations-risk-allocation-behavior",
+        "mf-index-etf-direct-regular",
+        "mf-sip-swp-stp-goals",
+        "mf-choosing-comparing-funds",
+        "govt-small-savings-schemes",
+        "govt-sovereign-gold-bonds",
+        "portfolio-construction-rebalancing",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "formats": [
+        {
+          "name": "book-complete-indian-investor.md",
+          "ext": "md",
+          "bytes": 164109,
+          "mtime": "2026-10-16T17:28:56.109Z",
+          "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.md"
+        },
+        {
+          "name": "book-complete-indian-investor.html",
+          "ext": "html",
+          "bytes": 181389,
+          "mtime": "2026-10-16T17:28:56.138Z",
+          "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.html"
+        },
+        {
+          "name": "book-complete-indian-investor.txt",
+          "ext": "txt",
+          "bytes": 156345,
+          "mtime": "2026-10-16T17:28:56.154Z",
+          "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.txt"
+        },
+        {
+          "name": "book-complete-indian-investor.tts.txt",
+          "ext": "txt",
+          "bytes": 157291,
+          "mtime": "2026-10-16T17:28:56.169Z",
+          "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.tts.txt"
+        },
+        {
+          "name": "book-complete-indian-investor.epub",
+          "ext": "epub",
+          "bytes": 75180,
+          "mtime": "2026-10-16T17:28:56.244Z",
+          "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.epub"
+        },
+        {
+          "name": "book-complete-indian-investor.pdf",
+          "ext": "pdf",
+          "bytes": 184128,
+          "mtime": "2026-10-16T17:28:56.483Z",
+          "path": "public/downloads/books/book-complete-indian-investor/book-complete-indian-investor.pdf"
+        }
+      ]
+    },
+    {
+      "id": "book-p2p-lending",
+      "title": "P2P Lending in India",
+      "subtitle": "Framework, Expected Loss, Due Diligence, Recovery & Tax (Deep)",
+      "description": "The definitive educational treatment of RBI-regulated peer-to-peer lending: how the 2025 framework works, how returns are generated, expected-loss and loss-given-default math, platform underwriting, recovery, tax treatment, and a portfolio stress test.",
+      "audience": "Advanced investor considering P2P as part of a credit sleeve",
+      "version": "1.0",
+      "published": "2026-10-16",
+      "chapters": [
+        "p2p-lending-complete",
+        "fixed-income-bonds-credit",
+        "insurance-protection"
+      ],
+      "formats": [
+        {
+          "name": "book-p2p-lending.md",
+          "ext": "md",
+          "bytes": 76301,
+          "mtime": "2026-10-16T17:28:56.493Z",
+          "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.md"
+        },
+        {
+          "name": "book-p2p-lending.html",
+          "ext": "html",
+          "bytes": 90166,
+          "mtime": "2026-10-16T17:28:56.503Z",
+          "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.html"
+        },
+        {
+          "name": "book-p2p-lending.txt",
+          "ext": "txt",
+          "bytes": 72208,
+          "mtime": "2026-10-16T17:28:56.509Z",
+          "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.txt"
+        },
+        {
+          "name": "book-p2p-lending.tts.txt",
+          "ext": "txt",
+          "bytes": 72528,
+          "mtime": "2026-10-16T17:28:56.515Z",
+          "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.tts.txt"
+        },
+        {
+          "name": "book-p2p-lending.epub",
+          "ext": "epub",
+          "bytes": 34307,
+          "mtime": "2026-10-16T17:28:56.544Z",
+          "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.epub"
+        },
+        {
+          "name": "book-p2p-lending.pdf",
+          "ext": "pdf",
+          "bytes": 83108,
+          "mtime": "2026-10-16T17:28:56.643Z",
+          "path": "public/downloads/books/book-p2p-lending/book-p2p-lending.pdf"
+        }
+      ]
+    },
+    {
+      "id": "book-indian-taxation",
+      "title": "Indian Taxation for Investors",
+      "subtitle": "Regimes, Capital Gains, Deductions, Reporting & International Rules",
+      "description": "A single reference for the tax treatment of every major Indian investment avenue: new vs old regime, slab math, equity STCG/LCG, debt and commodity gains, ELSS/80C, NPS 80CCD, TDS, ITR forms, HUF and DTA reporting.",
+      "audience": "Any Indian investor; advanced for the reporting chapters",
+      "version": "1.0",
+      "published": "2026-10-16",
+      "chapters": [
+        "tax-india-investor-complete",
+        "govt-small-savings-schemes",
+        "international-investing-lrs"
+      ],
+      "formats": [
+        {
+          "name": "book-indian-taxation.md",
+          "ext": "md",
+          "bytes": 72014,
+          "mtime": "2026-10-16T17:28:56.652Z",
+          "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.md"
+        },
+        {
+          "name": "book-indian-taxation.html",
+          "ext": "html",
+          "bytes": 93303,
+          "mtime": "2026-10-16T17:28:56.662Z",
+          "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.html"
+        },
+        {
+          "name": "book-indian-taxation.txt",
+          "ext": "txt",
+          "bytes": 63232,
+          "mtime": "2026-10-16T17:28:56.668Z",
+          "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.txt"
+        },
+        {
+          "name": "book-indian-taxation.tts.txt",
+          "ext": "txt",
+          "bytes": 63652,
+          "mtime": "2026-10-16T17:28:56.674Z",
+          "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.tts.txt"
+        },
+        {
+          "name": "book-indian-taxation.epub",
+          "ext": "epub",
+          "bytes": 31738,
+          "mtime": "2026-10-16T17:28:56.699Z",
+          "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.epub"
+        },
+        {
+          "name": "book-indian-taxation.pdf",
+          "ext": "pdf",
+          "bytes": 75131,
+          "mtime": "2026-10-16T17:28:56.785Z",
+          "path": "public/downloads/books/book-indian-taxation/book-indian-taxation.pdf"
+        }
+      ]
+    },
+    {
+      "id": "book-wealth-beyond-10l",
+      "title": "Wealth Beyond 10 Lakh",
+      "subtitle": "The SIP-to-PMS-to-AIF Growth Path, Alternative Avenues & Retirement",
+      "description": "What happens as your investable capital grows past Rs.10L: structured SIP scaling, PMS and AIF entry, private-market and international avenues, real estate and REITs, and a retirement/FIRE plan that ties it together.",
+      "audience": "Growth-stage investor (Rs.10L+ committed, multi-year horizon)",
+      "version": "1.0",
+      "published": "2026-10-16",
+      "chapters": [
+        "pf-wealth-plan-10-lakh",
+        "mf-sip-swp-stp-goals",
+        "alternatives-sif-specialized-funds",
+        "alternatives-pms-aif-private",
+        "international-investing-lrs",
+        "real-estate-reit-invit",
+        "retirement-fire-annuities"
+      ],
+      "formats": [
+        {
+          "name": "book-wealth-beyond-10l.md",
+          "ext": "md",
+          "bytes": 164870,
+          "mtime": "2026-10-16T17:28:56.803Z",
+          "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.md"
+        },
+        {
+          "name": "book-wealth-beyond-10l.html",
+          "ext": "html",
+          "bytes": 191963,
+          "mtime": "2026-10-16T17:28:56.822Z",
+          "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.html"
+        },
+        {
+          "name": "book-wealth-beyond-10l.txt",
+          "ext": "txt",
+          "bytes": 156221,
+          "mtime": "2026-10-16T17:28:56.833Z",
+          "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.txt"
+        },
+        {
+          "name": "book-wealth-beyond-10l.tts.txt",
+          "ext": "txt",
+          "bytes": 157562,
+          "mtime": "2026-10-16T17:28:56.844Z",
+          "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.tts.txt"
+        },
+        {
+          "name": "book-wealth-beyond-10l.epub",
+          "ext": "epub",
+          "bytes": 71224,
+          "mtime": "2026-10-16T17:28:56.888Z",
+          "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.epub"
+        },
+        {
+          "name": "book-wealth-beyond-10l.pdf",
+          "ext": "pdf",
+          "bytes": 176862,
+          "mtime": "2026-10-16T17:28:57.072Z",
+          "path": "public/downloads/books/book-wealth-beyond-10l/book-wealth-beyond-10l.pdf"
+        }
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "id": "pf-wealth-plan-10-lakh",
+      "title": "Your 10 Lakh Wealth Plan: Allocation, SIP Scaling & the Road to PMS/AIF",
+      "category": "personal-finance",
+      "formats": [
+        {
+          "name": "pf-wealth-plan-10-lakh.md",
+          "ext": "md",
+          "bytes": 22141,
+          "mtime": "2026-10-16T17:28:57.075Z",
+          "path": "public/downloads/articles/pf-wealth-plan-10-lakh.md"
+        },
+        {
+          "name": "pf-wealth-plan-10-lakh.txt",
+          "ext": "txt",
+          "bytes": 20766,
+          "mtime": "2026-10-16T17:28:57.076Z",
+          "path": "public/downloads/articles/pf-wealth-plan-10-lakh.txt"
+        },
+        {
+          "name": "pf-wealth-plan-10-lakh.html",
+          "ext": "html",
+          "bytes": 25208,
+          "mtime": "2026-10-16T17:28:57.077Z",
+          "path": "public/downloads/articles/pf-wealth-plan-10-lakh.html"
+        }
+      ]
+    },
+    {
+      "id": "foundations-compounding-returns",
+      "title": "Compounding, CAGR, XIRR & Real Returns: The Math That Actually Matters",
+      "category": "financial-foundations",
+      "formats": [
+        {
+          "name": "foundations-compounding-returns.md",
+          "ext": "md",
+          "bytes": 11355,
+          "mtime": "2026-10-16T17:28:57.079Z",
+          "path": "public/downloads/articles/foundations-compounding-returns.md"
+        },
+        {
+          "name": "foundations-compounding-returns.txt",
+          "ext": "txt",
+          "bytes": 11320,
+          "mtime": "2026-10-16T17:28:57.080Z",
+          "path": "public/downloads/articles/foundations-compounding-returns.txt"
+        },
+        {
+          "name": "foundations-compounding-returns.html",
+          "ext": "html",
+          "bytes": 13670,
+          "mtime": "2026-10-16T17:28:57.081Z",
+          "path": "public/downloads/articles/foundations-compounding-returns.html"
+        }
+      ]
+    },
+    {
+      "id": "foundations-risk-allocation-behavior",
+      "title": "Risk, Asset Allocation, Diversification & Behavioral Traps",
+      "category": "financial-foundations",
+      "formats": [
+        {
+          "name": "foundations-risk-allocation-behavior.md",
+          "ext": "md",
+          "bytes": 13981,
+          "mtime": "2026-10-16T17:28:57.083Z",
+          "path": "public/downloads/articles/foundations-risk-allocation-behavior.md"
+        },
+        {
+          "name": "foundations-risk-allocation-behavior.txt",
+          "ext": "txt",
+          "bytes": 13902,
+          "mtime": "2026-10-16T17:28:57.084Z",
+          "path": "public/downloads/articles/foundations-risk-allocation-behavior.txt"
+        },
+        {
+          "name": "foundations-risk-allocation-behavior.html",
+          "ext": "html",
+          "bytes": 16306,
+          "mtime": "2026-10-16T17:28:57.086Z",
+          "path": "public/downloads/articles/foundations-risk-allocation-behavior.html"
+        }
+      ]
+    },
+    {
+      "id": "tax-india-investor-complete",
+      "title": "Indian Taxation for Investors (FY 2025-26): Regimes, Capital Gains, Deductions & Reporting",
+      "category": "taxation",
+      "formats": [
+        {
+          "name": "tax-india-investor-complete.md",
+          "ext": "md",
+          "bytes": 26081,
+          "mtime": "2026-10-16T17:28:57.089Z",
+          "path": "public/downloads/articles/tax-india-investor-complete.md"
+        },
+        {
+          "name": "tax-india-investor-complete.txt",
+          "ext": "txt",
+          "bytes": 24297,
+          "mtime": "2026-10-16T17:28:57.090Z",
+          "path": "public/downloads/articles/tax-india-investor-complete.txt"
+        },
+        {
+          "name": "tax-india-investor-complete.html",
+          "ext": "html",
+          "bytes": 30006,
+          "mtime": "2026-10-16T17:28:57.091Z",
+          "path": "public/downloads/articles/tax-india-investor-complete.html"
+        }
+      ]
+    },
+    {
+      "id": "govt-small-savings-schemes",
+      "title": "Government Small-Savings Schemes: PPF, EPF/VPF, NPS, APY, SCSS, SSY, NSC, KVP",
+      "category": "government-schemes",
+      "formats": [
+        {
+          "name": "govt-small-savings-schemes.md",
+          "ext": "md",
+          "bytes": 21389,
+          "mtime": "2026-10-16T17:28:57.093Z",
+          "path": "public/downloads/articles/govt-small-savings-schemes.md"
+        },
+        {
+          "name": "govt-small-savings-schemes.txt",
+          "ext": "txt",
+          "bytes": 20043,
+          "mtime": "2026-10-16T17:28:57.094Z",
+          "path": "public/downloads/articles/govt-small-savings-schemes.txt"
+        },
+        {
+          "name": "govt-small-savings-schemes.html",
+          "ext": "html",
+          "bytes": 25391,
+          "mtime": "2026-10-16T17:28:57.095Z",
+          "path": "public/downloads/articles/govt-small-savings-schemes.html"
+        }
+      ]
+    },
+    {
+      "id": "govt-sovereign-gold-bonds",
+      "title": "Sovereign Gold Bonds: How They Worked, Why They Stopped, and What to Do Now",
+      "category": "government-schemes",
+      "formats": [
+        {
+          "name": "govt-sovereign-gold-bonds.md",
+          "ext": "md",
+          "bytes": 18833,
+          "mtime": "2026-10-16T17:28:57.097Z",
+          "path": "public/downloads/articles/govt-sovereign-gold-bonds.md"
+        },
+        {
+          "name": "govt-sovereign-gold-bonds.txt",
+          "ext": "txt",
+          "bytes": 17286,
+          "mtime": "2026-10-16T17:28:57.099Z",
+          "path": "public/downloads/articles/govt-sovereign-gold-bonds.txt"
+        },
+        {
+          "name": "govt-sovereign-gold-bonds.html",
+          "ext": "html",
+          "bytes": 23883,
+          "mtime": "2026-10-16T17:28:57.100Z",
+          "path": "public/downloads/articles/govt-sovereign-gold-bonds.html"
+        }
+      ]
+    },
+    {
+      "id": "mf-index-etf-direct-regular",
+      "title": "Index Funds, ETFs, Direct vs Regular Plans & Tracking Error",
+      "category": "mutual-funds",
+      "formats": [
+        {
+          "name": "mf-index-etf-direct-regular.md",
+          "ext": "md",
+          "bytes": 18769,
+          "mtime": "2026-10-16T17:28:57.102Z",
+          "path": "public/downloads/articles/mf-index-etf-direct-regular.md"
+        },
+        {
+          "name": "mf-index-etf-direct-regular.txt",
+          "ext": "txt",
+          "bytes": 18301,
+          "mtime": "2026-10-16T17:28:57.103Z",
+          "path": "public/downloads/articles/mf-index-etf-direct-regular.txt"
+        },
+        {
+          "name": "mf-index-etf-direct-regular.html",
+          "ext": "html",
+          "bytes": 21603,
+          "mtime": "2026-10-16T17:28:57.104Z",
+          "path": "public/downloads/articles/mf-index-etf-direct-regular.html"
+        }
+      ]
+    },
+    {
+      "id": "mf-sip-swp-stp-goals",
+      "title": "SIP, STP & SWP: Structured Investing and Goal Planning",
+      "category": "mutual-funds",
+      "formats": [
+        {
+          "name": "mf-sip-swp-stp-goals.md",
+          "ext": "md",
+          "bytes": 20537,
+          "mtime": "2026-10-16T17:28:57.106Z",
+          "path": "public/downloads/articles/mf-sip-swp-stp-goals.md"
+        },
+        {
+          "name": "mf-sip-swp-stp-goals.txt",
+          "ext": "txt",
+          "bytes": 20490,
+          "mtime": "2026-10-16T17:28:57.107Z",
+          "path": "public/downloads/articles/mf-sip-swp-stp-goals.txt"
+        },
+        {
+          "name": "mf-sip-swp-stp-goals.html",
+          "ext": "html",
+          "bytes": 23529,
+          "mtime": "2026-10-16T17:28:57.108Z",
+          "path": "public/downloads/articles/mf-sip-swp-stp-goals.html"
+        }
+      ]
+    },
+    {
+      "id": "mf-choosing-comparing-funds",
+      "title": "How to Choose and Compare Mutual Funds (Without Chasing Performance)",
+      "category": "mutual-funds",
+      "formats": [
+        {
+          "name": "mf-choosing-comparing-funds.md",
+          "ext": "md",
+          "bytes": 19504,
+          "mtime": "2026-10-16T17:28:57.110Z",
+          "path": "public/downloads/articles/mf-choosing-comparing-funds.md"
+        },
+        {
+          "name": "mf-choosing-comparing-funds.txt",
+          "ext": "txt",
+          "bytes": 19317,
+          "mtime": "2026-10-16T17:28:57.111Z",
+          "path": "public/downloads/articles/mf-choosing-comparing-funds.txt"
+        },
+        {
+          "name": "mf-choosing-comparing-funds.html",
+          "ext": "html",
+          "bytes": 22522,
+          "mtime": "2026-10-16T17:28:57.112Z",
+          "path": "public/downloads/articles/mf-choosing-comparing-funds.html"
+        }
+      ]
+    },
+    {
+      "id": "equity-fundamental-valuation",
+      "title": "Equity Investing: Financial Statements, Valuation & Governance Red Flags",
+      "category": "equities",
+      "formats": [
+        {
+          "name": "equity-fundamental-valuation.md",
+          "ext": "md",
+          "bytes": 22674,
+          "mtime": "2026-10-16T17:28:57.115Z",
+          "path": "public/downloads/articles/equity-fundamental-valuation.md"
+        },
+        {
+          "name": "equity-fundamental-valuation.txt",
+          "ext": "txt",
+          "bytes": 22953,
+          "mtime": "2026-10-16T17:28:57.116Z",
+          "path": "public/downloads/articles/equity-fundamental-valuation.txt"
+        },
+        {
+          "name": "equity-fundamental-valuation.html",
+          "ext": "html",
+          "bytes": 25150,
+          "mtime": "2026-10-16T17:28:57.117Z",
+          "path": "public/downloads/articles/equity-fundamental-valuation.html"
+        }
+      ]
+    },
+    {
+      "id": "fixed-income-bonds-credit",
+      "title": "Fixed Income in India: Bonds, YTM, Duration, Credit & Sovereign Debt",
+      "category": "fixed-income",
+      "formats": [
+        {
+          "name": "fixed-income-bonds-credit.md",
+          "ext": "md",
+          "bytes": 21484,
+          "mtime": "2026-10-16T17:28:57.119Z",
+          "path": "public/downloads/articles/fixed-income-bonds-credit.md"
+        },
+        {
+          "name": "fixed-income-bonds-credit.txt",
+          "ext": "txt",
+          "bytes": 20973,
+          "mtime": "2026-10-16T17:28:57.121Z",
+          "path": "public/downloads/articles/fixed-income-bonds-credit.txt"
+        },
+        {
+          "name": "fixed-income-bonds-credit.html",
+          "ext": "html",
+          "bytes": 24372,
+          "mtime": "2026-10-16T17:28:57.122Z",
+          "path": "public/downloads/articles/fixed-income-bonds-credit.html"
+        }
+      ]
+    },
+    {
+      "id": "p2p-lending-complete",
+      "title": "P2P Lending in India: Framework, Expected Loss, Due Diligence, Recovery & Tax",
+      "category": "p2p-lending",
+      "formats": [
+        {
+          "name": "p2p-lending-complete.md",
+          "ext": "md",
+          "bytes": 21548,
+          "mtime": "2026-10-16T17:28:57.124Z",
+          "path": "public/downloads/articles/p2p-lending-complete.md"
+        },
+        {
+          "name": "p2p-lending-complete.txt",
+          "ext": "txt",
+          "bytes": 21191,
+          "mtime": "2026-10-16T17:28:57.125Z",
+          "path": "public/downloads/articles/p2p-lending-complete.txt"
+        },
+        {
+          "name": "p2p-lending-complete.html",
+          "ext": "html",
+          "bytes": 24698,
+          "mtime": "2026-10-16T17:28:57.126Z",
+          "path": "public/downloads/articles/p2p-lending-complete.html"
+        }
+      ]
+    },
+    {
+      "id": "gold-silver-commodities",
+      "title": "Gold, Silver & Commodities: Routes, Currency, Hedging & Limits",
+      "category": "gold-commodities",
+      "formats": [
+        {
+          "name": "gold-silver-commodities.md",
+          "ext": "md",
+          "bytes": 18526,
+          "mtime": "2026-10-16T17:28:57.129Z",
+          "path": "public/downloads/articles/gold-silver-commodities.md"
+        },
+        {
+          "name": "gold-silver-commodities.txt",
+          "ext": "txt",
+          "bytes": 18359,
+          "mtime": "2026-10-16T17:28:57.130Z",
+          "path": "public/downloads/articles/gold-silver-commodities.txt"
+        },
+        {
+          "name": "gold-silver-commodities.html",
+          "ext": "html",
+          "bytes": 20787,
+          "mtime": "2026-10-16T17:28:57.131Z",
+          "path": "public/downloads/articles/gold-silver-commodities.html"
+        }
+      ]
+    },
+    {
+      "id": "real-estate-reit-invit",
+      "title": "Real Estate, REITs & InvITs: Cash Flow, Title, RERA & How They Compare to Equities",
+      "category": "real-estate",
+      "formats": [
+        {
+          "name": "real-estate-reit-invit.md",
+          "ext": "md",
+          "bytes": 22378,
+          "mtime": "2026-10-16T17:28:57.133Z",
+          "path": "public/downloads/articles/real-estate-reit-invit.md"
+        },
+        {
+          "name": "real-estate-reit-invit.txt",
+          "ext": "txt",
+          "bytes": 22415,
+          "mtime": "2026-10-16T17:28:57.134Z",
+          "path": "public/downloads/articles/real-estate-reit-invit.txt"
+        },
+        {
+          "name": "real-estate-reit-invit.html",
+          "ext": "html",
+          "bytes": 25240,
+          "mtime": "2026-10-16T17:28:57.136Z",
+          "path": "public/downloads/articles/real-estate-reit-invit.html"
+        }
+      ]
+    },
+    {
+      "id": "alternatives-pms-aif-private",
+      "title": "Beyond SIP: PMS, AIFs & Private Markets for Growing Capital",
+      "category": "alternatives",
+      "formats": [
+        {
+          "name": "alternatives-pms-aif-private.md",
+          "ext": "md",
+          "bytes": 22835,
+          "mtime": "2026-10-16T17:28:57.137Z",
+          "path": "public/downloads/articles/alternatives-pms-aif-private.md"
+        },
+        {
+          "name": "alternatives-pms-aif-private.txt",
+          "ext": "txt",
+          "bytes": 22857,
+          "mtime": "2026-10-16T17:28:57.138Z",
+          "path": "public/downloads/articles/alternatives-pms-aif-private.txt"
+        },
+        {
+          "name": "alternatives-pms-aif-private.html",
+          "ext": "html",
+          "bytes": 25662,
+          "mtime": "2026-10-16T17:28:57.139Z",
+          "path": "public/downloads/articles/alternatives-pms-aif-private.html"
+        }
+      ]
+    },
+    {
+      "id": "insurance-protection",
+      "title": "Insurance & Risk Protection: Term, Health, Critical Illness & Mis-selling",
+      "category": "insurance",
+      "formats": [
+        {
+          "name": "insurance-protection.md",
+          "ext": "md",
+          "bytes": 32371,
+          "mtime": "2026-10-16T17:28:57.142Z",
+          "path": "public/downloads/articles/insurance-protection.md"
+        },
+        {
+          "name": "insurance-protection.txt",
+          "ext": "txt",
+          "bytes": 30527,
+          "mtime": "2026-10-16T17:28:57.143Z",
+          "path": "public/downloads/articles/insurance-protection.txt"
+        },
+        {
+          "name": "insurance-protection.html",
+          "ext": "html",
+          "bytes": 43123,
+          "mtime": "2026-10-16T17:28:57.145Z",
+          "path": "public/downloads/articles/insurance-protection.html"
+        }
+      ]
+    },
+    {
+      "id": "retirement-fire-annuities",
+      "title": "Retirement & FIRE: Corpus, the 4% Rule, Sequence Risk & Annuities",
+      "category": "retirement-fire",
+      "formats": [
+        {
+          "name": "retirement-fire-annuities.md",
+          "ext": "md",
+          "bytes": 24523,
+          "mtime": "2026-10-16T17:28:57.147Z",
+          "path": "public/downloads/articles/retirement-fire-annuities.md"
+        },
+        {
+          "name": "retirement-fire-annuities.txt",
+          "ext": "txt",
+          "bytes": 24138,
+          "mtime": "2026-10-16T17:28:57.148Z",
+          "path": "public/downloads/articles/retirement-fire-annuities.txt"
+        },
+        {
+          "name": "retirement-fire-annuities.html",
+          "ext": "html",
+          "bytes": 27602,
+          "mtime": "2026-10-16T17:28:57.150Z",
+          "path": "public/downloads/articles/retirement-fire-annuities.html"
+        }
+      ]
+    },
+    {
+      "id": "international-investing-lrs",
+      "title": "International Investing & LRS for Indian Residents",
+      "category": "international",
+      "formats": [
+        {
+          "name": "international-investing-lrs.md",
+          "ext": "md",
+          "bytes": 23695,
+          "mtime": "2026-10-16T17:28:57.152Z",
+          "path": "public/downloads/articles/international-investing-lrs.md"
+        },
+        {
+          "name": "international-investing-lrs.txt",
+          "ext": "txt",
+          "bytes": 19374,
+          "mtime": "2026-10-16T17:28:57.153Z",
+          "path": "public/downloads/articles/international-investing-lrs.txt"
+        },
+        {
+          "name": "international-investing-lrs.html",
+          "ext": "html",
+          "bytes": 40898,
+          "mtime": "2026-10-16T17:28:57.154Z",
+          "path": "public/downloads/articles/international-investing-lrs.html"
+        }
+      ]
+    },
+    {
+      "id": "portfolio-construction-rebalancing",
+      "title": "Portfolio Construction, Rebalancing & Risk Budgeting",
+      "category": "portfolio-construction",
+      "formats": [
+        {
+          "name": "portfolio-construction-rebalancing.md",
+          "ext": "md",
+          "bytes": 16254,
+          "mtime": "2026-10-16T17:28:57.157Z",
+          "path": "public/downloads/articles/portfolio-construction-rebalancing.md"
+        },
+        {
+          "name": "portfolio-construction-rebalancing.txt",
+          "ext": "txt",
+          "bytes": 16165,
+          "mtime": "2026-10-16T17:28:57.158Z",
+          "path": "public/downloads/articles/portfolio-construction-rebalancing.txt"
+        },
+        {
+          "name": "portfolio-construction-rebalancing.html",
+          "ext": "html",
+          "bytes": 19202,
+          "mtime": "2026-10-16T17:28:57.159Z",
+          "path": "public/downloads/articles/portfolio-construction-rebalancing.html"
+        }
+      ]
+    },
+    {
+      "id": "alternatives-sif-specialized-funds",
+      "title": "Specialized Investment Funds (SIF): India’s New ₹10 Lakh Tier Between Mutual Funds and PMS",
+      "category": "alternatives",
+      "formats": [
+        {
+          "name": "alternatives-sif-specialized-funds.md",
+          "ext": "md",
+          "bytes": 27579,
+          "mtime": "2026-10-16T17:28:57.161Z",
+          "path": "public/downloads/articles/alternatives-sif-specialized-funds.md"
+        },
+        {
+          "name": "alternatives-sif-specialized-funds.txt",
+          "ext": "txt",
+          "bytes": 27299,
+          "mtime": "2026-10-16T17:28:57.162Z",
+          "path": "public/downloads/articles/alternatives-sif-specialized-funds.txt"
+        },
+        {
+          "name": "alternatives-sif-specialized-funds.html",
+          "ext": "html",
+          "bytes": 31009,
+          "mtime": "2026-10-16T17:28:57.163Z",
+          "path": "public/downloads/articles/alternatives-sif-specialized-funds.html"
+        }
+      ]
+    }
+  ]
+}

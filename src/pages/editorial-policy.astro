@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+---
+
+<BaseLayout title="Editorial Policy" description="How DhanPedia researches, verifies, updates, and refuses to publish.">
+  <section style="padding:3rem 0 3rem;">
+    <div class="container" style="max-width:48rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Editorial policy</h1>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Voice & scope</h2>
+      <p style="color:var(--ink-soft); line-height:1.75;">
+        Rigorous, analytical, neutral, and transparent about uncertainty.
+        Beginners are served without oversimplifying for advanced readers.
+        Each article answers: what it is, how it works, how returns are generated,
+        what can destroy those returns, costs & taxes, eligibility, liquidity,
+        evidence, alternatives, common misconceptions, and when it is inappropriate.
+      </p>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Source hierarchy</h2>
+      <ol style="color:var(--ink-soft); line-height:1.8;">
+        <li>Statutes, official gazettes, court decisions</li>
+        <li>RBI · SEBI · Income Tax Dept · Ministry of Finance</li>
+        <li>AMFI · IRDAI · PFRDA · NSE/BSE · DICGC · Department of Posts</li>
+        <li>Official circulars, fund documents, product disclosures</li>
+        <li>Company annual reports, audited financials</li>
+        <li>Peer-reviewed research, reputable financial publications</li>
+        <li>Community discussion — anecdote only, never proof</li>
+      </ol>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">What we never do</h2>
+      <ul style="color:var(--ink-soft); line-height:1.8;">
+        <li>Never promise a return or guarantee capital.</li>
+        <li>Never present a yield as a total return without explaining the difference.</li>
+        <li>Never compare incompatible time periods, tax assumptions, or risk levels without saying so.</li>
+        <li>Never claim "currently available" without current verification.</li>
+        <li>Never instruct readers to commit fraud, market manipulation, or any illegal financial activity.</li>
+        <li>Never publish a "peer-reviewed" claim unless a review actually happened.</li>
+      </ul>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Time-sensitive claims</h2>
+      <p style="color:var(--ink-soft); line-height:1.75;">
+        Tax rules, rates, limits, eligibility, and availability carry a
+        <code>lastVerified</code> date, live in the <a href={link('/sources')}>update register</a>,
+        and are re-checked after every Budget and RBI MPC. A continuous-integration
+        job may <em>flag</em> items past their review date, but it never auto-publishes
+        regulatory changes — editorial approval plus source verification are required.
+      </p>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Conflicts & monetization</h2>
+      <p style="color:var(--ink-soft); line-height:1.75;">
+        DhanPedia takes no payments for recommendations, no sponsored content,
+        and no affiliate fees. If a disclosure ever becomes necessary it will be
+        stated here and on the relevant page. There are no partnerships,
+        endorsements, or regulatory approvals claimed.
+      </p>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Regulated vs unregulated</h2>
+      <p style="color:var(--ink-soft); line-height:1.75;">
+        We clearly separate RBI/SEBI-regulated activity (e.g., NBFC-P2P platforms
+        under the 2025 Directions, SEBI PMS/AIFs) from unregistered schemes,
+        illegal deposit-taking, and misleading "investment" pitches, and we say
+        so plainly.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { DOWNLOAD_MANIFEST } from '@lib/downloads';
+
+export function getStaticPaths() {
+  return DOWNLOAD_MANIFEST.books
+    .filter((b) => !b.failed && b.formats?.length)
+    .map((b) => ({ params: { id: b.id }, props: { book: b } }));
+}
+
+const { book } = Astro.props as any;
+const extLabel = (e) => ({ md: 'Markdown', html: 'HTML', txt: 'Plain text', tts: 'TTS text', epub: 'EPUB', pdf: 'PDF' }[e] || e.toUpperCase());
+const icon = (e) => ({ md: '📄', html: '🌐', txt: '📝', tts: '🔊', epub: '📚', pdf: '📕' }[e] || '📦');
+
+// Resolve human-readable chapter titles from the article registry.
+const { ARTICLES } = await import('@lib/content');
+const chapterTitles = book.chapters.map((id) => ARTICLES.find((a) => a.id === id)?.title ?? id);
+---
+
+<BaseLayout title={`${book.title} (book)`} description={book.description}>
+  <section style="padding:2.5rem 0;">
+    <div class="container" style="max-width:46rem;">
+      <nav style="font-size:.8rem; color:var(--ink-soft);" aria-label="Breadcrumb">
+        <a href={link('/')} style="text-decoration:none;">Home</a> › <a href={link('/books')} style="text-decoration:none;">Books</a> › <span>{book.title}</span>
+      </nav>
+
+      <div style="margin:1.2rem 0; background:var(--surface); border:1px solid var(--line); border-radius:16px; overflow:hidden;">
+        <div style="padding:1.6rem 1.8rem; background:linear-gradient(135deg, var(--surface-2), var(--surface));">
+          <div style="font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:700;">DhanPedia · {book.subtitle}</div>
+          <h1 style="font-size:2rem; margin:.5rem 0 .3rem; line-height:1.15;">{book.title}</h1>
+          <p style="color:var(--ink-soft); line-height:1.65; margin:0;">{book.description}</p>
+          <div style="margin-top:.9rem; font-size:.8rem; color:var(--ink-soft); display:flex; gap:1rem; flex-wrap:wrap;">
+            <span>Audience: <strong style="color:var(--ink);">{book.audience}</strong></span>
+            <span>Version {book.version}</span>
+            <span>{book.published}</span>
+            <span>{book.chapters.length} chapters</span>
+          </div>
+        </div>
+
+        <div style="padding:1.4rem 1.8rem;">
+          <div style="font-size:.85rem; color:var(--ink-soft); font-weight:600; margin-bottom:.6rem;">Download (all real, generated files)</div>
+          <div style="display:flex; flex-wrap:wrap; gap:.6rem;">
+            {book.formats.map((f) => (
+              <a href={link(`/downloads/${f.path.replace('public/downloads/', '')}`)} download
+                 style="display:inline-flex; align-items:center; gap:.4rem; border:1px solid var(--line); background:var(--surface-2); border-radius:10px; padding:.55rem .9rem; text-decoration:none; font-size:.9rem; color:var(--ink);">
+                <span style="font-size:1.1rem;">{icon(f.ext)}</span>
+                <span style="font-weight:600;">{extLabel(f.ext)}</span>
+                <span style="color:var(--ink-soft); font-size:.75rem;">{Math.ceil(f.bytes / 1024)} KB</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <h2 style="font-size:1.2rem; margin-bottom:.6rem;">Chapters</h2>
+        <ol style="padding-left:1.3rem; line-height:1.9; color:var(--ink-soft); font-size:.95rem;">
+          {chapterTitles.map((t, i) => <li><a href={link(`/articles/${book.chapters[i]}`)} style="color:var(--ink);">{t}</a> <span style="color:var(--ink-soft); font-size:.8rem;">(read online)</span></li>)}
+        </ol>
+      </div>
+
+      {book.preface && (
+        <div style="margin-top:2rem; background:var(--surface-2); border-radius:12px; padding:1.2rem 1.4rem;">
+          <div style="font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); font-weight:700; margin-bottom:.4rem;">From the introduction</div>
+          <p style="color:var(--ink-soft); line-height:1.7; margin:0; font-size:.95rem;">{book.preface}</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

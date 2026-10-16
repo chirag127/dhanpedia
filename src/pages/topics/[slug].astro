@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { CATEGORIES, categoryById } from '@lib/site';
+import { ARTICLES, INSTRUMENTS, BOOKS } from '@lib/content';
+import type { CategoryMeta } from '@lib/site';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((c) => ({
+    params: { slug: c.slug },
+    props: { cat: c },
+  }));
+}
+
+const { cat } = Astro.props as { cat: CategoryMeta };
+const items = ARTICLES.filter((a) => a.category === cat.id && a.status === 'published');
+const cards = INSTRUMENTS.filter((i) => i.category === cat.id);
+const relatedBooks = BOOKS.filter((b) => b.chapters.some((ch) => ARTICLES.find((a) => a.id === ch && a.category === cat.id)));
+const otherCats = CATEGORIES.filter((c) => c.id !== cat.id);
+const byDifficulty = {
+  beginner: items.filter((a) => a.difficulty === 'beginner'),
+  intermediate: items.filter((a) => a.difficulty === 'intermediate'),
+  advanced: items.filter((a) => a.difficulty === 'advanced'),
+};
+---
+
+<BaseLayout title={cat.title} description={cat.blurb}>
+  <section style="padding:2.5rem 0 1rem; border-bottom:1px solid var(--line); background:var(--surface-2);">
+    <div class="container" style="max-width:52rem;">
+      <nav style="font-size:.8rem; color:var(--ink-soft);" aria-label="Breadcrumb">
+        <a href={link('/')} style="text-decoration:none;">Home</a> › <a href={link('/topics')} style="text-decoration:none;">Topics</a> › <span>{cat.short}</span>
+      </nav>
+      <h1 style="font-size:2rem; margin:.5rem 0 .3rem;">{cat.title}</h1>
+      <p style="color:var(--ink-soft); margin:0;">{cat.blurb}</p>
+    </div>
+  </section>
+
+  <section style="padding:2rem 0;">
+    <div class="container" style="max-width:52rem;">
+      <h2 style="font-size:1.2rem; margin-top:0;">Articles ({items.length})</h2>
+
+      {items.length === 0 && (
+        <div style="background:var(--surface); border:1px dashed var(--line); border-radius:12px; padding:1.2rem; color:var(--ink-soft); font-size:.9rem;">
+          Articles for this topic are being written. The roadmap and source research are already in place — see
+          <a href={link('/progress')}>progress/STATUS</a> for what is complete next.
+        </div>
+      )}
+
+      {['beginner', 'intermediate', 'advanced'].map((lvl) =>
+        byDifficulty[lvl].length > 0 ? (
+          <div style="margin-top:1.2rem;">
+            <h3 style="font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:.6rem;">
+              {lvl === 'advanced' ? 'Advanced' : lvl}
+            </h3>
+            <div style="display:grid; gap:.6rem;">
+              {byDifficulty[lvl].map((a) => (
+                <a href={link(`/articles/${a.id}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.9rem 1rem; text-decoration:none; display:block;">
+                  <div style="font-weight:600; color:var(--ink);">{a.title}</div>
+                  <div style="font-size:.85rem; color:var(--ink-soft); margin-top:.25rem; line-height:1.5;">{a.summary}</div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : null
+      )}
+
+      {cards.length > 0 && (
+        <div style="margin-top:2rem;">
+          <h2 style="font-size:1.2rem;">Quick reference — instruments</h2>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.8rem; margin-top:.8rem;">
+            {cards.map((i) => (
+              <div style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.9rem;">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:.5rem;">
+                  <strong style="color:var(--ink); font-size:.95rem;">{i.name}</strong>
+                  <span style={`font-size:.68rem; padding:.15rem .45rem; border-radius:20px; font-weight:700; ${i.status === 'active' ? 'background:var(--gold-soft); color:var(--ink);' : i.status === 'closed' ? 'background:color-mix(in srgb, var(--danger) 18%, transparent); color:var(--danger);' : 'background:var(--surface-2); color:var(--ink-soft);'}`}>{i.status}</span>
+                </div>
+                <p style="font-size:.82rem; color:var(--ink-soft); margin:.4rem 0; line-height:1.5;">{i.summary}</p>
+                <dl style="font-size:.75rem; color:var(--ink-soft); margin:0; display:grid; grid-template-columns:auto 1fr; gap:.15rem .6rem;">
+                  <dt style="font-weight:600;">Regulator</dt><dd style="margin:0;">{i.regulator}</dd>
+                  <dt style="font-weight:600;">Risk</dt><dd style="margin:0; text-transform:capitalize;">{i.risk}</dd>
+                  <dt style="font-weight:600;">Liquidity</dt><dd style="margin:0; text-transform:capitalize;">{i.liquidity}</dd>
+                  <dt style="font-weight:600;">Tax</dt><dd style="margin:0;">{i.taxTreatment}</dd>
+                </dl>
+                <div style="margin-top:.5rem; font-size:.75rem; color:var(--ink-soft);">Full guide: <a href={link(`/articles/${i.articleId}`)} style="font-weight:600;">{ARTICLES.find((a) => a.id === i.articleId)?.title ?? i.articleId}</a></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {relatedBooks.length > 0 && (
+        <div style="margin-top:2rem;">
+          <h2 style="font-size:1.2rem;">Books that draw on this topic</h2>
+          <div style="display:grid; gap:.6rem; margin-top:.6rem;">
+            {relatedBooks.map((b) => (
+              <a href={link(`/books/${b.id}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.8rem 1rem; text-decoration:none; display:block;">
+                <strong style="color:var(--ink);">{b.title}</strong>
+                <div style="font-size:.85rem; color:var(--ink-soft); margin-top:.2rem;">{b.description}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div style="margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line);">
+        <h2 style="font-size:1.1rem; margin-top:0;">Related avenues</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:.4rem;">
+          {otherCats.slice(0, 10).map((c) => (
+            <a href={link(`/topics/${c.slug}`)} style="font-size:.8rem; border:1px solid var(--line); border-radius:20px; padding:.25rem .6rem; text-decoration:none; color:var(--ink-soft);">{c.short}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

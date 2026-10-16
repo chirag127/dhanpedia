@@ -1,0 +1,20 @@
+{
+  "kind": "webpage_snapshot",
+  "url": "https://www.incometaxindia.gov.in/w/tax-rates%E2%80%8B",
+  "final_url": "https://www.incometaxindia.gov.in/w/tax-rates%E2%80%8B",
+  "status": 403,
+  "read_status": "blocked",
+  "content_type": "text/html",
+  "fetched_at": "2026-10-16T17:09:46.668859200+00:00",
+  "title": "Access Denied",
+  "description": "",
+  "site_name": null,
+  "published_at": null,
+  "source_type": "unknown",
+  "text": "",
+  "quote_candidates": [],
+  "word_count": 0,
+  "truncated": false,
+  "blocked": true,
+  "source": "direct_http"
+}

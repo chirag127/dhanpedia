@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>P2P Lending in India: Framework, Expected Loss, Due Diligence, Recovery & Tax</title>
+<style>body{font:16px/1.7 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#14231d}
+h1{font-size:1.8rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border:1px solid #ccc;padding:.4rem .5rem}code{background:#f1efe7;padding:.1rem .3rem;border-radius:4px}
+.eq code{display:block;text-align:center;margin:.8rem 0}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}</style>
+</head><body><h1>P2P Lending in India: Framework, Expected Loss, Due Diligence, Recovery & Tax</h1><p style="color:#3c4b44"><em>RBI 2025 P2P framework, how returns are generated, expected-loss & loss-given-default math, platform underwriting, recovery, tax treatment and a portfolio stress test.</em></p>
+<p style="font-size:.8rem;color:#555">DhanPedia · Author Chirag Singhal · Verified 2026-08-06</p>
+<1>P2P Lending in India: Framework, Expected Loss, Due Diligence, Recovery &amp; Tax</1>
+<p>Peer-to-peer (P2P) lending is the only retail investment in India that puts you, personally, on the other side of a private loan: you are the lender, the platform is the marketplace, and the borrower is an individual or a small business that no bank would underwrite cheaply. The reward is a yield above deposit and G-sec rates; the cost is <strong>unsecured-or-weakly-secured credit risk that you bear personally, with no deposit-insurance backstop and no secondary market.</strong> This article walks the full stack: the RBI framework (as consolidated in the 2025 Directions), how the return is actually generated, the expected-loss math with a three-scenario stress test, a platform due-diligence checklist, the recovery reality, the tax treatment, and the sizing rule that keeps P2P a sleeve instead of a strategy.</p>
+<2>How P2P lending works in India</2>
+<pre>flowchart LR
+    L[Individual / HUF / company\nlender] -->|funds ticket, pays commission| P[RBI-registered NBFC-P2P\nplatform]
+    P -->|originates &amp; services loan| B[Borrower:\nindividual or small business]
+    B -->|EMI + interest| P
+    P -->|principal + coupon,\nless platform fee| L</pre>
+<ul>
+<li><strong>You (lender) fund loan tickets</strong> on the platform; each ticket is a loan to one borrower at a stated interest rate and tenure.</li>
+<li><strong>The platform charges on both sides</strong> — a commission from the borrower and a fee from the lender — and from the platform's <strong>total commission historically has been capped at 5% of the ticket size plus a service fee</strong> (verify the exact fee structure in the 2025 consolidated text; this is the regime carried over from the earlier direction).</li>
+<li><strong>Every P2P platform is a Non-Banking Financial Company (NBFC) that must hold RBI registration</strong> — the registration number is on rbi.org.in's registered-entity list and on the platform's own disclosure. <strong>P2P is not a bank scheme: lender money is not insured by DICGC deposit insurance.</strong> The ₹5L-per-depositor-per-bank protection does not reach you; your "insurer" is the platform's underwriting and your own diversification.</li>
+</ul>
+<3>The 2025 consolidated framework</3>
+<p>The <strong>RBI (Non-Banking Financial Companies – Peer to Peer Lending Platform) Directions, 2025</strong> (RBI/DOR/2025-26/370, notified 28 November 2025) <a href="../p2p-lending/p2p-lending-complete.mdx">src-rbi-p2p-directions-2025</a> consolidated the earlier P2P directions into a single current framework; the <strong>full text</strong> <a href="../p2p-lending/p2p-lending-complete.mdx">src-rbi-p2p-master-pdf</a> is where the caps and prudential norms live. What the regime has carried since the original 2017 direction, in structure:</p>
+<ul>
+<li><strong>Credit-score-based lending is the core.</strong> Roughly <strong>75% of a platform's loan book must be sanctioned on bureau credit scores</strong>, and <strong>up to 25% may go through a self-assessment route</strong> for borrowers without a clean bureau file. The self-assessment slice is structurally riskier — the risk is underwritten on income documents instead of a credit history — which is why the regime caps its share. <em>Verify the current 75/25 split and caps against the 2025 consolidated text before republishing.</em></li>
+<li><strong>Borrower caps.</strong> There is a <strong>per-borrower ticket-size cap (₹25L), an exposure limit per lender, and a per-platform total-book limit</strong> in the regime. <em>The ₹25L per-borrower cap is the known structure from the 2017 direction; verify it against the 2025 consolidated text before quoting it as current.</em></li>
+<li><strong>Lenders must be registered with the platform's RBI entity;</strong> the platform must hold lenders' money in a <strong>trust/custodian account</strong> and meet prudential and disclosure norms.</li>
+</ul>
+<p>The consolidation matters practically: a platform that was operating on a 2019-era reading of the rules is now operating on the 2025 Directions. Read both source links above before you commit capital to any platform.</p>
+<2>How the return is generated: spread, not magic</2>
+<p>The P2P yield is a <strong>credit spread over bank prices</strong>: the borrower pays more than a bank would (the bank's credit underwriting and deposit funding are absent), and you capture that spread net of the platform's two-sided fee and your idle-cash time. Against the fixed-income stack: a G-sec or bank FD earns the <em>risk-free-plus-bank-credit</em> price (the RBI repo was near 5.25% through late 2025 — verify the current rate; that level anchors the whole deposit/bond curve); a corporate bond earns sovereign + credit spread; a P2P loan earns sovereign + bank spread + <strong>retail-credit spread</strong>, the last term being the widest and most volatile.</p>
+<p>The advertised P2P rate is usually in the <strong>12–15% band</strong>. Advertised ≠ realized. The bridge is the <strong>expected-loss formula</strong>:</p>
+<p>$$EL = PD \times LGD, \qquad \text{Expected net} = \text{Gross coupon} - EL$$</p>
+<p>where $PD$ is the annual probability a loan in the book defaults and $LGD$ (loss given default) is the share of the ticket you lose when it does (after partial recovery).</p>
+<3>Worked stress test: 300 loans, ₹25,000 average ticket</3>
+<p>Portfolio: 300 loans, average ticket ₹25,000 (₹75L deployed), gross coupon 12%, <strong>PD = 4%, LGD = 60%</strong>.</p>
+<p>$$EL = 0.04 \times 0.60 = 0.024 = 2.4\% \quad\Rightarrow\quad \text{Expected net} = 12\% - 2.4\% = \mathbf{9.6\%}$$</p>
+<p>Note the arithmetic explicitly, because a common error is to compute "expected net" as $12\% - 4\% = 8\%$ (charging the full PD as a loss) or to quote the gross 12% as if defaults didn't happen. The expected loss is PD <strong>times</strong> LGD — a defaulted loan still recovers 40% on average, so each default-year costs 2.4% of the book, not 4%.</p>
+<p><strong>Before</strong> platform fee, idle-cash drag, and operational costs. After a ~1–2% all-in fee/idle-cash drag, the realistic <em>expected</em> net sits in the high-single-digit to low-double-digit zone, not the advertised band.</p>
+<p><strong>Three-scenario table</strong> (gross 12%; severe scenario widens both PD and LGD — in a bad year, <em>more</em> loans default <strong>and</strong> recoveries worsen, so LGD rises from 60% to 80%):</p>
+<table>
+<thead><tr><th>Scenario</th><th>PD</th><th>LGD</th><th>EL = PD × LGD</th><th>Expected net (before fees/idle cash)</th></tr></thead>
+<tbody><tr><td>Mild (easy credit cycle),2%,60%,1.2%,10.8%</td><td>Base (steady underwriting),4%,60%,2.4%,9.6%</td><td>Severe (cycle stress, correlated defaults),10%,80%,8.0%,4.0%</td></tr></tbody>
+</table>
+<p>Read the severe row cold: a 4 pp jump in the advertised-style band (12% → 4.0%) from one bad credit cycle. That is the number that should sit next to any P2P pitch deck in your head.</p>
+<2>Platform due-diligence checklist (run it on every platform, every year)</2>
+<ol>
+<li><strong>RBI registration.</strong> Confirm the NBFC-P2P registration number on the <strong>rbi.org.in registered-NBFC list</strong> — not on the platform's website, on the RBI's list. A platform that can't produce its registration number is not operating inside the 2025 Directions.</li>
+<li><strong>"Guaranteed" wording is a red flag.</strong> No regulated P2P product can guarantee returns; the 2025 framework contemplates loss to the lender. The word "guarantee" on a P2P page means the seller doesn't understand the instrument (the same anti-pattern the <a href="../mutual-funds/mf-choosing-comparing-funds.mdx">fund anti-list</a> documents for funds).</li>
+<li><strong>NPA / default disclosure.</strong> The platform should publish its own book's NPA rate, bucket aging (30/60/90 days past due), and recovery rates. If the disclosure is absent, that absence is the due-diligence answer.</li>
+<li><strong>Recovery mechanism.</strong> How are secured tickets recovered? For secured loans: legal action and <strong>possession/recovery of the security</strong>, with the lender (you) as the secured party or the platform acting under the framework's norms. Read what the <em>next step</em> is after a 90-day NPA: demand letters, repossession, auction, litigation. Each step has a cost and a clock.</li>
+<li><strong>Tenure distribution.</strong> A book of 6-month consumer EMI loans behaves very differently from a book of 3-year business-term loans. Longer tenures carry more embedded default windows <em>and</em> more idle time between tickets.</li>
+<li><strong>Borrower mix: individual vs business.</strong> Individual-consumer EMIs have higher PD but better recovery data; business-term tickets have lower PD on bureau screens but LGD that depends on a small business's asset base. The split is a risk you are buying in one number's clothing.</li>
+<li><strong>Fee math, both sides.</strong> Compute your <em>actual</em> net: gross coupon − lender fee − any service fee − idle-cash drag. If the platform can't show the all-in figure, don't assume it.</li>
+<li><strong>Trust/custodian account.</strong> Confirm lender funds sit in the mandated trust account, not the platform's operating bank account.</li>
+</ol>
+<2>Liquidity &amp; recovery: the pattern, not the promise</2>
+<ul>
+<li><strong>There is no secondary market.</strong> You cannot sell a P2P ticket to another investor at a quoted price; your exit is either (a) waiting for the EMI to mature or (b) the loan defaulting and entering recovery. Liquidity, in the fixed-income sense, is <strong>zero</strong> (<a href="../fixed-income/fixed-income-bonds-credit.mdx">the fixed-income article</a> contrasts this with G-sec/dealer-quoted markets).</li>
+<li><strong>Recovery for secured loans runs through legal/possession channels</strong> — demand, repossession, auction or court process. <strong>A 6–18 month recovery clock is the observed pattern, not a guarantee:</strong> some secured tickets recover in months, some run to years, and the <em>amount</em> recovered (LGD in reverse) varies with asset type and jurisdiction. Treat 6–18 months as the median you should plan around, and plan cash flow to survive 24.</li>
+<li><strong>Idle cash is a return tax you can't see.</strong> Between receiving one ticket's cash and deploying it in the next, capital sits at near-zero. In a thin-ticket platform, idle time can cost you a meaningful fraction of the expected net every year. Ask the platform for its <strong>idle-time statistic</strong>; if it's undisclosed, shave 1–2 pp off the expected net.</li>
+</ul>
+<2>Tax treatment</2>
+<ul>
+<li><strong>Interest is income, taxed at your slab rate</strong> under the [FY 2025-26 slabs] <a href="../p2p-lending/p2p-lending-complete.mdx">src-it-slab-fy2025-26</a> (new regime default; old regime optional). A ₹1L P2P coupon in a 30% slab is ~₹70,000 after tax — recompute every P2P "yield" at your slab before comparing it with a tax-free PPF or a post-tax G-sec coupon.</li>
+<li><strong>No Section 80C claim</strong> on P2P lending. The ₹1.5L 80C cap does not stretch to P2P; do not let a platform imply otherwise.</li>
+<li><strong>TDS is not typically deducted</strong> on P2P interest — <em>verify with a tax professional and against current TDS practice before you file</em>; the absence of a TDS line on your Form 26AS does not mean the income is unreportable.</li>
+<li><strong>Lender eligibility:</strong> individuals, HUFs, and companies can lend; the HUF route is commonly used for tax-planning and is <em>only</em> valid for a genuine HUF (document it properly; a sham HUF is an income-tax risk).</li>
+<li><strong>Reporting:</strong> P2P income is business/other income; your platform's statements are your books. The <a href="../taxation/tax-india-investor-complete.mdx">tax article</a> has the regime-by-regime structure.</li>
+</ul>
+<2>Why advertised yields are not what you earn</2>
+<p>Even in the mild scenario, five frictions separate the banner number from your realized number:</p>
+<ol>
+<li><strong>Idle cash</strong> — the time your money spends between tickets earning ~0%.</li>
+<li><strong>Concentration</strong> — a book tilted to one sector (e.g., unsecured business-term loans in one industry) means <em>correlated</em> defaults: the PDs stop being independent, and the $EL = PD \times LGD$ average understates the tail. One bad sector quarter can push that book's effective PD toward the severe scenario's 10% even when the platform advertises "4%."</li>
+<li><strong>Correlated defaults</strong> — economic downturns hit borrower cash flows at once; independent-PD math assumes they don't.</li>
+<li><strong>Platform operational risk</strong> — the party holding your recovery process. A platform that stumbles mid-recovery stalls your LGD realization; you are underwriting the operator, not just the borrowers.</li>
+<li><strong>Fees</strong> — the two-sided commission erodes the gross on every ticket.</li>
+</ol>
+<p>None of these are disclosed on the landing page. They are the difference between "12–15%" and the 4.0% severe-scenario row above.</p>
+<2>Regulated vs unregulated: where P2P ends</2>
+<p>The 2025 Directions cover <strong>NBFC-registered P2P platforms</strong>. What lives outside:</p>
+<ul>
+<li><strong>Unregistered "P2P" or crowd-lending sites</strong> — no RBI registration, no prudential norms, no NPA disclosure. The borrower caps that protect registered platforms don't bind them. Verify the registration before the platform's name enters your portfolio.</li>
+<li><strong>Deposit-taking schemes</strong> — any scheme that <em>pays you</em> a return on <em>your deposit</em> (rather than on loans you lend) is a deposit, and unregistered deposit-taking is illegal in India; a "P2P"-branded scheme that behaves like a bank account without a banking licence is outside the framework entirely.</li>
+<li><strong>"Gold loan" and unsecured-advance scams</strong> — a scheme promising 12–15% for "parking gold" or an unsecured advance with weekly payouts is the unregulated-sound-of-P2P: the promised yield with no borrower risk you can see and no recovery you can enforce. The <a href="../fixed-income/fixed-income-bonds-credit.mdx">fixed-income article</a> covers where genuine sovereign-curve yields actually sit; anything far above that is selling credit risk to you in disguise.</li>
+</ul>
+<2>The sizing rule</2>
+<p><strong>P2P belongs at ≤ 10–15% of the total investment portfolio, and only with money you will not need for the loan tenures.</strong></p>
+<ul>
+<li>At 12.5% of portfolio, a <em>total</em> loss of the P2P sleeve (the severe extreme, not the expected loss) costs 12.5% of the household's capital — painful, survivable. At 50%, it's a life event.</li>
+<li>The sleeve's tenures set your <em>liquidity need horizon</em>: if your tickets are 1–3 years, that money is out of your liquidity pool for 1–3 years — so the sleeve must sit inside the portfolio's "money I won't touch for 3+ years" bucket, never in the emergency layer.</li>
+<li><strong>Stress-test before sizing:</strong> run the three-scenario table above at your platform's <em>actual</em> gross coupon and its disclosed (or assumed) PD/LGD, and require that the severe-scenario net stays positive before the sleeve earns its size. The DhanPedia <strong>P2P stress-test calculator</strong> (companion tool on this site) takes gross coupon, PD, LGD, idle-time %, and fee % and prints the three-scenario net — the same arithmetic as the table, parameterised for your platform.</li>
+</ul>
+<2>What to do when a ticket defaults: an operational playbook</2>
+<p>The default is not the failure — the <em>response</em> is. A pre-written playbook is the single highest-leverage thing a P2P lender can own, because it is what actually determines your realised LGD. The stages, in the order a secured ticket typically moves through:</p>
+<ol>
+<li><strong>Missed EMI → 30-day NPA bucket.</strong> The platform issues demand notices. Your job as the lender: confirm the platform <em>is</em> issuing them (a NPA-aged bucket with no demand trail is a platform-disclosure failure, and an early warning on the platform, not just the borrower).</li>
+<li><strong>60–90-day NPA.</strong> Legal notice; for secured tickets, the platform begins repossession/auction preparation. You should now know, <em>for your specific tickets</em>, what the security is (the asset type, the jurisdiction, the encumbrance status) — a secured loan to a business whose security is a <em>second</em> charge on a property already mortgaged to a bank is a recovery you are much less likely to realise, because the senior bank gets paid first from the asset's sale.</li>
+<li><strong>90-day NPA / formal default.</strong> The ticket is classified as a loss-in-wait. At this point the <em>realised</em> recovery is what the severe scenario's LGD = 80% is describing: the asset is in the process of being realised, but the sale price in a stressed market is typically far below the outstanding principal.</li>
+<li><strong>Realisation (6–18 months, observed pattern).</strong> The security is auctioned or the borrower settles for a discounted amount. The gap between the ticket's outstanding and the realised amount is your <em>real</em> LGD. This is where the three-scenario table's severe row (4.0% expected net) lives — the LGD <em>widens</em> in a bad year, which is exactly why the severe scenario couples a higher PD with a higher LGD rather than treating them independently.</li>
+</ol>
+<p><strong>The lender's own levers inside the playbook:</strong> (a) <em>ticket-level concentration</em> — holding the same borrower across multiple tickets does not diversify; it is one credit decision repeated, and the PD/LGD of that one borrower is all that matters; (b) <em>security type</em> — first-charge, moveable-asset secured tickets (e.g., a registered first charge on the specific asset pledged) recover more than second-charge or unsecured ones, and the platform should label which is which; (c) <em>jurisdiction</em> — repossession and auction timelines vary by state and court, so a ticket's recovery clock is partly a <em>geographic</em> property, not just a credit property.</p>
+<p>None of these levers can make a bad borrower good; they can make your <em>share</em> of the loss smaller. That is the honest function of the playbook: you cannot prevent the default, you can only manage what you lose when it arrives.</p>
+<2>Diversifying across the book: ticket-level rules</2>
+<p>The three-scenario table assumes a <em>single blended</em> PD and LGD for the whole book. A real book is not blended; it is a population of tickets with different PDs and LGDs, and the <em>correlation</em> between their defaults is the number that decides whether the blended math is even the right model. Practical diversification rules, in order of importance:</p>
+<ol>
+<li><strong>Spread across borrowers, not across platforms.</strong> The correlation risk is in the <em>borrower population</em> (one sector hit defaults a cohort at once). Holding 300 tickets on 300 different borrowers in one book is diversification; holding 30 tickets on 10 borrowers (3× each) is not, even if the platform shows you 30 "loans."</li>
+<li><strong>Watch the sector and geography mix of the book.</strong> A book where 60% of tickets are in one industry or one metro is one <em>credit decision</em> with a fee on it, not 60% diversification. The platform's own borrower-mix disclosure (checklist item 6) is where this lives.</li>
+<li><strong>Match the tenures to your liquidity horizon.</strong> The <a href="#the-sizing-rule">sizing rule</a> caps the sleeve; the tenure distribution <em>inside</em> the sleeve sets the <em>liquidity</em> of the sleeve. A book of 6-month consumer EMIs is far more liquid (tickets mature and redeploy fast) than a book of 3-year business terms, and that liquidity has its own cost — the consumer book carries a higher blended PD.</li>
+</ol>
+<p>The expected-loss formula generalises to a multi-ticket book:</p>
+<p>$$\text{Portfolio } EL = \sum_{k} w_k \cdot PD_k \cdot LGD_k$$</p>
+<p>with $w_k$ the weight of ticket $k$. The <em>expected</em> portfolio loss is the weighted sum, but the <em>actual</em> loss is governed by how many $k$'s default <em>together</em>, which the sum cannot see — that is the correlation gap, and it is why the severe scenario, not the base, is the number to stress against.</p>
+<2>Related</2>
+<ul>
+<li><a href="../fixed-income/fixed-income-bonds-credit.mdx">Fixed Income in India: Bonds, YTM, Duration, Credit &amp; Sovereign Debt</a> — the opposite end of the credit spectrum: what a <em>priced</em> credit risk looks like when it is sovereign or corporate.</li>
+<li><a href="../personal-finance/pf-wealth-plan-10-lakh.mdx">Your 10 Lakh Wealth Plan</a> — where the P2P sleeve sits in the overall allocation and risk grading.</li>
+<li><a href="../mutual-funds/mf-choosing-comparing-funds.mdx">How to Choose and Compare Mutual Funds</a> — the same due-diligence discipline (cost, structure, anti-patterns) applied to the managed side of investing.</li>
+</ul>
+<2>Sources</2>
+<ul>
+<li><code>src-rbi-p2p-directions-2025</code> — RBI (NBFC – P2P Lending Platform) Directions, 2025 (RBI/DOR/2025-26/370, notified 2025-11-28): consolidated P2P framework; registration, prudential and disclosure norms.</li>
+<li><code>src-rbi-p2p-master-pdf</code> — full text of the 2025 Directions: ticket-size and borrower caps, 75/25 credit-score split (verify current values against this text).</li>
+<li><code>src-it-slab-fy2025-26</code> — FY 2025-26 income-tax slab structure (new regime default; old regime optional), for the at-slab-rate taxation of P2P interest.</li>
+</ul>
+<2>Update log</2>
+<ul>
+<li><strong>2026-08-06</strong> — last verified. (a) The 75% credit-score / 25% self-assessment split and the ₹25L per-borrower cap are the structure from the 2017 direction carried into the 2025 consolidation — <strong>verify the current caps against the 2025 consolidated text</strong> before republishing. (b) The "total commission cap historically 5% of ticket size + service fee" is the historical regime; verify the current fee structure in the 2025 Directions. (c) P2P's comparative "spread over bank rates" is anchored to the repo rate near 5.25% (late 2025, verify current value against the latest RBI MPC). (d) The 6–18 month recovery window is an observed pattern, not a promise — re-check against platform NPA disclosures annually. (e) TDS practice on P2P interest: verify with a tax professional each year.</li>
+</ul>
+<h2>Sources</h2><ol><li>Reserve Bank of India — RBI (Non-Banking Financial Companies – Peer to Peer Lending Platform) Directions, 2025: https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12934 (verified 2026-08-06)</li><li>Reserve Bank of India (via PDICAI host) — RBI P2P Lending Platform Directions, 2025 — full text (RBI/DOR/2025-26/370): https://www.pdicai.org/Docs/RBI-DOR-2025-26-370_24122025161753415.pdf (verified 2026-08-06)</li><li>Income Tax Department / Union Budget 2025 — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) - unchanged from the Budget 2025 reset: https://www.indiabudget.gov.in/doc/Finance_Bill.pdf (verified 2026-10-16)</li></ol>
+<p style="font-size:.75rem;color:#666;margin-top:2rem;border-top:1px solid #ccc;padding-top:1rem">Educational content, not individualized investment, tax, accounting, or legal advice.</p>
+</body></html>

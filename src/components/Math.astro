@@ -1,0 +1,21 @@
+---
+// Inline + block math rendering via KaTeX.
+// Usage in MDX:
+//   <Math>{"E = mc^2"}</Math>           (inline)
+//   <Math block>{"a^2+b^2=c^2"}</Math>   (block, centered)
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
+
+const { text = '', block = false } = Astro.props;
+
+let rendered = '';
+try {
+  rendered = katex.renderToString(text, { displayMode: block, throwOnError: false });
+} catch (e) {
+  rendered = `<code>${text}</code>`;
+}
+---
+
+{block
+  ? <div class="math-block" style="text-align:center; margin:1.25rem 0; overflow-x:auto;" role="math" aria-label={String(text)} set:html={rendered} />
+  : <span class="math-inline" role="math" aria-label={String(text)} set:html={rendered} />}

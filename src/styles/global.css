@@ -1,0 +1,79 @@
+/* DhanPedia — global design system
+   A restrained, editorial palette: deep forest ink on warm paper, with a
+   single amber accent. Light + dark themes. Tailwind v4 is used for utilities;
+   these custom properties carry the semantic tokens used by components. */
+
+:root {
+  --ink: #14231d;
+  --ink-soft: #3c4b44;
+  --paper: #f7f5ef;
+  --surface: #ffffff;
+  --surface-2: #f1efe7;
+  --line: #e3ded2;
+  --accent: #1f7a5c;
+  --accent-strong: #0f3a2e;
+  --gold: #c69a2c;
+  --gold-soft: #f0e2b8;
+  --warn: #b4541f;
+  --danger: #a5323a;
+  --ok: #1f7a5c;
+  --maxw: 46rem;
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(20,35,29,.05), 0 8px 28px rgba(20,35,29,.08);
+}
+
+.dark {
+  --ink: #e7e4da;
+  --ink-soft: #a8b3ac;
+  --paper: #0c1512;
+  --surface: #101c17;
+  --surface-2: #16241e;
+  --line: #24342d;
+  --accent: #4fd6a6;
+  --accent-strong: #8bf0cf;
+  --gold: #f5c451;
+  --gold-soft: #4a3f1e;
+  --warn: #f0a35e;
+  --danger: #ef8f96;
+  --ok: #4fd6a6;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+html.dark { color-scheme: dark; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; color: var(--ink); }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-underline-color: var(--gold); }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.container { width: 100%; max-width: 76rem; margin-inline: auto; padding-inline: 1.25rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}

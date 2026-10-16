@@ -1,0 +1,31 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import CalculatorIsland from '@components/CalculatorIsland';
+import { getCalc } from '@lib/calculators';
+
+export async function getStaticPaths() {
+  const { CALCULATORS } = await import('@lib/calculators');
+  return CALCULATORS.map((c) => ({ params: { id: c.id }, props: { calc: c } }));
+}
+
+const { calc } = Astro.props as any;
+---
+
+<BaseLayout title={`${calc.title} — Calculator`} description={calc.description}>
+  <section style="padding:2.5rem 0 3rem;">
+    <div class="container" style="max-width:48rem;">
+      <nav style="font-size:.8rem; color:var(--ink-soft);" aria-label="Breadcrumb">
+        <a href={link('/')} style="text-decoration:none;">Home</a> › <a href={link('/calculators')} style="text-decoration:none;">Calculators</a> › <span>{calc.title}</span>
+      </nav>
+      <h1 style="font-size:1.9rem; margin:.5rem 0 1rem;">{calc.title}</h1>
+
+      <CalculatorIsland calcId={calc.id} client:only="react" />
+
+      <div style="margin-top:2rem; display:flex; gap:.8rem; flex-wrap:wrap;">
+        <a href={link('/calculators')} style="font-size:.9rem;">← All calculators</a>
+        <a href={link('/articles/pf-wealth-plan-10-lakh')} style="font-size:.9rem;">See how this feeds your 10L plan</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

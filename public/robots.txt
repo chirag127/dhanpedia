@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Static generated site; disallow nothing on content.
+Sitemap: https://chirag127.github.io/dhanpedia/sitemap-index.xml

@@ -1,0 +1,36 @@
+# DhanPedia — Dual License
+
+## Code
+All software in this repository (configuration, components, calculators,
+scripts, tests) is licensed under the **MIT License**.
+
+Copyright (c) 2025 Chirag Singhal
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software, to deal in the software without restriction, including the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the software, and to permit persons to whom the software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## Original educational content
+Original prose, articles, books, and explanations are licensed under
+**Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+You may share and adapt the material for any purpose, even commercially,
+provided you give appropriate credit to Chirag Singhal / DhanPedia.
+
+## Third-party material
+External data, quotations, logos, and statistics retain their own licenses.
+They are **not** redistributed by this project unless they are freely licensed
+or fall under fair use/exception. Where we use a third-party figure or quote,
+we cite its source; the CC BY 4.0 grant applies only to our original content.

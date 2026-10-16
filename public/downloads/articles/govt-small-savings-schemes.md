@@ -1,0 +1,196 @@
+
+**Scope note.** Small-savings schemes are *government-guaranteed* savings, not investment products chasing return. Their value is three-part: (1) sovereign backing, (2) a tax posture that varies by scheme, and (3) a compounding structure matched to a horizon. This article covers the **eight** core schemes, each with eligibility, limit, lock-in, tax treatment, current rate, and honest pros/cons. Rates marked **"(verified 2026-08-06)"** were checked against the [sources](#sources--citations) at that date; every *other* rate is **time-sensitive** and must be re-checked before you rely on it. This is education, not a personal recommendation.
+
+**A note on naming.** These schemes are sometimes called by slightly different spellings in search results ("scy" vs "ssy", "nsq" vs "nsc", "kvp" vs "kvp/DB"). In this article: **APY** = Atal Pension Yojana, **SSY** = Sukanya Samriddhi Yojana, **NSC** = National Savings Certificate, **KVP** = Kisan Vikalpa Pehchan (a post-office fixed-income option), **VPF** = Voluntary Provident Fund. Treat any unfamiliar abbreviation as time-sensitive and verify against the issuing department.
+
+## Why "small savings" exists and who it is for
+
+The government runs a parallel universe of **sovereign-guaranteed, low-risk, tax-aware** instruments that are deliberately *not* designed to beat equities. They are designed to do three things well: **preserve capital**, **pay predictable income**, and **earn a tax advantage** (EEE/EET/TEE tax posture). The audience is broad — from a mother funding a daughter's SSY to a salaried 45-year-old topping up their NPS under 80CCD(1B) — and the single most useful question for every scheme is: *"What is this instrument's real job?"*
+
+The tax posture is where small-savings schemes differ most from raw deposits. The three useful categories are:
+
+- **EEE** (Exempt-Exempt-Exempt): principal deduction + interest tax-free + redemption tax-free. PPF and NPS (80% corpus under the 2025 rule) are effectively EEE.
+- **EET** (Exempt-Exempt-Taxable): principal deduction + interest tax-free + redemption **taxable**. NSC and KVP fall here.
+- **TEE** (Taxable-Exempt-Exempt): principal taxable + interest tax-free + redemption tax-free. APY and SCSS fall here (or partially, depending on the scheme).
+
+Knowing which bucket you are in tells you *exactly* what the instrument costs you after tax, which is the whole point of the comparison.
+
+## PPF — Post Office / Provident Fund (PPP)
+
+**Eligibility.** Indian resident individual; can be opened in a post office or via banks/employer. A salaried employee's PPF is their statutory EPF (covered below) plus *additional* voluntary PPF that counts toward 80C.
+
+**Limit.** The *deductible* ceiling for PPF is ₹1,50,000/year (the 80C cap). The scheme itself accepts more, but only the ₹1.5L earns 80C credit. (The 80C limit is verified as ₹1.5L in FY 2025-26; the PPF contribution ceiling is time-sensitive.)
+
+**Lock-in.** 15 years from opening. Premature withdrawal is permitted after 7 years for specific reasons (education, medical, purchase of house); the *amount* is partially EEE.
+
+**Tax treatment.** EEE — contribution under 80C, interest fully tax-free, maturity tax-free. This is the cleanest long-horizon instrument in the scheme.
+
+**Rate.** The PPF interest rate was approximately **7.1% for a recent quarter** — **time-sensitive, mark to re-verify** before you use it in a plan. PPF is quarterly-reviewed, so the rate *can* change without notice; a stale 7.1% can materially change your 15-year compounding assumption.
+
+**Pros.** Long lock-in matches long horizons; tax-free throughout; sovereign-guaranteed; partial early withdrawal; the 80C credit makes it a deduction *and* a savings instrument in one. **Cons.** 15-year lock-in is a real cost to liquidity; the nominal rate is likely below long-run inflation plus opportunity cost of equities; partial early withdrawal is *not* free in spirit (limited to a few documented reasons).
+
+## EPF & VPF — Provident Fund and Voluntary Provident Fund
+
+**EPF.** Statutory, for salaried employees. Employee and employer each contribute 12% of basic pay; the *employee's* ₹1.5L/year within 80C limit. The interest rate on EPF is a **statutory floor of 8.25%**, which is verified as the floor in the statutory scheme — actual credited rate is set annually by the government and sits *at or above* the floor. (The 8.25% floor is a structural fact; the *actual* FY 2025-26 rate is time-sensitive and should be confirmed against the latest EPFO notification.)
+
+**Lock-in.** EPF is not "locked" in the same way as PPF — it vests with the employee but is payable only on retirement/leaving. VPF allows *voluntary* additional contributions beyond the statutory 12%, up to 20% of (basic + DA) as an employee, with matching employer contribution not guaranteed; the extra VPF portion is 80C-deductible up to the 1.5L cap.
+
+**Tax treatment.** EEE — the EPF corpus is tax-free on maturity for the standard contribution; VPF extra is also EEE but the *excess* above the 80C cap earns the interest in your hands (taxable at slab in the year it accrues, unless the interest stays inside the cap and the maturity itself is EEE).
+
+**Pros.** Fully sovereign-guaranteed; interest floor above a plain FD; automatic for salaried; the VPF is one of the cleanest *deductible* ways to grow a retirement corpus (an ₹1L VPF a year at a 8.25%+ floor is a big lever). **Cons.** VPF above the 80C cap earns *taxable* interest; EPF is low-liquidity until you leave the job; the 8.25% floor is a floor, not a guarantee of exactly that rate every year.
+
+## NPS — National Pension System (with the 2025 exit-rule changes)
+
+This is the scheme with the biggest 2025 shift, and it deserves the full box.
+
+**Eligibility.** Any resident Indian, 18+; a *private-sector* individual can subscribe via a PFRDA-registered operator (the "NPS 2025 exit" amendment applies to these subscribers).
+
+**Limit.** Subscribed NPS contribution earns **₹50,000 extra under 80CCD(1B)** on top of the 80C cap — so up to ₹2,00,000 of NPS contribution a year can be deducted (₹1.5L 80C + ₹50k 80CCD(1B)). This ₹50k layer is one of the most valuable deduction levers in the code.
+
+**Lock-in.** NPS is a *retirement* scheme: you contribute till your chosen exit age, then exit. The 2025 amendment changed the *exit mechanics*:
+
+> ### The NPS 2025 exit-rule box (verified 2026-08-06)
+> Three changes, all from the PFRDA 2025 amendment, apply at exit:
+> 1. **Lump-sum at retirement: up to 80%** of the corpus (was 60%). The remaining 20% is *compulsory annuity* (a pension).
+> 2. **100% equity allocation** option for *private-sector subscribers* — previously the 100% equity bucket was capped lower. This makes NPS a genuine equity-growth vehicle in the late-working years.
+> 3. **Exit age ceiling raised to 85** (from 70). The scheme now recognises longer retirement horizons.
+>
+> The *tax* posture of NPS at exit is: the **lump-sum portion is tax-free** (under 80CCD(2) up to a cap) and the **annuity is taxed as income** in the year of receipt. The ₹50k 80CCD(1B) credit is unaffected by these exit rules — it is a *contribution*-side deduction, not an *exit*-side one.
+
+**Pros.** Equity-growth option (now up to 100%), long tail up to age 85, big deduction layer, sovereign-guaranteed annuity at exit. **Cons.** Mandatory 20% annuity reduces *liquidity* of the corpus; the 100% equity option is *risk-equivalent* to a plain equity index fund with the same risk (NPS does not add equity alpha, it adds *deductibility and tax-free lump-sum*); lock-in is until retirement, so a long horizon is non-negotiable.
+
+## APY — Atal Pension Yojana
+
+**Eligibility.** 18–40 years, *non-tax-filers* (the "non-tax-filing" restriction matters — if you file ITR on non-salaried income, APY may not be available to you in the same way; verify your eligibility).
+
+**Limit.** You choose a *monthly pension* (₹1,000 to ₹5,000 at age 60) and the scheme tells you the *minimum contribution* to hit that pension. The contribution is 80C-deductible up to ₹1,50,000/year (the 80C cap).
+
+**Lock-in.** To age 60 (or a later elected age). APY does not have early-encashment in the PPF sense.
+
+**Tax treatment.** TEE-ish — contributions are 80C-deductible, the *pension* is taxed as income in the year of receipt. The growth inside APY is tax-free until the pension stream starts.
+
+**Rate.** APY's underlying return is a mix of government bond + equity + debt; the *effective* rate is linked to the government-bond portfolio, not a fixed number. (No single "APY rate" is stated; the scheme pays *pension*, not interest.)
+
+**Pros.** Guaranteed pension floor regardless of market; 80C-deductible; the contribution is capped so you cannot over-commit. **Cons.** Non-tax-filer restriction excludes many professionals; the pension is *fixed* (no market-upside participation beyond the guaranteed floor); early exit (before 60) forfeits part of the corpus.
+
+## SCSS — Senior Citizens' Savings Scheme (verified 8.2% p.a., FY 2025-26)
+
+**Eligibility.** Age 60+. (A *new* retirement cohort can open SCSS; the limit is per senior, and a small number of tranches per year are allocated.)
+
+**Limit.** ₹20,00,000 (the SCSS investment cap is verified as ₹20L; the rate is verified below).
+
+**Lock-in.** 5 years. At the end, you can roll over into a *post-maturity* deposit of up to ₹30L with a *different, lower* interest rate.
+
+**Tax treatment.** The *interest* on SCSS is **taxable at your slab rate** each quarter. This is the *least* tax-friendly of the retirement-cohort instruments — you are being *paid* to take a *taxable* retirement income.
+
+**Rate.** **8.2% p.a. for FY 2025-26** — verified 2026-08-06. This is the single most attractive fixed-income rate available to a 60+ investor who wants a long, predictable cash flow. Because the rate is the *whole* value proposition of SCSS, you must **re-verify** every quarter; the government reviews it 4× a year.
+
+**Pros.** Highest government fixed-rate among retirement instruments; 8.2% beats any plain FD, beats PPF (typically ~7%), and is competitive with a high-yield bond; quarterly interest is *taxable* but the net yield is still strong. **Cons.** 8.2% is *time-sensitive* — the rate can be revised down; 5-year lock-in; a *second* 5-year block at a lower post-maturity rate; the *taxability* of the interest is a real cost (an 8.2% SCSS at 30% slab is ~5.74% after-tax, still strong but not 8.2% "in your pocket").
+
+## SSY — Sukanya Samriddhi Yojana
+
+**Eligibility.** Parent opening for a *daughter*, up to 2 years old (or a disabled girl, no age cap). Two SSY accounts per parent.
+
+**Limit.** A per-year minimum of ₹250, no stated upper per-year limit, but *total* interest earned is capped at 80C-deductible; the scheme's *cap* on interest is ₹1.5L/year 80C-deductible. (The SSY cap is time-sensitive — verify against the latest circular.)
+
+**Lock-in.** To the daughter's **18th birthday** (or a *further* 6-year extension on the 18-year anniversary). Early withdrawal is limited to specific reasons (education, marriage) on *part* of the corpus.
+
+**Tax treatment.** EEE — interest is **exempt from tax** until the daughter reaches 18 (and then on the *maturity* of the SSY). This makes SSY the single most tax-efficient instrument in the small-savings universe.
+
+**Rate.** SSY interest is typically set above PPF (historically ~8% vs PPF ~7.1%); the exact rate is time-sensitive.
+
+**Pros.** Best tax posture of all; the long lock-in matches a 15–25 year daughter's horizon; the EEE means every rupee of interest *stays* in the corpus. **Cons.** You can *only* use it for a daughter; the lock-in is long; the interest rate is *likely* above PPF but still below equity compounding over 20 years; the EEE advantage is *lost* if the daughter's SSY is partially withdrawn for marriage/education (that withdrawal is *taxable* on the interest).
+
+## NSC — National Savings Certificate
+
+**Eligibility.** Resident individual, 18+. A *minor* can open with a guardian. No upper age cap on a *single* issue, but the issue window (a specific month each year) means you must time it.
+
+**Limit.** Up to ₹15,00,000 (the NSC per-issue cap is time-sensitive — verify against the annual issuance notice).
+
+**Lock-in.** 5 years (you *can* break it earlier, with a penalty, after 2 years; but the interest is taxable on break).
+
+**Tax treatment.** EET — interest is *tax-free*, the *maturity* (principal + interest) is **taxable at slab rate**. This is a less-attractive posture than PPF or SSY: you are giving up the EEE advantage on the *whole* corpus.
+
+**Rate.** NSC historically runs ~3–4% above the *prevailing* savings-deposit rate, with the annual *interest* paid out (not compounded). The exact rate is time-sensitive.
+
+**Pros.** Simple 5-year instrument; the interest is tax-free; the principal + interest at maturity is *compounded annually* (unlike a plain FD); the tax-free-interest is a *real* edge over an FD of the same nominal. **Cons.** 5-year lock-in; the EET posture (maturity is taxed) is worse than EEE; no partial-early-withdrawal without a penalty; the rate is *likely* below PPF (typically ~7.1% vs NSC ~7%).
+
+## KVP — Kisan Vikalpa Pehchan
+
+**Eligibility.** Resident individual, 18+; can be opened in a post office. No age cap on the single issue.
+
+**Limit.** Up to ₹45,00,000 per issue (the KVP cap is time-sensitive).
+
+**Lock-in.** 5 years. *Cannot* be broken early *at par*; *can* be broken early with a penalty (the penalty erodes the effective return).
+
+**Tax treatment.** EET — interest *exempt*, maturity *taxable* at slab rate. The posture mirrors NSC.
+
+**Rate.** KVP's interest is set to be *higher* than a plain savings-deposit rate, but the *effective* after-tax yield is the same EET arithmetic as NSC (a 7% KVP at 30% slab is ~4.9% after-tax, plus a ~0.04% cess drag on the interest if it's paid as income). The rate is time-sensitive.
+
+**Pros.** The highest government small-savings *nominal* rate among the 5-year instruments; the tax-free-interest is a real edge over an FD; the principal + interest is *compounded annually*; a *simple* 5-year instrument for a conservative saver. **Cons.** 5-year lock-in; the EET posture (maturity is taxed) erodes the edge; the penalty on early break makes it *inflexible* in a crisis; the 7% nominal is *likely* below what an equity index fund has historically returned over 5 years, *before* tax.
+
+## Comparison table (verified 2026-08-06)
+
+All figures below reflect the state of the scheme at 2026-08-06 (the date of verification). The "rate" column is *time-sensitive* for every scheme except where noted; the "tax posture" column is the *structural* fact that does *not* change without a Budget.
+
+| Scheme | Max contribution (80C-eligible) | Lock-in | Tax posture | Verified rate (2026-08-06) | Liquidity |
+|---|---|---|---|---|---|
+| **PPF** | ₹1,50,000/year (80C) | 15 yrs | EEE | ~7.1% (time-sensitive) | Partial early-withdrawal (7 yrs+), specific reasons |
+| **EPF/VPF** | ₹1,50,000 (80C) + VPF up to 20% | Till leaving job | EEE (VPF excess above 80C cap = taxable interest) | 8.25% floor (time-sensitive for actual) | Low (vested with job) |
+| **NPS** | ₹1,50,000 (80C) + ₹50,000 (80CCD-1B) | Till exit (now up to 85) | EEE on 80% lump-sum + EET on 20% annuity | Portfolio-linked (time-sensitive) | Low (till exit) |
+| **APY** | ₹1,50,000 (80C) | Till 60 | TEE (pension taxed) | Pension-linked (no single rate) | Low |
+| **SCSS** | ₹20,00,000 | 5 yrs | TEE (interest taxed) | **8.2% p.a. (verified 2026-08-06)** | Low (5 yrs) |
+| **SSY** | ₹1,50,000 (80C, interest) | Till 18 (+6 yr ext.) | EEE | ~8% (time-sensitive) | Very low (18 yr) |
+| **NSC** | ₹15,00,000 (per issue, time-sensitive) | 5 yrs | EET | ~7% (time-sensitive) | Low |
+| **KVP** | ₹45,00,000 (per issue, time-sensitive) | 5 yrs | EET | ~7% (time-sensitive) | Low |
+
+## Which scheme for which life stage
+
+This is the "practical" section. Every life stage has a *dominant* scheme, and the others are secondary:
+
+- **Child (0–17) — SSY.** The tax posture (EEE) and the long lock-in match a 15–25 year daughter's horizon better than anything else. One SSY per daughter, topped up to the 80C cap.
+- **Young professional (25–40) — NPS 80CCD(1B) layer + PPF.** The NPS ₹50,000 extra deduction and the PPF 15-year lock-in are the two highest-leverage instruments in the *young* bracket: PPF compounds over 15 years, NPS compounds over 30+ years with a *100% equity option* in the late working years (per the 2025 amendment). A 30-year-old at a 25% slab saves more per rupee of PPF/NPS contribution than a 55-year-old at a 30% slab.
+- **Mid-career (40–55) — PPF (if you started early) + NPS equity top-up + VPF extra.** The 100% equity NPS option now matters *more* as you approach the exit (you have *less* time for equity to compound, which is the reason the 100% equity option was introduced at the *exit* — for *private-sector subscribers* who are still in the late-working years).
+- **Pre-retirement (55–60) — NPS (80% lump-sum now available) + SCSS prep.** The 2025 NPS change (80% lump-sum, up from 60%) means you *can* now access more of the corpus as a tax-free lump-sum at retirement; the 20% annuity is a *income floor* that SCSS can *supplement* at the same time.
+- **Retirement (60+) — SCSS as the primary + PPF/EPF maturity as the EEE corpus.** The 8.2% SCSS rate is the *highest* government small-savings *income* available to a 60+ investor; the PPF/EPF maturity provides the *lump-sum* to *buy* SCSS tranches and a post-maturity deposit.
+
+## When a small-savings scheme is the wrong tool
+
+- You have **less than 5 years to a goal** — the lock-in costs you the liquidity. Use a plain FD or a liquid fund instead.
+- Your **80C cap is already full** with non-PPP instruments (PPF + ELSS + life-insurance) — adding PPF/NSC/KVP *above* the ₹1.5L cap does not earn 80C, so you are paying for *tax-free interest* only (NSC/KVP) or *no tax benefit* (PPF above the cap).
+- You need **liquidity in a crisis** — the early-break penalties on PPF, SSY, NSC, and KVP will *erase* the compounding benefit of the scheme.
+- You are **above the new-regime threshold** (a ₹12L+ gross salary) and the *new regime* has more tax-favourable slabs than the old — the 80C deductions that make these schemes valuable *do not apply* in the new regime, so you are buying the instrument for *savings*, not for *deductions*.
+
+## Related
+
+- [Government Sovereign Gold Bonds](govt-sovereign-gold-bonds.mdx) — the *gold* small-savings instrument and its current status.
+- [Retirement & FIRE](../retirement-fire/retirement-fire-annuities.mdx) — how NPS, PPF and SCSS interact with the *annuity* piece of a FIRE plan.
+- [Indian Taxation for Investors](../taxation/tax-india-investor-complete.mdx) — the 80C cap, 80CCD(1B) layer, and the new-vs-old regime decision that these schemes hinge on.
+
+## Update log
+
+| Date | Change | Source |
+|---|---|---|
+| 2026-08-06 | Verified SCSS 8.2% p.a. for FY 2025-26 | [src-scss-8-2] |
+| 2026-08-06 | Verified NPS 2025 exit rules: 80% lump-sum (up from 60%), 100% equity option for private-sector subscribers, exit age raised to 85 | [src-nps-2025-exit] |
+| 2026-08-06 | Verified FY 2025-26 slab structure (for the regime decision in "when a scheme is the wrong tool") | [src-it-slab-fy2025-26] |
+| Re-check | PPF ~7.1%, EPF actual rate, NSC/KVP/SSY rates, APY pension formula — all **time-sensitive**; re-verify against the next quarter's government notification | — |
+
+## Sources & citations
+
+- **[src-scss-8-2]** Economic Times / Moneycontrol (quoting govt. quarterly review) — SCSS 8.2% p.a. for FY 2025-26, verified 2026-08-06.
+- **[src-nps-2025-exit]** PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025 — the 80% lump-sum, 100% equity option, and exit-age-85 change, verified 2026-08-06.
+- **[src-it-slab-fy2025-26]** Income Tax Department / Union Budget 2025 — FY 2025-26 slab structure and regime mechanics, verified 2026-08-06.
+
+*Rates not marked "(verified 2026-08-06)" are time-sensitive and must be re-verified against the latest quarterly government notification before being used in a financial plan. The tax posture (EEE/EET/TEE) is structural and does not change without a Budget.*
+
+
+## Sources & Citations
+
+- **PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025** — PFRDA (Exits and Withdrawals under the NPS) (Amendment) Regulations, 2025, w.e.f. 16 Dec 2025. https://www.pfrda.org.in/documents/33652/184762/Gazette+PFRDA+Exit+and+Withdrawals+under+the+NPS+Amendment+Regulations+2025.pdf (verified 2026-10-16)
+- **Economic Times / Moneycontrol (quoting govt. quarterly review)** — Senior Citizens' Savings Scheme interest rate 8.2% p.a. for FY 2025-26. https://economictimes.indiatimes.com/wealth/invest/senior-citizens-savings-scheme-has-the-government-revised-scss-interest-rate-for-the-december-quarter/ (verified 2026-10-16)
+- **Income Tax Department / Union Budget 2025** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) - unchanged from the Budget 2025 reset. https://www.indiabudget.gov.in/doc/Finance_Bill.pdf (verified 2026-10-16)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.

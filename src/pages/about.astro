@@ -1,0 +1,63 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { SITE } from '@lib/site';
+import { ARTICLES, BOOKS, INSTRUMENTS } from '@lib/content';
+
+const published = ARTICLES.filter((a) => a.status === 'published');
+const counts = [
+  { n: published.length, label: 'in-depth articles' },
+  { n: BOOKS.length, label: 'books' },
+  { n: INSTRUMENTS.length, label: 'instrument cards' },
+  { n: 12, label: 'calculators' },
+];
+---
+
+<BaseLayout title="About DhanPedia" description={`About ${SITE.name} — mission, author, and editorial commitments.`}>
+  <section style="padding:3rem 0 3rem;">
+    <div class="container" style="max-width:46rem;">
+      <h1 style="font-size:2.1rem; margin:0 0 .4rem;">About {SITE.name}</h1>
+      <p style="font-size:1.05rem; color:var(--ink-soft); line-height:1.7;">
+        {SITE.tagline} {SITE.name} is a free, evidence-based encyclopedia of every
+        major investment avenue, financial instrument, and wealth-building strategy
+        relevant to India — built by one author as a long-term public knowledge
+        resource, not a paid subscription or a lead-generation funnel.
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin:1.6rem 0;">
+        {counts.map((c) => (
+          <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem;">
+            <div style="font-family:var(--font-serif); font-size:1.7rem; font-weight:700; color:var(--accent);">{c.n}</div>
+            <div style="font-size:.85rem; color:var(--ink-soft);">{c.label} (and growing)</div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style="font-size:1.3rem;">The commitments</h2>
+      <ul style="line-height:1.9; color:var(--ink-soft);">
+        <li><strong style="color:var(--ink);">Evidence first.</strong> Every time-sensitive claim links to a real source and carries a verification date; see <a href={link('/sources')}>Research &amp; Sources</a>.</li>
+        <li><strong style="color:var(--ink);">Educational, not advisory.</strong> We explain mechanics, taxes, risks, and failure modes. We never promise returns or guarantee capital.</li>
+        <li><strong style="color:var(--ink);">No fabricated content.</strong> No invented statistics, citations, "guaranteed" yields, or fake testimonials. Numbers we can't verify are marked unverified.</li>
+        <li><strong style="color:var(--ink);">Local &amp; private.</strong> All calculators run in your browser; no accounts, no data collection, no paywalls.</li>
+        <li><strong style="color:var(--ink);">Open &amp; free.</strong> Code is MIT-licensed; content is CC BY 4.0.</li>
+      </ul>
+
+      <h2 style="font-size:1.3rem;">Author & support</h2>
+      <p style="color:var(--ink-soft); line-height:1.8;">
+        Created by <strong style="color:var(--ink);">{SITE.author}</strong>
+        ({SITE.authorEmail}). {SITE.name} is an independent educational project —
+        it is <em>not</em> a SEBI-registered investment adviser, a regulated financial
+        institution, or an official government resource.
+      </p>
+      <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1rem;">
+        <a href={SITE.githubRepo} target="_blank" rel="noopener noreferrer" style="border:1px solid var(--line); border-radius:9px; padding:.5rem 1rem; text-decoration:none; font-size:.9rem; color:var(--ink);">GitHub</a>
+        <a href={SITE.support} target="_blank" rel="noopener noreferrer" style="border:1px solid var(--line); border-radius:9px; padding:.5rem 1rem; text-decoration:none; font-size:.9rem; color:var(--ink);">☕ Support the project</a>
+        <a href="mailto:{SITE.authorEmail}" style="border:1px solid var(--line); border-radius:9px; padding:.5rem 1rem; text-decoration:none; font-size:.9rem; color:var(--ink);">Contact</a>
+      </div>
+      <p style="font-size:.82rem; color:var(--ink-soft); margin-top:1.2rem;">
+        A note on funding: the site must remain useful even if it never earns money.
+        There are no paid recommendations and no content held behind ads.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { CALCULATORS } from '@lib/calculators';
+
+// Pagefind bundle path. The CLI builds it into dist/pagefind, which ships in
+// the static output. On a GitHub Pages *project* site the base is /dhanpedia,
+// local: normalized '' ; project site: '/dhanpedia' — see @lib/nav `base`.
+const rawBase = import.meta.env.BASE_URL ?? '';
+const base = rawBase.replace(/\/+$/, '');
+const calcEntries = CALCULATORS.slice(0, 6);
+---
+
+<BaseLayout title="Search" description="Full-text search across DhanPedia articles, glossary, books, calculators and topics.">
+  <section style="padding:3rem 0 3rem;">
+    <div class="container" style="max-width:48rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Search</h1>
+      <p style="color:var(--ink-soft);">
+        Full-text search over articles, glossary, books, calculators and topics,
+        powered by <a href="https://pagefind.app" rel="noopener noreferrer" target="_blank">Pagefind</a> —
+        static and client-side: your query never leaves the device.
+      </p>
+
+      <div id="searchbox" style="margin:1.2rem 0;"></div>
+      <div id="search-status" style="font-size:.85rem; color:var(--ink-soft);">
+        While the search bundle is loading, use the quick links below.
+      </div>
+      <div id="search-error" style="font-size:.85rem; color:var(--warn); display:none;"></div>
+
+      <div style="margin-top:2.5rem;">
+        <h2 style="font-size:1.1rem;">Quick: popular calculators</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:.6rem; margin-top:.7rem;">
+          {calcEntries.map((c) => (
+            <a href={link(`/calculators/${c.id}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.8rem; text-decoration:none; display:block;">
+              <div style="font-weight:600; color:var(--ink); font-size:.92rem;">{c.title}</div>
+              <div style="font-size:.78rem; color:var(--ink-soft); margin-top:.2rem;">{c.category}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pagefind UI bundle (self-contained Svelte widget + WASM search core) -->
+  <link rel="stylesheet" href={`${base}/pagefind/pagefind-ui.css`} />
+  <script src={`${base}/pagefind/pagefind-ui.js`} defer></script>
+
+  <script>
+    (function () {
+      function mount() {
+        var box = document.getElementById('searchbox');
+        var status = document.getElementById('search-status');
+        var errEl = document.getElementById('search-error');
+        if (!window.PagefindUI) {
+          // Derive the base from the already-loaded primary bundle (works at /
+          // and under /dhanpedia). Falls back to root if that's unavailable.
+          var probe = document.querySelector('script[src*="pagefind"]');
+          var base = probe ? (probe.src.match(/^(.*\/)pagefind/)?.[1] || '') : '';
+          var s = document.createElement('script');
+          s.src = base + 'pagefind-modular-ui.js';
+          s.async = true;
+          s.onload = mount;
+          s.onerror = function () {
+            if (status) status.textContent = 'Search is not available in this build. Use the topic pages or calculators above, or run the full build (which includes the Pagefind index).';
+            if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Note: the Pagefind search index is generated at build time. On a dev server, run `npm run build` then `npm run search` first.'; }
+          };
+          document.head.appendChild(s);
+          return;
+        }
+        try {
+          new window.PagefindUI({
+            element: box,
+            showSubResults: true,
+            pageSize: 10,
+          });
+          if (status) status.remove();
+        } catch (e) {
+          console.error('Pagefind init failed:', e);
+          if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Search could not start: ' + e.message; }
+          if (status) status.textContent = 'Search could not start in this browser — see the quick links below.';
+        }
+      }
+      window.addEventListener('load', mount);
+    })();
+  </script>
+
+  <style>
+    .pagefind-ui-wrapper { margin: 0; }
+    mark { background: var(--gold-soft); color: inherit; border-radius: 3px; padding: 0 2px; }
+  </style>
+</BaseLayout>

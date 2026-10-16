@@ -1,0 +1,20 @@
+{
+  "kind": "webpage_snapshot",
+  "url": "https://www.pfrda.org.in/documents/33652/86710/Press%2BRelease%2B-%2BKey%2Bchanges%2B-%2BExit%2BRegulations%2B.pdf",
+  "final_url": "https://www.pfrda.org.in/documents/33652/86710/Press%2BRelease%2B-%2BKey%2Bchanges%2B-%2BExit%2BRegulations%2B.pdf",
+  "status": 200,
+  "read_status": "non_html",
+  "content_type": "application/pdf",
+  "fetched_at": "2026-10-16T17:09:48.561320500+00:00",
+  "title": "Untitled webpage",
+  "description": "",
+  "site_name": null,
+  "published_at": null,
+  "source_type": "unknown",
+  "text": "",
+  "quote_candidates": [],
+  "word_count": 0,
+  "truncated": false,
+  "blocked": false,
+  "source": "direct_http"
+}

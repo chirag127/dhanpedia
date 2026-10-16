@@ -1,0 +1,30 @@
+# Build output
+dist/
+.astro/
+books/dist/
+
+# Node
+node_modules/
+*.log
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+
+# Tooling caches
+.pagefind/
+coverage/
+.DS_Store
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Scratch output (local test/build logs)
+pw.txt
+be.txt
+build_out.txt
+build_base.txt

@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { ARTICLES } from '@lib/content';
+
+// A curated glossary with links to the full article where one exists.
+const terms = [
+  { t: 'CAGR', d: 'Compound Annual Growth Rate — the constant annual rate that turns a start value into an end value over a fixed number of years.', a: 'foundations-compounding-returns' },
+  { t: 'XIRR', d: 'Internal rate of return for irregularly-timed cash flows; the annualized rate at which net present value equals zero.', a: 'foundations-compounding-returns' },
+  { t: 'SIP', d: 'Systematic Investment Plan — investing a fixed amount at regular intervals to ride out volatility.', a: 'mf-sip-swp-stp-goals' },
+  { t: 'SWP', d: 'Systematic Withdrawal Plan — taking a regular income out of a growing corpus.', a: 'mf-sip-swp-stp-goals' },
+  { t: 'STP', d: 'Systematic Transfer Plan — automatically moving money from one fund to another on schedule.', a: 'mf-sip-swp-stp-goals' },
+  { t: 'Direct plan', d: 'Mutual fund units bought without a distributor; lower expense ratio, no commission.', a: 'mf-index-etf-direct-regular' },
+  { t: 'Regular plan', d: 'Mutual fund units bought through a distributor/advisor; carries a commission, a higher expense ratio.', a: 'mf-index-etf-direct-regular' },
+  { t: 'Tracking error', d: 'How much a fund’s/ETF’s return deviates from its benchmark.', a: 'mf-index-etf-direct-regular' },
+  { t: 'Expense ratio', d: 'Annual cost of running a fund, as a % of assets; it compounds against you over time.', a: 'mf-choosing-comparing-funds' },
+  { t: 'Duration', d: 'A bond’s sensitivity to interest rates — a rough number of years to recovery if rates rise 1%.', a: 'fixed-income-bonds-credit' },
+  { t: 'Yield to maturity', d: 'The annualized return a bond holder earns if the bond is held to maturity and coupons are reinvested.', a: 'fixed-income-bonds-credit' },
+  { t: 'Credit spread', d: 'Extra yield a riskier borrower pays over a risk-free benchmark, for taking default risk.', a: 'fixed-income-bonds-credit' },
+  { t: 'Expected loss', d: 'In P2P/credit: probability of default × loss given default — the slice of a portfolio likely to be written off.', a: 'p2p-lending-complete' },
+  { t: 'Loss given default', d: 'Share of a defaulted loan you actually lose after recovery (1 − recovery rate).', a: 'p2p-lending-complete' },
+  { t: 'REIT', d: 'A listed vehicle owning income-producing real estate; must pay out most distributable cash flow.', a: 'real-estate-reit-invit' },
+  { t: 'InvIT', d: 'A listed infrastructure-investment trust (toll, power, data, logistics).', a: 'real-estate-reit-invit' },
+  { t: 'PMS', d: 'Portfolio Management Scheme — a discretionary managed portfolio for larger, long-horizon capital.', a: 'alternatives-pms-aif-private' },
+  { t: 'AIF', d: 'Alternative Investment Fund (Cat I/II/III) — private-markets, venture, PE, and HFM vehicles.', a: 'alternatives-pms-aif-private' },
+  { t: 'Term insurance', d: 'Pure life cover; pays out only on death. The cheapest, most efficient protection — not an investment.', a: 'insurance-protection' },
+  { t: 'ULIP', d: 'A unit-linked insurance plan that mixes a small investment with life cover at high cost — generally dominated by term + direct mutual funds.', a: 'insurance-protection' },
+  { t: 'Sequence-of-returns risk', d: 'The risk that early bad returns permanently reduce how long your corpus lasts in retirement.', a: 'retirement-fire-annuities' },
+  { t: '4% rule', d: 'A heuristic (US-origin) that withdrawing ~4% of a balanced portfolio in year one tends to last ~30 years.', a: 'retirement-fire-annuities' },
+  { t: 'LRS', d: 'Liberalised Remittance Scheme — the RBI route for residents to remit money abroad up to a per-FY limit.', a: 'international-investing-lrs' },
+  { t: 'FATCA / CRS', d: 'International rules that make foreign banks report Indian (and other-country) account holders to their home tax authorities.', a: 'international-investing-lrs' },
+  { t: '87A rebate', d: 'A rebate that zeroes tax on the first slab under the new regime (income up to ₹12L for salaried, FY 2025-26).', a: 'tax-india-investor-complete' },
+  { t: 'Section 80C', d: 'Old-regime deduction up to ₹1.5L across PPF, ELSS, NSC, home-loan principal, insurance, etc.', a: 'tax-india-investor-complete' },
+  { t: 'SCCG / LCCG', d: 'Short/long-term capital gains on equity — in India, held ≤12mo is short; held >12mo is long.', a: 'tax-india-investor-complete' },
+  { t: 'FIRE', d: 'Financial Independence, Retire Early — saving enough to cover spending from returns.', a: 'retirement-fire-annuities' },
+];
+const articleFor = (id) => ARTICLES.find((a) => a.id === id && a.status === 'published');
+---
+
+<BaseLayout title="Glossary" description="A quick-reference glossary of the financial terms DhanPedia uses, linked to full explanations.">
+  <section style="padding:3rem 0 3rem;">
+    <div class="container" style="max-width:52rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Glossary</h1>
+      <p style="color:var(--ink-soft);">Concise definitions. Terms link to the full DhanPedia article where one exists.</p>
+
+      <div style="margin-top:1.5rem; display:grid; gap:.5rem;">
+        {terms.map((x) => {
+          const art = articleFor(x.a);
+          return (
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.9rem 1.1rem;">
+              <div style="font-weight:600; color:var(--ink); font-size:1rem;">{x.t}
+                {art && <a href={link(`/articles/${art.id}`)} style="float:right; font-size:.78rem; color:var(--accent); font-weight:500;">full article →</a>}
+              </div>
+              <div style="font-size:.9rem; color:var(--ink-soft); margin-top:.3rem; line-height:1.6;">{x.d}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

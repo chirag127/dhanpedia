@@ -1,0 +1,199 @@
+---
+import { readFile } from 'node:fs/promises';
+import { link } from '@lib/nav';
+import path from 'node:path';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categoryById } from '@lib/site';
+import { ARTICLES, sourceById } from '@lib/content';
+import '@styles/prose.css';
+
+// Self-contained getStaticPaths. No top-level helper bindings, because the
+// prerender chunk-split separates top-level functions from getStaticPaths.
+export async function getStaticPaths() {
+  const repoRoot = process.cwd();
+  const modules = await import.meta.glob('/src/content/**/*.mdx', { eager: true });
+  const byId: Record<string, any> = {};
+  for (const p in modules) {
+    const mod = modules[p] as any;
+    const id: string | undefined = mod?.frontmatter?.id ?? mod?.default?.id;
+    if (id) byId[id] = mod;
+  }
+
+  function collectHeadings(markdown: string): { id: string; text: string; level: number }[] {
+    const out: { id: string; text: string; level: number }[] = [];
+    const re = /^(#{2,3})\s+(.+)$/gm;
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(markdown))) {
+      out.push({
+        id: m[2].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+        text: m[2].trim(),
+        level: m[1].length,
+      });
+    }
+    return out;
+  }
+
+  const out: any[] = [];
+  for (const id of Object.keys(byId)) {
+    const mod = byId[id];
+    const fm = mod.frontmatter ?? mod.default ?? {};
+    let raw = '';
+    const reg = ARTICLES.find((a) => a.id === id);
+    if (reg) {
+      try { raw = await readFile(path.join(repoRoot, reg.file), 'utf8'); } catch { raw = ''; }
+    }
+    const bodyText = raw.replace(/^---[\s\S]*?---/, '').replace(/\{\`[\s\S]*?\`\}/g, '');
+    out.push({
+      params: { id },
+      props: {
+        article: {
+          id,
+          MdxComponent: mod.default,
+          frontmatter: fm,
+          headings: collectHeadings(raw),
+          bodyText,
+          words: bodyText.split(/\s+/).filter(Boolean).length,
+        },
+      },
+    });
+  }
+  return out;
+}
+
+const { article } = Astro.props as any;
+const fm = article.frontmatter;
+const reg = ARTICLES.find((a) => a.id === article.id);
+const cat = categoryById(String(fm.category));
+const related = (Array.isArray(fm.relatedArticles) ? fm.relatedArticles : reg?.related ?? [])
+  .map((r: string) => ARTICLES.find((a) => a.id === r))
+  .filter(Boolean);
+const sources = (Array.isArray(fm.sources) ? fm.sources : reg?.sources ?? [])
+  .map((s: string) => sourceById(s))
+  .filter(Boolean);
+const idx = ARTICLES.findIndex((a) => a.id === article.id);
+const prev = ARTICLES[idx - 1];
+const next = ARTICLES[idx + 1];
+const { MdxComponent } = article;
+---
+
+<BaseLayout title={fm.title} description={fm.description}>
+  <article class="dhanpedia-article" style="max-width:48rem; margin:0 auto; padding:2.5rem 1.25rem 4rem;">
+    <header>
+      <nav style="font-size:.8rem; color:var(--ink-soft); margin-bottom:.6rem;" aria-label="Breadcrumb">
+        <a href={link('/')} style="text-decoration:none;">Home</a> ›
+        <a href={link('/topics')} style="text-decoration:none;">Topics</a> ›
+        {cat && <a href={link(`/topics/${cat.slug}`)} style="text-decoration:none;">{cat.short}</a>}
+      </nav>
+
+      <p style="font-size:.78rem; color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin:.4rem 0;">
+        {cat?.short ?? String(fm.category)}
+      </p>
+      <h1 style="font-size:clamp(1.7rem,4vw,2.4rem); line-height:1.15; margin:.2rem 0 .6rem;">{fm.title}</h1>
+      {fm.description && <p style="font-size:1.05rem; color:var(--ink-soft); line-height:1.6; margin:0 0 1rem;">{fm.description}</p>}
+
+      <div style="display:flex; flex-wrap:wrap; gap:1rem; font-size:.8rem; color:var(--ink-soft); border-block:1px solid var(--line); padding:.7rem 0;">
+        <span>By <strong style="color:var(--ink);">{fm.author ?? 'Chirag Singhal'}</strong></span>
+        <span>~{Math.max(1, Math.round((article.words ?? 0) / 200))} min read</span>
+        {fm.lastVerified && <span>Verified <strong style="color:var(--ink);">{String(fm.lastVerified)}</strong></span>}
+        <span style="margin-left:auto; background:var(--gold-soft); color:var(--ink); padding:.2rem .55rem; border-radius:20px; font-weight:700; text-transform:capitalize;">
+          {String(fm.difficulty ?? 'intermediate')}
+        </span>
+      </div>
+
+      <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.9rem; font-size:.85rem;">
+        <a href={link(`/books`)} style="text-decoration:none;">📚 Related books</a>
+        <a href={link(`/articles/${fm.id}/print`)} style="text-decoration:none;">🖨️ Print / PDF</a>
+        <button id="tts-btn" type="button" style="background:none; border:1px solid var(--line); border-radius:8px; padding:.2rem .6rem; font-size:.8rem; cursor:pointer; color:var(--ink);">🔊 Read aloud</button>
+      </div>
+    </header>
+
+    {article.headings.length > 0 && (
+      <aside style="margin:1.5rem 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.3rem;">
+        <div style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); font-weight:700; margin-bottom:.5rem;">On this page</div>
+        <ol style="margin:0; padding-left:1.1rem; font-size:.9rem; line-height:1.9; color:var(--ink-soft);">
+          {article.headings.map((h) => <li style={h.level > 2 ? 'padding-left:1rem;' : ''}><a href={`#${h.id}`} style="text-decoration:none; color:var(--ink-soft);">{h.text}</a></li>)}
+        </ol>
+      </aside>
+    )}
+
+    <div id="article-body" class="prose">
+      {MdxComponent && <MdxComponent />}
+    </div>
+
+    <div id="tts-region" style="display:none;">
+      <h1>{fm.title}</h1>
+      <p>{article.bodyText.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')}</p>
+    </div>
+
+    {sources.length > 0 && (
+      <section style="margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line);">
+        <h2 style="font-size:1.1rem; margin:0 0 .7rem;">Sources & citations</h2>
+        <ol style="font-size:.88rem; color:var(--ink-soft); line-height:1.7; padding-left:1.2rem;">
+          {sources.map((s) => (
+            <li>
+              <a href={s!.url} target="_blank" rel="noopener noreferrer">{s!.publisher} — {s!.title}</a>
+              {s!.authority === 'primary' && <em> (primary)</em>}
+              {s!.verified && <span style="color:var(--ink-soft);"> · verified {s!.verified}</span>}
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {related.length > 0 && (
+      <section style="margin-top:2rem;">
+        <h2 style="font-size:1.1rem;">Read next</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.8rem;">
+          {related.map((r) => (
+            <a href={link(`/articles/${r!.id}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.9rem; text-decoration:none; display:block;">
+              <div style="font-weight:600; color:var(--ink); font-size:.95rem;">{r!.title}</div>
+              <div style="font-size:.82rem; color:var(--ink-soft); margin-top:.3rem;">{r!.summary}</div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {(prev || next) && (
+      <nav style="margin-top:2.5rem; display:flex; justify-content:space-between; gap:1rem; border-top:1px solid var(--line); padding-top:1.2rem; font-size:.9rem;" aria-label="Article navigation">
+        {prev
+          ? <a href={link(`/articles/${prev.id}`)} style="text-decoration:none; color:var(--ink-soft);">← {prev.title.length > 40 ? prev.title.slice(0, 38) + '…' : prev.title}</a>
+          : <span />}
+        {next
+          ? <a href={link(`/articles/${next.id}`)} style="text-decoration:none; color:var(--ink-soft); text-align:right;">{next.title.length > 40 ? next.title.slice(0, 38) + '…' : next.title} →</a>
+          : <span />}
+      </nav>
+    )}
+
+    <div style="margin-top:2.5rem; padding:1rem 1.2rem; background:var(--surface-2); border-radius:12px; font-size:.8rem; color:var(--ink-soft); line-height:1.6;">
+      <strong style="color:var(--ink);">Disclaimer.</strong> DhanPedia is educational and is not individualized investment, tax, accounting, or legal advice. Time-sensitive figures were last verified on the date shown and may change; always confirm against official sources before acting.
+    </div>
+  </article>
+
+  <script>
+    const btn = document.getElementById('tts-btn');
+    const region = document.getElementById('tts-region');
+    let speaking = false;
+    btn?.addEventListener('click', () => {
+      if (!('speechSynthesis' in window)) {
+        alert('Read-aloud is not supported in this browser. Try Chrome, Edge, or Safari.');
+        return;
+      }
+      if (speaking) {
+        speechSynthesis.cancel();
+        speaking = false;
+        btn.textContent = '🔊 Read aloud';
+        return;
+      }
+      const text = region?.textContent?.trim() ?? '';
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 1;
+      u.onend = () => { speaking = false; btn.textContent = '🔊 Read aloud'; };
+      u.oninterrupt = () => { speaking = false; btn.textContent = '🔊 Read aloud'; };
+      speechSynthesis.speak(u);
+      speaking = true;
+      btn.textContent = '⏹ Stop';
+    });
+    window.addEventListener('beforeunload', () => { if ('speechSynthesis' in window) speechSynthesis.cancel(); });
+  </script>
+</BaseLayout>

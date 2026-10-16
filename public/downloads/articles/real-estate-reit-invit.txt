@@ -1,0 +1,163 @@
+# Real Estate, REITs & InvITs: Cash Flow, Title, RERA & How They Compare to Equities
+
+Residential/commercial property math, rental yield and NPI, REIT & InvIT structure and distributions, title and RERA due diligence, and property vs equity vs debt.
+
+Real estate is the largest asset class in most Indian households and one of the worst ones for most Indian portfolios. The two statements are true at the same time, and the difference between them is the math in this article. Residential rental yield in Indian metros typically runs around 2–3% (a typical range — verify city by city; it is not a sourced constant), while the RBI's policy repo rate was held near 5.25% through late 2025 (verified 2026-08-06). The gap is the entire argument for why "property is a safe investment" needs to be re-examined before you spend a crore on it. This article builds the cash-flow math, the leverage math, the title due-diligence checklist, and the REIT/InvIT structure, and ends with when property actually beats its alternatives.
+
+THE YIELD QUESTION: NPI AND WHY 2.5% VS 5.25% MATTERS
+=====================================================
+
+NET PROPERTY INCOME (NPI)
+=========================
+
+The number to compare across every property decision is Net Property Income — the cash the property actually gives you in a year, not the gross rent:
+
+$$\text{NPI} = \text{Gross Rent} - \text{Vacancy Loss} - \text{Maintenance \& Repairs} - \text{Property Tax \& Management Fees}$$
+
+and the yield:
+
+$$\text{Rental Yield} = \frac{\text{NPI}}{\text{Property Value}} \times 100\%$$
+
+A worked example. A 3BHK in a metro with a gross rent of Rs. 45,000/month (Rs. 5.4L/yr), valued at Rs. 3.6 Cr:
+• Gross rent: Rs. 5.4L
+• Vacancy (30 days a year, ~2.5%): −Rs. 13,500
+• Maintenance/society charges/meltings (assumed ~3% of value, verify for your building): −Rs. 1.08L
+• Property tax (varies by city, verify local rates): −Rs. 0.6L
+• NPI ≈ Rs. 3.6L → Yield ≈ 1.0% of Rs. 3.6 Cr? No — Rs. 3.6L / Rs. 3.6Cr ≈ 1.0%.
+
+That last line is the uncomfortable arithmetic. Gross yield on the face of it was 1.5%; the net yield is around 1% in a mid-sized metro 3BHK. A well-located small commercial unit or a fully-let studio in a high-rent pocket can reach the 2–3% band; a large suburban villa will sit well below it. The rule of thumb for comparison:
+
+If your property's NPI yield is below what you can get risk-free or in a diversified portfolio, the property is making money on appreciation, not on income — and appreciation is the part you cannot plan around.
+
+That is the 2.5% vs 5.25% comparison, stated honestly. A bank deposit's interest is contractually yours and insured (deposits are insured up to Rs. 5 lakh per depositor per bank under DICGC rules — verified 2026-08-06, though the insurance limit is small relative to a property's equity at risk). A property's "yield" is a function of location, vacancy, and the tenant's willingness to pay — and the Rs. 1Cr of equity you tied up to earn 2.5% is Rs. 1Cr that is not in an asset earning 9–12% (equity, heuristic) or even the repo-adjacent 5–6% range. You are not choosing between property and a bank deposit; you are choosing between a levered, illiquid, single-location asset and a diversified portfolio. The opportunity cost is the 4–5% gap, plus the transaction costs of getting in and out.
+
+WHERE PROPERTY TAX FITS IN
+==========================
+
+Rental income is taxable at your slab rates under the FY 2025-26 regime (new regime default: nil up to Rs. 4L of income, stepping up to 30% on higher slabs, with a Rs. 75,000 standard deduction — verified 2026-08-06, src-it-slab-fy2025-26), and a deduction for standard expense (the older treatment is up to 30% of rental income, verify the current-year limit) applies on top of that. The after-tax yield is the number that actually feeds your portfolio; a 2.5% pre-tax yield on a high slab can be meaningfully less than 2.5% in your hands.
+
+THE LEVERAGE MATH: WHY 20% DOWN MAKES EVERYTHING SWING
+======================================================
+
+Property is the one asset where retail investors routinely borrow 80% of the purchase price, and that is exactly why both its appeal and its danger live in the same number. A worked scenario (illustrative, not advice):
+
+Setup: Property Rs. 1Cr. Down payment 20% = Rs. 20L of your equity. Loan Rs. 80L at 8.5% p.a. over 20 years → EMI ≈ Rs. 69,700/month ≈ Rs. 8.4L/year. Gross rent at 2% of value: Rs. 2L/year. Net of vacancy/maintenance: NPI ≈ Rs. 1.4L. The property is a negative-cash-flow asset: you are pouring ~Rs. 7L/year out of your pocket to hold it.
+
+The appreciation scenarios (value grows at the stated rate; loan amortises at 8.5%; equity = value − outstanding loan):
+
+Scenario (appreciation): 0% (value flat),₹1.00 Cr,~₹70.3L,~₹29.7L,~1.5×,₹1.00 Cr,~₹43.6L,~2.2×  |  Year 5 value: 4%,₹1.22 Cr,~₹70.3L,~₹51.7L,~2.6×,₹1.48 Cr,~₹92L,~4.6×  |  Year 5 loan balance: 8%,₹1.47 Cr,~₹70.3L,~₹76.7L,~3.8×,₹2.16 Cr,~₹160L,~8.0×  |  Year 5 equity:   |  Equity multiple vs ₹20L:   |  Year 10 value:   |  Year 10 equity:   |  Equity multiple: 
+
+These are worked figures under the stated assumptions (EMI 8.5% flat amortisation, no rent growth, no transaction costs on exit); verify against your own loan and city. The pattern, not the precision, is the point.
+
+Read the table carefully. In the 0% scenario, your Rs. 20L equity grew to Rs. 43.6L in ten years — while you funded ~Rs. 60L of negative cash flow out of pocket to get there. Your total capital deployed (Rs. 20L down + Rs. 60L of shortfall) was ~Rs. 80L against a Rs. 43.6L equity value: a loss in absolute terms, despite the equity multiple looking "respectable." This is the mechanism by which leverage turns a good outcome into a loss. In the 8% scenario the multiple looks spectacular, but it is the same math with the interest-rate and appreciation assumption doing the work — it is a bet, not an income.
+
+The second mechanism: refinancing risk. At year 15, the loan balance is low; the property's value determines whether you can release equity by refinancing. In a down market, the bank's loan-to-value limit can trap the equity you thought you could extract. The leverage that built the multiple in year 5 is the same leverage that caps your exit in a down market.
+
+The honest read: leverage is not automatically bad — it is the tool that makes 20% ownership of an appreciating asset produce 80%+ returns in a strong market. It is the tool that makes a flat market cost you money. The decision is not "property vs no property"; it is "can I fund the negative cash flow for 10–15 years without the shortfall forcing a bad sale?" If the answer is no, the leverage is a liability, not a multiplier.
+
+WHERE APPRECIATION ACTUALLY COMES FROM: GEOGRAPHY BEATS PROPERTY
+================================================================
+
+The consistent long-run driver of property appreciation is the location's growth, not the building. A mid-quality unit in a corridor where a metro line lands, an IT park anchors, and the local job market thickens outperforms a premium unit in a supply-heavy suburb where the job story has not moved. Three location questions to ask before any purchase:
+1. What is the job-creation story for the next 5–10 years within commuting distance? A metro line, a new industrial zone, or an IT park is the demand that will bid up rents.
+2. What is the supply pipeline? A suburb with 3–5 large new projects in the next 3–5 years is a demand-suppression zone; your appreciation will be competed against by the new inventory.
+3. What is the vacancy rate on the asset class? For commercial: the metro's office vacancy for your sub-market. For residential: the rental absorption on the specific building type.
+
+The property is the building. The asset is the location with a job story. Two properties in the same city, different corridors, will produce different returns for decades because of the answer to question 1.
+
+TITLE AND RERA: THE DUE-DILIGENCE CHECKLIST
+===========================================
+
+This is where a buyer's diligence is non-negotiable, and the checklist is as much about what to have verified as how to verify it:
+• 75-year prior ownership chain. The standard practice is to trace the title back through a minimum of three generations of clear ownership — a practical heuristic is 75 years (verify your state's standard, as it is not a universal constant). The chain must be unbroken: each seller had the right to sell to the next.
+• Encumbrance Certificate (EC). Obtain an online EC from the sub-registrar for the last 30 years (verify the standard your state runs). The EC lists mortgages, liens, and assignments. An EC that is "free and clear" over the relevant period is the baseline; any mortgage or assignment on the chain must be released before your purchase.
+• Registrar's office / index II. For high-value transactions, the registrar's index records can confirm the registration history. The sub-registrar's office holds the registered documents; the index is a listing, not a replacement for reading the registered sale deed.
+• Possession certificate. For a property not yet built (a builder's project), the possession certificate is the moment the buyer takes legal possession. Confirm the builder has the right to give it, and that the RERA-registered project's completion certificate is in hand.
+• RERA registration. Under the Real Estate (Regulation and Development) Act, every residential project above a certain floor-area/units threshold (verify your state's threshold) must be RERA-registered before it is sold, and the registration number must be displayed. For a completed property, RERA applies to the project's registration; for an under-construction purchase, RERA is the primary buyer-protection layer — the developer's obligation to deliver per the registered description, with the penalty and refund regime RERA sets up. A property sold by a builder with no RERA registration is a red flag, not a footnote.
+• Conversion / land-use / FSI. For land, the conversion order (farmland → non-agricultural use) is a precondition in most states; for a building, the Floor Space Index (FSI) compliance means the structure is built within the sanctioned limit. An FSI violation is an encumbrance that will surface at the buyer's next sale or at the municipal level.
+• Tax receipts. Property tax paid, and the seller's tax position on the property's original acquisition (relevant to their CGT liability, which is their problem, but a property with a tax issue is a property with a story).
+• Litigation / encroachment. A search of the local court records (or a solicitor's litigation check) for the property and the seller. An encroachment on the property, or a family partition suit open against the seller's share, is a title defect that does not show up on the EC.
+
+The checklist is not a substitute for a solicitor; it is a substitute for not knowing what a solicitor would be checking for. A property transaction that skips the EC, the 75-year chain, and the RERA verification is not a "quick purchase" — it is a future litigation with a registered deed attached to it.
+
+REITS: THE STRUCTURE, THE DISTRIBUTION, THE VALUATION
+=====================================================
+
+A Real Estate Investment Trust in India is a SEBI-regulated vehicle (under the SEBI REIT Regulations, 2014) that holds income-generating properties — offices, malls, retail, in the listed space — and passes the income to unitholders. The structure has specific distribution requirements: a REIT must distribute at least 90% of its distributable cash flow (a REIT-regulation requirement; verify the current regulatory text) to unitholders, typically on a monthly or quarterly cycle.
+
+What "distributable cash flow" means in practice. It is not total revenue; it is the cash after debt service, operating costs, and the maintenance of the property. The 90% floor is a floor, not a promise — a REIT in a down market can pay less than the prior year while still meeting the 90% of the (lower) distributable cash flow. The yield a REIT pays on its own NAV is a yield, not a return; the total return is yield + NAV appreciation.
+
+The valuation method: NAV + market. A REIT is valued two ways simultaneously:
+• NAV (Net Asset Value): the fair value of the underlying properties (usually marked to market on a recurring basis by the REIT's valuation committee), less debt. This is the "intrinsic" anchor.
+• Market price: what unitholders will pay for a unit. The gap between NAV and market price is the premium/discount — and it is the single most important number in a REIT decision. A REIT trading at 90% of NAV is being valued as if its properties are worth 10% less than the REIT's own valuation says; a REIT at 110% of NAV is being paid a premium, and the premium can shrink.
+
+Liquidity and the listed advantage. The listed REIT is the only Indian real-estate route that is liquid daily and accessible in a demat account — the same advantage the gold ETF has over the gold bar. The cost is the market's own pricing: you are paying what the market pays, with the market's own liquidity risk on top.
+
+The tax position. Distributions from a REIT are taxed at the investor's slab rate (verify the current-year treatment; REIT distributions have had their own tax history). The FY 2025-26 new regime slabs (nil up to Rs. 4L, 30% top, Rs. 75,000 standard deduction — verified 2026-08-06, src-it-slab-fy2025-26) determine the after-tax value of a REIT distribution to a salaried investor.
+
+INVITS: CASH FLOWS YOU CANNOT EASILY HOLD DIRECTLY
+==================================================
+
+An Investment Trust (InvIT), under the SEBI InvIT Regulations, is the vehicle for infrastructure cash flows — toll roads, power distribution, renewable generation, logistics parks, data centres. The structure is similar (a trust holding the underlying asset, distributing a mandated share of distributable cash flow), but the underlying is a concession or a long-tenor contract, not a property.
+
+What makes an InvIT different from a REIT:
+• The concession risk. A toll-road InvIT is backed by a toll concession — the right to collect tolls for a fixed period. If the concession is extended, the InvIT's life (and your income) extends; if it is not, the asset's value drops. The take-or-pay structure (a concession agreement where the government or the offtaker is contractually committed to a minimum payment) is the mitigant; verify the InvIT's underlying has a take-or-pay or a similar contractual minimum.
+• Power InvITs are often backed by power purchase agreements (PPAs) with a utility or a large consumer — a long-tenor, contracted revenue stream. The risk is the offtaker's credit, not the demand.
+• Logistics and data-centre InvITs hold long-tenor leases with anchor tenants. The risk is the tenant's ability to stay in the building for the lease term.
+
+The common thread: an InvIT is a bond-like structure with an infrastructure skin. The income is contractual and long-tenor; the asset's value is a function of the contract, not of the underlying physical asset's daily use. This makes the InvIT a closer cousin of a corporate bond than of a property, and the "real-estate" label on an InvIT is a category error for the risk you are actually holding.
+
+THE COMPARISON TABLE: PROPERTY VS REIT VS INVIT VS FD
+=====================================================
+
+Route: **Direct residential**,Very low (months to sell),NPI + appreciation,1–3% NPI; 4–8% appreciation (city-dependent),Negative cash flow, single location, exit cost,80% buyer-finance  |  Liquidity: **Direct commercial**,Low,NPI + appreciation,2–4% NPI; appreciation city-dependent,Vacancy, lease expiry, tenant credit,80% buyer-finance  |  Income type: **Listed REIT**,Daily,Distribution (≥90% of DCF),4–8% distribution + NAV,NAV mark, market premium/discount, property-level vacancy,REIT's own debt  |  Typical yield / return: **InvIT**,Daily (listed) / low (unlisted),Distribution,Contract-backed; varies by asset,Concession, offtaker credit, regulatory change,InvIT's own debt  |  Key risk: **Bank FD**,Low (break penalty),Interest (contract),~5.25% repo-adjacent (verify current repo; late-2025 held near 5.25%, verified 2026-08-06),Bank credit (insured up to ₹5L per depositor per bank — verified 2026-08-06),None  |  Leverage: 
+
+Read the table for income type, not just yield. The FD's interest is a contract you can plan on; the REIT's distribution is a function of the property's own cash flow and the REIT's debt service; the direct property's NPI is a function of your tenant. The comparison is not "which yields more" — it is "which income is most reliable and most liquid, and what is the opportunity cost of the equity I am tying up."
+
+WHEN PROPERTY MAKES SENSE, AND WHEN IT TRAPS CAPITAL
+====================================================
+
+Property makes sense:
+• Own-use. The most rational reason to buy residential property is to live in it. The "investment" argument is secondary; the primary argument is that the alternative (renting a 3BHK for 20 years) is not a use of your capital at all.
+• High-growth city, commercial, long lease. A commercial property in a corridor with a job-creation story and a strong, long-tenor anchor tenant is a defensible income asset. The key is the tenant, not the building.
+• A location whose appreciation story is not priced in. A corridor where the metro is yet to land, or a sub-market where the supply pipeline has not yet arrived, is where the appreciation case lives. This is a relative-value call on the location, not a property.
+• A plan that does not need the liquidity in the next 5 years. If the capital is for retirement or a 10-year goal, the property's illiquidity is a feature, not a bug — as long as the decision was not made for the reason "I can always sell it later."
+
+Property traps capital when:
+• The negative cash flow is not funded. The EMI shortfall (in the worked example, ~Rs. 7L/year) is a real, recurring cost. If the shortfall is coming out of the same income you are investing elsewhere, the property is a liability in your portfolio, not an asset.
+• The appreciation story is already priced in. A suburb where the metro is already operational and the new supply has already arrived is a market where the appreciation case is gone. You are paying today's price for a market that is not going to re-rate on the story.
+• The exit is the plan. "Buy now, sell in 5 years" is not a plan; it is a position in a single, illiquid, levered, single-location asset with a stated exit timing that is not under your control. The exit will not match the plan when the market moves against you.
+• The title has not been verified. A property with an unverified chain, an unclear RERA position, or an unconfirmed conversion is not a discounted asset; it is a litigation with a deed. The price is the discount; the risk is the title.
+
+The honest summary: property is a consumption asset (own-use) and a selective income asset (commercial, strong tenant, strong location). It is not a wealth-compounding asset in the way a diversified equity portfolio is, and the leverage that makes it look like one is the same leverage that makes it dangerous.
+
+flowchart TD
+A[Is it own-use<br/>for 10+ years?] -->|yes| B[Reasonable: the<br/>investment case is<br/>secondary to the<br/>housing need]
+A -->|no| C[What is the<br/>job-growth story<br/>for this location<br/>in 5-10 years?]
+C -->|weak / priced in| D[Traps capital:<br/>negative cash flow<br/>without a<br/>re-rating story]
+C -->|strong, not priced| E[Check the tenant<br/>(commercial) or<br/>the vacancy<br/>(residential)]
+E -->|strong| F[Check title:<br/>EC, 75-year chain,<br/>RERA, conversion,<br/>FSI, litigation]
+F -->|clean| G[Check the leverage:<br/>can I fund the<br/>EMI shortfall<br/>for 10 years?]
+G -->|yes| H[The case is<br/>defensible]
+G -->|no| D
+F -->|defect found| I[Walk away or<br/>demand the<br/>discount; the<br/>risk is the title]
+
+RELATED
+=======
+• Your 10 Lakh Wealth Plan (../personal-finance/pf-wealth-plan-10-lakh.mdx) — where property sits (or does not sit) inside a complete Rs. 10L plan, and the honest answer to "should I put my 10L in a flat."
+• PMS, AIFs & Private Markets (../alternatives/alternatives-pms-aif-private.mdx) — the PMS/AIF route for the investor who wants an income asset with more liquidity and less leverage than a property, and where REITs and InvITs fit inside that broader alternative sleeve.
+• Compounding, CAGR & Real Returns (../financial-foundations/foundations-compounding-returns.mdx) — the CAGR/real-return framework that turns "property appreciated 4% a year" into a real, after-inflation, after-transaction-cost number you can compare to the equity heuristic.
+
+SOURCES
+=======
+• src-it-slab-fy2025-26 — FY 2025-26 income-tax slab structure (new regime default: nil up to Rs. 4L, 30% top, Rs. 75,000 standard deduction). Used for the rental-income tax context; verify the current-year slab and the standard-expense deduction limit before relying on the after-tax yield.
+• Repo near 5.25% (late 2025), DICGC Rs. 5L deposit-insurance limit, 90% REIT/InvIT distribution requirement, and the 75-year prior-search heuristic are marked "(verified 2026-08-06)" or "verify" in the body, not sourced to a named publication in this article.
+
+UPDATE LOG
+==========
+• 2026-08-06: Verified repo near 5.25% (late 2025) and DICGC Rs. 5L limit as "(verified 2026-08-06)" anchors; flagged both for re-verification against the latest RBI MPC and DICGC notification.
+• 2026-08-06: Verified FY 2025-26 slab structure against src-it-slab-fy2025-26; flagged the standard-expense deduction limit on rental income as "verify the current-year limit."
+• 5–10% REIT/InvIT distribution yield band and the 2–3% residential NPI band are pattern-level statements, not sourced constants; revisit when you source a specific city's rental data or a specific REIT's distribution history.
+• 75-year prior search, 30-year EC standard, and RERA thresholds: practice-level heuristics, not sourced constants; verify against your state's sub-registrar and RERA authority.
+• 2027-02-28: Scheduled review of tax-context section and the repo/FDIC anchors.
+

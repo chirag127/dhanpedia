@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { CALCULATORS } from '@lib/calculators';
+
+const groups: Record<string, string[]> = {};
+for (const c of CALCULATORS) (groups[c.category] ??= []).push(c.id);
+---
+
+<BaseLayout title="Financial Calculators" description="Accurate, local, no-API financial calculators: SIP vs lump sum, EMI, FD maturity, CAGR/XIRR, bond price & duration, P2P expected-loss stress test, retirement corpus, fee drag and more.">
+  <section style="padding:3rem 0 1rem;">
+    <div class="container" style="max-width:48rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Financial calculators</h1>
+      <p style="color:var(--ink-soft);">
+        Every calculation runs in your browser with deterministic formulas —
+        no paid APIs, no data sent anywhere. Each tool lists its assumptions
+        and limitations, and shows the exact formula it uses.
+      </p>
+    </div>
+  </section>
+
+  <section style="padding:1.5rem 0 3rem;">
+    <div class="container">
+      {Object.entries(groups).map(([cat, ids]) => (
+        <div style="margin-bottom:2rem;">
+          <h2 style="font-size:1.1rem; margin:0 0 .7rem; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.4rem;">{cat}</h2>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.8rem;">
+            {ids.map((id) => {
+              const c = CALCULATORS.find((x) => x.id === id)!;
+              return (
+                <a href={link(`/calculators/${id}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem; text-decoration:none; display:block; transition:border-color .15s;">
+                  <div style="font-weight:600; color:var(--ink); font-size:1rem;">{c.title}</div>
+                  <div style="font-size:.82rem; color:var(--ink-soft); margin-top:.4rem; line-height:1.5;">{c.description}</div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

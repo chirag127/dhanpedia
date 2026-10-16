@@ -1,0 +1,133 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Portfolio Construction, Rebalancing & Risk Budgeting</title>
+<style>body{font:16px/1.7 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#14231d}
+h1{font-size:1.8rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border:1px solid #ccc;padding:.4rem .5rem}code{background:#f1efe7;padding:.1rem .3rem;border-radius:4px}
+.eq code{display:block;text-align:center;margin:.8rem 0}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}</style>
+</head><body><h1>Portfolio Construction, Rebalancing & Risk Budgeting</h1><p style="color:#3c4b44"><em>Building a target allocation, core-satellite & goal-based buckets, rebalancing triggers, risk budgeting, fee drag and drawdown management.</em></p>
+<p style="font-size:.8rem;color:#555">DhanPedia · Author Chirag Singhal · Verified 2026-08-06</p>
+<p>A portfolio is not a bag of investments; it is a <strong>risk budget spent over time</strong>. This article is the construction manual: how to build a target allocation from three goal-buckets, how to let it drift and bring it back with explicit triggers, how to do the rebalancing <em>tax-aware</em>, how to think in volatility contributions instead of nominal weights, and how to size and cap the drawdowns that actually matter. It is the advanced companion to <code>foundations-risk-allocation-behavior</code> (which asks <em>what to do</em>) and <code>pf-wealth-plan-10-lakh</code> (a concrete instance of this method at a ₹10 lakh starting point).</p>
+<2>Start from three buckets, not from a pie chart</2>
+<p>Allocation work that begins with "how much equity should I hold?" is already one step behind, because it has not asked <em>what the money is for</em>. Structure the money by horizon first, then allocate within each bucket:</p>
+<table>
+<thead><tr><th>Bucket</th><th>Money it holds</th><th>Horizon</th><th>Target character</th></tr></thead>
+<tbody><tr><td><strong>Bucket 1 — Emergency &amp; short term</strong>,6-month expense buffer, any goal landing within ~3 years,0–3 years,Capital first: liquid funds, sweep, short-duration debt, PPF-style fixed tenors. No meaningful equity exposure</td><td><strong>Bucket 2 — Goals</strong>,Defined goals (home, child's higher education, etc.),5–10 years,60/40-style blended mix that <em>de-gears into debt as the goal date approaches</em>; STP discipline</td><td><strong>Bucket 3 — Long horizon</strong>,Retirement, wealth building, anything beyond 15 years,15+ years,Equity-led (index core + satellites), full risk grade applied</td></tr></tbody>
+</table>
+<p>Three rules follow from the structure. <strong>First</strong>, money can only flow <em>out of</em> a bucket at its goal date, never borrowed between buckets — the emergency buffer is not a rate play. <strong>Second</strong>, each bucket gets its <em>own</em> allocation, its own trigger, its own no-trade rule; the moment you merge them, the emergency buffer starts earning equity risk. <strong>Third</strong>, the equity-risk question that everyone asks ("how much equity do I want?") gets answered <em>inside</em> Bucket 3 only, which is why most families' portfolios end up less volatile than their anxiety implies — or, worse, far more volatile than they believe, because "long-term money" was silently funding 5-year goals.</p>
+<2>Target allocation: band rebalancing vs calendar rebalancing</2>
+<p>Pick a target weight for each sleeve within each bucket, then choose a <em>discipline</em> for restoring it. The two standard disciplines:</p>
+<ul>
+<li><strong>Calendar (time-based) rebalancing</strong> — reset to targets at a fixed date (annual/semi-annual). Easy to audit; can be badly timed (you may sell equity at the start of a bull leg).</li>
+<li><strong>Band (threshold) rebalancing</strong> — act only when a sleeve has drifted ≥ a fixed <em>absolute</em> percentage-point band from target. Cheaper (fewer trades), more tax-aware, and it turns rebalancing into an <em>event</em> you can pre-commit to — which is the whole point.</li>
+</ul>
+<p>We use <strong>5% absolute bands</strong> as the default trigger for Bucket 3: a sleeve at 60% target is sold back when it reaches 65% or bought back when it falls to 55%. For Buckets 1–2, use <em>dates</em> (the goal date) rather than bands, because their rebalancing is de-gearing, not drift control.</p>
+<table>
+<thead><tr><th>Discipline</th><th>Pros</th><th>Cons</th><th>Use when</th></tr></thead>
+<tbody><tr><td>Calendar (annual),Simple, auditable, forces a review even in calm years,Can sell winners on schedule, at the top of a leg,You have not yet built the habit; you need the <em>forced review</em> more than the trade</td><td>Band (5% absolute),Fewer trades, acts on genuine drift, naturally sells high / buys low,Requires monitoring (a quarterly look is enough),You can commit to writing; the portfolio is large enough that trade costs matter</td></tr></tbody>
+</table>
+<p>For a ₹10–20 lakh portfolio, a common hybrid: <strong>bands on the sleeves, and a hard annual review on the whole plan</strong> — the review re-grades the risk and the assumptions (income growth, goal dates) even if no sleeve breached.</p>
+<3>Worked example: 60/40 drifts to 70/30, rebalance</3>
+<p>Assume Bucket 3 holds <strong>₹6,00,000 equity (60%) / ₹4,00,000 bond (40%)</strong>, target 60/40, 5% absolute band. Over the year, equity rises <strong>48%</strong> and bonds fall <strong>4%</strong> (an aggressive equity year, a weak debt year — the exact combination that produces the drift):</p>
+<table>
+<thead><tr><th>Position</th><th>Start</th><th>After 1 year</th><th>Weight after</th></tr></thead>
+<tbody><tr><td>Equity,₹6,00,000,6,00,000 × 1.48 = <strong>₹8,88,000</strong>,8,88,000 / 12,72,000 = <strong>70.0%</strong></td><td>Bond,₹4,00,000,4,00,000 × 0.96 = <strong>₹3,84,000</strong>,<strong>30.0%</strong></td><td><strong>Total</strong>,₹10,00,000,<strong>₹12,72,000</strong>,—</td></tr></tbody>
+</table>
+<p>Equity has drifted +10 percentage points past target — the 5% band is breached, so the trigger fires.</p>
+<p>Rebalancing back to 60/40 on the new total of ₹12,72,000:</p>
+<ul>
+<li>Target equity = 0.60 × 12,72,000 = <strong>₹7,63,200</strong></li>
+<li>Target bond = 0.40 × 12,72,000 = <strong>₹5,08,800</strong></li>
+<li><strong>Trade: sell ₹1,24,800 of equity; buy ₹1,24,800 of bond.</strong></li>
+</ul>
+<p>Notice what just happened: you sold the 48% winner and bought the 4% loser. That is <em>exactly</em> the behaviour the bias list in <code>foundations-risk-allocation-behavior</code> says you will avoid doing voluntarily — the band makes it mechanical. The trade is worth about ₹1.25 lakh (≈10% of the portfolio), which is why band width matters: a 5-point band on a large portfolio is not cost-free, and the trade should be executed in the <em>cheapest</em> sleeve form available (index ETFs, direct funds).</p>
+<2>Tax-aware rebalancing: the Indian investor's quiet edge</2>
+<p>A rebalance is a taxable event (in India: LCG at 12.5% + 4% cess for equity held &gt; 1 year; gains merge into slab rates for debt held &gt; 3 years), so the <em>order</em> of your sales is worth real money. Three rules:</p>
+<ol>
+<li><strong>Use losses first.</strong> If any holding has an LCG-qualifying <em>loss</em> against your cost basis, sell it before selling winners; the loss offsets gains inside your ITR at the same character. A ₹50,000 loss in LCGs wipes out a tax bill you were otherwise about to pay.</li>
+<li><strong>Sell LCG-heavy holdings to trim the overweight.</strong> When you must sell equity to restore the band, prefer selling the position with the <em>largest</em> embedded long-term gain only <em>after</em> checking rule 1 — and prefer selling into strength (that is when the band fires, by construction). Selling at the band top means the tax cost is paid against the highest valuation, which is precisely the right time.</li>
+<li><strong>Rebalance with cash, not sales, when possible.</strong> Direct new SIP instalments and the year's fresh surplus <em>into the underweight sleeve</em>. For a ₹15,000 SIP, this is the cheapest rebalancing tool you own: ₹1.8 lakh a year of directed contributions quietly closes a 10-point band gap in under a year, with zero taxable events. Sell-only rebalancing is the fallback; cash-first is the default.</li>
+</ol>
+<2>Risk budgeting: volatility contribution, not nominal weights</2>
+<p>Nominal weights are a <em>proxy</em> for risk, and a bad one. A "10% P2P sleeve" and a "10% equity sleeve" do not contribute 10% of the portfolio's risk each: equity at ~18–20% annual volatility dominates; a P2P vintage at ~8–10% contributes far less; and cash contributes almost none. The proper object of allocation is <strong>volatility (or risk) contribution</strong>: each sleeve's share of total portfolio risk.</p>
+<p>$$\text{Vol. contribution of asset } i \;\approx\; w_i \times \sigma_i \bigg/ \sum_j w_j \times \sigma_j$$</p>
+<p>(A single-asset approximation; the full expression uses covariance, but the product $w_i \sigma_i$ captures the intuition and is enough for a personal budget.)</p>
+<p>Worked: 80% equity ($\sigma \approx 18\%$), 15% gold ($\sigma \approx 15\%$), 5% P2P ($\sigma \approx 10\%$):</p>
+<table>
+<thead><tr><th>Sleeve</th><th>$w_i$</th><th>$w_i \times \sigma_i$</th><th>Share of risk</th></tr></thead>
+<tbody><tr><td>Equity,0.80,0.80 × 0.18 = 0.144,0.144 / 0.1595 ≈ <strong>90%</strong></td><td>Gold,0.15,0.15 × 0.15 = 0.0225,≈ <strong>14%</strong></td><td>P2P,0.05,0.05 × 0.10 = 0.005,≈ <strong>3%</strong></td><td><strong>Total</strong>,1.00,0.1595,100% (shares rounded)</td></tr></tbody>
+</table>
+<p>Read the table: the P2P sleeve is 5% of the money but only ~3% of the <em>risk</em>; gold is 15% of the money but ~14% of the risk. A risk budget says: <em>this is the share of my total risk I am willing to let each sleeve carry</em>, and then you choose nominal weights to achieve it — which is why a P2P sleeve at 7% nominal is a much larger <em>risk</em> commitment than the same percentage in short-duration bonds. The debt anchor here is the policy rate: with repo near 5.25% through late 2025 (last verified: 2026-08-06; src-rbi-repo), short-duration debt is genuinely <em>positive</em> yield, which is what makes it the correct ballast for a risk budget.</p>
+<2>Core-satellite: the structure that makes risk budgeting implementable</2>
+<pre>flowchart TD
+  P["Portfolio (Bucket 3)"] --> C["CORE — 70-85%"]
+  P --> S["SATELLITE — 15-30%"]
+  C --> C1["Broad index (Nifty 500 + small/mid flexi)\nLowest expense ratio, no theses"]
+  S --> S1["Active manager PMS (once ₹50L+ gate met)"]
+  S --> S2["P2P credit (RBI-regulated, capped 4-7% nominal)"]
+  S --> S3["Commodity (gold ETF)"]
+  S1 &amp; S2 &amp; S3 --> R["Each satellite: written thesis,\npre-sized cap, its own trigger"]</pre>
+<p>Text version: the core is the broad index sleeve holding 70–85% of the risk budget with zero thesis required; each satellite (active PMS, P2P credit, commodity) gets a written thesis, a pre-set nominal cap, and its own rebalancing trigger; satellites never get promoted to core.</p>
+<p>The core is deliberately <em>uninteresting</em>: index funds at the lowest available expense ratio. The satellites are where views live — a PMS with a real edge, a P2P vintage you have diligenced, a gold position hedging currency/fear. Three structural rules:</p>
+<ul>
+<li><strong>Cap satellites so that a total satellite failure cannot endanger the bucket.</strong> In <code>pf-wealth-plan-10-lakh</code>, P2P is 4–7% nominal across risk grades for exactly this reason.</li>
+<li><strong>Satellites de-gear or die.</strong> A P2P vintage is a point-in-time credit decision: hold to scheduled maturity, do not "renew with more" unless you re-diligence from scratch.</li>
+<li><strong>Promotion is one-way.</strong> When a satellite proves out (e.g., PMS beats its benchmark on a risk-adjusted basis for 3+ years) <em>and</em> your capital crosses the gate, you may raise its cap — never its status. Core stays core.</li>
+</ul>
+<2>Drawdowns: the recovery table that should end the argument</2>
+<p>A drawdown is not a symmetric event. Losing X% requires gaining X/(1−X)% to recover — the denominator shrinks with the loss, and that is the nonlinearity that kills portfolios:</p>
+<p>$$\text{Recovery required} = \frac{-d}{1-d} \times 100\% \qquad (d = \text{drawdown, e.g. } 0.50)$$</p>
+<table>
+<thead><tr><th>Drawdown</th><th>Recovery required to break even</th></tr></thead>
+<tbody><tr><td>10%,11.1%</td><td>20%,25.0%</td><td>30%,42.9%</td><td>40%,66.7%</td><td><strong>50%</strong>,<strong>100%</strong></td><td>60%,150%</td><td>70%,233.3%</td><td>90%,900%</td></tr></tbody>
+</table>
+<p>The 50% row is the one to memorize: <strong>a 50% loss needs a 100% gain.</strong> Now plug in the numbers the market has actually produced. Indian broad equity has given investors multi-year 40–60% drawdowns (e.g., post-2008 and the 2020 crash-to-recovery). A full-equity portfolio that fell 50% at a realistic 12% <em>planning</em> CAGR (an assumption, not a forecast) needs <strong>~6 years</strong> to break even from the trough — meaning the first 6 years of any subsequent investment sequence start from a hole, not from zero. That is the quantitative argument for: (a) the risk grade in <code>pf-wealth-plan-10-lakh</code>, (b) the 5% bands here, and (c) the de-gearing of Buckets 1–2 before the goal dates. Drawdown management is not paranoia; it is the arithmetic of asymmetry.</p>
+<2>Fees, taxes, and the silent cost of doing it all wrong</2>
+<p>Three cost lines, all compounding against you (the fee-drag method is fully worked in <code>foundations-compounding-returns</code>):</p>
+<ol>
+<li><strong>Expense-ratio drag.</strong> ~1% ER on a 12% gross equity return is worth roughly ₹1.58 lakh lost per ₹10 lakh start over 20 years (12% gross → ₹9.65L vs 11% net → ₹8.06L; assumptions labelled there). Across a core-satellite structure, <em>core at index-ETF cost</em> is where you stop paying for a view you do not have.</li>
+<li><strong>Rebalancing trade cost.</strong> With 5% absolute bands, a typical year produces 0–2 sleeve events; executing them in ETFs/direct funds keeps cost &lt; 0.5% of the moved amount. Quarterly bands would nearly double the churn without meaningful risk improvement — do not over-trade the trigger.</li>
+<li><strong>Tax churn.</strong> The tax-aware rules above are worth more than most "alpha." Selling into a band top <em>with losses offset first</em> and <em>cash-first funding</em> is a systematic, repeatable edge that costs nothing to implement.</li>
+</ol>
+<2>Putting it together: a construction sequence</2>
+<pre>flowchart LR
+  B["1. Three buckets\n(by goal date)"] --> A["2. Target weights\nper bucket (risk grade)"]
+  A --> RB["3. Risk budget\n(vol. contribution)"]
+  RB --> CS["4. Core-satellite\nbuild"]
+  CS --> TR["5. Triggers\n(5% bands + annual review)"]
+  TR --> EX["6. Execute\ntax-aware, cash-first"]
+  EX --> D["7. Monitor drawdowns\n(recovery table)"]
+  D --> B</pre>
+<p>Text version: the seven steps form a loop — the monitoring step feeds back into bucket review, because goal dates and income change; the loop is the portfolio.</p>
+<2>How this article uses calculators</2>
+<p>The DhanPedia calculators page at <code>/calculators</code> operationalizes this article's arithmetic:</p>
+<ul>
+<li><strong>Rebalance tool</strong> — enter the 60/40 start (₹6L/₹4L) and the 48%/−4% year; it should output the exact trade pair: sell ₹1,24,800 equity / buy ₹1,24,800 bond.</li>
+<li><strong>Drawdown-recovery tool</strong> — enter 50% and confirm 100% recovery; enter the −30% stress case from <code>pf-wealth-plan-10-lakh</code>'s scenario table and see the break-even horizon at your assumed CAGR.</li>
+<li><strong>XIRR/fee-drag tool</strong> — verify the 1% expense-ratio drag on your actual contribution history (method and assumptions in <code>foundations-compounding-returns</code>).</li>
+<li><strong>Slab calculator context</strong> — after a tax-aware rebalance, run the ITR-side numbers against the FY 2025-26 slabs (new regime: nil to ₹4L … 30% above ₹24L; 87A rebate ₹60,000) to confirm the LCG math.</li>
+</ul>
+<p>Use the calculators as the <em>audit</em> step: the article builds the plan, the calculators verify the plan, and the update-log figures below verify the plan's inputs.</p>
+<2>Update log</2>
+<ul>
+<li><strong>RBI policy repo near 5.25% through late 2025</strong> (debt-ballast anchor; re-verify at each MPC) — last verified: 2026-08-06; src-rbi-repo</li>
+<li><strong>Equity LCG at 12.5% + 4% cess; debt LCG (&gt; 3 yrs) merges into slab income</strong> — re-verify at each Budget — last verified: 2026-08-06</li>
+<li><strong>Planning CAGR assumption 12% and volatility figures (equity ~18–20%, gold ~15%, P2P ~10%)</strong> — planning inputs, labelled as assumptions throughout, not forecasts; refresh the volatility inputs against a fresh 10-year rolling window before republishing</li>
+<li><strong>No PPF/SCSS/SGB rates are claimed in this article</strong> (those live in <code>pf-wealth-plan-10-lakh</code> and <code>retirement-fire-annuities</code>, each with their own update logs)</li>
+</ul>
+<2>Related</2>
+<ul>
+<li><code>foundations-risk-allocation-behavior</code> — the risk definitions and behavioural traps this method is designed to defeat</li>
+<li><code>pf-wealth-plan-10-lakh</code> — a concrete ₹10 lakh instance of this construction method</li>
+<li><code>alternatives-pms-aif-private</code> — satellite anatomy: PMS/AIF gates, minimums, fees</li>
+<li><code>p2p-lending-complete</code> — the P2P satellite sleeve, in full: framework, expected loss, due diligence</li>
+<li><code>foundations-compounding-returns</code> — fee-drag and post-tax math used in the cost section</li>
+</ul>
+<2>Sources &amp; citations</2>
+<ul>
+<li><code>src-rbi-repo</code> — Reserve Bank of India, "MPC decision: policy repo rate held near 5.25% through late 2025", https://www.business-standard.com/finance/news/rbi-to-keep-interest-rates-steady-at-5-25-through-2026-reuters-poll-126012900085_1.html — supports the debt-ballast / positive-yield anchor claim; re-verify quarterly per its limitation note.</li>
+</ul>
+<p>The 5% band, risk-budget and recovery figures are the article's own arithmetic on labelled assumptions, not external statistics.</p>
+<2>Editorial / review status</2>
+<p>Published; last verified 2026-08-06; next review due 2027-02-28. Educational content, not individualized advice.</p>
+<h2>Sources</h2><ol><li>Reserve Bank of India — RBI MPC decision, 3-5 Aug 2026: repo held at 5.25%, neutral stance, SDF 5.00%, MSF 5.50%: https://www.rbi.org.in/SCRIPTs/BS_ViewBulletin.aspx?Id=24369 (verified 2026-10-16)</li></ol>
+<p style="font-size:.75rem;color:#666;margin-top:2rem;border-top:1px solid #ccc;padding-top:1rem">Educational content, not individualized investment, tax, accounting, or legal advice.</p>
+</body></html>

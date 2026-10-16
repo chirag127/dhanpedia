@@ -1,0 +1,522 @@
+{
+  "note": "DEEP CURATED SET (revised 2026-10-16). Direction: fewer, much longer articles (each ~2500-4000 words) that cover ALL investment avenues + taxation + a personalized 10L plan. Bodies live at src/content/<category>/<id>.mdx. sources must exist in sources.json.",
+  "version": "2.0",
+  "author": "Chirag Singhal",
+  "assumedReader": "Has basic financial literacy; wants depth, not basics.",
+  "articles": [
+    {
+      "id": "pf-wealth-plan-10-lakh",
+      "title": "Your 10 Lakh Wealth Plan: Allocation, SIP Scaling & the Road to PMS/AIF",
+      "category": "personal-finance",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "portfolio",
+        "sip",
+        "pms",
+        "aif",
+        "allocation"
+      ],
+      "summary": "A concrete, risk-graded plan for a ₹10L starter portfolio with a growth path into higher-return, higher-capital avenues (PMS, AIF).",
+      "file": "src/content/personal-finance/pf-wealth-plan-10-lakh.mdx",
+      "sources": [
+        "src-rbi-repo",
+        "src-it-slab-fy2025-26",
+        "src-sebi-elss"
+      ],
+      "related": [
+        "portfolio-construction-rebalancing",
+        "alternatives-pms-aif-private",
+        "tax-india-investor-complete"
+      ],
+      "books": [
+        "book-complete-indian-investor",
+        "book-wealth-beyond-10l"
+      ]
+    },
+    {
+      "id": "foundations-compounding-returns",
+      "title": "Compounding, CAGR, XIRR & Real Returns: The Math That Actually Matters",
+      "category": "financial-foundations",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "returns",
+        "cagr",
+        "xirr",
+        "inflation",
+        "fee-drag"
+      ],
+      "summary": "Nominal vs real returns, CAGR vs XIRR vs time-weighted, how inflation and fees quietly destroy wealth, with worked numbers.",
+      "file": "src/content/financial-foundations/foundations-compounding-returns.mdx",
+      "sources": [
+        "src-it-slab-calculator"
+      ],
+      "related": [
+        "foundations-risk-allocation-behavior",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "foundations-risk-allocation-behavior",
+      "title": "Risk, Asset Allocation, Diversification & Behavioral Traps",
+      "category": "financial-foundations",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "risk",
+        "allocation",
+        "diversification",
+        "behavioral"
+      ],
+      "summary": "How risk is measured and priced, why allocation drives outcomes, and the behavioral mistakes that cost Indian investors the most.",
+      "file": "src/content/financial-foundations/foundations-risk-allocation-behavior.mdx",
+      "sources": [
+        "src-rbi-repo"
+      ],
+      "related": [
+        "foundations-compounding-returns",
+        "portfolio-construction-rebalancing"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "tax-india-investor-complete",
+      "title": "Indian Taxation for Investors (FY 2025-26): Regimes, Capital Gains, Deductions & Reporting",
+      "category": "taxation",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "tax",
+        "capital-gains",
+        "slab",
+        "80C",
+        "tds",
+        "itf"
+      ],
+      "summary": "New vs old regime, slab math, equity STCG/LCG, debt/gold/commodity gains, ELSS/80C, NPS 80CCD, TDS, ITR forms, HUF and DTA basics.",
+      "file": "src/content/taxation/tax-india-investor-complete.mdx",
+      "sources": [
+        "src-it-slab-fy2025-26",
+        "src-it-slab-calculator",
+        "src-it-80c-150k",
+        "src-sebi-elss",
+        "src-nps-2025-exit"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "mf-index-etf-direct-regular"
+      ],
+      "books": [
+        "book-indian-taxation",
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "govt-small-savings-schemes",
+      "title": "Government Small-Savings Schemes: PPF, EPF/VPF, NPS, APY, SCSS, SSY, NSC, KVP",
+      "category": "government-schemes",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "ppf",
+        "epf",
+        "nps",
+        "scy",
+        "nsq",
+        "kvp",
+        "apy",
+        "scss"
+      ],
+      "summary": "Eligibility, limits, lock-in, taxation, returns and when each scheme actually makes sense (NPS 2025 exit rules included).",
+      "file": "src/content/government-schemes/govt-small-savings-schemes.mdx",
+      "sources": [
+        "src-nps-2025-exit",
+        "src-scss-8-2",
+        "src-it-slab-fy2025-26"
+      ],
+      "related": [
+        "retirement-fire-annuities",
+        "tax-india-investor-complete"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "govt-sovereign-gold-bonds",
+      "title": "Sovereign Gold Bonds: How They Worked, Why They Stopped, and What to Do Now",
+      "category": "government-schemes",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "gold",
+        "sgb",
+        "sovereign"
+      ],
+      "summary": "Full SGB mechanics and tax edge, the FY 2024-25 discontinuation, secondary-market routes, and gold alternatives (ETF, funds).",
+      "file": "src/content/government-schemes/govt-sovereign-gold-bonds.mdx",
+      "sources": [
+        "src-sgb-discontinued",
+        "src-indiagold"
+      ],
+      "related": [
+        "gold-silver-commodities"
+      ],
+      "books": []
+    },
+    {
+      "id": "mf-index-etf-direct-regular",
+      "title": "Index Funds, ETFs, Direct vs Regular Plans & Tracking Error",
+      "category": "mutual-funds",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "index",
+        "etf",
+        "direct-regular",
+        "tracking-error"
+      ],
+      "summary": "Why passive beats most active in India, direct vs regular cost math, how ETFs differ from index funds, and how to measure tracking error.",
+      "file": "src/content/mutual-funds/mf-index-etf-direct-regular.mdx",
+      "sources": [
+        "src-it-slab-calculator",
+        "src-sebi-elss"
+      ],
+      "related": [
+        "mf-sip-swp-stp-goals",
+        "mf-choosing-comparing-funds"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "mf-sip-swp-stp-goals",
+      "title": "SIP, STP & SWP: Structured Investing and Goal Planning",
+      "category": "mutual-funds",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "sip",
+        "stp",
+        "swp",
+        "goal"
+      ],
+      "summary": "SIP future value, SIP vs lump-sum timing, STP harvesting gains, SWP creating income, and goal-based planning with explicit assumptions.",
+      "file": "src/content/mutual-funds/mf-sip-swp-stp-goals.mdx",
+      "sources": [
+        "src-it-slab-calculator"
+      ],
+      "related": [
+        "mf-index-etf-direct-regular",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
+    },
+    {
+      "id": "mf-choosing-comparing-funds",
+      "title": "How to Choose and Compare Mutual Funds (Without Chasing Performance)",
+      "category": "mutual-funds",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "fund-selection",
+        "comparison",
+        "expense-ratio",
+        "risk-metrics"
+      ],
+      "summary": "A repeatable fund-selection process: mandate clarity, cost, tracking, manager risk, style drift, overlap and tax efficiency.",
+      "file": "src/content/mutual-funds/mf-choosing-comparing-funds.mdx",
+      "sources": [
+        "src-sebi-elss",
+        "src-it-slab-calculator"
+      ],
+      "related": [
+        "mf-index-etf-direct-regular"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "equity-fundamental-valuation",
+      "title": "Equity Investing: Financial Statements, Valuation & Governance Red Flags",
+      "category": "equities",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "fundamentals",
+        "valuation",
+        "dcf",
+        "governance"
+      ],
+      "summary": "Reading a balance sheet, P&L and cash-flow; P/E, DCF and ROCE in practice; spotting promoter pledging, RPT and dilution risks.",
+      "file": "src/content/equities/equity-fundamental-valuation.mdx",
+      "sources": [
+        "src-it-slab-calculator"
+      ],
+      "related": [
+        "foundations-risk-allocation-behavior"
+      ],
+      "books": []
+    },
+    {
+      "id": "fixed-income-bonds-credit",
+      "title": "Fixed Income in India: Bonds, YTM, Duration, Credit & Sovereign Debt",
+      "category": "fixed-income",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "bonds",
+        "ytm",
+        "duration",
+        "credit",
+        "sdl"
+      ],
+      "summary": "Bond pricing, YTM, Macaulay duration & convexity, credit ratings & spreads, default/reinvestment risk, SDLs, G-sec and taxable vs tax-exempt income.",
+      "file": "src/content/fixed-income/fixed-income-bonds-credit.mdx",
+      "sources": [
+        "src-rbi-repo",
+        "src-it-slab-fy2025-26"
+      ],
+      "related": [
+        "p2p-lending-complete",
+        "portfolio-construction-rebalancing"
+      ],
+      "books": []
+    },
+    {
+      "id": "p2p-lending-complete",
+      "title": "P2P Lending in India: Framework, Expected Loss, Due Diligence, Recovery & Tax",
+      "category": "p2p-lending",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "p2p",
+        "rbi",
+        "credit-loss",
+        "recovery",
+        "tax"
+      ],
+      "summary": "RBI 2025 P2P framework, how returns are generated, expected-loss & loss-given-default math, platform underwriting, recovery, taxes and a portfolio stress test.",
+      "file": "src/content/p2p-lending/p2p-lending-complete.mdx",
+      "sources": [
+        "src-rbi-p2p-directions-2025",
+        "src-rbi-p2p-master-pdf",
+        "src-it-slab-fy2025-26"
+      ],
+      "related": [
+        "fixed-income-bonds-credit",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "books": [
+        "book-p2p-lending"
+      ]
+    },
+    {
+      "id": "gold-silver-commodities",
+      "title": "Gold, Silver & Commodities: Routes, Currency, Hedging & Limits",
+      "category": "gold-commodities",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "gold",
+        "silver",
+        "commodity",
+        "hedging"
+      ],
+      "summary": "Physical vs ETF vs fund vs SGB, hallmarking & spreads, silver routes, commodity futures, currency effects, and what gold actually does (and doesn't) hedge.",
+      "file": "src/content/gold-commodities/gold-silver-commodities.mdx",
+      "sources": [
+        "src-sgb-discontinued",
+        "src-indiagold"
+      ],
+      "related": [
+        "govt-sovereign-gold-bonds",
+        "portfolio-construction-rebalancing"
+      ],
+      "books": []
+    },
+    {
+      "id": "real-estate-reit-invit",
+      "title": "Real Estate, REITs & InvITs: Cash Flow, Title, RERA & How They Compare to Equities",
+      "category": "real-estate",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "realestate",
+        "reit",
+        "invit",
+        "rental-yield"
+      ],
+      "summary": "Residential/commercial property math, rental yield & NPI, REIT & InvIT structure & distributions, title/RERA due diligence, and property vs equity vs debt.",
+      "file": "src/content/real-estate/real-estate-reit-invit.mdx",
+      "sources": [
+        "src-it-slab-fy2025-26"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "alternatives-pms-aif-private"
+      ],
+      "books": []
+    },
+    {
+      "id": "alternatives-pms-aif-private",
+      "title": "Beyond SIP: PMS, AIFs & Private Markets for Growing Capital",
+      "category": "alternatives",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "pms",
+        "aif",
+        "private-market",
+        "sipp"
+      ],
+      "summary": "How SIP matures into PMS/AIF, SEBI minimums (Rs.50L/1Cr), AIF Cat I/II/III, private markets & structured products, fees, lock-ins, risk and honest suitability.",
+      "file": "src/content/alternatives/alternatives-pms-aif-private.mdx",
+      "sources": [
+        "src-it-slab-calculator"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "real-estate-reit-invit"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
+    },
+    {
+      "id": "insurance-protection",
+      "title": "Insurance & Risk Protection: Term, Health, Critical Illness & Mis-selling",
+      "category": "insurance",
+      "difficulty": "intermediate",
+      "status": "published",
+      "tags": [
+        "term",
+        "health",
+        "critical-illness",
+        "mis-selling"
+      ],
+      "summary": "Sizing term cover, health & critical-illness cover, riders, deductibles, claims data, and why insurance is protection, not an investment (ULIPs included).",
+      "file": "src/content/insurance/insurance-protection.mdx",
+      "sources": [
+        "src-it-slab-fy2025-26"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "retirement-fire-annuities"
+      ],
+      "books": []
+    },
+    {
+      "id": "retirement-fire-annuities",
+      "title": "Retirement & FIRE: Corpus, the 4% Rule, Sequence Risk & Annuities",
+      "category": "retirement-fire",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "fire",
+        "retirement",
+        "corpus",
+        "sequence-risk",
+        "annuity"
+      ],
+      "summary": "Corpus math, sustainable withdrawal & the 4% rule, sequence-of-returns risk, EPF/NPS/PPF/annuities, healthcare costs, and decumulation strategies.",
+      "file": "src/content/retirement-fire/retirement-fire-annuities.mdx",
+      "sources": [
+        "src-nps-2025-exit",
+        "src-scss-8-2"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "govt-small-savings-schemes"
+      ],
+      "books": []
+    },
+    {
+      "id": "international-investing-lrs",
+      "title": "International Investing & LRS for Indian Residents",
+      "category": "international",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "international",
+        "lrs",
+        "fx",
+        "dta"
+      ],
+      "summary": "Global diversification, international funds, LRS limits, FX & conversion cost, overseas tax & FATCA/CRS reporting, DTA and realistic implementation routes.",
+      "file": "src/content/international/international-investing-lrs.mdx",
+      "sources": [
+        "src-it-slab-fy2025-26"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "alternatives-pms-aif-private"
+      ],
+      "books": []
+    },
+    {
+      "id": "portfolio-construction-rebalancing",
+      "title": "Portfolio Construction, Rebalancing & Risk Budgeting",
+      "category": "portfolio-construction",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "portfolio",
+        "rebalancing",
+        "risk-budget",
+        "core-satellite"
+      ],
+      "summary": "Building a target allocation, core-satellite & goal-based buckets, rebalancing triggers, risk budgeting, fee drag and drawdown management.",
+      "file": "src/content/portfolio-construction/portfolio-construction-rebalancing.mdx",
+      "sources": [
+        "src-rbi-repo"
+      ],
+      "related": [
+        "foundations-risk-allocation-behavior",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
+    },
+    {
+      "id": "alternatives-sif-specialized-funds",
+      "title": "Specialized Investment Funds (SIF): India’s New ₹10 Lakh Tier Between Mutual Funds and PMS",
+      "category": "alternatives",
+      "difficulty": "advanced",
+      "status": "published",
+      "tags": [
+        "sif",
+        "pms",
+        "aif",
+        "sebi-2026",
+        "long-short",
+        "hni"
+      ],
+      "summary": "SEBI’s SIF category (effective 1 April 2026) explained end-to-end: the ₹10 lakh minimum, long-short and market-neutral strategies, tax treatment, risk math, and the MF → SIF → PMS → AIF ladder for a ₹10L starter.",
+      "file": "src/content/alternatives/alternatives-sif-specialized-funds.mdx",
+      "sources": [
+        "src-sebi-sif-2026",
+        "src-sebi-mf-regulations-2026"
+      ],
+      "related": [
+        "alternatives-pms-aif-private",
+        "mf-choosing-comparing-funds",
+        "pf-wealth-plan-10-lakh"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
+    }
+  ]
+}

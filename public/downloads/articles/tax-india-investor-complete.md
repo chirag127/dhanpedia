@@ -1,0 +1,260 @@
+
+**Scope note.** This is a *general-education* reference, not a personal tax opinion. Tax law changes each Budget, individual facts (residency, holding periods, source of funds, co-owners) matter enormously, and the marginal-rate math below assumes a resident individual in the highest applicable slab unless stated. Run your specific numbers through a CA or a tax tool before filing. The figures marked **"(verified 2026-10-16)"** were checked against the sources in [Sources & citations](#sources--citations) at that date; treat any other rate as time-sensitive and re-verify.
+
+## Why tax is the quiet return-killer
+
+Before the math, the mindset: taxes do two distinct things to an investment. First they tax the *income stream* (coupon, dividend, interest) each year, which shrinks the amount that can compound. Second they tax the *capital gain* when you sell or redeem. The two are treated differently across asset classes, and that difference is where most of the planning happens. An investor who understands *when* money is taxed and *at what rate* can often choose between two "the same" instruments purely on the after-tax outcome. This article is organised around that idea: regimes first, then asset-class by asset-class, then deductions and reporting.
+
+## The two regimes and how to choose between them
+
+Since the new regime became the default in FY 2023-24, every individual must answer one structural question each year: **new regime or old regime.** The difference is not small.
+
+Under the **new regime** the slabs are steeper-then-flatter, and almost all deductions under Chapter VI-A are switched off (the standard deduction and an employer's NPS contribution are the exceptions that survive). Under the **old regime** the slabs are older and gentler at the top, but you can claim 80C, 80D, home-loan interest under section 24(b), NPS under 80CCD(1B), and HRA. The whole game of Indian tax planning is the tension between those two columns.
+
+### New-regime slabs, FY 2026-27 (verified 2026-10-16)
+
+The slab structure below was reset by the Budget 2025 and **carried over unchanged for FY 2026-27** (the Budget 2026 made no slab change; it only changed ITR timelines and compliance framing).
+
+| Taxable income slab | Rate |
+|---|---|
+| Up to ₹4,00,000 | 0% |
+| ₹4,00,001 – ₹8,00,000 | 5% |
+| ₹8,00,001 – ₹12,00,000 | 10% |
+| ₹12,00,001 – ₹16,00,000 | 15% |
+| ₹16,00,001 – ₹20,00,000 | 20% |
+| ₹20,00,001 – ₹24,00,000 | 25% |
+| Above ₹24,00,000 | 30% |
+
+Two levers sit on top of the slabs:
+
+- **Standard deduction ₹75,000** (new regime, salaried). It reduces the *gross salary* that is taxable; it is applied before the slabs. (verified 2026-10-16)
+- **Rebate under section 87A of ₹60,000.** When total taxable income is up to ₹12,00,000, the tax payable is wiped out by the rebate, so income up to ₹12 lakh is effectively tax-free. Because a salaried person also gets the ₹75,000 standard deduction, **a gross salary of up to ₹12,75,000 can be tax-free** under the new regime. (verified 2026-10-16)
+
+This is the key number to remember: the new regime is deliberately engineered to make mid-range salaried incomes largely tax-free, which is why so many people switch even when they have deductions.
+
+### Old-regime slabs (still available as an option in FY 2026-27)
+
+The old regime keeps its classic structure — 0% up to ₹3L, 5% to ₹7L, 20% to ₹10L, 30% above (those lower slabs were widened in Budget 2025 and carry over unchanged to FY 2026-27) — **and** it unlocks Chapter VI-A deductions: 80C (₹1,50,000), 80D (₹25,000, more for senior parents), home-loan interest under 24(b) (₹2,00,000 of interest, 20% of that = ₹40,000 in deduction), HRA, and 80CCD(1B) NPS (₹50,000 extra, on top of 80C). Because the top slab is 30% and the deduction stack is rich, the old regime can win for high-income people with big housing or insurance outlays — but only if the deductions actually exceed the slab savings. That is the decision, and it is a *calculation*, not a vibe.
+
+### Worked example: ₹15 lakh salary, HRA shown as illustrative
+
+**Illustrative assumptions — clearly labelled, not your numbers.** Assume an individual salaried taxpayer with gross salary ₹15,00,000, part of which is HRA. Under the new regime HRA is *not* deductible; under the old regime it is. For this illustration we assume an HRA exemption of ₹1,20,000 under the 50% rule (the actual figure depends on rent, city, and salary split). No home-loan interest is assumed; a ₹50,000 NPS contribution and ₹25,000 health premium are assumed available to the old regime. **Treat every deduction figure as a placeholder to substitute your own.**
+
+**New regime:**
+
+```math
+T_{\text{taxable}} = 15{,}00{,}000 - 75{,}000_{\text{std. deduction}} = 14{,}25{,}000
+```
+
+| Slab | Amount in slab | Tax |
+|---|---|---|
+| Up to ₹4L | ₹4,00,000 | ₹0 |
+| ₹4L–₹8L | ₹4,00,000 | ₹20,000 (5%) |
+| ₹8L–₹12L | ₹4,00,000 | ₹40,000 (10%) |
+| ₹12L–₹16L | ₹2,25,000 | ₹33,750 (15%) |
+| **Tax before cess** | | **₹93,750** |
+
+Income is above ₹12L, so no 87A rebate. Below ₹50L, so no surcharge. Add **4% Health & Education cess**: 0.04 × 93,750 = ₹3,750. **Total new-regime tax ≈ ₹97,500.**
+
+**Old regime:**
+
+```math
+T_{\text{taxable}} = 15{,}00{,}000 - 1{,}20{,}000_{\text{HRA}} - 1{,}50{,}000_{\text{80C}}
+- 50{,}000_{\text{80CCD(1B)}} - 25{,}000_{\text{80D}} = 10{,}25{,}000
+```
+
+| Slab | Amount in slab | Tax |
+|---|---|---|
+| Up to ₹3L | ₹3,00,000 | ₹0 |
+| ₹3L–₹5L | ₹2,00,000 | ₹10,000 (5%) |
+| ₹5L–₹7L | ₹2,00,000 | ₹50,000 (20%) |
+| ₹7L–₹10L | ₹3,00,000 | ₹1,20,000 (20%) |
+| Above ₹10L | ₹25,000 | ₹10,500 (30%) |
+| **Tax before cess** | | **≈ ₹1,90,500** |
+
+No 87A rebate (income > ₹5L, and 87A applies only when total income is below the rebate ceiling). Add 4% cess ≈ ₹7,620. **Total old-regime tax ≈ ₹1,98,120.**
+
+**Reading the result.** The new regime wins by nearly ₹1 lakh. Why? At ₹15L the slab benefit of the new regime (15% on the ₹12–16L band) is so strong that even giving up ~₹3.3L of old-regime deductions does not close the gap. This is the typical picture for a salaried person in this bracket: **new regime.** The old regime becomes competitive only when your *deduction stack is very large* (a big home-loan interest, heavy 80C, 80CCD(1B), and medical) — often somewhere above ₹20–25L of income — at which point the 30% marginal rate makes each ₹1 of deduction worth ₹0.30 while a new-regime rupee of income is often taxed at just 20–25%.
+
+The cleanest way to express "what does one more rupee of income cost me here" is the **marginal tax rate**, the rate on the next incremental rupee:
+
+```math
+m = \frac{\partial(\text{tax})}{\partial(\text{income})} = w_{\text{slab}} + 0.04 + s_{\text{surcharge}}
+```
+
+where $w_{\text{slab}}$ is the slab rate on that rupee, 0.04 is the cess, and $s_{\text{surcharge}}$ is the applicable surcharge (0 below ₹50L). Knowing your marginal rate tells you exactly how much you save per ₹1 of a deduction — so a ₹1.5L 80C claim is worth $0.30 \times 1{,}50{,}000$ at a 30% marginal rate but only $0.15 \times 1{,}50{,}000$ at a 15% marginal rate. Deductions are not equally valuable at every income level.
+
+## Equity capital gains: the 10%→12.5% and 15%→20% shift
+
+Equity capital-gains taxation was changed in the **July 2024** budget, effective for transfers on or after **23 July 2024**. The changes are established facts, not projections:
+
+- **Long-term capital gain (LTCG)** on listed equity and equity funds (held **> 12 months**): **12.5%**, up from 10%. The first ₹1,00,000 of LTCG per year is exempt. (Verified fact about the 10%→12.5% change.)
+- **Short-term capital gain (STCG)** (held **≤ 12 months**): **20%**, up from 15%, effective from the July 2024 change. No indexation, no ₹1L exemption.
+
+Two consequences for an active Indian investor:
+
+1. **The holding-period line is the most valuable switch you own.** Pushing a position across the 12-month mark drops its tax from a flat 20% to 12.5% (with a ₹1L annual exemption) on the long-term portion. This is why disciplined, patient investors are structurally tax-advantaged versus traders.
+2. **The ₹1L exemption is on *aggregate* LTCG**, not per holding. It is a real planning tool: if you harvested gains in one year, deliberately deferring some selling to the *next* financial year can reset the ₹1L exemption bucket. (This is a timing strategy, not a guarantee — markets move, and it changes your portfolio.)
+
+Unlisted equity, REIT/InvIT units, and debt have their own holding-period definitions (typically **24 months**), which we handle in the debt and gold sections.
+
+## Debt funds, taxable bonds and "interest" income
+
+The important regime shift for fixed income happened earlier: from **FY 2024-25**, gains on debt mutual funds (and other non-equity assets) are **taxed at your slab rate**, not at the old preferential 20%-plus-indexation rate, whether short- or long-term. So a debt fund held for three years is taxed the same as one held for two weeks — at your marginal slab.
+
+That makes **income taxation** the dominant force for debt:
+
+- **Taxable bonds / debentures / bank FDs:** the coupon and the accretion (the increase in value between purchase and redemption) are **income taxed at your slab rate** every year, and TDS is deducted at source on interest. An **8%+ bond taxed at 30% plus 4% cess** delivers far less after-tax than its nominal yield suggests.
+- **Tax-free instruments** (e.g., certain infrastructure-bond interest under section 80EE, and some state-bond instruments historically) break the chain — but 80EE had been discontinued for fresh investment in FY 2024-25, so verify current status before assuming tax-free debt income.
+- **Gold / commodity funds, real-estate funds:** treated as non-equity; gains follow the asset. Gold is addressed next.
+
+The recurring investor takeaway: *before* you chase a higher nominal bond yield, compute the **after-tax yield at your marginal rate**. The gap between a 7.5% taxable bond and a tax-free or lower-taxed instrument is frequently *larger* than the gap between two nominal yields.
+
+## Gold and SGB tax treatment
+
+Gold is where the instrument choice is almost entirely a **tax** decision:
+
+- **Physical gold:** if the gold is held for more than 2 years *and* is a "listed" or identifiable asset, the gain is a long-term capital gain **taxed at your slab rate**. Short-term gain is also at slab rate. The point is that physical gold has **no special preferential rate** — it behaves like any other non-equity asset for CG purposes.
+- **Sovereign Gold Bonds (SGBs):** the headline feature — when you **hold to maturity**, the redemption value is **exempt from capital-gains tax**, and the 2.5% annual interest is taxed only at slab rate. This is the single most tax-efficient way to hold gold for a long horizon. However, SGBs **stopped issuing new tranches from FY 2024-25** (the last tranche was February 2024). If you **sell a listed SGB before maturity**, the gain is taxed as capital gain on the sale (slab rate), and the tax-free-at-maturity benefit is lost. See the dedicated SGB article for the full comparison.
+- **Gold ETFs and Gold Mutual Funds:** taxed like their underlying (commodity/equity-style CG treatment; held > 12 months = long-term at 12.5% for listed-equity-classified funds, slab otherwise). This is why a *taxable gold ETF* is often the practical post-SGB substitute: you give up the tax-free-maturity feature in exchange for liquidity and no storage.
+
+The deep point: **gold is not a tax shelter in most forms; the SGB was.** Now that the SGB is closed, plan the rest of your gold exposure assuming it is taxed like any other asset.
+
+## P2P lending interest: taxed at slab rate
+
+Under the RBI's P2P framework, the **interest you earn as a lender is "income from other sources" and taxed at your slab rate.** The platform deducts **TDS at source** on that interest. Two investor-relevant consequences:
+
+- There is **no preferential rate** on P2P returns — the same 20–30% marginal rate that hits your salary also hits your P2P income, so the *real* edge of P2P versus an FD is its nominal spread minus expected credit loss, not a tax shield.
+- P2P income is **taxable in the year it accrues/receives**, even if you are in a loss-making year. You cannot "time" it the way you can time a capital gain.
+
+The regulatory details (caps, platform prudential norms, recovery mechanics) live in the RBI P2P Directions and are covered in the dedicated P2P article; here the tax line is simply: **slab rate, TDS-able, income-taxed, no hold-period preference.**
+
+## The deductions chapter (old-regime levers)
+
+All of these only pay off if you are *choosing the old regime* (or a genuinely higher-income case where they beat the new regime):
+
+| Section | Instrument | Annual limit | Nature |
+|---|---|---|---|
+| 80C | PPF, ELSS, NSC, EPF, life-insurance premium, SIP | ₹1,50,000 (aggregate cap) (verified 2026-10-16) | Principal |
+| ELSS (inside 80C) | Equity fund | up to ₹1,50,000, **3-year lock-in** | Principal, highest-risk of the 80C set |
+| PPF (inside 80C) | 15-year government scheme | up to the 80C cap; ~7.1% (time-sensitive) | EEE (principal+interest+redemption tax-free) |
+| NSC | 5-year | within 80C cap | EET (interest + maturity taxed) |
+| 24(b) | Home-loan *interest* | ₹2,00,000 interest → 20% = ₹40,000 deduction | Interest |
+| 80D | Health insurance | ₹25,000 (₹50,000 with senior parents) | Premium |
+| 80CCD(1B) | NPS own contribution | **extra ₹50,000 on top of 80C** | Principal |
+
+**ELSS mechanics (verified: 3-year lock-in + 80C eligibility).** An ELSS investment counts toward the ₹1,50,000 80C cap and is locked for three years; after lock-in, redemption gains are taxed by the *equity* rules (held > 12 months → 12.5% LTCG with the ₹1L exemption). It is the highest-risk 80C instrument (pure equity) but often the best long-term after-tax compounder among the 80C set — the three-year lock-in, not the fund's returns, is the only "feature" the tax code gives you.
+
+**NPS and the 80CCD(1B) layer (NPS 2025 changes, verified 2026-10-16).** Your own NPS contribution gets ₹50,000 of *extra* deduction under 80CCD(1B) beyond the 80C cap. Separately, the 2025 NPS exit amendment made three changes that matter for the retirement side of the ledger: **up to 80% of the corpus can be withdrawn as tax-free lump sum at retirement (up from 60%)**, **private-sector (subscribed) participants may allocate 100% of the corpus to equities**, and the **exit age ceiling was raised to 85**. The extra 20% lump-sum and the 100% equity option make NPS meaningfully more attractive for pre-retirement growth, while the ₹50,000 80CCD(1B) stays one of the cleanest deduction levers in the code.
+
+## TDS basics for investors
+
+TDS (Tax Deducted at Source) is money withheld by the *payer* and remitted to the government; you credit it against your tax liability at ITR time. The investor-relevant TDS points:
+
+- **Bank interest** above a threshold (e.g., savings/FD interest above ₹10,000 in the year) attracts TDS, usually at 10% (20% without a PAN, higher for senior citizens).
+- **P2P lending interest** — TDS at source by the platform (see above).
+- **Rent, home-loan repayment, professional fees** above limits — TDS applies (e.g., rent above ₹50,000/month attracts 10% TDS on landlord).
+- **Sale of property, some capital gains** — TDS applies on certain transfers.
+- If TDS is *over-withheld* relative to your final liability, you get a **refund** at ITR; if under, you pay the balance plus possible interest.
+
+The practical rule: **TDS is a prepayment, not the final tax.** Your final liability is set by your ITR. A salaried investor with investment income should reconcile TDS (Form 26AS / 26AS statements and the AIS pre-filled data) with their own records every year — mismatches are the top cause of filing rejections.
+
+## ITR forms: which one do you file?
+
+The three forms most individuals use, and when each fits:
+
+| Form | When to use | Typical investor signal |
+|---|---|---|
+| **ITR-1 (Saubhagya)** | Salaried; income from up to **one** house property; capital gains; other sources (deposits, P2P, gold) | Most individual retail investors |
+| **ITR-2 (Pryag)** | No business income, but **more than one house property** or capital gains from more complex sources | Property + multiple assets, or HUF-linked property |
+| **ITR-3 (Samsthiti)** | **Business/professional income** | Freelancers, traders, professionals |
+
+Guidance: a salaried retail investor with a few houses of property and index/ELSS/capital-gain income usually files **ITR-1**. The moment a business or professional source appears, or a *second* house property does, you move to **ITR-2 / ITR-3**. Choosing a lower form than your actual income profile allows triggers rejection. File within due dates to avoid interest and late-filing fee; non-residents and HUFs have separate treatment.
+
+## HUF: a planning technique, not tax evasion
+
+A **Hindu Undivided Family (HUF)** is a *separate taxable entity* in its own right, distinct from its individual members. A family can pool certain income/assets under the HUF, and the HUF gets its own **basic exemption** (the same slab structure) and its own **deductions** (e.g., it can hold an NPS, invest in 80C instruments, get health premium). Because the HUF has an independent exemption and independent slab space, income that would push an *individual* into a higher slab can sometimes sit in the HUF at a lower effective rate.
+
+**This is a legitimate structure, not evasion.** The line is clean: the HUF must be a real, separate entity with genuine contributions/family income to report, it files its **own ITR**, and every asset must be legally the HUF's (not an individual's held in the family's name). Transferring an individual's income to the HUF to dodge tax is not permitted; the HUF reports *its* income. Use it for what it is — a genuine family planning vehicle that adds one more slab of exemption and deduction room — and keep the paper trail real. For a married family with two high earners, the HUF is one of the few "add a tax exemption" levers that does not cost a premium.
+
+## DTA, FATCA & CRS: the cross-border layer
+
+If any of your investing crosses a border, three layers apply:
+
+- **DTA/DTAA (Double Tax Avoidance Agreements):** India has treaty relief with many countries, so the same income is not taxed twice — but *relief requires reporting* and often a Form-16A/foreign-asset disclosure. The benefit is real only if you claim it correctly.
+- **FATCA:** the US regime requiring US persons to report foreign assets; India is a FATCA-Implementing jurisdiction and banks/firms exchange account information to the US. For a US-person NRI or investor, this is the strictest reporting regime.
+- **CRS (Common Reporting Standard):** the multilateral mirror — India exchanges account information with treaty partners, so a *foreign* account held by an Indian resident is reported back and taxed in India.
+
+The investor takeaway: **foreign income and foreign assets are taxable in India for residents**, and the disclosure stack (Schedule FV under ITR, plus FATCA/CRS) is mandatory. Under-reporting a foreign portfolio is one of the few "paper trail is obvious" risks — the counterparty bank is literally sending your data to the IT department. Keep foreign income on the books.
+
+## Cess and surcharge: the top-up lines
+
+Two add-ons ride on the slab tax:
+
+- **Health & Education Cess: 4%** of the tax liability. It multiplies everything above it — so a "30% top rate" is really 30% + cess + surcharge in practice.
+- **Surcharge (verified as the current FY 2026-27 structure, 2026-10-16): a top-up on tax for high incomes — 10% (₹50L–₹1Cr), 15% (₹1Cr–₹2Cr), 25% (₹2Cr–₹5Cr), 37% (above ₹5Cr). Surcharge makes the *effective* marginal rate above ₹2Cr very high, which is precisely where 80C/80CCD(1B) deductions become worth the most (₹0.30+ per ₹1 saved) and where the new vs old regime decision is most contested.
+
+Surcharge also **caps** certain deductions in the upper slabs (some deductions are reduced when surcharge is payable), so the "deduction math" is not linear at the top. This is advanced-territory; have the top-bracket numbers done by a CA.
+
+## Which regime for me? — decision tree
+
+```mermaid
+flowchart TD
+    A["Start: resident individual"] --> B{"Do you have Chapter-VI-A deductions<br/>(80C, 80D, 24b home loan, 80CCD-1B, HRA)?"}
+    B -->|No / very small| C["New regime<br/>(deductions switched off, slabs flatter)"]
+    B -->|Yes, sizeable| D{"Income below ~₹20L?"}
+    D -->|Yes| E{"New regime effectively tax-free<br/>up to ₹12L gross after std. deduction?"}
+    E -->|Yes| C
+    E -->|No| F["Compare: run both regimes<br/>on your exact deductions"]
+    D -->|No (high income, 30% slab)| G{"Deduction value<br/>(0.30 per ₹1) > new-regime slab saving?"}
+    G -->|Yes| H["Old regime<br/>rich housing/insurance/NPS"]
+    G -->|No| C
+    C --> I["File ITR with new regime<br/>select"]
+    H --> I
+    I --> J["Recompute TDS credit, cess, surcharge"]
+```
+
+The tree deliberately ends on *compute, then select* — because the honest answer for a large share of mid-to-high earners is "run both numbers on my exact deductions this year, pick the lower one, and record the choice at filing." The new regime's engineered tax-free corridor up to ₹12L makes it the default for the middle, while the old regime's deduction stack defends the top.
+
+## When an investor gets the tax wrong
+
+The recurring, expensive mistakes: (1) **holding-period error** — selling an equity fund at 11 months and paying 20% STCG that would have been 12.5% LTCG a few weeks later; (2) **ignoring the ₹1L LTCG exemption** and not resetting it annually; (3) **choosing the wrong regime on habit**, not by running the deduction stack; (4) **taxing debt at nominal yield** instead of after-tax slab yield; (5) **forgetting P2P interest is income**, not capital; (6) **TDS reconciliation failures** causing rejections; (7) **leaving HUF, DTA/CRS opportunities** on the table. Each is a calculation, and each is fixable if you run the numbers once per year.
+
+## Related
+
+- [Government Small-Savings Schemes: PPF, EPF/VPF, NPS, APY, SCSS, SSY, NSC, KVP](../government-schemes/govt-small-savings-schemes.mdx) — the instruments this article's 80C/NPS sections reference.
+- [Index Funds, ETFs & Direct vs Regular Plans](../mutual-funds/mf-index-etf-direct-regular.mdx) — where the 12.5% LTCG and holding-period switch live in practice.
+- [Your 10 Lakh Wealth Plan](../personal-finance/pf-wealth-plan-10-lakh.mdx) — allocation that should be built *before* you layer tax planning on top.
+- [Sovereign Gold Bonds](../government-schemes/govt-sovereign-gold-bonds.mdx) — the tax-free-maturity gold instrument and its current status.
+
+## Update log
+
+| Date | Change | Source |
+|---|---|---|
+| 2026-10-16 | Confirmed FY 2026-27 carries the unchanged slab structure (Budget 2026 made no slab change) | see FY 2026-27 sources |
+| 2026-08-06 | Verified FY 2025-26 new-regime slabs, ₹75,000 standard deduction, ₹60,000 87A rebate (≈₹12L tax-free for salaried), ₹1.5L 80C, NPS 80CCD(1B) ₹50,000, NPS 2025 exit (80% lump-sum, 100% equity, age 85) | [src-it-slab-fy2025-26], [src-it-slab-calculator], [src-it-80c-150k], [src-sebi-elss], [src-nps-2025-exit] |
+| 2026-08-06 | Confirmed July-2024 equity CG change (LTCG 10%→12.5%, STCG 15%→20%) as established fact | [src-it-slab-fy2025-26] |
+| Re-check | PPF ~7.1%, surcharge tiers, 80EE status, debt-fund slab taxation — all **time-sensitive**; re-verify against the next Budget | — |
+
+## Sources & citations
+
+- **[src-it-slab-fy2025-26]** Income Tax Department / Union Budget 2025 — new-regime 7-slab structure (reset in Budget 2025, carried unchanged to FY 2026-27) and regime mechanics.
+- **[src-it-slab-calculator]** Cleartax secondary summary of official slabs (cross-check on ₹12L tax-free corridor and standard deduction).
+- **[src-it-80c-150k]** 80C limit remains ₹1.5 lakh, old regime only.
+- **[src-sebi-elss]** SEBI Investor Education — ELSS 80C eligibility and lock-in.
+- **[src-nps-2025-exit]** PFRDA 2025 exit amendment — 80% lump-sum, 100% equity option (private-sector), exit age to 85.
+
+*Figures marked "(verified 2026-10-16)" were checked against the sources above as of that date. Unmarked rates (PPF ~7.1%, surcharge tiers, 80EE) are time-sensitive — re-verify against the latest Budget and RBI announcements before relying on them.*
+
+
+## Sources & Citations
+
+- **Income Tax Department / Union Budget 2025** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) - unchanged from the Budget 2025 reset. https://www.indiabudget.gov.in/doc/Finance_Bill.pdf (verified 2026-10-16)
+- **Cleartax (secondary summary of official slabs)** — Income Tax Slabs FY 2025-26 & FY 2026-27 (New and Old Regime). https://cleartax.in/s/income-tax-slabs (verified 2026-08-06)
+- **Income Tax Act / Economic Times** — Section 80C limit remains ₹1.5 lakh (old regime only). https://economictimes.indiatimes.com/wealth/tax/has-section-80c-deduction-limit-hiked-check-how-much-tax-you-can-save-after-union-budget-2025/articleshow/117821055.cms (verified 2026-08-06)
+- **SEBI Investor Education** — Securities Market Investment: A Guide to ELSS. https://investor.sebi.gov.in/elss.html (verified 2026-08-06)
+- **PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025** — PFRDA (Exits and Withdrawals under the NPS) (Amendment) Regulations, 2025, w.e.f. 16 Dec 2025. https://www.pfrda.org.in/documents/33652/184762/Gazette+PFRDA+Exit+and+Withdrawals+under+the+NPS+Amendment+Regulations+2025.pdf (verified 2026-10-16)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.

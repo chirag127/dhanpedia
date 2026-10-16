@@ -1,0 +1,65 @@
+---
+// Mermaid diagrams rendered client-side, with a visible text fallback.
+// Usage in MDX:
+//   <Mermaid title="Decision flow">
+//     {`flowchart TD
+//        A{Add risk?} -->|Yes| B[Equity sleeve]
+//        A -->|No| C[Debt + gold]`}
+//   </Mermaid>
+const { title = '', children = '' } = Astro.props;
+const code = String(children ?? '').trim();
+---
+
+<figure class="mermaid-fig" style="margin:1.5rem 0;">
+  {title && <figcaption style="font-size:.85rem; font-weight:600; color:var(--ink-soft); margin-bottom:.4rem;">{title}</figcaption>}
+  <pre data-mermaid class="mermaid-src" style="background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:1rem; overflow:auto; font-size:.8rem;">{code}</pre>
+  <!-- Textual fallback / source (also useful for screen readers & print) -->
+  <details class="mermaid-source" style="margin-top:.5rem;">
+    <summary style="cursor:pointer; font-size:.8rem; color:var(--ink-soft);">Show diagram source (text alternative)</summary>
+    <pre style="font-size:.75rem; white-space:pre-wrap; color:var(--ink-soft);">{code}</pre>
+  </details>
+</figure>
+
+<script>
+  import mermaid from 'mermaid';
+
+  let seq = 0;
+  async function renderAll() {
+    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'default';
+    mermaid.initialize({ startOnLoad: false, theme });
+    document.querySelectorAll('pre.mermaid-src:not([data-done])').forEach(async (el) => {
+      const id = `mm-${el.dataset.seq ?? (seq++)}`;
+      try {
+        const { svg } = await mermaid.render(id, el.textContent);
+        const wrap = document.createElement('div');
+        wrap.className = 'mermaid-rendered';
+        wrap.style.overflowX = 'auto';
+        wrap.setAttribute('role', 'img');
+        wrap.setAttribute('aria-label', 'Mermaid diagram');
+        wrap.innerHTML = svg;
+        el.style.display = 'none';
+        el.insertAdjacentElement('afterend', wrap);
+        el.setAttribute('data-done', 'true');
+      } catch (err) {
+        console.error('Mermaid render failed, leaving text fallback visible:', err);
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('pre.mermaid-src').forEach(el => { if (!el.dataset.seq) el.dataset.seq = seq++; });
+    renderAll();
+  });
+
+  // When theme changes, tear down rendered SVGs and re-render with new theme.
+  window.addEventListener('themechange', () => {
+    document.querySelectorAll('.mermaid-rendered').forEach(el => el.remove());
+    document.querySelectorAll('pre.mermaid-src[data-done]').forEach(el => { el.removeAttribute('data-done'); el.style.display = ''; });
+    renderAll();
+  });
+</script>
+
+<style>
+  .mermaid-rendered { margin:.5rem 0; }
+  .mermaid-rendered svg { max-width:100%; height:auto; }
+</style>

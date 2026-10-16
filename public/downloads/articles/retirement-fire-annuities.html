@@ -1,0 +1,137 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Retirement & FIRE: Corpus, the 4% Rule, Sequence Risk & Annuities</title>
+<style>body{font:16px/1.7 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#14231d}
+h1{font-size:1.8rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border:1px solid #ccc;padding:.4rem .5rem}code{background:#f1efe7;padding:.1rem .3rem;border-radius:4px}
+.eq code{display:block;text-align:center;margin:.8rem 0}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}</style>
+</head><body><h1>Retirement & FIRE: Corpus, the 4% Rule, Sequence Risk & Annuities</h1><p style="color:#3c4b44"><em>Corpus math, sustainable withdrawal and the 4% rule, sequence-of-returns risk, EPF/NPS/PPF/annuities, healthcare costs, and decumulation strategies.</em></p>
+<p style="font-size:.8rem;color:#555">DhanPedia · Author Chirag Singhal · Verified 2026-08-06</p>
+<p>A retirement plan has two enemies, and they are not the ones most plan calculators show you. The visible enemy is <em>running out of money</em> — the corpus hits zero at 78 instead of 90. The hidden enemy is <em>sequence risk</em> — the market's worst year arriving in your first five retirement years, quietly shrinking the corpus so much that the math that looked fine on paper is now doomed, even if every subsequent year performs exactly as assumed. Indian households face both in a currency (INR) with high, persistent inflation and in a set of tax rules where the <em>route</em> you take to convert corpus into spend (sell equity, draw NPS annuity, draw SCSS interest) changes the after-tax outcome by several percentage points of corpus per year. This article does the corpus math properly, explains the 4% rule and its limits, quantifies sequence risk with a worked crash scenario, maps the Indian decumulation instruments (NPS with its 2025 exit changes, SCSS, PPF, annuities), and ends with a decumulation blueprint for someone turning 60.</p>
+<2>The corpus math</2>
+<3>First cut: 25× annual spend</3>
+<p>The standard first approximation:</p>
+<p>$$\text{Corpus} = \text{Annual Spend at retirement} \times 25$$</p>
+<p>25× is the inversion of a 4% withdrawal: 1/0.04 = 25. If your inflation-adjusted spend at 60 is ₹5L a year, the first-cut corpus is ₹1.25Cr. That is a <em>starting point</em>, not an answer — it assumes the portfolio will grow, in real terms, fast enough to outpace inflation on the withdrawal forever. It is not an assumption that survives contact with 3% real returns.</p>
+<3>The real-return approximation</3>
+<p>The withdrawal must keep up with inflation; the portfolio must keep up with the withdrawal. The question is whether the <em>real</em> (inflation-adjusted) return of the portfolio beats the real growth rate of the spend. If real return is 4%, the 25× rule works; at 3%, you need more:</p>
+<p>$$\text{Corpus} \approx \frac{\text{Spend now}}{r_{\text{real}}}, \qquad r_{\text{real}} \approx g - i$$</p>
+<p>where $g$ is the nominal portfolio return and $i$ is inflation. So:</p>
+<table>
+<thead><tr><th>Real return $r_{\text{real}}$</th><th>Multiple</th><th>Corpus for ₹5L/yr spend</th></tr></thead>
+<tbody><tr><td>4%,25×,₹1.25Cr</td><td>3%,33×,₹1.67Cr</td><td>2%,50×,₹2.50Cr</td></tr></tbody>
+</table>
+<p>The jump from 4% to 3% real — ₹1.25Cr to ₹1.67Cr — is the number most retirement calculators never show you, and it is why "my 10% CAGR will carry me" is doing more comfort than math: at 6% inflation, 10% nominal is only 4% real. A plan that assumed 9% nominal against 4% inflation (5% real) and then lived through 9% inflation has quietly lost its cushion.</p>
+<3>The finite-horizon formula</3>
+<p>If you are <em>willing to define</em> the horizon — "I plan the corpus to last to 85, not forever" — the corpus you need is <em>less</em> than the forever number. The exact figure for a spend that grows at $i$ against a portfolio that grows at $g$, exhausted at year $n$:</p>
+<p>$$C = E \times \frac{(1+i)^n - (1+g)^n}{(i - g)\,(1+g)^n}$$</p>
+<p>The signs work out positive when $g &gt; i$ (both numerator and denominator are negative). The honest read of the formula: <strong>the longer you refuse to accept exhaustion, the more corpus you need; and the cost of the "forever" assumption is roughly one-third more corpus than "to 85" at 3% real returns.</strong></p>
+<p><strong>Worked number 1 — spend ₹5L/yr at 60, inflation 6%, portfolio growth 9%, horizon to 85 (n = 25):</strong></p>
+<ul>
+<li>$(1.06)^{25} \approx 4.29$, $(1.09)^{25} \approx 8.62$</li>
+<li>$C = 5{,}00{,}000 \times \frac{4.29 - 8.62}{(0.06-0.09)\times 8.62} = 5{,}00{,}000 \times 16.74 \approx$ <strong>₹84L</strong></li>
+</ul>
+<p>The 16.7× against the 25× "forever" figure: accepting "lasts to 85" instead of "lasts forever" saves roughly 35% of the corpus. You are not being generous to yourself by using 25×; you are <em>insuring</em> against living to 95 at 3% real returns, where the finite formula would say you need more than the 25×.</p>
+<p><strong>Worked number 2 — FIRE at 55: spend ₹5L/yr, growth 7% (you carry more equity risk, but also more risk), inflation 6%, horizon to 95 (n = 40):</strong></p>
+<ul>
+<li>$(1.06)^{40} \approx 10.29$, $(1.07)^{40} \approx 14.99$</li>
+<li>$C = 5{,}00{,}000 \times \frac{10.29 - 14.99}{(0.06-0.07)\times 14.99} = 5{,}00{,}000 \times 31.3 \approx$ <strong>₹1.57Cr</strong></li>
+</ul>
+<p>The second number is the one that surprises: a <em>lower</em> growth assumption (7% vs 9%) and a <em>longer</em> horizon (40 vs 25 years) together demand a <em>bigger</em> corpus (₹1.57Cr vs ₹84L). Early retirement is a double penalty on corpus — a longer runway and a forced equity weight (you cannot live off 4% of a 60% debt portfolio at 55 and survive to 95).</p>
+<2>The 4% rule: origin and limits</2>
+<p>The 4% rule descends from US academic research in the late 1990s (the "Trinity study" and its successors, by Michael Cooley and colleagues) that ran 30-year rolling windows on US stock-and-bond portfolios and found 4% (of initial corpus, inflation-adjusted thereafter) was the withdrawal rate that survived virtually every historical window, including 1966 and 1974. Three limitations that matter for an Indian plan:</p>
+<ol>
+<li><strong>It is not proven in India.</strong> India's listed-equity history is shorter, and Indian portfolios hold a very different mix (heavy single-country, heavy mid/small-cap exposure in the last decade, low foreign allocation). The rule's "survived every window" claim was made on ~100 years of US data; India's equivalent record cannot support that claim yet. Treat 4% as a <em>starting assumption to stress-test</em>, not a validated Indian constant.</li>
+<li><strong>Indian 10-year real equity returns have generally been higher than the US's — but Indian drawdowns are deeper and sharper.</strong> A Nifty max drawdown of 50%+ (2008, 2020, 2022) is a worse sequence-risk environment than the US windows the 4% rule was calibrated on. The higher average return and the deeper drawdowns are two sides of the same volatility, and the 4% rule does not know which side you will live through in your first five years.</li>
+<li><strong>The rule fixes withdrawal to 4% of the <em>initial</em> corpus, growing at inflation. It does not say "withdraw what the portfolio can support."</strong> The adaptive-withdrawal variants (4% of the <em>current</em> corpus, or a floor/cap around it) are more robust in India's environment than the fixed rule; the fixed 4% rule is the <em>first cut</em>, and the stress test is in the next section.</li>
+</ol>
+<2>Sequence risk: the -30% year-one crash, quantified</2>
+<p>The scenario, with every assumption stated (illustrative, not advice):</p>
+<ul>
+<li>Corpus: ₹1.25Cr (25× of ₹5L first-year spend).</li>
+<li>Withdrawal: ₹5L in year 1, then +6% inflation every year (i.e., ₹5.3L in year 2, ₹5.62L in year 3…).</li>
+<li>Returns: <strong>year 1: −30%</strong> (a Nifty-2008-style shock, on the equity portion; we model the whole portfolio at −30% for conservatism). Years 2+: +9% nominal, every year.</li>
+<li>Withdrawals at year-end.</li>
+</ul>
+<p>The simulation: after year 1, the corpus is $1.25 \times 0.70 - 0.05 = ₹0.825\text{Cr}$ (in units of the original corpus, 0.66). It then recovers through years 2–10 to about 75% of original — and <em>then the corpus stops recovering and starts depleting</em>, because the withdrawal, growing at 6% a year, is now a <em>rising percentage of the reduced corpus</em>. By year 15 the corpus is about two-thirds of original; by year 20 about 40%; and the corpus is <strong>exhausted around year 23–24</strong> — in a world where the 25× portfolio, with no crash, would have lasted a lifetime.</p>
+<p><strong>The -30% year-one shock costs roughly 23 years of portfolio life.</strong> It did not cost the portfolio 30%; it cost the <em>rest of the plan</em>. That is the entire sequence-risk argument in one number, and it is why "I'll just rebalance back to my target after the crash" is not the answer: the withdrawal stream, growing at inflation, re-prices the reduced corpus every year, and a one-year -30% is a <em>permanent</em> event for the withdrawal path, not a blip.</p>
+<pre>flowchart LR
+A[Retirement day:&lt;br/>Corpus 25× = ₹1.25Cr] --> B[Year 1: market −30%,&lt;br/>withdrawal ₹5L]
+B --> C[End Y1: corpus ≈ ₹82.5L&lt;br/>(66% of start)]
+C --> D[Years 2–10: +9% nominal,&lt;br/>withdrawal grows 6%/yr]
+D --> E[Year 10: corpus ≈ 75% of start&lt;br/>— recovery *plateaus*]
+E --> F[Year 15: ~2/3 · Year 20: ~40%]
+F --> G[Year 23–24: corpus ≈ zero&lt;br/>in a 'forever' plan]
+G --> H[Lesson: the crash was a&lt;br/>permanent event for the&lt;br/>withdrawal path, not a blip]</pre>
+<p>The mitigation is not a better growth assumption — it is the <strong>bucket strategy</strong>, which removes the <em>need to sell equity in the crash year at all</em>.</p>
+<2>The bucket strategy: 1 year cash, 3 years debt, rest equity</2>
+<p>The structure, built on the corpus:</p>
+<ul>
+<li><strong>Bucket 1 — 1 year of spend in cash / liquid.</strong> Never touched by the market, never needs to be sold, and covers the crash year's withdrawal <em>from cash, not from equity</em>.</li>
+<li><strong>Bucket 2 — 3 years of spend in short-duration debt (or a debt fund, or an SCSS-style instrument).</strong> The "repair" layer: as year 1's cash is consumed, years 2–3 are covered from debt, and the equity portion of the portfolio — <em>the only thing that actually had to grow</em> — is untouched for three full years. Three years of non-sell is long enough, in nearly every Indian market, for the equity sleeve to recover from a -30% shock <em>on its own</em>, without your withdrawals being the thing that prevented it.</li>
+<li><strong>Bucket 3 — everything else, in equity (or the diversified mix).</strong> The compounding engine. It is <em>never</em> asked to pay this year's bills.</li>
+</ul>
+<p>The bucket strategy is not a <em>better</em> portfolio; it is the <em>same</em> portfolio with a <em>liquidity schedule</em> on top, and the schedule is what removes the forced-sell-in-the-crash. The numbers above assume the forced-sell; with the bucket, the year-1 withdrawal is paid from the cash bucket, the equity sleeve sits out the -30% undisturbed, and the corpus path for year 2 onward is <em>nearly</em> the no-crash path, with the cash bucket being <em>refilled</em> from the equity gains in years 2–4. That is the whole mechanism, and it is the reason the bucket exists.</p>
+<2>Indian decumulation instruments</2>
+<3>NPS: the 2025 exit rules changed the math</3>
+<p>The 2025 NPS amendment (cite <code>src-nps-2025-exit</code>) made three changes that matter for the decumulation decision:</p>
+<ul>
+<li><strong>Lump-sum at exit raised from 60% to 80%.</strong> You can take 80% of your NPS corpus as a lump sum at exit (subject to the tax-exempt portion under the relevant provision, verify the current limit), and commit only 20% to the annuity. The 20% annuity is now a <em>smaller</em> forced income slice of your corpus than the old 40% was.</li>
+<li><strong>Up to 100% of contributions in the equity (C) bucket.</strong> Previously the equity allocation for a new subscriber was capped (commonly 50%, with age-based step-downs); the 2025 rule allows 100% equity for those who choose it. For a working-age subscriber, the option is a <em>long-run</em> compounding advantage; the trade-off is the drawdown risk in the NPS corpus, which is precisely the sequence-risk problem in the pre-exit decade.</li>
+<li><strong>Exit flexibility extended to age 85</strong> (verify current details; the 2025 amendment extended the exit/withdrawal window beyond the standard 60 for eligible categories).</li>
+</ul>
+<p>The decumulation question NPS now answers: <em>at exit, what fraction of your corpus becomes a forced, inflation-unclear annuity (20%), and what fraction stays liquid (80%)</em>? The honest reading: the 80% liquid slice is the <em>decumulation sleeve</em> — the same sleeve as the "rest" bucket in the bucket strategy, with the NPS's own tax treatment layered on top.</p>
+<3>SCSS: the senior-citizen income floor, taxed at slab</3>
+<p>The Senior Citizens' Savings Scheme (SCSS) is a post-office/PSU-bank instrument for 60+, with a FY 2025-26 rate of <strong>8.2% p.a., compounded and paid quarterly</strong> (verified 2026-08-06, <code>src-scss-8-2</code>; the rate is revised quarterly — re-verify before citing a "current" number in a plan). The working limits are ₹30L per individual senior citizen, and a joint senior-citizen account up to ₹45L (verify the current limits). The 8.2% is <em>interest income</em>, taxed at your slab rate — and that is the instrument's decumulation role: it is a <em>taxable-but-certain</em> income stream that does not touch the equity corpus and does not force a sale in any market. The SWPS (Senior Citizens' Special Savings… no — the <em>SWPS</em> is a different post-office scheme; check the specific instrument's current rate and limit before using it in a plan) and the PPF (rate set each April; verify current rate) are the same family, at different rates and limits.</p>
+<p>Alongside SCSS, the post-office family includes other senior-citizen savings instruments (verify their current names, rates and limits against the latest government notice, since the small-savings scheme list is revised periodically). The SCSS/PPF family is the <em>income</em> layer of the decumulation, sitting on top of the equity corpus, and its 8.2% (SCSS, verify current) against a 6% inflation assumption is a <em>3.2% real cushion</em> — the number that does the actual inflation-hedging work for the <em>guaranteed</em> portion of the plan.</p>
+<3>The tax route: withdrawal vs annuity — the crucial Indian nuance</3>
+<p>The annual spend is <em>not</em> income; spending money is not a taxable event. What <em>is</em> taxed is the <strong>route by which the spend is generated from the corpus</strong>:</p>
+<ul>
+<li><strong>Sell equity (LTCG, held 1+ year):</strong> gains above ₹1L/yr are taxed at 12.5% + cess (verify current rate), or the short-term rate if held under a year. On a diversified equity corpus, the <em>gains</em> portion of a given year's sale is typically a fraction of the sale amount (the cost basis is not taxed again), so the effective tax on the spend, in a good year, is <em>well</em> under 12.5%.</li>
+<li><strong>Draw SCSS/PPF/SWPS interest:</strong> 100% of the 8.2% (SCSS, verify current) is taxed at your slab rate. At the 30% top slab, the 8.2% SCSS is a 5.74% <em>after-tax</em> income; a ₹1.5Cr SCSS holding (₹30L × 5 tranches, or the instrument's own limit, verify) is ~₹12.3L/yr gross, ~₹8.2L/yr net at 30%.</li>
+<li><strong>Draw NPS annuity (the 20% slice, post-2025 amendment):</strong> the annuity pension is <em>income</em>, taxed at slab rate, for the years you take it. The 80% lump-sum slice has its own exemption (under the relevant NPS provision, verify current limit), and the annuity's tax is the <em>permanent</em> one — it is slab-taxed <em>every year, for life, on a fixed amount that is not inflation-linked</em>.</li>
+</ul>
+<p>The decisive comparison: <strong>generating ₹5L/yr of spend from selling a ₹25Cr equity corpus at 12.5% LTCG on the gains (a fraction of the sale) costs materially less in tax than generating the same ₹5L/yr from an annuity that is slab-taxed at 30% every year.</strong> The <em>after-tax spend</em> from the corpus-sell route is more than the <em>after-tax spend</em> from the annuity route, at the same nominal spend. The annuity's value is not in the tax; it is in the <em>longevity guarantee</em> — the annuity does not run out at 88, because it is a contract, not a corpus. The decumulation decision is therefore: <strong>how much of the corpus do you convert to the <em>guaranteed</em> slice (annuity, NPS 20%, or a commercial annuity with return-of-premium) to cover the "I live to 95" tail, and how much do you keep as the sellable corpus to cover the "the corpus's real return is 4% and I am 80" case?</strong> The answer is a percentage of the corpus, not a binary.</p>
+<2>Healthcare: the dedicated bucket</2>
+<p>A 60-year-old's medical costs, in the 10 years after 60, are not a line item in the annual-spend number; they are a <em>separate, inflation-faster</em> bucket that the general corpus's inflation assumption (6%) does not cover, because <strong>medical inflation in India has been running at 8–10% a year, materially above general CPI</strong> (an assumption, not a sourced constant — verify against current published medical-inflation data before sizing your own bucket). The structure: a <strong>dedicated 10–15% of the corpus, in an inflation-appropriate instrument (SCSS at 8.2% is the natural fit; PPF at a lower rate is the lower-bound fit), earmarked for medical, not for general spend.</strong> The bucket's job is to be the <em>first</em> thing touched when a big medical bill arrives, so the general corpus does not have to be sold in the medical-bill year — which, in a crash year, is exactly the wrong year to sell.</p>
+<p>The bucket size, at 10–15% of a ₹50Cr corpus, is ₹5–7.5Cr, which at 8.2% SCSS (verify current rate) is ₹4.1–6.15L/yr of <em>gross</em> medical income — a number that <em>only</em> covers the top tier of a comprehensive health policy's <em>out-of-pocket</em> gap, not the whole medical bill, and the health policy is what the bucket <em>supplements</em>, not replaces. The two are one system: the health policy for the catastrophic bill, the SCSS bucket for the chronic and the out-of-pocket, and the general corpus for the <em>other</em> spend, with the two kept separate so the medical need never forces a sale in the general corpus.</p>
+<2>Dependents, survivor, and the estate</2>
+<p>The decumulation plan, as it is usually built, is a <em>single-person</em> plan; the survivor question is a <em>second</em> plan that the first plan must <em>underwrite</em>. The three pieces:</p>
+<ul>
+<li><strong>Term to cover the spouse, post-exit.</strong> If the corpus is sized for <em>you</em> to 95, the <em>survivor</em> (a spouse 5–15 years younger) is not in the number. A <em>survivor term</em> policy on the spouse's age, with the sum insured set to the <em>gap</em> between the surviving spouse's spend need and the annuity/SCSS income, closes the "you die at 72 and the spouse's corpus is now a smaller corpus for a longer runway" problem.</li>
+<li><strong>The NPS annuity is a <em>joint-life</em> annuity by default (or a single-life with a return-of-premium option; verify the specific annuity's structure), which is the <em>corpus-saved</em> version of the survivor problem: the annuity continues to the surviving spouse without a second decumulation. The trade-off is the annuity's <em>fixed, non-inflation-linked</em> nature, which is a <em>tail</em> risk in a 30-year survivor scenario.</strong></li>
+<li><strong>The will.</strong> The corpus, the SCSS/PPF accounts, the NPS account, and the annuity are four <em>different</em> documents that must <em>agree</em> on who gets what, when, and in what order; a will that does not name the NPS and the annuity <em>as such</em> (they have their own nomination fields) is a will that has not actually been written. The nomination on the NPS and on the annuity, and the will on the rest, are <em>the</em> estate, and the three must be consistent, not just present.</li>
+</ul>
+<2>The complete decumulation blueprint for a 60-year-old</2>
+<pre>flowchart TD
+A[Age 60, corpus ready] --> B1[Step 1: NPS exit&lt;br/>80% lump-sum, 20% annuity&lt;br/>src-nps-2025-exit]
+A --> B2[Step 2: Build the income floor&lt;br/>SCSS 8.2% + PPF&lt;br/>for the guaranteed portion]
+B1 --> B3[Step 3: Build the buckets&lt;br/>1yr cash · 3yr debt · rest equity]
+B2 --> B3
+B3 --> B4[Step 4: Earmark the medical&lt;br/>10-15% of corpus in SCSS/PPF&lt;br/>for medical inflation 8-10%&lt;br/>assumption]
+B4 --> B5[Step 5: Survivor layer&lt;br/>term on spouse + NPS joint-life&lt;br/>annuity + will consistent&lt;br/>with all four accounts]
+B5 --> B6[Step 6: Withdrawal policy&lt;br/>4% of *current* corpus, not&lt;br/>initial; refill the cash bucket&lt;br/>from equity gains in recovery years]
+B6 --> B7[Annual review: real return&lt;br/>of the equity sleeve vs the 4%&lt;br/>assumption; step the withdrawal&lt;br/>up if real > 4%, step down&lt;br/>if real &lt; 4%]</pre>
+<p>The six steps, and why the order matters: <strong>NPS first</strong> (the lump-sum is <em>tax</em> event, and the 80% slice is the biggest liquid chunk of the corpus, so it is the first thing allocated to the buckets, not left to drift); <strong>income floor second</strong> (the SCSS/PPF is the <em>guaranteed</em> portion, and it is the <em>only</em> portion that is not at the mercy of the equity market, so it is built <em>before</em> the bucket structure, because the bucket's "3 years of debt" is <em>supplemented</em> by the SCSS income, not replaced by it); <strong>buckets third</strong> (the cash/debt/equity split, with the <em>refill rule</em> — the cash bucket is refilled from the equity sleeve's <em>gains</em> in years 2–4 after a crash, not from the equity sleeve's <em>losses</em> in the crash year); <strong>medical earmark fourth</strong> (the SCSS bucket for medical is a <em>separate</em> account from the SCSS bucket for general income, even though the instrument is the same — the <em>earmark</em>, not the instrument, is what keeps the general corpus from being sold in a medical-bill year); <strong>survivor layer fifth</strong> (the term, the NPS joint-life annuity, and the will, all consistent with each other); <strong>withdrawal policy last</strong> (4% of <em>current</em> corpus, with the step-up/step-down rule, is the <em>operating</em> rule that runs the whole thing, and it is the last thing set because it depends on all five of the preceding pieces being in place).</p>
+<p>The blueprint is a <em>structure</em>; the numbers in it (8.2%, 80%, 20%, 4%, 10–15%) are <em>placeholders</em> that must be verified against the <em>current</em> SCSS rate, the <em>current</em> NPS exit rules, and the <em>current</em> inflation assumption <em>in the year the plan is built</em>, not against the 2026-08-06 verified numbers in this article, which will be the numbers for <em>that</em> year, not for <em>your</em> year.</p>
+<2>Related</2>
+<ul>
+<li><a href="../personal-finance/pf-wealth-plan-10-lakh.mdx">Your 10 Lakh Wealth Plan</a> — the accumulation side: where the corpus for this article's decumulation math actually comes from, and the honest answer to "is my 10L going to be enough for a 25× corpus by 60."</li>
+<li><a href="../government-schemes/govt-small-savings-schemes.mdx">Government Small-Savings Schemes</a> — the full PPF/EPF/NPS/APY/SCSS/SWPS/NSC/KVP picture, with the current rates and limits, that this article's decumulation section assumes.</li>
+<li><a href="../portfolio-construction/portfolio-construction-rebalancing.mdx">Portfolio Construction &amp; Rebalancing</a> — the <em>pre-retirement</em> version of the bucket strategy, and the rebalancing rule that keeps the equity sleeve at its target weight <em>into</em> the retirement year.</li>
+</ul>
+<2>Sources</2>
+<ul>
+<li><code>src-nps-2025-exit</code> — PFRDA NPS 2025 exit rules: 80% lump-sum at exit (raised from 60%); up to 100% equity option; exit flexibility extended to age 85 (verify current details; the source URL is a Wikipedia reference to the regulation, not the regulation itself — confirm the primary PFRDA document before relying on the specific exit-window age).</li>
+<li><code>src-scss-8-2</code> — SCSS rate 8.2% p.a. for FY 2025-26 (quarterly compounding; verify the current quarterly rate before citing in a plan; the rate is revised each quarter).</li>
+</ul>
+<2>Update log</2>
+<ul>
+<li>2026-08-06: Verified NPS 2025 exit rules (80% lump-sum, 100% equity option, age-85 exit flexibility) against <code>src-nps-2025-exit</code>; flagged the age-85 detail for primary-source confirmation (the registry entry's URL is a Wikipedia article, not the PFRDA regulation).</li>
+<li>2026-08-06: Verified SCSS 8.2% p.a. FY 2025-26 against <code>src-scss-8-2</code>; the rate is quarterly-revised, so every "current SCSS rate" statement in this article is time-sensitive and must be re-verified against the latest government quarterly notice.</li>
+<li>The 12.5% equity LTCG rate (above ₹1L/yr) and the slab-rate treatment of debt-fund LTCG (post-2023 amendment) and of annuity/interest income are stated as "verify current treatment" — these are time-sensitive and the article does not source them to a named publication; confirm before using them in a client plan.</li>
+<li>The −30% year-one crash scenario (exhaustion ~year 23–24 of a 25× corpus) is an illustrative worked example under the stated assumptions (9% nominal recovery, 6% inflation on withdrawals, end-of-year timing); it is a <em>pattern</em>, not a prediction, and the actual sequence-risk outcome depends on the exact crash magnitude, recovery path, and withdrawal policy, none of which are known in advance.</li>
+<li>Medical-inflation 8–10% assumption and the 10–15% corpus earmark: working assumptions, not sourced constants; revisit against published medical-inflation data and the individual's expected medical profile.</li>
+<li>2027-02-28: Scheduled review of the NPS exit details, the SCSS rate, and the LTCG/debt-LCG/annuity tax treatments.</li>
+</ul>
+<h2>Sources</h2><ol><li>PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025 — PFRDA (Exits and Withdrawals under the NPS) (Amendment) Regulations, 2025, w.e.f. 16 Dec 2025: https://www.pfrda.org.in/documents/33652/184762/Gazette+PFRDA+Exit+and+Withdrawals+under+the+NPS+Amendment+Regulations+2025.pdf (verified 2026-10-16)</li><li>Economic Times / Moneycontrol (quoting govt. quarterly review) — Senior Citizens' Savings Scheme interest rate 8.2% p.a. for FY 2025-26: https://economictimes.indiatimes.com/wealth/invest/senior-citizens-savings-scheme-has-the-government-revised-scss-interest-rate-for-the-december-quarter/ (verified 2026-10-16)</li></ol>
+<p style="font-size:.75rem;color:#666;margin-top:2rem;border-top:1px solid #ccc;padding-top:1rem">Educational content, not individualized investment, tax, accounting, or legal advice.</p>
+</body></html>

@@ -1,0 +1,89 @@
+---
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categoryById } from '@lib/site';
+import { ARTICLES, sourceById } from '@lib/content';
+
+// Self-contained getStaticPaths (no top-level bindings the chunk can drop).
+export async function getStaticPaths() {
+  const repoRoot = process.cwd();
+  const modules = await import.meta.glob('/src/content/**/*.mdx', { eager: true });
+  const byId: Record<string, any> = {};
+  for (const p in modules) {
+    const mod = modules[p] as any;
+    const id: string | undefined = mod?.frontmatter?.id ?? mod?.default?.id;
+    if (id) byId[id] = mod;
+  }
+
+  const out: any[] = [];
+  for (const id of Object.keys(byId)) {
+    const mod = byId[id];
+    const fm = mod.frontmatter ?? mod.default ?? {};
+    const reg = ARTICLES.find((a) => a.id === id);
+    let raw = '';
+    if (reg) {
+      try { raw = await readFile(path.join(repoRoot, reg.file), 'utf8'); } catch { raw = ''; }
+    }
+    out.push({
+      params: { id },
+      props: { fm, MdxComponent: mod.default, raw, cat: categoryById(String(fm.category)) },
+    });
+  }
+  return out;
+}
+
+const { fm, MdxComponent, cat } = Astro.props as any;
+const sources = (Array.isArray(fm.sources) ? fm.sources : [])
+  .map((s: string) => sourceById(s)).filter(Boolean);
+---
+
+<BaseLayout title={`${fm.title} (Print)`}>
+  <div id="print-area" style="max-width:46rem; margin:0 auto; padding:1rem; font-family:Georgia,'Times New Roman',serif; color:#111; background:#fff;">
+    <div style="font-size:.8rem; color:#555; margin-bottom:.4rem;">DhanPedia — India's Encyclopedia of Investing, Money &amp; Wealth</div>
+    <h1 style="font-size:1.6rem; line-height:1.2; margin:.2rem 0;">{fm.title}</h1>
+    {fm.description && <p style="color:#555; font-style:italic; margin:.4rem 0 .8rem; font-size:.95rem;">{fm.description}</p>}
+    <div style="display:flex; gap:1.5rem; font-size:.8rem; color:#555; border-block:1px solid #ccc; padding:.5rem 0; margin-bottom:1rem; flex-wrap:wrap;">
+      <span>Category: {cat?.title ?? String(fm.category)}</span>
+      <span>Difficulty: {String(fm.difficulty ?? 'intermediate')}</span>
+      {fm.lastVerified && <span>Last verified: {String(fm.lastVerified)}</span>}
+      <span>Author: {fm.author ?? 'Chirag Singhal'}</span>
+    </div>
+
+    {MdxComponent && <div class="print-prose">{MdxComponent}</div>}
+
+    {sources.length > 0 && (
+      <section style="margin-top:2rem; border-top:1px solid #ccc; padding-top:1rem; font-size:.82rem; color:#444;">
+        <strong>Sources</strong>
+        <ol style="padding-left:1.2rem; line-height:1.6;">
+          {sources.map((s) => <li>{s!.publisher} — <em>{s!.title}</em>. {s!.url}{s!.verified ? ` (verified ${s!.verified})` : ''}</li>)}
+        </ol>
+      </section>
+    )}
+
+    <div style="margin-top:2rem; padding-top:1rem; border-top:1px solid #ccc; font-size:.75rem; color:#666; line-height:1.6;">
+      Educational content only — not individualized investment, tax, accounting, or legal advice. Figures reflect the verification date above and may change.
+    </div>
+  </div>
+
+  <script>
+    const b = document.createElement('button');
+    b.textContent = '🖨️ Print / Save as PDF';
+    b.style.cssText = 'position:fixed; bottom:1rem; right:1rem; z-index:60; background:#0f3a2e; color:#fff; border:none; border-radius:10px; padding:.7rem 1rem; font-weight:600; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,.2);';
+    b.onclick = () => window.print();
+    document.body.appendChild(b);
+  </script>
+
+  <style>
+    @media print {
+      .site-header, .site-footer, #theme-toggle, .skip-link, button { display:none !important; }
+      body { background:#fff !important; }
+      #print-area { max-width:none; padding:0; }
+    }
+    .print-prose { font-size:.98rem; line-height:1.7; }
+    .print-prose h2 { font-size:1.25rem; margin-top:1.6rem; }
+    .print-prose h3 { font-size:1.05rem; margin-top:1.2rem; }
+    .print-prose table { width:100%; border-collapse:collapse; font-size:.82rem; }
+    .print-prose th,.print-prose td { border:1px solid #ccc; padding:.4rem .5rem; }
+  </style>
+</BaseLayout>

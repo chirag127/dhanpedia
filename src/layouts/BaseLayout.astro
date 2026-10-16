@@ -1,0 +1,126 @@
+---
+import { CATEGORIES, SITE } from '@lib/site';
+import { link, base as BASE } from '@lib/nav';
+import ThemeToggle from '@components/ThemeToggle.astro';
+import '../styles/global.css';
+import '../styles/prose.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/source-serif-4';
+import 'katex/dist/katex.min.css';
+
+const { title, description } = Astro.props;
+// Astro.url.pathname already includes the deployment base (/ or /dhanpedia),
+// so absolute canonical/OG URLs are origin + pathname (no extra base prefixing).
+const canonical = `${SITE.origin}${Astro.url.pathname}`;
+const pageTitle = title && title !== SITE.name ? `${title} · ${SITE.name}` : `${SITE.name} — ${SITE.taglineAlt}`;
+const pageDescription = description || SITE.description;
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Topics', href: '/topics' },
+  { label: 'Calculators', href: '/calculators' },
+  { label: 'Books & Downloads', href: '/books' },
+  { label: 'Glossary', href: '/glossary' },
+  { label: 'Sources', href: '/sources' },
+  { label: 'About', href: '/about' },
+];
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="author" content={SITE.author} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={BASE ? `${BASE}/favicon.svg` : '/favicon.svg'} />
+    <link rel="manifest" href={BASE ? `${BASE}/manifest.webmanifest` : '/manifest.webmanifest'} />
+    <meta name="theme-color" content={SITE.themeColor} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      // Restore theme before paint to avoid a flash.
+      (function () {
+        const root = document.documentElement;
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) root.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" style="border-bottom:1px solid var(--line); background:color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px); position:sticky; top:0; z-index:50;">
+      <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-block:.85rem;">
+        <a href={link('/')} style="display:flex; align-items:center; gap:.6rem; text-decoration:none;">
+          <img src={BASE ? `${BASE}/favicon.svg` : '/favicon.svg'} alt="" width="34" height="34" />
+          <span style="font-family:var(--font-serif); font-size:1.25rem; font-weight:600; color:var(--ink);">{SITE.name}</span>
+        </a>
+
+        <nav aria-label="Primary" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+          <a href={link('/topics')} style="text-decoration:none; font-size:.9rem; font-weight:500; padding:.35rem .6rem; border-radius:8px; color:var(--ink-soft);">Topics</a>
+          <a href={link('/calculators')} style="text-decoration:none; font-size:.9rem; font-weight:500; padding:.35rem .6rem; border-radius:8px; color:var(--ink-soft);">Calculators</a>
+          <a href={link('/books')} style="text-decoration:none; font-size:.9rem; font-weight:500; padding:.35rem .6rem; border-radius:8px; color:var(--ink-soft);">Books</a>
+          <a href={link('/search')} style="text-decoration:none; font-size:.9rem; font-weight:500; padding:.35rem .6rem; border-radius:8px; color:var(--ink-soft);">Search</a>
+          <a href={link('/glossary')} style="text-decoration:none; font-size:.9rem; font-weight:500; padding:.35rem .6rem; border-radius:8px; color:var(--ink-soft);">Glossary</a>
+          <a href={link('/sources')} style="text-decoration:none; font-size:.9rem; font-weight:500; padding:.35rem .6rem; border-radius:8px; color:var(--ink-soft);">Sources</a>
+          <a href={link('/about')} style="text-decoration:none; font-size:.9rem; font-weight:500; padding:.35rem .6rem; border-radius:8px; color:var(--ink-soft);">About</a>
+          <ThemeToggle />
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer" style="margin-top:4rem; border-top:1px solid var(--line); background:var(--surface-2);">
+      <div class="container" style="padding-block:2.5rem; display:grid; gap:2rem; grid-template-columns:1.4fr 1fr 1fr;">
+        <div>
+          <div style="font-family:var(--font-serif); font-size:1.2rem; font-weight:600;">{SITE.name}</div>
+          <p style="color:var(--ink-soft); font-size:.9rem; margin:.5rem 0 0;">{SITE.tagline} A free, evidence-based encyclopedia. Educational — not individualized investment, tax, or legal advice.</p>
+        </div>
+        <div>
+          <div style="font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); font-weight:700;">Categories</div>
+          <ul style="list-style:none; padding:0; margin:.6rem 0 0; columns:2; gap:1rem; font-size:.88rem;">
+            {CATEGORIES.map((c) => <li style="margin-bottom:.3rem;"><a href={link(`/topics/${c.slug}`)} style="color:var(--ink); text-decoration:none;">{c.short}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); font-weight:700;">Project</div>
+          <ul style="list-style:none; padding:0; margin:.6rem 0 0; font-size:.88rem;">
+            <li style="margin-bottom:.35rem;"><a href="mailto:{SITE.authorEmail}">{SITE.authorEmail}</a></li>
+            <li style="margin-bottom:.35rem;"><a href={SITE.githubRepo} rel="noopener noreferrer" target="_blank">GitHub</a></li>
+            <li style="margin-bottom:.35rem;"><a href={SITE.support} rel="noopener noreferrer" target="_blank">Support the project</a></li>
+            <li style="margin-bottom:.35rem;"><a href={link('/editorial-policy')}>Editorial policy</a></li>
+            <li><a href={link('/security')}>Security & privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container" style="padding-block:1rem; font-size:.78rem; color:var(--ink-soft); border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <span>© 2026 {SITE.author}. Code MIT · content CC BY 4.0.</span>
+        <span>Author: {SITE.author} · Last updated {new Date().toISOString().slice(0, 10)}</span>
+      </div>
+    </footer>
+
+    <style>
+      .skip-link { position:absolute; left:-9999px; top:0; background:var(--gold-soft); padding:.5rem 1rem; border-radius:0 0 8px 0; z-index:100; }
+      .skip-link:focus { left:0; }
+      .site-header .is-active { background:var(--gold-soft); color:var(--ink) !important; }
+      .site-header nav a { transition:background .15s, color .15s; }
+      .site-header nav a:hover { background:var(--surface-2); }
+    </style>
+  </body>
+</html>

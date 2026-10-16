@@ -1,0 +1,1024 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>The Complete Indian Investor</title>
+<style>body{font:17px/1.75 Georgia,serif;max-width:48rem;margin:2rem auto;padding:0 1.2rem;color:#14231d}
+nav.toc{background:#f1efe7;border:1px solid #ddd;border-radius:10px;padding:1rem 1.4rem;margin:1.5rem 0}
+nav.toc h2{margin-top:0}.cover{text-align:center;padding:2.5rem 0;border-bottom:3px double #c69a2c}
+.cover h1{font-size:2.2rem;margin:.4rem 0}.article{margin-top:2.5rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}
+table{border-collapse:collapse;width:100%;font-size:.9rem}td,th{border:1px solid #ccc;padding:.4rem .5rem}
+code{background:#f1efe7;padding:.1rem .35rem;border-radius:4px}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}
+.eq code{display:block;text-align:center;margin:.8rem 0}footer{margin-top:3rem;border-top:1px solid #ccc;padding-top:1rem;font-size:.75rem;color:#666}
+@media print{.noprint{display:none}nav.toc{break-inside:avoid}}</style></head>
+<body>
+<div class="cover"><div style="font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:#1f7a5c">DhanPedia · Foundations, Allocation, Mutual Funds, Small-Savings Schemes & Your 10L Plan</div>
+<h1>The Complete Indian Investor</h1><p style="color:#3c4b44">A single-volume reference from first principles (compounding, risk, behavior) through index funds, SIPs, PPF/EPF/NPS/SSY/NSC, gold bonds, and a concrete Rs.10 lakh starting allocation.</p><p style="font-size:.8rem;color:#555">Audience: Beginner-to-intermediate Indian investor with basic financial literacy · Version 1.0 · 2026-10-16</p></div>
+<div class="preface"><h2>Introduction</h2><p>This book is the core DhanPedia volume. It assumes you understand what a bank account and a salary are, and takes you to a complete, tax-aware, risk-graded personal portfolio you can actually build with Rs.10 lakh.</p></div>
+<button class="noprint" onclick="window.print()" style="margin:1rem 0;padding:.5rem 1rem;border:1px solid #1f7a5c;background:#1f7a5c;color:#fff;border-radius:8px;cursor:pointer">🖨️ Print / Save as PDF</button>
+<nav class="toc"><h2>Contents</h2><ol><li><a href="#foundations-compounding-returns">Compounding, CAGR, XIRR & Real Returns: The Math That Actually Matters</a></li><li><a href="#foundations-risk-allocation-behavior">Risk, Asset Allocation, Diversification & Behavioral Traps</a></li><li><a href="#mf-index-etf-direct-regular">Index Funds, ETFs, Direct vs Regular Plans & Tracking Error</a></li><li><a href="#mf-sip-swp-stp-goals">SIP, STP & SWP: Structured Investing and Goal Planning</a></li><li><a href="#mf-choosing-comparing-funds">How to Choose and Compare Mutual Funds (Without Chasing Performance)</a></li><li><a href="#govt-small-savings-schemes">Government Small-Savings Schemes: PPF, EPF/VPF, NPS, APY, SCSS, SSY, NSC, KVP</a></li><li><a href="#govt-sovereign-gold-bonds">Sovereign Gold Bonds: How They Worked, Why They Stopped, and What to Do Now</a></li><li><a href="#portfolio-construction-rebalancing">Portfolio Construction, Rebalancing & Risk Budgeting</a></li><li><a href="#pf-wealth-plan-10-lakh">Your 10 Lakh Wealth Plan: Allocation, SIP Scaling & the Road to PMS/AIF</a></li></ol></nav>
+<article data-chapter="foundations-compounding-returns"><h1>Compounding, CAGR, XIRR & Real Returns: The Math That Actually Matters</h1><p>"Your fund returned 14% this year." — a claim that tells you almost nothing about what it did <em>for you</em>. The gap between that number and your actual experience of wealth is where most Indian investors lose more money than they lose to market falls: to the difference between nominal and real returns, between CAGR and XIRR, and to the quiet, compounding bleed of fees and taxes. This article builds the full toolkit — with worked Indian numbers — so that every return you ever quote or believe is the <em>right</em> return for the question you are asking.</p>
+<2>What "return" actually means</2>
+<p>Three different numbers get called "the return" of the same asset:</p>
+<ul>
+<li><strong>Nominal return</strong> — what happened to the price in rupee terms, before inflation and before tax.</li>
+<li><strong>Real return</strong> — what happened to <em>purchasing power</em>.</li>
+<li><strong>Post-tax return</strong> — what actually reached your bank account after the taxman took his share.</li>
+</ul>
+<p>The bridge from nominal to real is exact, and it is not "subtract inflation" (that is a shortcut that quietly overstates real returns at high inflation):</p>
+<p>$$r_{real} = \frac{1 + r_{nominal}}{1 + \pi} - 1$$</p>
+<p>where $\pi$ is the inflation rate. Worked example: an equity fund earns a <strong>nominal 12%</strong> in a year with <strong>5% inflation</strong>. Real return = 1.12/1.05 − 1 = <strong>6.67%</strong>, not 7.0%. The "just subtract" rule gives 7.0%; the exact formula gives 6.67%. At single-digit inflation the difference is small; at 8% inflation it widens (12% nominal against 8% inflation is 3.70% real, not 4.0%), which is exactly the stagflation year when the distinction matters most.</p>
+<2>CAGR: the clean number and its blind spot</2>
+<p>Compound annual growth rate is the geometric mean of growth over a period:</p>
+<p>$$CAGR = \left(\frac{V_{end}}{V_{begin}}\right)^{1/t} - 1$$</p>
+<p>Example: ₹10 lakh grows to ₹30 lakh over 12 years → CAGR = (3.0)^(1/12) − 1 ≈ 10.0%. Clean. And here is the blind spot: <strong>CAGR assumes all money sat in from day one.</strong> It says nothing about cash-flow timing. A fund with CAGR 10% that you loaded into in month 1 of a crash, versus the identical fund loaded in at the top of the same year, produces <em>different</em> personal outcomes — same CAGR, wildly different money-weighted result. That is the entire argument for XIRR.</p>
+<2>XIRR: the metric that respects your cash flows</2>
+<p>XIRR solves for the annual rate r that makes the present value of every cash flow (negative = you paid in, positive = you got out) equal to zero:</p>
+<p>$$\sum_{k} CF_k \times (1 + r)^{-t_k} \;=\; 0, \qquad t_k \text{ in years from the first flow}$$</p>
+<p>Worked example with real dates (assumptions: one lump and two mid-stream top-ups, single exit):</p>
+<table>
+<thead><tr><th>Date</th><th>Cash flow</th><th>Note</th></tr></thead>
+<tbody><tr><td>1 Jan 2019,−₹1,00,000,initial lump</td><td>1 Jan 2021,−₹50,000,top-up after two years</td><td>1 Jan 2022,−₹75,000,top-up after three years</td><td>1 Jan 2026,+₹3,20,000,full exit</td></tr></tbody>
+</table>
+<p>Total in: ₹2,25,000. Naive "CAGR" over the ~7 years would compute (3.20/2.25)^(1/7) − 1 ≈ <strong>5.2%</strong> — but that pretends all ₹2.25 lakh was in from 2019, when two of the three contributions were latecomers. Solving the XIRR equation by iteration:</p>
+<ul>
+<li>At r = 7%: future value at exit = 1,00,000×1.07⁷ + 50,000×1.07⁵ + 75,000×1.07⁴ ≈ 1,60,578 + 70,128 + 98,310 = ₹3,29,016 — too high, so the true rate is below 7%.</li>
+<li>At r = 6.4%: ≈ 1,54,392 + 68,191 + 96,124 = ₹3,18,707 — just below ₹3,20,000.</li>
+<li>Interpolating: <strong>XIRR ≈ 6.4–6.5% p.a.</strong></li>
+</ul>
+<p>The honest statement: "This investor earned about 6.5% a year on the timing of his actual money." The 5.2% naive number understates it (money was in later, so it had less time to grow — the <em>same</em> ₹3.2 lakh exit is a <em>better</em> result per rupee than the naive CAGR implies). The lesson is direction and discipline, not the exact digit: <strong>CAGR describes the asset; XIRR describes you.</strong></p>
+<2>Time-weighted vs money-weighted: who gets credited</2>
+<p>The two families of return metrics answer different questions, and the Indian fund industry quietly mixes them up:</p>
+<ul>
+<li><strong>Time-weighted return (TWR)</strong> measures the <em>manager</em>: contributions and withdrawals are stripped out by chaining sub-period returns. It is the fair benchmark number, because the manager did not choose when you added money.</li>
+<li><strong>Money-weighted return (MWR)</strong> — which is exactly your XIRR — measures <em>you</em>: it weights each period by the capital you actually had in it. Add a big lump in a crash year and your MWR on a decent fund can be far above the TWR; add at the top and it can be far below.</li>
+</ul>
+<p>Practical use: judge a fund by TWR vs its benchmark TWR; judge your own wealth creation by XIRR on your own statements. Never use a manager's TWR to estimate what <em>your</em> irregular SIPs will do.</p>
+<2>The rule of 72 — and why inflation is the real boss</2>
+<p>The rule of 72: doubling time (years) ≈ 72 ÷ annual return %. It is just the log approximation of the CAGR formula, and it is the fastest sanity check you will own:</p>
+<ul>
+<li>12% nominal → doubles every 72/12 = <strong>6 years</strong>.</li>
+<li>5% inflation → your rupee purchasing power doubles in cost terms every 72/5 = <strong>14.4 years</strong>.</li>
+<li>12% nominal against 5% inflation → real 6.67% (by the exact formula above) → purchasing power doubles every 72/6.67 ≈ <strong>10.8 years</strong>.</li>
+</ul>
+<p>That 10.8-year real doubling is the number that should live behind every goal-corporus estimate you make. A "6-year doubling" is a <em>nominal</em> claim; it is only about 58% of what sounds like it once inflation is on the table.</p>
+<2>Fee drag: the 1% that is not a 1%</2>
+<p>Expense ratios are quoted annually, which makes them look trivial: 1% on a year. They are not trivial because they compound <em>against</em> you for the entire holding period, and the damage is proportional to time, not to the fee.</p>
+<p>Worked example — <strong>assumptions: a ₹1,00,000 lump sum, annual compounding, 20-year hold, a flat 1% expense ratio, no tax, no cash flows (each labelled because each one matters):</strong></p>
+<table>
+<thead><tr><th>Version</th><th>Formula</th><th>20-year value</th></tr></thead>
+<tbody><tr><td>12% gross, no fee,1,00,000 × 1.12²⁰ = 1,00,000 × 9.646,<strong>₹9,64,600 (≈ ₹9.65 lakh)</strong></td><td>11% net after 1% fee,1,00,000 × 1.11²⁰ = 1,00,000 × 8.062,<strong>₹8,06,200 (≈ ₹8.06 lakh)</strong></td><td>Drag,difference,<strong>≈ ₹1,58,400 (≈ ₹1.58 lakh)</strong></td></tr></tbody>
+</table>
+<p>Read the table the right way: a <em>1-percentage-point</em> fee cost about <strong>16% of the final corpus</strong> on this horizon. Scale it to a ₹10 lakh start (linear, same assumptions) and the 1% fee destroys <strong>≈ ₹15.8 lakh</strong> of a ₹96.5 lakh gross outcome — leaving ₹80.6 lakh. And for a SIP, the drag is proportionally <em>more</em> severe: every instalment spends more of its life compounding, so the fee eats more years. Two practical consequences: index funds (expense ratios in the low single tenths of a percent, direct plans) are not a fad, they are arithmetic; and a fund's "14% return" should always be read as gross, with your net figure one or two points lower depending on its ER.</p>
+<2>Post-tax: the third layer the fund fact-sheet never shows</2>
+<p>Equity long-term capital gains in India are taxed at <strong>12.5% plus 4% cess — an effective ~13% on the gain</strong> (last verified: 2026-08-06; re-check at Budgets), which is why an index-and-hold strategy's real drag is modest compared with income streams taxed at slab rates. Worked, with the same labelled assumptions (₹1,00,000 lump, 12% gross, 20 years, single exit):</p>
+<table>
+<thead><tr><th>Layer</th><th>20-year outcome</th><th>Effective annual CAGR</th></tr></thead>
+<tbody><tr><td>Gross,₹9,64,600 (₹8,64,600 gain),12.0%</td><td>After LCG tax 12.5% only,gain × 0.875 → ≈ ₹8,56,500,≈ 11.3%</td><td>After LCG tax incl. 4% cess (effective ~13%),gain × 0.87 → ≈ ₹8,52,200,≈ 11.3%</td><td>Headline planning number,,<strong>≈ 11.3%</strong></td></tr></tbody>
+</table>
+<p>For a reader in a 20–30% income slab, that 13% on gains is a <em>lower</em> marginal burden than the slab itself — the equity exit is comparatively cheap, which is the whole tax logic of the equity allocation in <code>pf-wealth-plan-10-lakh</code>. Compare with a debt fund's gains, which (after the 3-year LT threshold) merge into your slab income at 20–30% — the structural reason long-horizon Indian investors tilt equity.</p>
+<p><strong>The combined honest number.</strong> Stack all three layers on one illustrative case (₹1 lakh lump, 12% gross, 1% fee, 20 years, 5% average inflation, LCG exit tax effective ~13%): 12% gross − 1% fee = 11% net → ₹8.06 lakh; exit tax on the ₹7.06 lakh gain ≈ ₹0.92 lakh → <strong>₹7.14 lakh</strong>; post-tax CAGR ≈ <strong>10.3%</strong>; real (against 5% inflation) ≈ <strong>5.1% per year</strong>. Five points a year of <em>real, after-fee, after-tax</em> growth on an equity lump sum is the number your retirement corpus should actually be built from — not the 12% on the fact sheet. Every figure in this paragraph is labelled illustration; the <em>method</em> is the deliverable.</p>
+<2>A short decision list</2>
+<ol>
+<li>Nominal vs real: if the decision is about lifestyle, always convert to real with the exact formula.</li>
+<li>CAGR vs XIRR: quote XIRR for anything with your own cash flows; CAGR for pure asset comparisons.</li>
+<li>TWR for the manager, MWR/XIRR for yourself — never swap.</li>
+<li>Fees: compare final corpus, not the fee line.</li>
+<li>Tax: price the <em>exit</em> before you price the entry.</li>
+</ol>
+<2>How this article uses calculators</2>
+<p>The DhanPedia calculators page at <code>/calculators</code> carries the machinery this article teaches: an XIRR tool (enter the four dated cash flows above and it should return ≈ 6.4–6.5%), CAGR and doubling-time tools, and a fee-drag comparison tool (₹1 lakh, 12% vs 11%, 20 years → ₹9.65 lakh vs ₹8.06 lakh). Use the calculators as the <em>checker</em> for the hand math — if your entry gives a different answer, you have found an assumption mismatch (compounding convention, tax, or date basis), which is the whole point of the exercise.</p>
+<2>Related</2>
+<ul>
+<li><code>foundations-risk-allocation-behavior</code> — what the returns are <em>for</em>: pricing risk and avoiding the behavioural traps that erase them</li>
+<li><code>pf-wealth-plan-10-lakh</code> — the 10-lakh plan that spends these exact formulas</li>
+</ul>
+<2>Sources &amp; citations</2>
+<ul>
+<li><code>src-it-slab-calculator</code> — Cleartax (secondary summary of official slabs), "Income Tax Slabs FY 2025-26 &amp; FY 2026-27 (New and Old Regime)", https://cleartax.in/s/income-tax-slabs — supports the slab context used in the post-tax discussion.</li>
+</ul>
+<p>The 12.5% LCG rate with 4% cess and the 12% planning CAGR in the worked examples are the article's own planning inputs, marked time-sensitive below.</p>
+<2>Update log</2>
+<ul>
+<li><strong>Equity long-term capital gains: 12.5% + 4% cess (effective ~13%)</strong> — re-verify at each Union Budget (last verified: 2026-08-06)</li>
+<li><strong>Planning inflation assumption: ~5%</strong> — a planning input, not a statistic; refresh against the latest CPI print before republishing</li>
+<li><strong>12% planning CAGR for equity</strong> — planning assumption labelled as such throughout; not a forecast</li>
+<li>No external rate data is claimed in this article; the fee-drag and tax figures are arithmetic on stated assumptions</li>
+</ul>
+<2>Editorial / review status</2>
+<p>Published; last verified 2026-08-06; next review due 2027-02-28. Educational content, not individualized advice.</p></article>
+<article data-chapter="foundations-risk-allocation-behavior"><h1>Risk, Asset Allocation, Diversification & Behavioral Traps</h1><p>Most investing losses are not market losses. The market is a neutral referee; the score is set long before the first trade, by how much risk you took on, in which mix, and — least understood — by the repeated small decisions of an investor watching his own money. This article separates the two engines that actually drive long-run outcomes: <strong>asset allocation</strong> (the decisions you make once, deliberately) and <strong>behaviour</strong> (the decisions you make constantly, automatically). It defines risk the way a practitioner does, walks through the traps that are specific to India, and closes with a decision tree you can put on the wall.</p>
+<p>Read this after <code>foundations-compounding-returns</code>, because everything here is about <em>protecting</em> the compounding that article measures.</p>
+<2>What "risk" means (and the four things you must keep separate)</2>
+<p>"Risk" is the last of the financial terms people use most loosely and least usefully. Split it into four, because each has different drivers and different hedges:</p>
+<table>
+<thead><tr><th>Risk type</th><th>What it is</th><th>How you measure it</th><th>How you hedge it</th></tr></thead>
+<tbody><tr><td><strong>Volatility</strong>,Price swings around the mean — the standard deviation of returns,Stdev of returns, max drawdown,Diversification; position sizing; horizon</td><td><strong>Permanent loss</strong>,Money that never comes back: fraud, default, a company's terminal decline,Default rates, balance-sheet strength, concentration,Counterparty quality, credit analysis, diversification across issuers</td><td><strong>Liquidity risk</strong>,You need the money and the market is closed, thin, or you are in a lock-in,Bid-ask, lot sizes, lock-in terms, platform caps,Cash/ladder buffer; avoid over-concentration in illiquid sleeves</td><td><strong>Sequence risk</strong>,A bad market <em>at exactly</em> the time you need to withdraw, early in retirement,Time-to-retirement, withdrawal order,Long early-retirement buffer; keep the drawdown sleeve funded in cash</td></tr></tbody>
+</table>
+<p>The reason the split matters is that <strong>the same label hides opposite problems.</strong> A liquid equity index can be highly <em>volatile</em> yet have near-zero <em>permanent-loss</em> risk over a long horizon. A P2P loan can be <em>low-volatility</em> (steady interest) yet carry high <em>permanent-loss</em> risk (a bad vintage defaulting) and <em>liquidity</em> risk (you cannot sell a loan to a stranger). Call each thing by its own name and the hedging decisions stop colliding.</p>
+<pre>graph TD
+  R["RISK"] --> V["Volatility\n(price swings)"]
+  R --> P["Permanent loss\n(it's gone)"]
+  R --> L["Liquidity\n(need it, can't get it)"]
+  R --> S["Sequence\n(wrong time to need it)"]
+  V --> Vh["Hedge: diversify, size, horizon"]
+  P --> Ph["Hedge: counterparty quality, spread"]
+  L --> Lh["Hedge: cash buffer, lock-in discipline"]
+  S --> Sh["Hedge: early-retirement cash sleeve"]</pre>
+<p>Text version of the diagram: "Risk" fans into four sub-types, each with its own distinct hedge; volatility hedging is not permanent-loss hedging.</p>
+<2>Allocation: the decision that sets most of the outcome</2>
+<p>The single most-cited result in investment literature is unglamorous: <strong>what you earn over a horizon is determined far more by your asset-mix choices than by your security or timing choices.</strong> Studies consistently show that the split between broad asset classes (equity, bonds, gold, cash) explains the large majority of the <em>difference</em> between one investor's long-run outcome and another's, while stock-picking, market-timing and manager-selection explain a much smaller share. The honest framing: this is a broad, well-supported empirical regularity across countries and decades, not a single headline study you can quote to the decimal.</p>
+<p>The mechanism is simple. Different asset classes move differently in different economic weather — equities in growth, bonds in rate cuts, gold in fear and currency, cash in nothing. A <em>mix</em> is therefore less volatile and less likely to be badly positioned than a <em>concentration</em>, and that lower risk lets you hold longer, which is the entire value of compounding. The trap is that the mix only works while you keep it: left alone, a 60/40 silently becomes 70/30 after a strong equity year, and the "decision you made once" quietly un-does itself. That is the whole subject of <code>portfolio-construction-rebalancing</code>.</p>
+<p>For India specifically, allocation has two added levers the Western averages don't capture: (1) <strong>domestic equity is a high-growth, high-volatility asset</strong> — long-run, but with drawdowns deep enough to scare off retail; and (2) <strong>the debt side is anchored by RBI policy</strong>, with the repo rate near 5.25% through late 2025 (last verified: 2026-08-06, src-rbi-repo). So an Indian "balanced" mix is not the 60/40 the US textbook implies; it is a deliberate choice of <em>how much Indian equity you can stomach</em> plus a short-duration debt sleeve that earns the policy rate.</p>
+<2>The India-specific traps</2>
+<p>These are the mistakes that cost Indian investors more than anything in the factor model. Each one is documented qualitatively; where we attribute it to a regulator, we name the source without inventing a figure.</p>
+<ul>
+<li><strong>Nifty all-in after a fat year.</strong> The most expensive reflex in the Indian market. A great Nifty year makes the "equity sleeve" look like a cash cow, and the investor who was 60% equity in a good year is 80% by the next, at the exact top. The mitigation is mechanical: rebalance on bands, not on mood (see <code>portfolio-construction-rebalancing</code>). The behavioural version of this is <em>hindsight bias</em> — the good year feels like it was "earned," so you lean in.</li>
+<li><strong>Single-stock PMS and "concentrated" private sleeves.</strong> PMS at a ₹50 lakh minimum tempts the investor to go heavy in a couple of names through a manager, mistaking a <em>management</em> fee for <em>alpha</em>. A genuine PMS is a diversified book; a single-stock PMS is a concentrated bet wearing a fee. Rule: a PMS position should never be larger than your tolerance for that manager being <em>wrong</em> for two years in a row. Full PMS/AIF anatomy is in <code>alternatives-pms-aif-private</code>.</li>
+<li><strong>Home-city real estate as a "diversification".</strong> Owning a flat in the city you live in and counting it as part of your portfolio is the classic Indian over-concentration: one asset, one geography, one economy, illiquid, and already paid for with your best years of cash flow. True diversification across asset classes <em>and</em> geography is what the word means; a home is a consumption item, not a diversifier. If you must hold property, REITs and InvITs are the <em>investable</em>, liquid form — see <code>real-estate-reit-invit</code>.</li>
+<li><strong>F&amp;O retail losses.</strong> Per SEBI annual reports, the overwhelming majority of retail F&amp;O traders lose money net of charges, year on year, and the loss is heavily concentrated among small, high-churn accounts. This is a <em>qualitative</em> statement we do not quantify here: we will not fabricate a percentage or a count. The point for a long-horizon investor is structural — F&amp;O is a zero-sum, fee-negative game where your counterparty is a funded, faster participant, so it belongs in the portfolio, if at all, as a tiny, pre-sized optionality sleeve, never as the strategy. Treat any P&amp;L you have in F&amp;O as the cost of tuition, and budget the next one.</li>
+</ul>
+<p>The common thread: <strong>each trap is a place where a <em>decision</em> has become a <em>habit</em>.</strong> Allocation is a decision; all four of these are habits wearing the costume of an allocation.</p>
+<2>Eight behavioural biases, one line each to kill them</2>
+<p>The bias is named; the mitigation is the <em>pre-commitment</em> that defeats it before the market does.</p>
+<ol>
+<li><strong>Anchoring</strong> — you hold a loss because "I bought it at ₹420." <em>Mitigation:</em> decide every holding on "what would I buy today at this price," never on cost.</li>
+<li><strong>Loss aversion</strong> — a loss hurts ~2× a gain, so you sell the winner and keep the loser. <em>Mitigation:</em> rebalance mechanically; selling the big winner <em>is</em> the trade, every time.</li>
+<li><strong>Hindsight bias</strong> — the fat year looks like skill; the crash looks like bad luck. <em>Mitigation:</em> write your thesis <em>before</em> buying; grade yourself against the written thesis, not the outcome.</li>
+<li><strong>Overconfidence</strong> — one good year convinces you that you can beat the market. <em>Mitigation:</em> require a <em>repeatable</em>, process-based edge before adding a concentrated position; default is index.</li>
+<li><strong>Herding / FOMO</strong> — the crowd rushes the IPO, the hot theme, the "next big thing." <em>Mitigation:</em> a written 24-hour no-trade rule on any non-plan asset.</li>
+<li><strong>Mental accounting</strong> — you segregate money by source ("bonus money" vs "salary money") and treat them differently. <em>Mitigation:</em> one portfolio, one risk grade; the rupee from the bonus and the rupee from the salary are the same rupee.</li>
+<li><strong>Recency bias</strong> — the last five years' average gets mistaken for the next five years'. <em>Mitigation:</em> plan against a 10–15 year range, not the trailing one; the "rule of 72" in <code>foundations-compounding-returns</code> keeps you honest.</li>
+<li><strong>Time inconsistency</strong> — the plan you approve in calm markets is not the one you execute in crashes. <em>Mitigation:</em> a standing instruction (a "no-trade window" of 3 months between discretionary moves) so the calm-you can pre-commit the crash-you.</li>
+</ol>
+<p>The last one is the meta-bias: it is why every other bias <em>survives</em>. You are not one investor; you are a calm one and a panicked one, and the plan is a treaty between them.</p>
+<2>Should I add risk? — the decision tree</2>
+<p>This is the wall chart. It is not a "should I buy X" chart; it is a "have I earned the right to take on more risk right now" chart, in the order you must actually answer.</p>
+<pre>flowchart TD
+  A{"Emergency fund\n= 6 months?"} -->|No| N["DO NOT add risk.\nBuild cash first."]
+  A -->|Yes| B{"No high-cost\ndevice debt?"}
+  B -->|No| N
+  B -->|Yes| C{"Insurance in place\n(term + health)?"}
+  C -->|No| N
+  C -->|Yes| D{"Any money in this\nbucket needed\nin &lt; 5 years?"}
+  D -->|Yes| N
+  D -->|No| E{"Has the existing mix\ndrifted out of band?"}
+  E -->|Yes| R["REBALANCE first;\nrebalance = adds equity\nwhen equity underweight."]
+  E -->|No| F{"Is my risk grade\nstill my written grade?"}
+  F -->|No| G["Re-grade in writing.\nLower grade -> less risk."]
+  F -->|Yes| H{"Can I fund the top of\nthe next crash\n(without borrowing)?"}
+  H -->|No| N
+  H -->|Yes| GO["Add risk —\nin the pre-decided sleeve,\nat the pre-decided size,\non a written thesis."]</pre>
+<p>Text version: a gate sequence. Six preconditions must all be <em>yes</em> before "add risk" is even a question; the two "no" exits are a pre-rebalance and a re-grade, and the final "GO" is only reached on a written thesis, a pre-sized sleeve, and a written ability to fund the next crash without borrowing.</p>
+<p>Note how the tree makes <em>adding</em> risk the hard path and <em>not</em> adding it the default. That is deliberate: the asymmetry of the decision (adding is easier to regret than it is to reverse) means the burden of proof should sit with the person adding, not removing, risk.</p>
+<2>A short due-diligence checklist</2>
+<p>Before you move a rupee, run this against <em>your</em> situation, not a template:</p>
+<ul>
+<li>[ ] Emergency fund and insurance confirmed <em>outside</em> the growth portfolio?</li>
+<li>[ ] Every asset I hold, named by its <em>risk type</em> (volatility / permanent-loss / liquidity / sequence)?</li>
+<li>[ ] Allocation is a written number, and there is a written <em>trigger</em> to act on it?</li>
+<li>[ ] No single asset or issuer above 10–15% of the portfolio without a thesis?</li>
+<li>[ ] No F&amp;O or concentrated PMS sized above what I can absorb losing <em>half</em> of?</li>
+<li>[ ] The calm-me / panic-me treaty (no-trade window) is actually written down?</li>
+</ul>
+<2>How this article uses calculators</2>
+<p>The risk figures here are qualitative by design; the <em>quantitative</em> follow-through lives on the DhanPedia calculators page at <code>/calculators</code>. Once you have a mix from this article's decision tree, use the calculators' portfolio-drawdown and CAGR tools to (a) see how a given equity weight behaves in a −30% scenario and (b) confirm the real (inflation-adjusted) return you are actually planning for, using the exact real-return formula in <code>foundations-compounding-returns</code>. The calculators are the bridge from "I will hold through a crash" to "a crash costs me X and recovers in Y years."</p>
+<2>Update log</2>
+<ul>
+<li><strong>RBI policy repo near 5.25% through late 2025</strong> — re-verify at each MPC; drives the debt-sleeve anchor (last verified: 2026-08-06; src-rbi-repo)</li>
+<li><strong>SEBI retail F&amp;O loss context</strong> — qualitative only, per SEBI annual reports; no figure quoted here, so no verification date is attached to a number. Re-check the <em>trend</em> when the next SEBI annual report publishes.</li>
+<li><strong>No other time-sensitive rates are claimed in this article.</strong></li>
+</ul>
+<2>Related</2>
+<ul>
+<li><code>foundations-compounding-returns</code> — the return maths this article protects</li>
+<li><code>portfolio-construction-rebalancing</code> — the band triggers and rebalancing rules that make "allocation holds" true</li>
+<li><code>alternatives-pms-aif-private</code> — PMS/AIF concentration traps in detail</li>
+<li><code>real-estate-reit-invit</code> — the investable, liquid form of property exposure</li>
+</ul>
+<2>Sources &amp; citations</2>
+<ul>
+<li><code>src-rbi-repo</code> — Reserve Bank of India, "MPC decision: policy repo rate held near 5.25% through late 2025", https://www.business-standard.com/finance/news/rbi-to-keep-interest-rates-steady-at-5-25-through-2026-reuters-poll-126012900085_1.html</li>
+</ul>
+<p>The "studies consistently show" allocation-dominance framing is a broad empirical regularity cited qualitatively (general investment literature), not a single quantified study. The SEBI F&amp;O point is attributed qualitatively to SEBI annual reports, not to a fabricated figure.</p>
+<2>Editorial / review status</2>
+<p>Published; last verified 2026-08-06; next review due 2027-02-28. Educational content, not individualized advice.</p></article>
+<article data-chapter="mf-index-etf-direct-regular"><h1>Index Funds, ETFs, Direct vs Regular Plans & Tracking Error</h1><1>Index Funds, ETFs, Direct vs Regular Plans &amp; Tracking Error</1>
+<p>Index funds and exchange-traded funds (ETFs) are the least expensive way to own the market: a mandate with no manager discretion, a published benchmark, and costs that you can see in full. This article unpacks the four questions every Indian investor eventually faces — <em>why passive has an edge</em>, <em>what the direct-vs-regular plan choice actually costs you</em>, <em>how an ETF differs from an index fund</em>, and <em>how to measure whether the fund is really tracking its index</em>.</p>
+<2>Why passive has an edge in India</2>
+<p>Start from the mechanic, not from performance tables. An active manager's job is to beat their benchmark <strong>after</strong> the fund's expenses are deducted. A passive fund's job is to match the benchmark <strong>minus</strong> its (small) expenses. So the active fund's hurdle is strictly higher: it needs genuine stock-selection alpha <em>plus</em> it has to pay for it out of the same assets. Costs do not stay fixed at 1% of a small portfolio — they are taken out of every unit of returns, every year, forever you hold the fund. On average, the market does exactly that: most managers roughly cover the cost of their own expense ratio, so most active funds <em>fail their hurdle</em> in any given period.</p>
+<p>India adds two structural reasons this gap is wide. First, the market is retail-driven and volatile, which means active managers pay for a lot of turnover, and turnover burns money. Second, the benchmark indices are transparent — the Nifty 50 and Nifty 500 compositions are public, so a passive fund knows exactly what it must hold. You are not paying a manager for a secret list of stocks; if a manager claims to know that list better, the burden of proof is on them.</p>
+<p>We deliberately avoid quoting "X% of active funds underperform over Y years." Such numbers are real, but they are period-specific, category-specific, and often cited out of context (the <a href="../mutual-funds/mf-choosing-comparing-funds.mdx">fund comparison article</a> argues why three-year win rates are the most dangerous input in fund selection). The point here is the <em>logic</em>: after costs, most active mandates cannot beat the index; a few can, but you cannot know in advance which few, and the expense-ratio table in the other article shows what the chasing itself costs.</p>
+<2>Direct plans vs regular plans: the cost drag, computed</2>
+<p>A <strong>regular plan</strong> pays a commission to the distribution channel (broker, bank, distributor) that sold you the fund. That commission is funded by the fund's expense ratio — you pay it, invisibly, every single year you hold it. A <strong>direct plan</strong> goes straight to the asset management company (AMC) through its own site or a discounting platform; no distributor exists, so the expense ratio is lower. The difference is typically on the order of <strong>0.4–0.8 percentage points of the expense ratio</strong> depending on the fund category — <em>check the fund's current expense ratio before assuming any number</em> (time-sensitive; verify against the fund's latest factsheet).</p>
+<p>Assume a clean <strong>0.6% annual expense gap</strong> between a regular and direct version of the same fund. Gross expected return: 12%. So the direct plan earns 11.8% net and the regular plan earns 11.2% net, year after year, in perpetuity. Now compound it.</p>
+<p>$$\text{Gap}(t) = P\left[(1+r_D)^t - (1+r_R)^t\right], \qquad r_D = r - e_D,\; r_R = r - e_R$$</p>
+<p>Worked example: ₹10,00,000 invested today, held for up to 25 years.</p>
+<table>
+<thead><tr><th>Horizon</th><th>Direct (11.8%)</th><th>Regular (11.2%)</th><th>Difference</th><th>Gap as % of regular corpus</th></tr></thead>
+<tbody><tr><td>10 yrs,₹30.52L,₹28.91L,₹1.61L,5.6%</td><td>15 yrs,₹53.32L,₹49.15L,₹4.17L,8.5%</td><td>20 yrs,₹93.15L,₹83.58L,₹9.57L,11.4%</td><td>25 yrs,₹162.7L,₹142.1L,₹20.6L,~14.5%</td></tr></tbody>
+</table>
+<p><strong>Read this table carefully.</strong> A widely-circulated back-of-the-envelope claim says the 0.6% gap "compounds to a 13–14% corpus difference after 15 years." That is not what the math shows: at 15 years the gap is ~8.5% of the regular-plan corpus (₹4.2L on ₹10L). The <strong>13–14% figure belongs to the 20–25 year horizon</strong> — ₹20.6L of a ₹162.7L corpus at 25 years. The same error direction is worth naming because it's everywhere: the gap <em>does</em> compound, and it compounds at the <em>growth rate of the portfolio itself</em>, which is exactly why the horizon matters so much. A 15-year wealth plan loses ₹4.2L; a 25-year plan (retirement-plus) loses ₹20.6L, on identical inputs.</p>
+<p>The SIP version is proportionally smaller in percentage terms but the same in principle. ₹10,000/month, 15 years, 11.8% vs 11.2% net (monthly rate = annual/12, the standard SIP convention):</p>
+<p>$$FV = P\left[\frac{(1+i)^n-1}{i}\right],\quad i=\frac{0.118}{12},\; n=180$$</p>
+<ul>
+<li>Direct (11.8%): $i=0.0098333$, $(1+i)^{180}=5.819$ → FV ≈ ₹49.0L</li>
+<li>Regular (11.2%): $i=0.0093333$, $(1+i)^{180}=5.324$ → FV ≈ ₹46.3L</li>
+</ul>
+<p>Gap: <strong>₹2.7L over 15 years on ₹18L contributed</strong> — your direct plan is worth about 6% more, for zero extra effort.</p>
+<3>Practical rules</3>
+<ol>
+<li><strong>If you hold a regular plan today, switch to the direct version of the same fund</strong> (a "switch/transfer," not a redemption). The AMCs support this for equity funds; the switch itself can carry a tax event, so time it after long-term holding periods where possible.</li>
+<li><strong>Never pay for a regular plan in an SIP</strong> — the annual commission bleed is the entire reason direct plans exist.</li>
+<li><strong>Regular plans have one legitimate use:</strong> a human advisor who charges a flat fee and you actually need. The test is simple: is the commission you're paying through the higher expense ratio larger than the value of the advice? Most investors, most of the time, the answer is yes.</li>
+</ol>
+<2>Index funds vs ETFs: same mandate, different plumbing</2>
+<p>Both hold the same index. Everything below is about <em>how you transact and settle</em>.</p>
+<table>
+<thead><tr><th>Property</th><th>Mutual index fund</th><th>ETF</th></tr></thead>
+<tbody><tr><td>Account needed,Demat optional (AMC folio),Demat account mandatory</td><td>Pricing,Once daily at NAV (T+2 settlement convention),Continuous intraday, T+0 execution (settlement per exchange cycle — verify the current cycle)</td><td>Intraday trading,Not possible,Possible, with bid-ask</td><td>Minimum ticket,Usually ₹500–₹1,000 SIP,One lot, often ₹2,000–₹5,000 depending on ETF price</td><td>Dividends,Distributing funds pay you; growth plans reinvest,Most Indian index ETFs are growth; dividends accrue to NAV</td><td>Liquidity mechanism,Redemption to AMC at NAV,Market trade + <strong>creation/redemption arbitrage</strong> keeps price near NAV</td><td>Tax treatment,Equity-oriented fund CG rules,Identical — the ETF is an equity instrument, not a fund wrapper</td></tr></tbody>
+</table>
+<3>The mechanics that matter</3>
+<p><strong>Demat.</strong> ETFs trade on NSE/BSE like shares; you must have a demat account. Index funds can run through a plain folio. This is the first real cost difference: brokerage on each ETF trade (zero for delivery-based equity trades, but intraday trades attract a different charge class — check your broker's schedule).</p>
+<p><strong>T+0 vs T+2.</strong> An index-fund purchase is priced at that day's NAV and units settle per the fund's settlement cycle; you cannot react to the intraday tape. An ETF executes the moment you place the order. In fast markets that is a real, if small, edge — and the same edge cuts the other way if you trade on impulse.</p>
+<p><strong>Tracking.</strong> Both track the index by holding it (fully or sampled). An ETF can <em>additionally</em> use a derivative sleeve to track, and the creation/redemption mechanism (below) forces the market price to hug NAV continuously; an index fund has no such mechanism because it's bought and sold only at NAV.</p>
+<p><strong>Liquidity.</strong> A broad ETF (Nifty 50, Sensex) trades in depth all day. A narrow or niche ETF can have a wide bid-ask spread — you can trade, but the spread is a hidden cost. Before buying any ETF, look at the spread: a half-percent-wide spread on a ₹3,000 price is a bigger cost than most expense ratios.</p>
+<p><strong>Circuit breakers.</strong> ETFs are listed instruments, so intraday price limits apply. In a violent day, the ETF price can hit its circuit and stop trading even while the underlying index keeps moving — you may be locked out of your exit. An index fund cannot "halt" intraday; you redeem at NAV when markets reopen. Neither is safer overall; the risk profile just differs and you should know which one you hold.</p>
+<p><strong>Premiums and discounts.</strong> Because ETFs trade on the market, price can deviate from NAV. Buying at a 1% premium means you've paid 1% extra for exactly what the fund already costs. The arbitrage mechanism below is what normally polices this, but in stress or illiquidity the policing gets weak. Check the premium/discount before trading.</p>
+<3>How ETF arbitrage keeps price at NAV (explained simply)</3>
+<p>The instrument: <strong>creation units</strong>, sold by the <em>authorised participant</em> (AP — a broker or bank that has the right to create/redeem) to the <strong>authorised purchaser</strong>. One creation unit is a basket worth, say, ₹10,000 of the index, and it is redeemable for (roughly) that same basket's worth of index stocks.</p>
+<ul>
+<li><strong>Price above NAV (premium).</strong> The AP buys the creation unit for ~NAV, sells it into the market at the premium, pocketing the difference. Selling pressure pushes the ETF price back down toward NAV.</li>
+<li><strong>Price below NAV (discount).</strong> The AP buys the cheap ETF in the market, exchanges it for a creation unit, sells the underlying basket for more. Buying pressure pushes the ETF price back up.</li>
+</ul>
+<p>The same mechanism also lets fund managers move big money without moving the market: to raise the ETF, the manager <em>redeems</em> creation units (the AP assembles the basket of index stocks and hands it over); to shrink it, the manager <em>creates</em> units (the AP takes the creation unit, breaks it into the index stocks, and distributes them to the redeemers). For you as a holder, the takeaway is simple: <strong>the ETF price self-corrects to NAV continuously, through a small handful of professional participants, and the ETF's net asset value — not its price — is the honest number to track.</strong></p>
+<2>Nifty 50 vs Nifty 500 vs Sensex: the small-cap tilt debate, without fabricated studies</2>
+<p>All three are large, liquid, Indian equity indices. The <em>construction logic</em> drives the debate:</p>
+<ul>
+<li><strong>Sensex (30)</strong> — the oldest index, 30 large caps. Extremely concentrated: the top 10 names are a large slice of the whole index. Cheapest to hold, least breadth.</li>
+<li><strong>Nifty 50</strong> — 50 large caps, slightly broader than the Sensex, and the basis for the most liquid index products in India.</li>
+<li><strong>Nifty 500</strong> — top 500 by float-adjusted market cap, so it sweeps in a heavy <strong>mid- and small-cap sleeve</strong>. Its expected return <em>and</em> its volatility both live or die with that sleeve, which you do not see in a Sensex or Nifty 50 product.</li>
+</ul>
+<p>The honest framing of the "Nifty 500 wins" question: <em>you are not picking a different index, you are picking a different risk position.</em> Nifty 500 carries a structurally higher weight in small and mid caps, which historically earns a premium but also means deeper drawdowns in the small-cap correction cycles. "Small-cap tilt pays" is a period-specific claim; a three-year sample that happened to include a strong small-cap run is <em>not</em> evidence. If you want the tilt deliberately, use it as a satellite, not the core. If you want the simplest possible core, Nifty 50 (or the Sensex) is the cleanest default. The <a href="../mutual-funds/mf-sip-swp-stp-goals.mdx">goal-planning article</a> has the framework for splitting core vs satellite; this article is where you decide which index <em>is</em> the core.</p>
+<2>Tracking error and tracking difference — definitions and the 1-year vs 3-year nuance</2>
+<p><strong>Tracking error (TE)</strong> = standard deviation of (fund return − benchmark return), annualised, over a rolling window. It measures <em>how much the fund wiggles around</em> the benchmark. <strong>Tracking difference (TD)</strong> = mean of (fund return − benchmark return) over the window — <em>the level of that wiggle, on average.</em> For a passive fund you want TE near zero <strong>and</strong> TD near zero (or a small negative, equal to the expense ratio).</p>
+<p>The 1-year vs 3-year window matters for two reasons:</p>
+<ol>
+<li><strong>Expense drag is deterministic.</strong> The fund's expense ratio and the benchmark's own return pattern are not noise; they produce a systematic, slowly-accumulating gap. A one-year TD can look flat for a fund that is quietly losing 0.6% a year to costs, because the 0.6% has not yet visibly separated out of the noise. A three-year window gives the drag time to show up.</li>
+<li><strong>TE behaves differently from TD.</strong> A fund can have TE of 0.5% and TD of −0.6% — it wiggles a little but on average runs below the index. It can also have TE of 1.5% and TD of 0 — it wiggles a lot in both directions. The first is a cost problem; the second is a structure problem (derivative overlays, sampling, lag). Report <strong>both</strong> and read them together.</li>
+</ol>
+<p>A fund whose TE has been creeping up year over year, or whose TD has deteriorated by more than its expense ratio can explain, is a fund whose plumbing has changed. That deserves a question to the AMC before you add money.</p>
+<2>SIPs vs lump sums in index products, and their tax identity</2>
+<p><strong>SIP vs lump sum</strong> in an index fund is identical to the math in the <a href="../mutual-funds/mf-sip-swp-stp-goals.mdx">SIP article</a>: SIPs smooth entry, lump sums are cheaper on average in rising markets and more expensive in falling markets, and <em>you cannot predict which regime you are in</em>. For index products specifically, the practical pattern is: <strong>SIP for the monthly money</strong> (stable, salary-driven), <strong>ladder of lump sums</strong> for a windfall (split across months to limit sequence-of-returns risk on the entry itself). Both feed the same mandate; the entry rhythm is the only difference.</p>
+<p><strong>Tax identity.</strong> This is where ETFs and index funds are identical and where people get confused: <em>the tax treatment is that of the instrument, not the wrapper.</em></p>
+<ul>
+<li>A <strong>broad-market equity index fund</strong> and a <strong>broad-market equity ETF</strong> are both equity-oriented. The gains are taxed under the equity capital-gains regime: short-term gains (holding under 12 months) at a flat rate, long-term gains above the annual exemption at a (lower) flat rate, with no indexation (verify current rates against the income tax slabs reference — <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">src-it-slab-calculator</a> time-sensitive, last verified 2026-08-06).</li>
+<li><strong>ELSS</strong> (Equity Linked Saving Scheme) is a 3-year lock-in mutual-fund category with a Section 80C claim, under SEBI's rules (<a href="../mutual-funds/mf-index-etf-direct-regular.mdx">src-sebi-elss</a>) — it is an <em>active</em> category, not a passive one, and the lock-in is its whole tax value. An index fund or an ETF is <strong>not</strong> an ELSS.</li>
+<li><strong>Debt index funds / ETFs</strong> that track a bond index are <em>not</em> equity-oriented; their capital gains follow the debt-instrument rules. Before you call something "an index product," check its classification.</li>
+</ul>
+<p>The tax identity does not differ between the fund and the ETF, so the choice between them is plumbing, not tax.</p>
+<2>Common ETF mistakes (the ones that actually cost money)</2>
+<ol>
+<li><strong>Buying at a premium without checking.</strong> The price-to-NAV gap is visible on the exchange. A 1% premium is a guaranteed cost on top of the fund's expense ratio.</li>
+<li><strong>Treating a wide-spread ETF like a liquid one.</strong> Check the bid-ask before you trade. A 0.5% spread on a small cap-ETF is real money, paid on every side.</li>
+<li><strong>Assuming T+0 = risk-free.</strong> Intraday execution is a tool, not a safety. The same day you can buy, you can be stopped out at the circuit.</li>
+<li><strong>Confusing a sector ETF with "the market."</strong> A Nifty 50 ETF <em>is</em> the market. A banking ETF is a bet on one industry, not an index in the passive sense, and it carries all the active-fund risk the section above describes.</li>
+<li><strong>Holding regular-plan equivalents.</strong> ETFs and index funds have a direct-plan analogue; some platforms sell the "regular" version. Read the expense ratio, not the product name.</li>
+<li><strong>Picking an index fund and an ETF that are the same underlying.</strong> Owning both a Nifty 50 index fund and a Nifty 50 ETF is one position with two expense ratios, not two positions. Consolidate.</li>
+<li><strong>Ignoring the dividend policy.</strong> Growth index funds reinvest; some distributing variants pay out. If your mandate is "let it compound," pick growth and let the reinvestment do the work.</li>
+</ol>
+<2>Choosing: a fast decision rule</2>
+<ul>
+<li><strong>Core, monthly, salary-driven</strong> → a Nifty 50 or Sensex direct index fund (or ETF if you already have a demat and prefer intraday tooling).</li>
+<li><strong>Windfall, need a ladder</strong> → split across months in the same product.</li>
+<li><strong>Small deliberate small/mid-cap tilt</strong> → a Nifty 500 ETF as a satellite, sized as a satellite.</li>
+<li><strong>Need a tax-saving instrument inside 80C</strong> → ELSS (active category, 3-year lock-in, <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">src-sebi-elss</a>); do not mistake it for a passive tool.</li>
+<li><strong>Already hold a regular plan</strong> → switch to the direct version before you add more.</li>
+</ul>
+<2>Related</2>
+<ul>
+<li><a href="../mutual-funds/mf-sip-swp-stp-goals.mdx">SIP, STP &amp; SWP: Structured Investing and Goal Planning</a> — the funding-rhythm math and the goal-ladder method this article defers to.</li>
+<li><a href="../mutual-funds/mf-choosing-comparing-funds.mdx">How to Choose and Compare Mutual Funds</a> — the 10-step selection process and the argument against performance chasing, which this article's "passive wins on cost" claim depends on.</li>
+<li><a href="../personal-finance/pf-wealth-plan-10-lakh.mdx">Your 10 Lakh Wealth Plan</a> — where index products sit inside a full allocation.</li>
+</ul>
+<2>Sources</2>
+<ul>
+<li><code>src-sebi-elss</code> — SEBI investor-education guide on ELSS (80C claim, 3-year lock-in).</li>
+<li><code>src-it-slab-calculator</code> — secondary summary of the FY 2025-26 / FY 2026-27 income tax slabs; referenced for the <em>time-sensitive</em> capital-gains rate claims, all marked "verify."</li>
+</ul>
+<2>Update log</2>
+<ul>
+<li><strong>2026-08-06</strong> — last verified. Equity capital-gains flat rates (short-term and long-term) and the annual long-term exemption threshold are marked "verify against the latest income-tax slabs source"; no specific figures were asserted, by design. Direct vs regular expense-ratio gap (0.4–0.8 pp) is a pattern, not a fixed number — check the fund's current factsheet before quoting it. All numbers in the worked tables are arithmetic, not market data.</li>
+</ul></article>
+<article data-chapter="mf-sip-swp-stp-goals"><h1>SIP, STP & SWP: Structured Investing and Goal Planning</h1><1>SIP, STP &amp; SWP: Structured Investing and Goal Planning</1>
+<p>Three automation tools — Systematic Investment Plan (SIP), Systematic Transfer Plan (STP), and Systematic Withdrawal Plan (SWP) — cover the three life phases of money: <strong>putting it in</strong>, <strong>moving it between risk buckets</strong>, and <strong>taking it out</strong>. This article gives you the exact math for each, worked examples with stated assumptions, and the goal-ladder method that turns "I want a car in 3 years" into a specific monthly number.</p>
+<p>Every number below states its assumption. If you change the return, change the answer — that is the whole point of doing the arithmetic yourself rather than trusting a headline.</p>
+<2>The SIP future value formula</2>
+<p>$$FV = P\,\frac{(1+i)^{n}-1}{i}$$</p>
+<p>where $P$ is the monthly contribution, $i$ is the <strong>monthly</strong> expected return (annual return ÷ 12), and $n$ is the number of months. The standard SIP convention assumes each instalment is invested at the start of the month and that interest compounds monthly. A different convention (instalments at month-end, no intra-month compounding) gives a slightly lower FV; the difference is small and the <a href="#calculator-cross-reference">calculator cross-reference</a> below is where you can check both.</p>
+<3>Worked example 1 — 12% p.a.</3>
+<p>₹10,000/month, 15 years, 12% p.a. ($i = 0.01$):</p>
+<p>$$(1.01)^{180} = 5.997 \quad\Rightarrow\quad FV = 10{,}000 \times \frac{5.997-1}{0.01} = 10{,}000 \times 499.7 \approx ₹49.9\text{L}$$</p>
+<ul>
+<li><strong>Total contributed:</strong> ₹10,000 × 180 = <strong>₹18L</strong></li>
+<li><strong>Return earned (paper gain):</strong> ₹49.9L − ₹18L = <strong>₹31.9L</strong></li>
+</ul>
+<3>Worked example 2 — 15% p.a.</3>
+<p>₹10,000/month, 15 years, 15% p.a. ($i = 0.0125$):</p>
+<p>$$(1.0125)^{180} \approx 9.356 \quad\Rightarrow\quad FV = 10{,}000 \times \frac{9.356-1}{0.0125} = 10{,}000 \times 668.5 \approx ₹66.9\text{L}$$</p>
+<ul>
+<li><strong>Total contributed:</strong> ₹18L</li>
+<li><strong>Return earned:</strong> <strong>₹48.9L</strong></li>
+</ul>
+<3>What the two examples actually teach you</3>
+<p>The return gap is 3 percentage points (12% vs 15%). The corpus gap is ₹17L — <strong>₹66.9L vs ₹49.9L</strong>. A 3 pp return difference, sustained for 15 years, is a 34% larger corpus. This is the <em>entire</em> case for indexing and cost discipline: the index-fund article's direct-vs-regular gap (a 0.6% expense drag) is the same species of "small number, sustained, compounded" — but here the <em>return assumption</em> is the biggest driver, and the return assumption is the number you control least. The <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">index article</a> covers the cost side; this article covers the assumption side.</p>
+<p><strong>Assumptions, stated explicitly, for both examples:</strong></p>
+<ul>
+<li>12% and 15% are <em>nominal annual</em> expected equity returns, not promises. India's equity market has delivered different realised returns in every historical window; a 15% assumption over 15 years is the <em>upper end</em> of a plausible range, not a forecast.</li>
+<li>Monthly compounding at annual/12. No intra-month timing.</li>
+<li>No taxes on the intermediate gains (equity SIP gains are taxed at redemption, under the equity capital-gains regime — verify current rates and exemptions against the income-tax slabs reference, <a href="../mutual-funds/mf-sip-swp-stp-goals.mdx">src-it-slab-calculator</a>, time-sensitive, last verified 2026-08-06).</li>
+<li>No step-ups. If your income grows, the SIP should grow; the examples above are level.</li>
+</ul>
+<2>SIP vs lump sum: the honest version</2>
+<p>The common framing — "market timing is hard, so SIP wins" — is incomplete, and this article says it plainly:</p>
+<blockquote><strong>In a sustained bull market, a lump sum invested on day one beats the SIP, because the money was at work from day one. In a sustained down market, the SIP beats the lump sum, because the SIP bought more units on the way down. You cannot predict which regime you are in. Therefore: on a risk-adjusted basis, SIPs dominate — not because they earn more when markets go up, but because they cap your loss when they go down, and the capping is the value that compounds.</strong></blockquote>
+<p>The three-part structure is the argument. Drop any part and the conclusion breaks:</p>
+<ul>
+<li>"Lump sums win in bull markets" — true, and the part most SIP marketing ignores.</li>
+<li>"SIPs win in down markets" — true, and the part most lump-sum marketing ignores.</li>
+<li>"You cannot tell which market you are in" — the part that makes the choice a <em>risk</em> choice, not a <em>return</em> choice. A SIP is a risk-reduction tool with a cost (you sacrifice the bull-market edge); a lump sum is a risk-increase tool with a benefit (the bull-market edge). If your money is for a goal with a hard deadline, the risk of the lump sum sitting in an equity market for the final months is <em>your</em> risk, not the market's. That is the argument for the <a href="#the-goal-ladder-method">ladder</a>, not for "always do SIPs."</li>
+</ul>
+<2>STP: harvesting gains between buckets</2>
+<p>A <strong>Systematic Transfer Plan</strong> automatically moves money from one fund to another on a schedule (monthly, quarterly, trigger-based). The canonical use in India is <strong>debt-to-equity harvesting</strong>: you hold a corpus in a debt fund or PPF-adjacent bucket, and on each pay day a slice STPs into an equity fund. Two things make this tool quietly powerful:</p>
+<ol>
+<li><strong>The transfer is a deemed redemption.</strong> The slice you move out of the debt fund is taxed at that moment (debt-instrument capital-gains rules apply to the debt portion; verify the current rules against the slabs reference). The equity slice then <em>starts a new holding period</em> in the equity fund — the clock for the equity capital-gains rules restarts on every STP'd tranche. Over a multi-year STP schedule, you have naturally layered a long tail of holding periods, which is the same effect the <a href="#fixed-income-laddering-by-proxy">laddering section</a> describes for bonds.</li>
+<li><strong>The STP removes the behavioural layer.</strong> You do not decide each month "should I move money into equity?" — the schedule does. The decision you <em>do</em> make, once, is: source bucket, destination bucket, amount, frequency.</li>
+</ol>
+<p>The tax note is the one most people miss: <strong>an STP is not tax-free because it is "just a transfer."</strong> It is a redemption plus a purchase. If the source is a tax-exempt bucket (a PPF, for example, until maturity), the "deemed redemption" framing changes — PPF has its own partial-withdrawal rules; check the scheme's current limits before you plan an STP out of it.</p>
+<2>SWP: creating income from a corpus</2>
+<p>A <strong>Systematic Withdrawal Plan</strong> does the mirror: on a schedule, a value (or number of units) is redeemed out of the fund and paid to you. The three income sources every retiree in India is offered are the SWP, the FD (fixed deposit), and the annuity. Here is the honest comparison:</p>
+<table>
+<thead><tr><th></th><th>SWP (diversified equity/debt fund)</th><th>FD withdrawal</th><th>Annuity (pension scheme)</th></tr></thead>
+<tbody><tr><td>Where the income comes from,Units sold; corpus can grow or fall,Fixed coupon; principal untouched unless you break the FD,Premium paid; return is the annuity payout</td><td>Tax on the income,Capital-gains treatment (short- or long-term, depending on the unit sold and its holding period; equity-oriented funds follow the equity CG regime),Interest is taxed <strong>every year</strong> at your slab rate, on the full amount,Tax treatment depends on the scheme and the annuity's composition — verify the current rules</td><td>Inflation protection,If the corpus is growth-weighted, the corpus itself compounds against inflation,None built in; a fixed ₹X/year gets more expensive to live on every year,None built in, unless the annuity has an inflation rider (if offered)</td><td>Loss of principal risk,Yes — in a bad sequence, the corpus can fall and the SWP can accelerate the fall,No (until you need the principal, which is the FD's own risk),No — the annuity is the point</td><td>What you give up,The full upside of the corpus; the tax complexity,The compounding of the corpus you break,The flexibility of the corpus; the insurer's credit risk replaces the market's</td></tr></tbody>
+</table>
+<p>The <strong>sequence-of-returns risk</strong> is the SWP's real hazard: a bad first year after retirement (a deep drawdown) forces the SWP to sell units at the bottom, and the corpus has less time to recover. The <a href="../retirement-fire/retirement-fire-annuities.mdx">retirement article</a> has the 4% rule and the sequence-risk math; the SWP here is the <em>mechanism</em> that delivers the 4% rule on a fund, not the strategy itself. If you are on the taxable-coupon side (FD, most debt funds), the SWP has one structural edge: you are paying capital-gains tax on the units you sell, not slab-rate tax on every rupee of interest, every year. That is worth quantifying against your specific slab before you choose the income source.</p>
+<2>The goal-ladder method</2>
+<p>The rule: <strong>one goal, one corpus, one horizon, one return assumption, one funding mechanism.</strong> Then work backwards. The return assumption is <em>risk-matched to the horizon</em>:</p>
+<ul>
+<li><strong>≤ 3 years</strong> — money in a debt bucket. A 3-year goal has no time to absorb an equity drawdown; the return assumption should be the realistic debt return, not the equity average. (The current repo rate sits near 5.25% as of late 2025 — time-sensitive, verified 2026-08-06; debt yields track it, verify the current rate before quoting it.)</li>
+<li><strong>3–10 years</strong> — a debt-leaning mix. The closer to 10 years, the more equity you can carry; at 10 years the corpus has time to recover a mid-decade drawdown.</li>
+<li><strong>&gt; 10 years</strong> — an equity-leaning mix. The long horizon is where the two worked examples above apply.</li>
+</ul>
+<3>Worked: a car in 3 years, ₹50L</3>
+<ul>
+<li><strong>Horizon:</strong> 36 months. <strong>Return assumption:</strong> 12% p.a. (a debt-heavy mix that <em>happens</em> to earn 12% is not realistic; use the debt bucket's realistic number and re-run the math below — the point is the <em>method</em>, not the 12%).</li>
+<li><strong>Required FV:</strong> ₹50,00,000.</li>
+<li><strong>SIP formula, $i=0.01$, $n=36$:</strong></li>
+</ul>
+<p>$$FV = P\,\frac{(1.01)^{36}-1}{0.01} = P \times 43.08 \quad\Rightarrow\quad P = \frac{50{,}00{,}000}{43.08} \approx ₹1{,}16{,}000/\text{month}$$</p>
+<ul>
+<li><strong>Total contributed:</strong> ₹1.16L × 36 ≈ <strong>₹41.8L</strong>. <strong>Return earned:</strong> ~<strong>₹8.2L</strong> over 3 years.</li>
+<li><strong>Sensitivity:</strong> at 8% p.a. (a more conservative debt-mix assumption), the factor is $\frac{(1.006667)^{36}-1}{0.006667} \approx 40.54$, so $P \approx ₹1.23\text{L}/\text{month}$. A 4 pp return assumption moves your required monthly SIP by ~₹7,000.</li>
+</ul>
+<3>The ladder, in one table</3>
+<table>
+<thead><tr><th>Goal</th><th>Corpus</th><th>Horizon</th><th>Assumed return</th><th>i (mo)</th><th>n</th><th>Annuity factor</th><th>Required SIP</th></tr></thead>
+<tbody><tr><td>Car,₹50L,3 yrs,12% (debt-mix),0.01,36,43.08,≈ ₹1.16L/mo</td><td>Home down payment,₹35L,5 yrs,12%,0.01,60,81.67,≈ ₹42,900/mo</td><td>Child's education,₹80L,10 yrs,10% (debt-leaning),0.008333,120,204.96,≈ ₹39,000/mo</td><td>Retirement corpus,₹4Cr,20 yrs,12% (equity-leaning),0.01,240,989.2,≈ ₹40,400/mo</td></tr></tbody>
+</table>
+<p><em>Verification of every row (so the ladder is fully auditable):</em> $P = FV \div \text{factor}$, where factor $= ((1+i)^n - 1)/i$ and $i = r_{annual}/12$.</p>
+<ul>
+<li><strong>Car:</strong> $(1.01)^{36}=1.4308$ → factor $=43.08$ → $P=50{,}00{,}000/43.08 = ₹1{,}16{,}076$ ≈ ₹1.16L/mo.</li>
+<li><strong>Home:</strong> $(1.01)^{60}=1.8167$ → factor $=81.67$ → $P=35{,}00{,}000/81.67 = ₹42{,}856$ ≈ ₹42,900/mo.</li>
+<li><strong>Education:</strong> $(1.008333)^{120}=2.7080$ → factor $=204.96$ → $P=80{,}00{,}000/204.96 = ₹39{,}031$ ≈ ₹39,000/mo.</li>
+<li><strong>Retirement:</strong> $(1.01)^{240}=10.892$ → factor $=989.2$ → $P=40{,}00{,}000/989.2 = ₹40{,}437$ ≈ ₹40,400/mo. (Sanity: ₹10,000/mo at 12% for 20 yrs grows to ≈ ₹98.9L, so ₹4Cr needs ~₹40,400/mo — consistent.)</li>
+</ul>
+<p>Each row is one corpus, one horizon, one mechanism. <strong>Do not merge rows</strong> — the education corpus and the retirement corpus are different risk budgets, and merging them into one "growth SIP" is the most common self-inflated plan in Indian household finance.</p>
+<3>The last-12-months rule</3>
+<p>In every row, the final 12 months of the horizon are in a debt bucket, no matter what. The equity portion of the corpus is STP'd or redeemed (in tranches) into debt over the 12 months before the goal date. This is where the sequence-of-returns risk actually lives: a ₹35L home deposit is <em>not</em> something you let ride an equity index for the last year.</p>
+<2>Fixed-income laddering, by proxy</2>
+<p>The same laddering logic that applies to bonds (a maturing coupon every year, reinvested into the next rung) is what a <strong>debt→equity STP schedule</strong> does for an equity corpus: every STP'd tranche starts a new holding period, so the <em>tax</em> profile of the corpus ladders automatically. For the bond version of this — explicit rungs, maturing coupons, a 10-year ladder against a known income need — see the <a href="../fixed-income/fixed-income-bonds-credit.mdx">fixed-income article</a>.</p>
+<3>Step-up SIPs and top-ups</3>
+<p>A level SIP is the cleanest model but under-plans for a life in which income grows. Two mechanisms fix that:</p>
+<ul>
+<li><strong>Step-up SIP:</strong> the instalment grows by a fixed <em>percentage</em> each year (or at the start of a new year). The classic use: raise the SIP by your expected salary-growth rate each year.</li>
+<li><strong>Top-up / lump addition:</strong> a one-off extra instalment (a bonus, a side-income windfall) added to the running SIP.</li>
+</ul>
+<p>Step-up math (worked, contribution side only — the FV gap scales with it): ₹10,000/month, 20 years, 10% p.a. step-up.</p>
+<ul>
+<li><strong>Total contributed, flat SIP:</strong> ₹10,000 × 12 × 20 = <strong>₹24L</strong>.</li>
+<li><strong>Total contributed, 10% step-up:</strong> $\sum_{k=1}^{20} 10{,}000 \times 12 \times (1.1)^{k-1} = 1{,}20{,}000 \times \frac{1.1^{20}-1}{0.1} = 1{,}20{,}000 \times 57.28 \approx \mathbf{₹68.7L}$ total (vs ₹24L flat) — i.e. <strong>₹44.7L of extra contribution</strong> on top of the flat-SIP total.</li>
+</ul>
+<p>The FV advantage of the step-up is <em>more</em> than the extra contribution, because the later (bigger) instalments have more time to compound — but the exact FV depends on the compounding convention, so use the calculator rather than a headline. The decision worth making is the <em>step-up rate</em>: set it at your realistic income growth, not at hope. A 10% step-up you cannot sustain in year 6 is worse than a 5% step-up you sustain for 20.</p>
+<3>Inflation-adjusting the goal value</3>
+<p>A nominal goal understates the money you need. A car quoted at ₹47L <em>today</em> is not ₹47L in three years if car prices rise with inflation:</p>
+<p>$$\text{Future goal} = \text{Today's value} \times (1+g)^{h}$$</p>
+<p>At 6% p.a. price growth over 3 years: $47 \times 1.06^3 = 47 \times 1.191 \approx ₹55.9\text{L}$. The car example in the goal-ladder above used a clean ₹50L target; inflation-adjusting it to ~₹56L moves the required SIP up by roughly 12%. <strong>Inflation-adjust every goal before you run the ladder math</strong> — this is the step that turns a "₹50L car" plan into an actually-achievable one. The growth rate $g$ to use is the <em>price inflation of that good or service</em> (education and medical costs historically run above general CPI; a car's price is closer to general inflation). Label your $g$ explicitly.</p>
+<3>Reverse STP: equity to debt near the goal</3>
+<p>The STP tool also runs the other direction, and this is where goal planning meets sequence risk. With 12 months to a hard-deadline goal, the discipline is to <strong>STP the equity corpus into a debt bucket</strong> (or redeem in tranches into debt) so the final stretch is not riding an equity index. This <em>harvests</em> the equity gain you have so far (taxed at that moment under the equity CG rules — verify current rates) and locks the principal into a low-duration instrument. You are paying a small tax cost now to remove the single biggest threat to a deadline goal: a market drawdown in the final 6–12 months. The forward STP (debt→equity) is a growth tool; the reverse STP (equity→debt) is a <em>protection</em> tool, and goal-based planning is the context in which it earns its keep.</p>
+<3>SWP execution: amount method vs unit method</3>
+<p>The SWP's mechanics matter more than the marketing implies. Two execution modes:</p>
+<ul>
+<li><strong>Amount method (fixed ₹/month):</strong> the platform redems whatever units equal that ₹ amount. In a down market, more units are sold to raise the same ₹ — the corpus erodes faster exactly when it can least afford it. This is the dangerous mode near retirement, because the first-year drawdown compounds.</li>
+<li><strong>Unit method (fixed units/month):</strong> a fixed number of units is sold regardless of NAV; the ₹ paid to you <em>varies</em> with the NAV. The corpus erosion is more stable, but your income fluctuates — bad for a retiree who needs a steady pension-like payout.</li>
+</ul>
+<p>Most retirement SWPs use the amount method with a <em>floor</em> on the withdrawal rate (the 4% rule's analogue). The honest read: the amount method is a <em>smoother income</em> at the cost of <em>higher sequence risk</em>; the unit method is the reverse. Whichever you pick, the <a href="../retirement-fire/retirement-fire-annuities.mdx">retirement article</a> governs the <em>rate</em>, and this section governs the <em>execution</em>. The tax note applies to both: the units sold carry their own holding period, so an SWP that has been running for years is selling long-term-hold units (favourable) early on and short-term-hold units (less favourable) only for the recent tranches.</p>
+<3>The behaviour layer: auto-debit and the crash-year instinct</3>
+<p>The structural value of a SIP is <em>automaticity</em>: the money moves whether the market is up or down. The single most expensive behaviour pattern in Indian investing is <strong>pausing the SIP in a crash year</strong>, because that is the year the units are cheapest and the compounding benefit is largest. Auto-debit removes that decision from the month it is hardest to make. If you must keep manual control, the rule that survives scrutiny: <em>never pause a running SIP on the basis of a single quarter's return</em>; the only legitimate pause is a cash-flow event (a job loss, a large expected expense), and even then, a <em>reduced</em> SIP beats a <em>stopped</em> one.</p>
+<2>Calculator cross-reference</2>
+<p>The two worked examples above are deliberately <em>not</em> a calculator, because the point is that you can run the same arithmetic in 30 seconds with the formula above. If you want a tool that does it for you and also handles the step-up SIP (the ₹10,000/month that grows to ₹12,000/month after year 2), use the <strong>DhanPedia SIP calculator</strong> on this site: enter $P$, $i$, $n$, and a step-up rate, and it will print the FV, the total contributed, and the paper gain — the same three numbers the examples above print, in one click. The calculator's assumptions (monthly compounding, start-of-month instalment) match the formula above; if you use a calculator that assumes month-end, your FV will be marginally lower, and that is correct, not a bug.</p>
+<2>Related</2>
+<ul>
+<li><a href="../mutual-funds/mf-index-etf-direct-regular.mdx">Index Funds, ETFs, Direct vs Regular Plans &amp; Tracking Error</a> — the cost side this article's return assumption depends on.</li>
+<li><a href="../mutual-funds/mf-choosing-comparing-funds.mdx">How to Choose and Compare Mutual Funds</a> — the mandate-clarity step that decides <em>which</em> fund the SIP feeds.</li>
+<li><a href="../personal-finance/pf-wealth-plan-10-lakh.mdx">Your 10 Lakh Wealth Plan</a> — the allocation framework that decides <em>what fraction</em> of your income is the SIP's $P$.</li>
+<li><a href="../retirement-fire/retirement-fire-annuities.mdx">Retirement &amp; FIRE</a> — the SWP side, and the sequence-of-returns risk this article names.</li>
+</ul>
+<2>Sources</2>
+<ul>
+<li><code>src-it-slab-calculator</code> — secondary summary of the FY 2025-26 / FY 2026-27 income-tax slabs; referenced for the <em>time-sensitive</em> capital-gains-rate and slab-rate claims throughout this article, all marked "verify." No specific tax figure is asserted.</li>
+</ul>
+<2>Update log</2>
+<ul>
+<li><strong>2026-08-06</strong> — last verified. The 12% and 15% return assumptions are <em>assumptions</em>, not forecasts; they are labelled as such in both worked examples. The repo-rate figure (≈5.25%, late 2025) is time-sensitive and marked "verify against the latest RBI MPC." All SIP FV numbers are arithmetic under the stated monthly-compounding convention; a different convention gives a slightly different FV, which the <a href="#calculator-cross-reference">calculator cross-reference</a> acknowledges. The car-in-3-years example is a method illustration; its 12% assumption is flagged as unrealistically high for a debt bucket and the reader is directed to re-run the math at their debt bucket's realistic yield.</li>
+</ul></article>
+<article data-chapter="mf-choosing-comparing-funds"><h1>How to Choose and Compare Mutual Funds (Without Chasing Performance)</h1><1>How to Choose and Compare Mutual Funds (Without Chasing Performance)</1>
+<p>The industry's most profitable behaviour pattern is not a bad fund — it is a <em>chaser</em> who pays full expense ratios to a manager, sells that manager in a bad year, and moves to the next star with a fresh expense ratio. This article gives you a process that is deliberately <em>slow</em>: ten steps, in order, before you buy any fund, and an anti-list of fund patterns you should not own under any circumstance. The through-line: <strong>you are selecting a mandate and a cost structure, not predicting returns.</strong></p>
+<2>Why past returns are the most dangerous input (the base-rate argument)</2>
+<p>The claim that "3-year top returns are misleading" is usually supported with a chart. No chart is needed. The logic is arithmetic:</p>
+<ol>
+<li>The top returners in any 3-year window are, by definition, above the mean.</li>
+<li>A large part of that outperformance is <em>noise</em> — a lucky sector call, a concentration that happened to rise, a benchmark that happened to fall while the fund concentrated elsewhere.</li>
+<li>The <strong>expected share of a top returner's excess that persists is low</strong>. Even if a manager is genuinely skilled, a single 3-year sample has very little signal about skill: the statistical question "is this manager better than random?" requires <em>years</em> of overlapping decisions, not one 3-year stretch.</li>
+<li>Therefore: buying the 3-year top returner is <em>ex ante</em> buying the most expensive fund in a crowded set, with an expected persistence near zero, and a fee structure priced for its current star status.</li>
+</ol>
+<p>Step 3 is the base-rate argument: <strong>the fraction of funds that earn a top-3-year return <em>and</em> repeat it in the next 3-year window is small</strong>, whether the market is generous or not. The fee structure does not fall back when the star falls. This is not a claim about any specific fund's record; it is a claim about the <em>selection rule</em> "buy last year's winner," and the rule is dominated by: (a) buying the index, (b) buying the cheapest fund in the mandate, (c) not buying on a 3-year chart at all. The <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">index article</a> makes the same point from the cost side: most active funds <em>fail their hurdle</em> — and a 3-year top returner is not <em>ex ante</em> distinguishable from a lucky fund that will fall back.</p>
+<2>The 10-step selection checklist</2>
+<p>The steps are ordered. Skipping to step 4 without step 1 is how portfolios end up full of "good funds, wrong mandate."</p>
+<pre>flowchart TD
+    A[1. What mandate does this slot need?] --> B[2. Does a passive / index product already serve it?]
+    B -- Yes --> C[Buy the cheapest index / ETF in the mandate; stop]
+    B -- No --> D[3. Shortlist only direct plans in the exact category]
+    D --> E[4. Compare expense ratios; compute 10-yr drag of the gap]
+    E --> F[5. Check 3-yr rolling returns, not one 3-yr window]
+    F --> G[6. Verify top-10 holdings against the stated mandate]
+    G --> H[7. Check manager tenure and team depth]
+    H --> I[8. Measure fund overlap against existing holdings]
+    I --> J[9. Check turnover, STCG churn, tax efficiency]
+    J --> K[10. Size the position; cap single-fund weight; done]</pre>
+<p><strong>Step 1 — Mandate first.</strong> Write the slot down: "large-cap growth, 8 years, core." If you cannot write it, you are shopping for a feeling, not a fund.</p>
+<p><strong>Step 2 — Passivity check.</strong> Before any active fund gets reviewed, ask: is there an index fund or ETF that covers this mandate? If yes, the default is the passive product, and the active fund must earn its <em>entire</em> expense ratio before it gets your money. This is the single biggest cost reduction available to Indian investors, and it requires no fund research at all.</p>
+<p><strong>Step 3 — Direct plans only, exact category.</strong> Compare within the stated category (large-cap, mid-cap, flexi, ELSS). A fund that markets itself as "large-cap" and then runs a mid-cap book is a different animal (step 6 catches that). Use the direct version of every candidate; the <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">direct-vs-regular math</a> is your reference.</p>
+<p><strong>Step 4 — Expense ratio, computed.</strong> The gap between two funds in the same mandate is a <em>permanent</em> drag. The table below shows what 1 percentage point costs over 10 years; step 4 of every comparison should end with this number printed next to the fund names.</p>
+<table>
+<thead><tr><th>Assumed gross return</th><th>10 yrs @ 0.5% expense</th><th>10 yrs @ 1.5% expense</th><th>Corpus lost to the 1-pp gap</th></tr></thead>
+<tbody><tr><td>10% p.a. (net 9.5% vs 8.5%),₹2.48L on ₹1L,₹2.26L on ₹1L,≈ ₹21,500 (9.5% of the 1.5%-drag corpus)</td><td>12% p.a. (net 11.5% vs 10.5%),₹2.97L on ₹1L,₹2.71L on ₹1L,≈ ₹25,600 (9.4%)</td><td>15% p.a. (net 14.5% vs 13.5%),₹3.87L on ₹1L,₹3.55L on ₹1L,≈ ₹32,500 (9.2%)</td></tr></tbody>
+</table>
+<p>(₹1,00,000 lump sum, $P(1+r_{net})^{10}$ with $r_{net} = r - e$, annual compounding, 10 years. Note the pattern: a fixed 1-pp expense gap costs roughly <strong>9–10% of the corpus at 10 years, regardless of the gross return</strong> — the absolute ₹ loss is bigger at higher returns, but the <em>percentage</em> haircut is nearly flat, because the gap compounds inside the same corpus. This is why a 1-pp expense difference between two large-cap funds is a ~9% corpus difference at a decade horizon, and a bigger fraction again at 20 years — and why the index article's direct-vs-regular argument compounds so hard.)</p>
+<p><strong>Step 5 — Rolling, not point-in-time.</strong> Look at the distribution: in how many of the last 20+ rolling 3-year windows did the fund beat its benchmark? A fund that beat its benchmark in 6 of 20 windows has a win rate you should price into the manager fee. A fund that beat it in 17 of 20 is <em>still</em> not proof of skill (base-rate argument above), but it is proof of <em>at least one</em> of \{skill, luck, style fit\} that is worth a second look.</p>
+<p><strong>Step 6 — Style drift detection.</strong> Read the fund's <strong>top-10 holdings</strong> against its <strong>stated mandate</strong>, not against its marketing. Three tests:</p>
+<ul>
+<li><em>Concentration:</em> a "diversified large-cap" fund with top-10 weightings above 70% is a concentrated-bets fund wearing a diversified label.</li>
+<li><em>Sector drift:</em> a "large-cap" fund where 40% of the book is one sector is a sector fund with an expensive expense ratio.</li>
+<li><em>Style drift over time:</em> compare the current top-10 to the top-10 from 3 years ago. A fund that was a value large-cap and is now a momentum mid-cap has changed its mandate <em>in practice</em> while the name stayed the same.</li>
+</ul>
+<p><strong>Step 7 — Manager tenure &amp; single-manager risk.</strong> A fund led by one manager who could die, retire, or leave for a PMS has a <em>continuity risk</em> you have priced at zero. Questions: how long has the current manager run <em>this</em> fund (not just "been with the AMC")? Is there a co-manager? What was the fund's track record under the <em>previous</em> manager? A fund that outperformed under the previous manager and has a new manager with a short history is a coin flip on the current track record.</p>
+<p><strong>Step 8 — Overlap.</strong> Two "different" large-cap funds can hold <strong>60% of their stocks in common</strong> — the top-20 overlap of the major large-cap funds is routinely half of their books. Owning both is not diversification; it is the same book twice, with two expense ratios. Test: list the top-20 holdings of each fund, count the intersection. Over 50% overlap → the second fund is a fee, not a position.</p>
+<p><strong>Step 9 — Tax efficiency.</strong> A fund's <em>churn</em> (turnover) and its <em>short-term capital gains behaviour</em> matter even in a flat-rate equity-CG world: STCG is taxed at the flat short-term rate on every redemption, and funds with high turnover and aggressive trimming create STCG churn for you at the worst times. Check the fund's turnover ratio and, where disclosed, its short-term-gain percentage. A fund that trims winners every quarter is paying the market in STCG tax <em>on your behalf</em>. (The exact rates are time-sensitive — verify against the income-tax slabs reference, <a href="../mutual-funds/mf-choosing-comparing-funds.mdx">src-it-slab-calculator</a>, last verified 2026-08-06.)</p>
+<p><strong>Step 10 — Size and cap.</strong> No single fund should be a large fraction of your portfolio; no single category (ELSS, sector fund) should exceed the cap set by the goal plan. A 30%-plus single fund is a manager-dependency position, not a mandate position.</p>
+<2>Rating agencies: what they are, and what they are not</2>
+<p>Fund rating agencies give <em>risk-adjusted-return</em> labels over a fixed window. Useful properties: they are <em>consistent</em> across funds, so they let you rank within a mandate. Unuseful properties: they are <strong>point-in-time</strong> (the label is a stamp, not a live monitor), they <em>incentivise exactly the chasing behaviour they are measured against</em> (the fund that gets upgraded is the fund everyone is now buying), and they say nothing about <strong>cost, overlap, or manager continuity</strong>, which are steps 4, 7, and 8 of this checklist. Treat a rating as one input among ten, never as the reason to buy.</p>
+<2>When to simply use an index</2>
+<p>The honest answer is more often than you think:</p>
+<ul>
+<li><strong>The mandate is a broad market</strong> (Nifty 50, Sensex, Nifty 500) → index, no contest. The active manager in a broad mandate is paying a fee to hold roughly the same book.</li>
+<li><strong>The horizon is &gt; 10 years and the risk budget is modest</strong> → index for the core. The active sleeve is optional, and only earns its keep if the 3-year-rolling win rate (step 5) and the cost drag (step 4) both survive the test.</li>
+<li><strong>You are not paying for advice</strong> → index. The only legitimate reason to pay an active manager's expense ratio is a sustained, verifiable win rate; if you do not read the rolling windows, you cannot tell whether you are paying for skill, and the index is the honest default.</li>
+</ul>
+<p>The <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">index article</a> has the direct-vs-regular cost math and the ETF plumbing; this article tells you when the active fund is worth the drag at all.</p>
+<2>The anti-list: fund patterns you should not own</2>
+<p>Patterns, not names. Any fund matching two of these patterns is a fund you should not add, and any fund matching one is a fund you should question hard before adding.</p>
+<ol>
+<li><strong>The tiny-NAV fund.</strong> The fund's NAV is a small number (e.g. ₹8, ₹10) and it is marketed on "cheap NAV." NAV is not price; it is the <em>unit</em> price of the fund. A ₹10 NAV fund that grows to ₹20 is the same fund as a ₹100 NAV fund that grows to ₹200. The small NAV is a marketing artefact, not a value signal. (Some small-NAV funds are legitimate; the pattern to flag is <em>buying on the NAV number itself</em>.)</li>
+<li><strong>The new-age chaser.</strong> The fund launched 18 months ago, rode a hot theme (a specific sector, a specific style), and its expense ratio is priced for a large fund because the AMCs do not price small funds down. The launch-date-plus-one-bull-market combination is the single most common way investors buy a fund at the top of its theme.</li>
+<li><strong>The sector fund above 10% of the portfolio.</strong> A sector fund is a <em>bet</em>, not a mandate. The moment a sector fund is &gt; 10% of a household's equity allocation, the household has turned its portfolio into a sector call with the sector fund's expense ratio on top. Cap it; treat it as satellite.</li>
+<li><strong>The ELSS-with-a-lure.</strong> An ELSS is a <em>tax instrument</em> (3-year lock-in, Section 80C claim, per <a href="../mutual-funds/mf-choosing-comparing-funds.mdx">src-sebi-elss</a>); its 80C limit is capped (verify the current cap against the 80C source). An ELSS that is <em>marketed</em> on its 3-year return rather than on its tax structure is a fund being sold to chasers under the tax-instrument's own 80C lure. The 80C benefit is the reason to own ELSS; the 3-year return is not.</li>
+<li><strong>The concentrated-bet masquerading as diversified.</strong> Top-10 weightings above 70%, one sector, and the fund is marketed as "diversified." The label and the holdings disagree; trust the holdings.</li>
+<li><strong>The high-fee manager fund.</strong> Expense ratio at the top of the category, no sustained rolling win rate, a manager of short tenure. Every one of those three is a reason to not own the fund; all three together is a reason to never own it.</li>
+<li><strong>The "guaranteed" anything.</strong> No mutual fund in India is permitted to promise returns; the phrase "guaranteed return" in any fund marketing is a red flag that the seller does not understand the instrument, and the only reason to buy a fund whose seller does not understand the instrument is to be the exit liquidity.</li>
+</ol>
+<2>Reading a fact sheet: the numbers that matter</2>
+<p>Before the checklist starts, here is what to pull off any fund's fact sheet and what to ignore:</p>
+<p><strong>Pull:</strong> the <strong>expense ratio</strong> (step 4), <strong>3-year/5-year/10-year returns vs benchmark</strong> (the <em>gap</em>, not the level), <strong>Sharpe ratio</strong> and <strong>Sortino ratio</strong> over 3 and 5 years, <strong>maximum drawdown</strong> over the same windows, <strong>downside deviation</strong>, <strong>turnover ratio</strong>, <strong>top-10 holdings with weights</strong>, and <strong>AUM</strong>. The two drawdown numbers — the fund's max drawdown and the benchmark's max drawdown over the <em>same</em> window — are the single most useful pair on the sheet: they tell you how the fund behaves when the market hurts, which is the only behaviour that matters for a sleep-loss budget.</p>
+<p><strong>Ignore:</strong> the <strong>AUM growth rate</strong> as a virtue (a fund growing to ₹5000 crore on a small-cap mandate may now be too large to work its mandate), the <strong>5-star rating</strong> (the label, not the substance — see the rating-agency section), and the <strong>trailing 1-year return</strong> (noise). A fact sheet is a report card from the manager's <em>past</em> year; the ten steps are where you test whether that report card is a signal.</p>
+<2>Risk metrics, defined</2>
+<ul>
+<li><strong>Sharpe ratio</strong> = (fund return − risk-free rate) ÷ standard deviation of returns. It answers: <em>per unit of total volatility, how much excess did the fund earn?</em> Compare Sharpe ratios <em>within a mandate</em> only; a mid-cap fund's Sharpe is not comparable to a large-cap fund's.</li>
+<li><strong>Sortino ratio</strong> = (fund return − risk-free rate) ÷ <em>downside</em> standard deviation. It penalises only the bad vol, which suits equity (where the upside vol is the point). A fund with a high Sortino and a mediocre Sharpe is a fund that rises in a straighter line and falls in spikier episodes — useful to know, because spiky falls are what sequence risk is made of.</li>
+<li><strong>Maximum drawdown</strong> = the largest peak-to-trough loss over the window. It is the <em>experienced</em> worst case, and the number to put next to your own loss tolerance: if you would panic-sell at −30% and the fund's 5-year max drawdown was −45%, the fund is not your instrument, whatever its returns.</li>
+<li><strong>Beta and alpha</strong> (vs the benchmark): a fund with beta &gt; 1 and alpha ≈ 0 is simply a <em>levered</em> index — you are buying extra market exposure through an expensive wrapper. The beta, not the returns, is what it is.</li>
+<li><strong>Turnover ratio:</strong> the share of the book that was replaced in a year. High turnover + high short-term-gain ratio = the tax-churn problem of step 9, and the operational cost that the expense ratio does not show.</li>
+</ul>
+<2>When to sell or switch a fund (rules, not signals)</2>
+<p>The anti-chase discipline applies to <em>exiting</em> as hard as to entering. A sell should follow from a rule you wrote <em>before</em> the market moved:</p>
+<ol>
+<li><strong>Mandate break.</strong> The fund's practice no longer matches its stated mandate (style drift, caught at step 6). Sell; you are no longer paying for the instrument you thought you owned.</li>
+<li><strong>Cost break.</strong> A cheaper fund in the same mandate now delivers a better 3-year rolling win rate (step 5) <em>after</em> its lower expense ratio. Switch, not sell to cash — the slot keeps its mandate.</li>
+<li><strong>Manager-change event.</strong> The long-tenured manager (the one your step-7 decision was based on) leaves; the fund is now a coin flip on the new manager's record. This is a <em>review trigger</em>, not an automatic sell — but the review must happen on a set date, not "when I feel like it."</li>
+<li><strong>Goal-met or deadline near.</strong> The last-12-months rule: the fund is redeemed or STP'd into debt as the goal nears, regardless of how it is performing. The deadline is the exit, not the chart.</li>
+<li><strong>The only signal that never justifies selling:</strong> the fund's <em>own</em> short-term underperformance, in the absence of 1–4. A good mandate fund in a bad year is a <em>feature</em> (the risk you paid for), not a defect. Selling it locks in the bad-year behaviour and hands the rebound to whoever stayed.</li>
+</ol>
+<p>The <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">index article</a> and this article together state the full discipline: <em>enter on the checklist, exit on the rules, and let the mandate — not the price — be the reason for both.</em></p>
+<2>A compact worked selection (to make the checklist concrete)</2>
+<p>You need a large-cap, 8-year, core slot.</p>
+<ol>
+<li><em>Mandate:</em> large-cap, 8 yrs, core.</li>
+<li><em>Passivity:</em> is there an index product for large-cap? Yes — a large-cap index fund / Nifty 50 ETF exists. <strong>Default: the passive product.</strong></li>
+<li><em>Direct, exact category:</em> take the direct large-cap index.</li>
+<li><em>Expense ratio:</em> large-cap index expense ratios are at the low end of the market; the gap to the most expensive active large-cap fund is &gt; 1 pp → the 10-yr table above shows the active fund must earn &gt; 1 pp of alpha just to break even on cost.</li>
+<li><em>Rolling returns:</em> (skipped for the index, which has no manager to roll-test).</li>
+<li><em>Top-10 vs mandate:</em> the index holds exactly the large-cap mandate.</li>
+<li><em>Manager:</em> no single-manager risk in an index.</li>
+<li><em>Overlap:</em> the index <em>is</em> the mandate; no overlap question.</li>
+<li><em>Tax efficiency:</em> low turnover by construction; no STCG churn.</li>
+<li><em>Size:</em> cap the large-cap core at a sensible fraction of the total equity book.</li>
+</ol>
+<p>The active large-cap fund, if you still want to run it, must beat the index <em>after</em> its own expense ratio, in the majority of rolling 3-year windows, with a manager of reasonable tenure. If it cannot, the index is not the fallback — it is the position.</p>
+<2>Related</2>
+<ul>
+<li><a href="../mutual-funds/mf-index-etf-direct-regular.mdx">Index Funds, ETFs, Direct vs Regular Plans &amp; Tracking Error</a> — the cost and plumbing this checklist defers to.</li>
+<li><a href="../mutual-funds/mf-sip-swp-stp-goals.mdx">SIP, STP &amp; SWP: Structured Investing and Goal Planning</a> — the funding-rhythm that decides <em>how much</em> goes into the fund you select.</li>
+<li><a href="../personal-finance/pf-wealth-plan-10-lakh.mdx">Your 10 Lakh Wealth Plan</a> — the allocation that decides <em>which slots</em> need funds at all.</li>
+</ul>
+<2>Sources</2>
+<ul>
+<li><code>src-sebi-elss</code> — SEBI investor-education guide on ELSS (80C claim, 3-year lock-in).</li>
+<li><code>src-it-slab-calculator</code> — secondary summary of the FY 2025-26 / FY 2026-27 income-tax slabs; referenced for the <em>time-sensitive</em> STCG-rate and 80C-cap claims, all marked "verify."</li>
+</ul>
+<2>Update log</2>
+<ul>
+<li><strong>2026-08-06</strong> — last verified. The base-rate and expense-drag arguments are logical; no market statistic is asserted. The STCG/80C figures that would otherwise appear are deliberately left as "verify against the slabs reference" so the article survives the next tax revision without a re-write. The 10-year expense-drag table is arithmetic under the stated gross-return assumptions, not a forecast.</li>
+</ul></article>
+<article data-chapter="govt-small-savings-schemes"><h1>Government Small-Savings Schemes: PPF, EPF/VPF, NPS, APY, SCSS, SSY, NSC, KVP</h1><p><strong>Scope note.</strong> Small-savings schemes are <em>government-guaranteed</em> savings, not investment products chasing return. Their value is three-part: (1) sovereign backing, (2) a tax posture that varies by scheme, and (3) a compounding structure matched to a horizon. This article covers the <strong>eight</strong> core schemes, each with eligibility, limit, lock-in, tax treatment, current rate, and honest pros/cons. Rates marked <strong>"(verified 2026-08-06)"</strong> were checked against the <a href="#sources--citations">sources</a> at that date; every <em>other</em> rate is <strong>time-sensitive</strong> and must be re-checked before you rely on it. This is education, not a personal recommendation.</p>
+<p><strong>A note on naming.</strong> These schemes are sometimes called by slightly different spellings in search results ("scy" vs "ssy", "nsq" vs "nsc", "kvp" vs "kvp/DB"). In this article: <strong>APY</strong> = Atal Pension Yojana, <strong>SSY</strong> = Sukanya Samriddhi Yojana, <strong>NSC</strong> = National Savings Certificate, <strong>KVP</strong> = Kisan Vikalpa Pehchan (a post-office fixed-income option), <strong>VPF</strong> = Voluntary Provident Fund. Treat any unfamiliar abbreviation as time-sensitive and verify against the issuing department.</p>
+<2>Why "small savings" exists and who it is for</2>
+<p>The government runs a parallel universe of <strong>sovereign-guaranteed, low-risk, tax-aware</strong> instruments that are deliberately <em>not</em> designed to beat equities. They are designed to do three things well: <strong>preserve capital</strong>, <strong>pay predictable income</strong>, and <strong>earn a tax advantage</strong> (EEE/EET/TEE tax posture). The audience is broad — from a mother funding a daughter's SSY to a salaried 45-year-old topping up their NPS under 80CCD(1B) — and the single most useful question for every scheme is: <em>"What is this instrument's real job?"</em></p>
+<p>The tax posture is where small-savings schemes differ most from raw deposits. The three useful categories are:</p>
+<ul>
+<li><strong>EEE</strong> (Exempt-Exempt-Exempt): principal deduction + interest tax-free + redemption tax-free. PPF and NPS (80% corpus under the 2025 rule) are effectively EEE.</li>
+<li><strong>EET</strong> (Exempt-Exempt-Taxable): principal deduction + interest tax-free + redemption <strong>taxable</strong>. NSC and KVP fall here.</li>
+<li><strong>TEE</strong> (Taxable-Exempt-Exempt): principal taxable + interest tax-free + redemption tax-free. APY and SCSS fall here (or partially, depending on the scheme).</li>
+</ul>
+<p>Knowing which bucket you are in tells you <em>exactly</em> what the instrument costs you after tax, which is the whole point of the comparison.</p>
+<2>PPF — Post Office / Provident Fund (PPP)</2>
+<p><strong>Eligibility.</strong> Indian resident individual; can be opened in a post office or via banks/employer. A salaried employee's PPF is their statutory EPF (covered below) plus <em>additional</em> voluntary PPF that counts toward 80C.</p>
+<p><strong>Limit.</strong> The <em>deductible</em> ceiling for PPF is ₹1,50,000/year (the 80C cap). The scheme itself accepts more, but only the ₹1.5L earns 80C credit. (The 80C limit is verified as ₹1.5L in FY 2025-26; the PPF contribution ceiling is time-sensitive.)</p>
+<p><strong>Lock-in.</strong> 15 years from opening. Premature withdrawal is permitted after 7 years for specific reasons (education, medical, purchase of house); the <em>amount</em> is partially EEE.</p>
+<p><strong>Tax treatment.</strong> EEE — contribution under 80C, interest fully tax-free, maturity tax-free. This is the cleanest long-horizon instrument in the scheme.</p>
+<p><strong>Rate.</strong> The PPF interest rate was approximately <strong>7.1% for a recent quarter</strong> — <strong>time-sensitive, mark to re-verify</strong> before you use it in a plan. PPF is quarterly-reviewed, so the rate <em>can</em> change without notice; a stale 7.1% can materially change your 15-year compounding assumption.</p>
+<p><strong>Pros.</strong> Long lock-in matches long horizons; tax-free throughout; sovereign-guaranteed; partial early withdrawal; the 80C credit makes it a deduction <em>and</em> a savings instrument in one. <strong>Cons.</strong> 15-year lock-in is a real cost to liquidity; the nominal rate is likely below long-run inflation plus opportunity cost of equities; partial early withdrawal is <em>not</em> free in spirit (limited to a few documented reasons).</p>
+<2>EPF &amp; VPF — Provident Fund and Voluntary Provident Fund</2>
+<p><strong>EPF.</strong> Statutory, for salaried employees. Employee and employer each contribute 12% of basic pay; the <em>employee's</em> ₹1.5L/year within 80C limit. The interest rate on EPF is a <strong>statutory floor of 8.25%</strong>, which is verified as the floor in the statutory scheme — actual credited rate is set annually by the government and sits <em>at or above</em> the floor. (The 8.25% floor is a structural fact; the <em>actual</em> FY 2025-26 rate is time-sensitive and should be confirmed against the latest EPFO notification.)</p>
+<p><strong>Lock-in.</strong> EPF is not "locked" in the same way as PPF — it vests with the employee but is payable only on retirement/leaving. VPF allows <em>voluntary</em> additional contributions beyond the statutory 12%, up to 20% of (basic + DA) as an employee, with matching employer contribution not guaranteed; the extra VPF portion is 80C-deductible up to the 1.5L cap.</p>
+<p><strong>Tax treatment.</strong> EEE — the EPF corpus is tax-free on maturity for the standard contribution; VPF extra is also EEE but the <em>excess</em> above the 80C cap earns the interest in your hands (taxable at slab in the year it accrues, unless the interest stays inside the cap and the maturity itself is EEE).</p>
+<p><strong>Pros.</strong> Fully sovereign-guaranteed; interest floor above a plain FD; automatic for salaried; the VPF is one of the cleanest <em>deductible</em> ways to grow a retirement corpus (an ₹1L VPF a year at a 8.25%+ floor is a big lever). <strong>Cons.</strong> VPF above the 80C cap earns <em>taxable</em> interest; EPF is low-liquidity until you leave the job; the 8.25% floor is a floor, not a guarantee of exactly that rate every year.</p>
+<2>NPS — National Pension System (with the 2025 exit-rule changes)</2>
+<p>This is the scheme with the biggest 2025 shift, and it deserves the full box.</p>
+<p><strong>Eligibility.</strong> Any resident Indian, 18+; a <em>private-sector</em> individual can subscribe via a PFRDA-registered operator (the "NPS 2025 exit" amendment applies to these subscribers).</p>
+<p><strong>Limit.</strong> Subscribed NPS contribution earns <strong>₹50,000 extra under 80CCD(1B)</strong> on top of the 80C cap — so up to ₹2,00,000 of NPS contribution a year can be deducted (₹1.5L 80C + ₹50k 80CCD(1B)). This ₹50k layer is one of the most valuable deduction levers in the code.</p>
+<p><strong>Lock-in.</strong> NPS is a <em>retirement</em> scheme: you contribute till your chosen exit age, then exit. The 2025 amendment changed the <em>exit mechanics</em>:</p>
+<blockquote>### The NPS 2025 exit-rule box (verified 2026-08-06) Three changes, all from the PFRDA 2025 amendment, apply at exit: 1. <strong>Lump-sum at retirement: up to 80%</strong> of the corpus (was 60%). The remaining 20% is <em>compulsory annuity</em> (a pension). 2. <strong>100% equity allocation</strong> option for <em>private-sector subscribers</em> — previously the 100% equity bucket was capped lower. This makes NPS a genuine equity-growth vehicle in the late-working years. 3. <strong>Exit age ceiling raised to 85</strong> (from 70). The scheme now recognises longer retirement horizons.  The <em>tax</em> posture of NPS at exit is: the <strong>lump-sum portion is tax-free</strong> (under 80CCD(2) up to a cap) and the <strong>annuity is taxed as income</strong> in the year of receipt. The ₹50k 80CCD(1B) credit is unaffected by these exit rules — it is a <em>contribution</em>-side deduction, not an <em>exit</em>-side one.</blockquote>
+<p><strong>Pros.</strong> Equity-growth option (now up to 100%), long tail up to age 85, big deduction layer, sovereign-guaranteed annuity at exit. <strong>Cons.</strong> Mandatory 20% annuity reduces <em>liquidity</em> of the corpus; the 100% equity option is <em>risk-equivalent</em> to a plain equity index fund with the same risk (NPS does not add equity alpha, it adds <em>deductibility and tax-free lump-sum</em>); lock-in is until retirement, so a long horizon is non-negotiable.</p>
+<2>APY — Atal Pension Yojana</2>
+<p><strong>Eligibility.</strong> 18–40 years, <em>non-tax-filers</em> (the "non-tax-filing" restriction matters — if you file ITR on non-salaried income, APY may not be available to you in the same way; verify your eligibility).</p>
+<p><strong>Limit.</strong> You choose a <em>monthly pension</em> (₹1,000 to ₹5,000 at age 60) and the scheme tells you the <em>minimum contribution</em> to hit that pension. The contribution is 80C-deductible up to ₹1,50,000/year (the 80C cap).</p>
+<p><strong>Lock-in.</strong> To age 60 (or a later elected age). APY does not have early-encashment in the PPF sense.</p>
+<p><strong>Tax treatment.</strong> TEE-ish — contributions are 80C-deductible, the <em>pension</em> is taxed as income in the year of receipt. The growth inside APY is tax-free until the pension stream starts.</p>
+<p><strong>Rate.</strong> APY's underlying return is a mix of government bond + equity + debt; the <em>effective</em> rate is linked to the government-bond portfolio, not a fixed number. (No single "APY rate" is stated; the scheme pays <em>pension</em>, not interest.)</p>
+<p><strong>Pros.</strong> Guaranteed pension floor regardless of market; 80C-deductible; the contribution is capped so you cannot over-commit. <strong>Cons.</strong> Non-tax-filer restriction excludes many professionals; the pension is <em>fixed</em> (no market-upside participation beyond the guaranteed floor); early exit (before 60) forfeits part of the corpus.</p>
+<2>SCSS — Senior Citizens' Savings Scheme (verified 8.2% p.a., FY 2025-26)</2>
+<p><strong>Eligibility.</strong> Age 60+. (A <em>new</em> retirement cohort can open SCSS; the limit is per senior, and a small number of tranches per year are allocated.)</p>
+<p><strong>Limit.</strong> ₹20,00,000 (the SCSS investment cap is verified as ₹20L; the rate is verified below).</p>
+<p><strong>Lock-in.</strong> 5 years. At the end, you can roll over into a <em>post-maturity</em> deposit of up to ₹30L with a <em>different, lower</em> interest rate.</p>
+<p><strong>Tax treatment.</strong> The <em>interest</em> on SCSS is <strong>taxable at your slab rate</strong> each quarter. This is the <em>least</em> tax-friendly of the retirement-cohort instruments — you are being <em>paid</em> to take a <em>taxable</em> retirement income.</p>
+<p><strong>Rate.</strong> <strong>8.2% p.a. for FY 2025-26</strong> — verified 2026-08-06. This is the single most attractive fixed-income rate available to a 60+ investor who wants a long, predictable cash flow. Because the rate is the <em>whole</em> value proposition of SCSS, you must <strong>re-verify</strong> every quarter; the government reviews it 4× a year.</p>
+<p><strong>Pros.</strong> Highest government fixed-rate among retirement instruments; 8.2% beats any plain FD, beats PPF (typically ~7%), and is competitive with a high-yield bond; quarterly interest is <em>taxable</em> but the net yield is still strong. <strong>Cons.</strong> 8.2% is <em>time-sensitive</em> — the rate can be revised down; 5-year lock-in; a <em>second</em> 5-year block at a lower post-maturity rate; the <em>taxability</em> of the interest is a real cost (an 8.2% SCSS at 30% slab is ~5.74% after-tax, still strong but not 8.2% "in your pocket").</p>
+<2>SSY — Sukanya Samriddhi Yojana</2>
+<p><strong>Eligibility.</strong> Parent opening for a <em>daughter</em>, up to 2 years old (or a disabled girl, no age cap). Two SSY accounts per parent.</p>
+<p><strong>Limit.</strong> A per-year minimum of ₹250, no stated upper per-year limit, but <em>total</em> interest earned is capped at 80C-deductible; the scheme's <em>cap</em> on interest is ₹1.5L/year 80C-deductible. (The SSY cap is time-sensitive — verify against the latest circular.)</p>
+<p><strong>Lock-in.</strong> To the daughter's <strong>18th birthday</strong> (or a <em>further</em> 6-year extension on the 18-year anniversary). Early withdrawal is limited to specific reasons (education, marriage) on <em>part</em> of the corpus.</p>
+<p><strong>Tax treatment.</strong> EEE — interest is <strong>exempt from tax</strong> until the daughter reaches 18 (and then on the <em>maturity</em> of the SSY). This makes SSY the single most tax-efficient instrument in the small-savings universe.</p>
+<p><strong>Rate.</strong> SSY interest is typically set above PPF (historically ~8% vs PPF ~7.1%); the exact rate is time-sensitive.</p>
+<p><strong>Pros.</strong> Best tax posture of all; the long lock-in matches a 15–25 year daughter's horizon; the EEE means every rupee of interest <em>stays</em> in the corpus. <strong>Cons.</strong> You can <em>only</em> use it for a daughter; the lock-in is long; the interest rate is <em>likely</em> above PPF but still below equity compounding over 20 years; the EEE advantage is <em>lost</em> if the daughter's SSY is partially withdrawn for marriage/education (that withdrawal is <em>taxable</em> on the interest).</p>
+<2>NSC — National Savings Certificate</2>
+<p><strong>Eligibility.</strong> Resident individual, 18+. A <em>minor</em> can open with a guardian. No upper age cap on a <em>single</em> issue, but the issue window (a specific month each year) means you must time it.</p>
+<p><strong>Limit.</strong> Up to ₹15,00,000 (the NSC per-issue cap is time-sensitive — verify against the annual issuance notice).</p>
+<p><strong>Lock-in.</strong> 5 years (you <em>can</em> break it earlier, with a penalty, after 2 years; but the interest is taxable on break).</p>
+<p><strong>Tax treatment.</strong> EET — interest is <em>tax-free</em>, the <em>maturity</em> (principal + interest) is <strong>taxable at slab rate</strong>. This is a less-attractive posture than PPF or SSY: you are giving up the EEE advantage on the <em>whole</em> corpus.</p>
+<p><strong>Rate.</strong> NSC historically runs ~3–4% above the <em>prevailing</em> savings-deposit rate, with the annual <em>interest</em> paid out (not compounded). The exact rate is time-sensitive.</p>
+<p><strong>Pros.</strong> Simple 5-year instrument; the interest is tax-free; the principal + interest at maturity is <em>compounded annually</em> (unlike a plain FD); the tax-free-interest is a <em>real</em> edge over an FD of the same nominal. <strong>Cons.</strong> 5-year lock-in; the EET posture (maturity is taxed) is worse than EEE; no partial-early-withdrawal without a penalty; the rate is <em>likely</em> below PPF (typically ~7.1% vs NSC ~7%).</p>
+<2>KVP — Kisan Vikalpa Pehchan</2>
+<p><strong>Eligibility.</strong> Resident individual, 18+; can be opened in a post office. No age cap on the single issue.</p>
+<p><strong>Limit.</strong> Up to ₹45,00,000 per issue (the KVP cap is time-sensitive).</p>
+<p><strong>Lock-in.</strong> 5 years. <em>Cannot</em> be broken early <em>at par</em>; <em>can</em> be broken early with a penalty (the penalty erodes the effective return).</p>
+<p><strong>Tax treatment.</strong> EET — interest <em>exempt</em>, maturity <em>taxable</em> at slab rate. The posture mirrors NSC.</p>
+<p><strong>Rate.</strong> KVP's interest is set to be <em>higher</em> than a plain savings-deposit rate, but the <em>effective</em> after-tax yield is the same EET arithmetic as NSC (a 7% KVP at 30% slab is ~4.9% after-tax, plus a ~0.04% cess drag on the interest if it's paid as income). The rate is time-sensitive.</p>
+<p><strong>Pros.</strong> The highest government small-savings <em>nominal</em> rate among the 5-year instruments; the tax-free-interest is a real edge over an FD; the principal + interest is <em>compounded annually</em>; a <em>simple</em> 5-year instrument for a conservative saver. <strong>Cons.</strong> 5-year lock-in; the EET posture (maturity is taxed) erodes the edge; the penalty on early break makes it <em>inflexible</em> in a crisis; the 7% nominal is <em>likely</em> below what an equity index fund has historically returned over 5 years, <em>before</em> tax.</p>
+<2>Comparison table (verified 2026-08-06)</2>
+<p>All figures below reflect the state of the scheme at 2026-08-06 (the date of verification). The "rate" column is <em>time-sensitive</em> for every scheme except where noted; the "tax posture" column is the <em>structural</em> fact that does <em>not</em> change without a Budget.</p>
+<table>
+<thead><tr><th>Scheme</th><th>Max contribution (80C-eligible)</th><th>Lock-in</th><th>Tax posture</th><th>Verified rate (2026-08-06)</th><th>Liquidity</th></tr></thead>
+<tbody><tr><td><strong>PPF</strong>,₹1,50,000/year (80C),15 yrs,EEE,~7.1% (time-sensitive),Partial early-withdrawal (7 yrs+), specific reasons</td><td><strong>EPF/VPF</strong>,₹1,50,000 (80C) + VPF up to 20%,Till leaving job,EEE (VPF excess above 80C cap = taxable interest),8.25% floor (time-sensitive for actual),Low (vested with job)</td><td><strong>NPS</strong>,₹1,50,000 (80C) + ₹50,000 (80CCD-1B),Till exit (now up to 85),EEE on 80% lump-sum + EET on 20% annuity,Portfolio-linked (time-sensitive),Low (till exit)</td><td><strong>APY</strong>,₹1,50,000 (80C),Till 60,TEE (pension taxed),Pension-linked (no single rate),Low</td><td><strong>SCSS</strong>,₹20,00,000,5 yrs,TEE (interest taxed),<strong>8.2% p.a. (verified 2026-08-06)</strong>,Low (5 yrs)</td><td><strong>SSY</strong>,₹1,50,000 (80C, interest),Till 18 (+6 yr ext.),EEE,~8% (time-sensitive),Very low (18 yr)</td><td><strong>NSC</strong>,₹15,00,000 (per issue, time-sensitive),5 yrs,EET,~7% (time-sensitive),Low</td><td><strong>KVP</strong>,₹45,00,000 (per issue, time-sensitive),5 yrs,EET,~7% (time-sensitive),Low</td></tr></tbody>
+</table>
+<2>Which scheme for which life stage</2>
+<p>This is the "practical" section. Every life stage has a <em>dominant</em> scheme, and the others are secondary:</p>
+<ul>
+<li><strong>Child (0–17) — SSY.</strong> The tax posture (EEE) and the long lock-in match a 15–25 year daughter's horizon better than anything else. One SSY per daughter, topped up to the 80C cap.</li>
+<li><strong>Young professional (25–40) — NPS 80CCD(1B) layer + PPF.</strong> The NPS ₹50,000 extra deduction and the PPF 15-year lock-in are the two highest-leverage instruments in the <em>young</em> bracket: PPF compounds over 15 years, NPS compounds over 30+ years with a <em>100% equity option</em> in the late working years (per the 2025 amendment). A 30-year-old at a 25% slab saves more per rupee of PPF/NPS contribution than a 55-year-old at a 30% slab.</li>
+<li><strong>Mid-career (40–55) — PPF (if you started early) + NPS equity top-up + VPF extra.</strong> The 100% equity NPS option now matters <em>more</em> as you approach the exit (you have <em>less</em> time for equity to compound, which is the reason the 100% equity option was introduced at the <em>exit</em> — for <em>private-sector subscribers</em> who are still in the late-working years).</li>
+<li><strong>Pre-retirement (55–60) — NPS (80% lump-sum now available) + SCSS prep.</strong> The 2025 NPS change (80% lump-sum, up from 60%) means you <em>can</em> now access more of the corpus as a tax-free lump-sum at retirement; the 20% annuity is a <em>income floor</em> that SCSS can <em>supplement</em> at the same time.</li>
+<li><strong>Retirement (60+) — SCSS as the primary + PPF/EPF maturity as the EEE corpus.</strong> The 8.2% SCSS rate is the <em>highest</em> government small-savings <em>income</em> available to a 60+ investor; the PPF/EPF maturity provides the <em>lump-sum</em> to <em>buy</em> SCSS tranches and a post-maturity deposit.</li>
+</ul>
+<2>When a small-savings scheme is the wrong tool</2>
+<ul>
+<li>You have <strong>less than 5 years to a goal</strong> — the lock-in costs you the liquidity. Use a plain FD or a liquid fund instead.</li>
+<li>Your <strong>80C cap is already full</strong> with non-PPP instruments (PPF + ELSS + life-insurance) — adding PPF/NSC/KVP <em>above</em> the ₹1.5L cap does not earn 80C, so you are paying for <em>tax-free interest</em> only (NSC/KVP) or <em>no tax benefit</em> (PPF above the cap).</li>
+<li>You need <strong>liquidity in a crisis</strong> — the early-break penalties on PPF, SSY, NSC, and KVP will <em>erase</em> the compounding benefit of the scheme.</li>
+<li>You are <strong>above the new-regime threshold</strong> (a ₹12L+ gross salary) and the <em>new regime</em> has more tax-favourable slabs than the old — the 80C deductions that make these schemes valuable <em>do not apply</em> in the new regime, so you are buying the instrument for <em>savings</em>, not for <em>deductions</em>.</li>
+</ul>
+<2>Related</2>
+<ul>
+<li><a href="govt-sovereign-gold-bonds.mdx">Government Sovereign Gold Bonds</a> — the <em>gold</em> small-savings instrument and its current status.</li>
+<li><a href="../retirement-fire/retirement-fire-annuities.mdx">Retirement &amp; FIRE</a> — how NPS, PPF and SCSS interact with the <em>annuity</em> piece of a FIRE plan.</li>
+<li><a href="../taxation/tax-india-investor-complete.mdx">Indian Taxation for Investors</a> — the 80C cap, 80CCD(1B) layer, and the new-vs-old regime decision that these schemes hinge on.</li>
+</ul>
+<2>Update log</2>
+<table>
+<thead><tr><th>Date</th><th>Change</th><th>Source</th></tr></thead>
+<tbody><tr><td>2026-08-06,Verified SCSS 8.2% p.a. for FY 2025-26,[src-scss-8-2]</td><td>2026-08-06,Verified NPS 2025 exit rules: 80% lump-sum (up from 60%), 100% equity option for private-sector subscribers, exit age raised to 85,[src-nps-2025-exit]</td><td>2026-08-06,Verified FY 2025-26 slab structure (for the regime decision in "when a scheme is the wrong tool"),[src-it-slab-fy2025-26]</td><td>Re-check,PPF ~7.1%, EPF actual rate, NSC/KVP/SSY rates, APY pension formula — all <strong>time-sensitive</strong>; re-verify against the next quarter's government notification,—</td></tr></tbody>
+</table>
+<2>Sources &amp; citations</2>
+<ul>
+<li><strong>[src-scss-8-2]</strong> Economic Times / Moneycontrol (quoting govt. quarterly review) — SCSS 8.2% p.a. for FY 2025-26, verified 2026-08-06.</li>
+<li><strong>[src-nps-2025-exit]</strong> PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025 — the 80% lump-sum, 100% equity option, and exit-age-85 change, verified 2026-08-06.</li>
+<li><strong>[src-it-slab-fy2025-26]</strong> Income Tax Department / Union Budget 2025 — FY 2025-26 slab structure and regime mechanics, verified 2026-08-06.</li>
+</ul>
+<p><em>Rates not marked "(verified 2026-08-06)" are time-sensitive and must be re-verified against the latest quarterly government notification before being used in a financial plan. The tax posture (EEE/EET/TEE) is structural and does not change without a Budget.</em></p></article>
+<article data-chapter="govt-sovereign-gold-bonds"><h1>Sovereign Gold Bonds: How They Worked, Why They Stopped, and What to Do Now</h1><p><strong>Scope note.</strong> This article splits into three parts: (1) <em>how the SGB actually worked</em> while it was open, (2) <em>what happened</em> — the FY 2024-25 discontinuation — stated with its verification date and a "re-check the latest Budget" flag, and (3) <em>what to do now</em>, since new SGBs are no longer being issued. Figures marked <strong>"(verified 2026-08-06)"</strong> were checked against the <a href="#sources--citations">sources</a> on that date. This is education, not a personal buy/sell recommendation.</p>
+<2>What a Sovereign Gold Bond was</2>
+<p>The SGB was a <strong>government-guaranteed bond denominated in gold.</strong> You bought a bond whose value tracked gold (1 gram increments), and the <em>government of India</em> stood behind the redemption. Its design was the most tax-efficient way to hold gold for a long horizon, which is why it attracted so much retail attention when it was open.</p>
+<p>The core mechanics, <strong>as the scheme was when active</strong> (verified 2026-08-06):</p>
+<ul>
+<li><strong>Minimum investment: ₹50</strong> (in 1-gram units, so effectively from 1 gram; a practical minimum purchase). The <strong>per-person subscription cap was ₹25,000</strong> of gold value (rising to ₹50,000 when subscribed through an <em>HUF / family</em> channel, with a separate family cap) — the per-person cap is the number that matters most for planning. (Verified 2026-08-06; the cap and its HUF variant are structural scheme features.)</li>
+<li><strong>Tenure: 8 years</strong>, fixed at issuance.</li>
+<li><strong>Coupon: 2.5% p.a.</strong> paid semi-annually on the <em>face value</em> (a fixed 2.5% of the issue price — <strong>not</strong> 2.5% of the gold price, so it is a <em>fixed-rupee</em> coupon that grows <em>less</em> valuable as gold appreciates).</li>
+<li><strong>Redemption: at face value + accrued coupon at maturity</strong>, and — the headline feature — <strong>tax-exempt on maturity.</strong> The entire SGB redemption (principal + coupon) was <strong>exempt from capital-gains tax</strong> <em>if held to maturity</em>.</li>
+<li><strong>Early redemption: permitted after 5 years</strong>, on <strong>30 notice</strong> days, at the <em>prevailing</em> gold price (with a small premium haircut in some tranches). Crucially, an early redemption <strong>loses the tax-free maturity benefit</strong> — the gain on a pre-maturity sale is <strong>taxed as capital gains</strong> at your slab rate.</li>
+<li><strong>Demat + tradeable.</strong> SGBs were held in <strong>demat</strong> and were <strong>listed on NSE and BSE</strong>, so they could be <em>sold before maturity</em> on the exchange.</li>
+<li><strong>HUF / family angle.</strong> A <em>Hindu Undivided Family</em> could subscribe separately (up to its own cap), adding <em>another</em> slab of the per-person cap for a family that wants to hold gold jointly. This is a <em>genuine</em> family-planning use of the instrument, not a tax dodge — the HUF is a separate entity reporting its own income.</li>
+</ul>
+<p>The tax edge was the point: <strong>you were paid 2.5% (taxed at slab) <em>and</em> the 8-year gold appreciation came out <em>completely tax-free</em> at maturity.</strong> That combination — tax-free capital growth plus a small tax-able coupon — is why an SGB at a ₹1,50,000 entry could outperform a <em>taxable</em> gold-ETF or <em>physical</em> gold by a wide margin on an after-tax basis over 8 years.</p>
+<2>Why it stopped: the FY 2024-25 discontinuation</2>
+<p>The SGB <strong>stopped issuing new tranches from FY 2024-25.</strong> The <strong>last tranche was issued in February 2024.</strong> After that, no new issuance. The reason is structural rather than one-line: the government wanted to <em>reduce the volume of fresh government-guaranteed gold paper</em> it was putting into the market, and to shift the gold-hedging role toward <em>exchange-traded</em> instruments (ETFs) that carry <em>no sovereign redemption obligation.</em> The scheme was <strong>not abolished</strong> — the existing bonds <em>remain valid</em> — it was simply <strong>closed to new subscriptions.</strong></p>
+<blockquote>### Verification and re-check flag The discontinuation (no new tranches since FY 2024-25, last tranche Feb 2024) is <strong>verified 2026-08-06</strong> against the sources in <a href="#sources--citations">Sources &amp; citations</a>. The issuing authority has <em>not</em> published a permanent rescission, only a <em>cessation of new tranches</em> — so the <em>current-year</em> status of the scheme (whether a <em>new</em> tranche is being reopened in any Budget) is <strong>time-sensitive.</strong> <strong>Re-check the latest Union Budget and the Ministry of Finance note before republishing this article.</strong> If a new tranche has reopened since the verification date, the "what to do now" section below would need a primary-subscription path added back.</blockquote>
+<p>Practically: <strong>as of the verification date, you cannot buy a <em>fresh</em> SGB at issue; you can only buy <em>existing</em> SGBs on the secondary market (listed) or hold an existing position to maturity.</strong></p>
+<2>What to do NOW (post-discontinuation)</2>
+<p>Because new tranches are closed, your routes to <em>exposure to gold</em> have changed. Each has a different <em>tax</em> consequence, which is the real decision:</p>
+<3>1. Buy existing SGBs on NSE / BSE</3>
+<p>You can still buy <em>listed</em> SGBs on the exchange, at a <strong>premium or discount</strong> to the face value, depending on where gold price is versus the original issue price. Two tax consequences to weigh:</p>
+<ul>
+<li><strong>Sale before maturity</strong> (i.e., you buy on the exchange, sell on the exchange): the gain/loss is <strong>taxed as capital gains</strong> on the <em>sale</em> — short-term or long-term depends on the <em>holding period of the SGB itself</em>, and the tax rate is your <strong>slab rate</strong> (not the equity-asset 12.5%). Selling a <em>listed SGB</em> does <strong>not</strong> get the tax-free-maturity benefit.</li>
+<li><strong>Hold to maturity</strong> (i.e., you buy on the exchange and keep it till the 8-year redemption): the redemption is <strong>tax-free</strong> (the same feature as a primary subscription), <em>but</em> you have paid the <em>market premium</em> (or discount) on top of face value, so your <em>effective</em> gold price is not the issue price. A <em>discount</em> purchase is the cleanest secondary-market route; a <em>premium</em> purchase means you are paying more than the tax-free redemption will return, which can <em>erode</em> the tax edge.</li>
+</ul>
+<p>The secondary market is where the <em>liquidity</em> and <em>price discovery</em> happen; the <em>tax</em> rule is <em>unchanged</em> — maturity is tax-free, pre-maturity sale is slab-taxed. A <em>discounted</em> SGB on NSE is often the <em>most</em> tax-efficient active gold position available today, and is worth checking the current exchange quote for.</p>
+<3>2. Gold ETFs</3>
+<p>A <strong>Gold ETF</strong> is an <em>exchange-traded fund</em> that holds <em>physical</em> gold (or gold-backed contracts) and <em>tracks</em> the gold price. It is <strong>demat-traded, liquid, and has no lock-in.</strong> The tax consequence is <em>different</em> from SGB:</p>
+<ul>
+<li><strong>Held &gt; 12 months</strong> → long-term capital gain on a <em>listed-equity-classified</em> fund, <strong>12.5%</strong> with the ₹1L annual exemption (the equity rule).</li>
+<li><strong>Held ≤ 12 months</strong> → short-term capital gain, <strong>20%</strong> (the July-2024 STCG rule).</li>
+</ul>
+<p>Gold ETFs are the <em>most liquid</em> active gold instrument and the <em>most likely</em> tax-treatment to match a plain equity fund's, which means <strong>you give up the SGB's tax-free-maturity feature</strong> in exchange for <strong>instant liquidity, no 8-year lock-in, and no storage.</strong> For a <em>shorter</em> horizon (1–3 years) the ETF beats the SGB on liquidity; for a <em>long</em> horizon (5+ years) the <em>existing</em> SGB position still wins on after-tax.</p>
+<3>3. Gold Mutual Funds</3>
+<p>A <strong>Gold Mutual Fund</strong> holds <em>physical gold</em> (often via a <em>gold</em> ETF or a <em>commodity</em> structure) and is <em>redeemed</em> through the AMCs, not on an exchange. The tax treatment <em>largely</em> mirrors the Gold ETF (a <em>non-equity</em> CG rule — slab rate, 12-month holding line, <strong>not</strong> the equity 12.5% rule, because a <em>commodity</em> fund is <em>not</em> a listed-equity-classified fund). The difference: you get <em>instant redemption at NAV</em> (not on the exchange), and the <em>tax rate is slab</em> (not 12.5%). A Gold <em>MF</em> is the <em>cheapest</em> (no exchange, no brokerage) <em>active</em> gold instrument, but it <em>gives up</em> the equity-fund's 12.5% LTCG rate that a Gold <em>ETF</em> sometimes earns.</p>
+<3>4. Physical gold with hallmarking</3>
+<p><strong>Physical gold</strong> (bars, coins) is the <em>only</em> option that <em>does not require a demat account</em>, and a <em>hallmarked</em> bar/coin is the <em>highest-trust</em> physical form. The tax consequence: a <em>long-term</em> physical-gold sale (held &gt; 2 years) is <strong>slab-taxed</strong> capital gains; a <em>short-term</em> sale is <em>also</em> slab-taxed. The <em>only</em> tax-advantage of physical gold is the <em>absence</em> of a 12.5% or 20% <em>equity-asset</em> tax rule — but that is <em>not</em> a real advantage, because slab-taxed <em>non-equity</em> gains are <em>typically</em> the <em>same</em> rate as slab-taxed <em>equity</em> gains at the <em>same</em> slab. Physical gold's <em>real</em> cost is <em>storage</em> and <em>making-charge</em> (the <em>spread</em> between the <em>melt</em> price and the <em>retail</em> price), which can be a <em>large</em> percentage of the <em>purchase</em> and is <em>not recovered</em> on resale (the <em>spread</em> is <em>lost</em> in both directions).</p>
+<p><strong>The SGB was the tax-efficient <em>physical</em> equivalent — it <em>eliminated</em> the storage-and-making-charge <em>spread</em> by being a <em>demat-traded</em> instrument. A <em>physical</em> purchase <em>today</em> is a <em>less</em>-tax-efficient substitute.</strong></p>
+<2>SGB vs. ETF vs. Physical — comparison table</2>
+<p>All figures verified 2026-08-06 for the <em>tax</em> rows; the <em>spread / storage / liquidity</em> rows are <em>structural facts</em> about the instrument, not time-sensitive rates.</p>
+<table>
+<thead><tr><th>Feature</th><th><strong>SGB (existing, listed)</strong></th><th><strong>Gold ETF</strong></th><th><strong>Gold MF</strong></th><th><strong>Physical (hallmarked)</strong></th></tr></thead>
+<tbody><tr><td><strong>Tax-free at maturity</strong>,<strong>Yes (if held to maturity)</strong>,No,No,No</td><td><strong>Tax on pre-maturity sale</strong>,<strong>Slab rate (CG on sale)</strong>,<strong>12.5% LTCG (&gt;12 mo) / 20% STCG</strong>,<strong>Slab rate (non-equity CG)</strong>,<strong>Slab rate (non-equity CG)</strong></td><td><strong>Coupon</strong>,<strong>2.5% p.a. (fixed, slab-taxed)</strong>,No,No,No</td><td><strong>Lock-in / tenure</strong>,<strong>8 yrs (early redemption after 5 yrs, 30-notice)</strong>,None,None,None</td><td><strong>Liquidity</strong>,Exchange-listed (N/BSE), demat,Exchange-listed (N/BSE), demat,NAV redemption, daily,Physical storage</td><td><strong>Per-person cap (primary)</strong>,<strong>₹25k (₹50k via HUF)</strong>,None,None,None</td><td><strong>Storage / making-charge</strong>,No (demat),No (demat),No (demat),<strong>Yes (spread lost in both directions)</strong></td><td><strong>Sovereign redemption guarantee</strong>,<strong>Yes (govt. of India)</strong>,No (tracks gold),No (tracks gold),No (physical)</td><td><strong>HUF angle</strong>,<strong>Yes (separate cap)</strong>,No,No,No</td></tr></tbody>
+</table>
+<p><strong>Reading the table:</strong> the SGB's <em>tax-free-maturity</em> and <em>sovereign-guarantee</em> rows are the two features that <em>cannot be replicated</em> by an ETF, MF, or physical gold.</p>
+<2>A worked example: why the SGB's tax edge was real</2>
+<p>The table is only half the story; the other half is <em>magnitude.</em> Assume you bought an SGB at a face value of <strong>₹1,00,000</strong> (a plausible price near the start of the SGB program, <strong>illustrative</strong> — not your number) and hold it to maturity 8 years later. Gold appreciates at an <em>assumed</em> 8% p.a. (a <strong>placeholder</strong>, not a forecast) to ₹1,00,000 × (1.08)^8 ≈ <strong>₹1,80,000</strong> in gold value. The SGB pays a <em>fixed</em> 2.5% coupon on the <em>original</em> face value: 0.025 × ₹1,00,000 = <strong>₹2,500 p.a.</strong>, paid semi-annually. At maturity, assuming the coupon is <em>redeemed with you</em> (not separately accumulated), the <em>headline</em> picture is:</p>
+<pre>\text{Gold value at maturity} \approx 1{,}80{,}000,\quad
+\text{Coupon earned over 8 yrs} \approx 2{,}000 \times 8 = 20{,}000</pre>
+<p>The <strong>SGB</strong> path: the <em>entire</em> redemption (gold value + the tax-free maturity feature) comes out <strong>tax-free</strong> on the capital; only the 2.5% coupon is slab-taxed (a small, <em>fixed</em> line — 0.30 × 20,000 = <strong>₹6,000</strong> at a 30% slab, <em>illustrative</em>). The <strong>Gold ETF</strong> path: you track the same 8% p.a. gold appreciation, but at maturity you have a <em>long-term capital gain</em> of roughly ₹80,000 that is <strong>taxed at 12.5%</strong> (a <em>listed-equity-classified</em> fund held &gt; 12 months), i.e. 0.125 × 80,000 = <strong>₹10,000</strong> — <em>more</em> tax than the SGB's coupon line, <em>and</em> no tax-free-maturity shield on the <em>whole</em> corpus.</p>
+<p>Two consequences fall out of that arithmetic:</p>
+<ol>
+<li><strong>The SGB's tax-free-maturity feature is the <em>dominant</em> after-tax edge.</strong> It is <em>not</em> a small rounding difference — it is the difference between a <em>slab-taxed</em> 80,000 gain and a <em>tax-free</em> 80,000 gain, which is <em>materially</em> larger than any <em>coupon-rate</em> gap.</li>
+<li><strong>The 2.5% coupon is <em>not</em> the value proposition.</strong> It is a <em>fixed-rupee</em> line that grows <em>less</em> valuable as gold appreciates (it is <em>always</em> 0.025 × face value, not 0.025 × current gold value). The SGB's <em>real</em> advantage is the <em>tax-free-maturity</em> feature, not the coupon. A <em>Gold ETF</em> with <em>no</em> coupon is <em>still</em> a <em>competitive</em> after-tax instrument <em>if</em> the <em>premium</em> on the SGB has <em>doubled</em> the <em>face value</em> (because the <em>premium</em> erodes the <em>tax-free</em> benefit).</li>
+</ol>
+<p>The <em>worked example</em> is <em>illustrative</em> — the 8% p.a. gold appreciation and the ₹1,00,000 face value are <em>placeholders</em> you must replace with <em>actual</em> gold prices. But the <em>structure</em> of the argument — <strong>tax-free-maturity beats slab-taxed CG by a <em>material</em> margin</strong> — is <em>independent</em> of the <em>specific</em> numbers and is the <em>reason</em> the SGB was <em>designed</em> as the <em>tax-efficient</em> gold instrument. The <em>discontinuation</em> means you can <em>no longer</em> buy a <em>fresh</em> SGB at face value; you <em>can</em> only buy a <em>listed</em> SGB at a <em>premium/discount</em>, and that <em>price</em> is the <em>swing factor</em> for whether the <em>SGB</em> still beats the <em>ETF</em> on an <em>after-tax</em> basis <em>today</em>. Everything else (liquidity, spread, storage) the <em>other</em> instruments match or beat. The SGB is <em>only</em> <em>active</em> via the <em>secondary market</em>, so the <em>premium/discount</em> on the exchange is the <em>swing factor</em> for whether an SGB beats an ETF today.</p>
+<2>Tax note: SGB maturity vs. listed-sale — the key distinction</2>
+<p>The single most <em>confusing</em> (and most <em>costly</em>) point about SGBs is the <em>distinction</em> between:</p>
+<ol>
+<li><strong>Maturity redemption</strong> (you hold the SGB to the 8-year end): <strong>completely tax-free</strong> on the <em>entire</em> redemption (principal + coupon). This is the <em>original</em> SGB feature.</li>
+<li><strong>Listed pre-maturity sale</strong> (you sell on NSE/BSE before the 8-year end): <strong>taxed as capital gains</strong> on the <em>sale</em>, at <strong>slab rate</strong> (not the equity-asset 12.5% rule, because a <em>listed SGB</em> is a <em>non-equity</em> asset for CG purposes).</li>
+</ol>
+<p>A <em>common investor error</em> is to <em>buy</em> an SGB at a <em>discount</em> on the exchange, <em>sell</em> it on the exchange at a <em>higher</em> price <em>before</em> maturity, and <em>expect</em> the tax-free-maturity benefit — which <em>does not apply</em> to a <em>listed sale</em>. The tax-free benefit <em>only</em> applies to a <em>maturity redemption</em>. The <em>slab-taxed</em> CG on a <em>listed sale</em> is the <em>correct</em> rule, and the <em>effective</em> after-tax outcome depends on <em>both</em> the <em>premium/discount</em> on the purchase <em>and</em> your <em>marginal slab rate</em>.</p>
+<p>In practice, <em>maturity</em> is the <em>superior</em> tax outcome (tax-free) versus <em>listed sale</em> (slab-taxed), so <strong>if you can hold the SGB to maturity, you should</strong> — even at a <em>small</em> premium, because the <em>tax-free</em> benefit on the <em>whole</em> redemption typically <em>outweighs</em> the premium paid. The <em>exception</em> is a <em>very large</em> premium (the gold price has <em>doubled</em> since the <em>issue</em>), in which case the <em>premium</em> cost <em>erodes</em> the tax-free benefit and a <em>Gold ETF</em> (with a <em>12.5% LTCG</em> rule if held &gt; 12 months) may be the <em>better</em> after-tax instrument.</p>
+<2>When an SGB position is the wrong tool</2>
+<ul>
+<li>You have <strong>less than 5 years to a goal</strong> — the SGB <em>lock-in</em> (even the <em>early</em> 5-year redemption, which is <em>penalty-eroded</em>) costs you <em>liquidity</em> the <em>Gold ETF</em> does not.</li>
+<li>You are <strong>above the per-person cap</strong> (₹25k, or ₹50k HUF) and <em>want</em> a <em>bigger</em> gold position — the <em>secondary-market</em> route <em>does</em> have a cap (you can <em>only</em> buy <em>existing</em> SGBs, at a <em>premium/discount</em>, in <em>exchange-traded</em> lots). A <em>Gold ETF</em> has <em>no cap</em>.</li>
+<li>You need <strong>instant liquidity</strong> (you may have to sell within <em>days</em>) — the SGB's <em>exchange</em> liquidity is <em>not</em> <em>instant</em> (a <em>discount</em> can be <em>volatile</em>); a <em>Gold ETF</em> is <em>near-instant</em>.</li>
+<li>The <strong>premium on the SGB is high</strong> (gold price is <em>well above</em> the issue price) — the <em>premium</em> cost <em>erodes</em> the <em>tax-free-maturity</em> benefit; a <em>Gold ETF</em> is <em>likely</em> the <em>better</em> after-tax instrument.</li>
+</ul>
+<2>Related</2>
+<ul>
+<li><a href="../gold-commodities/gold-silver-commodities.mdx">Gold, Silver &amp; Commodities: Routes, Currency, Hedging &amp; Limits</a> — the <em>full</em> commodity picture, including <em>currency effects</em>, <em>hedging limits</em>, and <em>silver routes</em>.</li>
+<li><a href="govt-small-savings-schemes.mdx">Government Small-Savings Schemes</a> — the <em>other</em> sovereign-guaranteed instruments that pair <em>with</em> SGB exposure (PPF, NPS, SCSS).</li>
+<li><a href="../taxation/tax-india-investor-complete.mdx">Indian Taxation for Investors</a> — the <em>slab-rate</em> rules and <em>holding-period</em> switches that make the SGB/ETF <em>comparison</em> work.</li>
+</ul>
+<2>Update log</2>
+<table>
+<thead><tr><th>Date</th><th>Change</th><th>Source</th></tr></thead>
+<tbody><tr><td>2026-08-06,Verified SGB <em>scheme</em> features (₹50 min, 8-yr tenure, 2.5% p.a. coupon, tax-free maturity, 5-yr early-redemption window, NSE/BSE listing, ₹25k per-person cap on <em>primary</em> subscription, HUF/family angle),[src-indiagold]</td><td>2026-08-06,Verified SGB <em>discontinuation</em>: no new tranches from FY 2024-25, last tranche Feb 2024; scheme <em>not</em> abolished, <em>existing</em> bonds <em>remain valid</em>. <strong>Re-check the latest Union Budget / Ministry of Finance note before republishing.</strong>,[src-sgb-discontinued]</td><td>2026-08-06,Verified SGB <em>tax</em> rules: <em>maturity redemption</em> is tax-free; <em>listed pre-maturity sale</em> is slab-taxed CG,[src-indiagold]</td><td>Re-check,The <em>secondary-market premium/discount</em> on existing SGBs is <em>time-sensitive</em> and must be <em>checked at purchase</em> (not pre-verified); the <em>Gold ETF / MF / physical</em> comparison rows are <em>structural</em>,—</td></tr></tbody>
+</table>
+<2>Sources &amp; citations</2>
+<ul>
+<li><strong>[src-sgb-discontinued]</strong> PMJJLayojana / multiple finance desks (consistent report) — SGB scheme <em>stopped</em> issuing new tranches from FY 2024-25; <em>last</em> tranche Feb 2024. <strong>Limitation:</strong> confirm the <em>current-year</em> status against the <em>latest</em> Union Budget / Ministry of Finance note before republishing.</li>
+<li><strong>[src-indiagold]</strong> Ministry of Finance / RBI SGB scheme documents (historical) — SGB <em>scheme</em> features when <em>active</em>: 8-year maturity, 2.5% p.a. interest, tax-exempt on maturity. Verified 2026-08-06.</li>
+</ul>
+<p><em>Figures marked "(verified 2026-08-06)" were checked against the sources above at that date. The SGB discontinuation (no new tranches since FY 2024-25) is the </em>primary<em> time-sensitive claim in this article; re-check the latest Union Budget before republishing. The </em>secondary-market premium/discount<em> on existing SGBs is </em>always<em> time-sensitive and must be checked </em>at purchase<em>.</em></p></article>
+<article data-chapter="portfolio-construction-rebalancing"><h1>Portfolio Construction, Rebalancing & Risk Budgeting</h1><p>A portfolio is not a bag of investments; it is a <strong>risk budget spent over time</strong>. This article is the construction manual: how to build a target allocation from three goal-buckets, how to let it drift and bring it back with explicit triggers, how to do the rebalancing <em>tax-aware</em>, how to think in volatility contributions instead of nominal weights, and how to size and cap the drawdowns that actually matter. It is the advanced companion to <code>foundations-risk-allocation-behavior</code> (which asks <em>what to do</em>) and <code>pf-wealth-plan-10-lakh</code> (a concrete instance of this method at a ₹10 lakh starting point).</p>
+<2>Start from three buckets, not from a pie chart</2>
+<p>Allocation work that begins with "how much equity should I hold?" is already one step behind, because it has not asked <em>what the money is for</em>. Structure the money by horizon first, then allocate within each bucket:</p>
+<table>
+<thead><tr><th>Bucket</th><th>Money it holds</th><th>Horizon</th><th>Target character</th></tr></thead>
+<tbody><tr><td><strong>Bucket 1 — Emergency &amp; short term</strong>,6-month expense buffer, any goal landing within ~3 years,0–3 years,Capital first: liquid funds, sweep, short-duration debt, PPF-style fixed tenors. No meaningful equity exposure</td><td><strong>Bucket 2 — Goals</strong>,Defined goals (home, child's higher education, etc.),5–10 years,60/40-style blended mix that <em>de-gears into debt as the goal date approaches</em>; STP discipline</td><td><strong>Bucket 3 — Long horizon</strong>,Retirement, wealth building, anything beyond 15 years,15+ years,Equity-led (index core + satellites), full risk grade applied</td></tr></tbody>
+</table>
+<p>Three rules follow from the structure. <strong>First</strong>, money can only flow <em>out of</em> a bucket at its goal date, never borrowed between buckets — the emergency buffer is not a rate play. <strong>Second</strong>, each bucket gets its <em>own</em> allocation, its own trigger, its own no-trade rule; the moment you merge them, the emergency buffer starts earning equity risk. <strong>Third</strong>, the equity-risk question that everyone asks ("how much equity do I want?") gets answered <em>inside</em> Bucket 3 only, which is why most families' portfolios end up less volatile than their anxiety implies — or, worse, far more volatile than they believe, because "long-term money" was silently funding 5-year goals.</p>
+<2>Target allocation: band rebalancing vs calendar rebalancing</2>
+<p>Pick a target weight for each sleeve within each bucket, then choose a <em>discipline</em> for restoring it. The two standard disciplines:</p>
+<ul>
+<li><strong>Calendar (time-based) rebalancing</strong> — reset to targets at a fixed date (annual/semi-annual). Easy to audit; can be badly timed (you may sell equity at the start of a bull leg).</li>
+<li><strong>Band (threshold) rebalancing</strong> — act only when a sleeve has drifted ≥ a fixed <em>absolute</em> percentage-point band from target. Cheaper (fewer trades), more tax-aware, and it turns rebalancing into an <em>event</em> you can pre-commit to — which is the whole point.</li>
+</ul>
+<p>We use <strong>5% absolute bands</strong> as the default trigger for Bucket 3: a sleeve at 60% target is sold back when it reaches 65% or bought back when it falls to 55%. For Buckets 1–2, use <em>dates</em> (the goal date) rather than bands, because their rebalancing is de-gearing, not drift control.</p>
+<table>
+<thead><tr><th>Discipline</th><th>Pros</th><th>Cons</th><th>Use when</th></tr></thead>
+<tbody><tr><td>Calendar (annual),Simple, auditable, forces a review even in calm years,Can sell winners on schedule, at the top of a leg,You have not yet built the habit; you need the <em>forced review</em> more than the trade</td><td>Band (5% absolute),Fewer trades, acts on genuine drift, naturally sells high / buys low,Requires monitoring (a quarterly look is enough),You can commit to writing; the portfolio is large enough that trade costs matter</td></tr></tbody>
+</table>
+<p>For a ₹10–20 lakh portfolio, a common hybrid: <strong>bands on the sleeves, and a hard annual review on the whole plan</strong> — the review re-grades the risk and the assumptions (income growth, goal dates) even if no sleeve breached.</p>
+<3>Worked example: 60/40 drifts to 70/30, rebalance</3>
+<p>Assume Bucket 3 holds <strong>₹6,00,000 equity (60%) / ₹4,00,000 bond (40%)</strong>, target 60/40, 5% absolute band. Over the year, equity rises <strong>48%</strong> and bonds fall <strong>4%</strong> (an aggressive equity year, a weak debt year — the exact combination that produces the drift):</p>
+<table>
+<thead><tr><th>Position</th><th>Start</th><th>After 1 year</th><th>Weight after</th></tr></thead>
+<tbody><tr><td>Equity,₹6,00,000,6,00,000 × 1.48 = <strong>₹8,88,000</strong>,8,88,000 / 12,72,000 = <strong>70.0%</strong></td><td>Bond,₹4,00,000,4,00,000 × 0.96 = <strong>₹3,84,000</strong>,<strong>30.0%</strong></td><td><strong>Total</strong>,₹10,00,000,<strong>₹12,72,000</strong>,—</td></tr></tbody>
+</table>
+<p>Equity has drifted +10 percentage points past target — the 5% band is breached, so the trigger fires.</p>
+<p>Rebalancing back to 60/40 on the new total of ₹12,72,000:</p>
+<ul>
+<li>Target equity = 0.60 × 12,72,000 = <strong>₹7,63,200</strong></li>
+<li>Target bond = 0.40 × 12,72,000 = <strong>₹5,08,800</strong></li>
+<li><strong>Trade: sell ₹1,24,800 of equity; buy ₹1,24,800 of bond.</strong></li>
+</ul>
+<p>Notice what just happened: you sold the 48% winner and bought the 4% loser. That is <em>exactly</em> the behaviour the bias list in <code>foundations-risk-allocation-behavior</code> says you will avoid doing voluntarily — the band makes it mechanical. The trade is worth about ₹1.25 lakh (≈10% of the portfolio), which is why band width matters: a 5-point band on a large portfolio is not cost-free, and the trade should be executed in the <em>cheapest</em> sleeve form available (index ETFs, direct funds).</p>
+<2>Tax-aware rebalancing: the Indian investor's quiet edge</2>
+<p>A rebalance is a taxable event (in India: LCG at 12.5% + 4% cess for equity held &gt; 1 year; gains merge into slab rates for debt held &gt; 3 years), so the <em>order</em> of your sales is worth real money. Three rules:</p>
+<ol>
+<li><strong>Use losses first.</strong> If any holding has an LCG-qualifying <em>loss</em> against your cost basis, sell it before selling winners; the loss offsets gains inside your ITR at the same character. A ₹50,000 loss in LCGs wipes out a tax bill you were otherwise about to pay.</li>
+<li><strong>Sell LCG-heavy holdings to trim the overweight.</strong> When you must sell equity to restore the band, prefer selling the position with the <em>largest</em> embedded long-term gain only <em>after</em> checking rule 1 — and prefer selling into strength (that is when the band fires, by construction). Selling at the band top means the tax cost is paid against the highest valuation, which is precisely the right time.</li>
+<li><strong>Rebalance with cash, not sales, when possible.</strong> Direct new SIP instalments and the year's fresh surplus <em>into the underweight sleeve</em>. For a ₹15,000 SIP, this is the cheapest rebalancing tool you own: ₹1.8 lakh a year of directed contributions quietly closes a 10-point band gap in under a year, with zero taxable events. Sell-only rebalancing is the fallback; cash-first is the default.</li>
+</ol>
+<2>Risk budgeting: volatility contribution, not nominal weights</2>
+<p>Nominal weights are a <em>proxy</em> for risk, and a bad one. A "10% P2P sleeve" and a "10% equity sleeve" do not contribute 10% of the portfolio's risk each: equity at ~18–20% annual volatility dominates; a P2P vintage at ~8–10% contributes far less; and cash contributes almost none. The proper object of allocation is <strong>volatility (or risk) contribution</strong>: each sleeve's share of total portfolio risk.</p>
+<p>$$\text{Vol. contribution of asset } i \;\approx\; w_i \times \sigma_i \bigg/ \sum_j w_j \times \sigma_j$$</p>
+<p>(A single-asset approximation; the full expression uses covariance, but the product $w_i \sigma_i$ captures the intuition and is enough for a personal budget.)</p>
+<p>Worked: 80% equity ($\sigma \approx 18\%$), 15% gold ($\sigma \approx 15\%$), 5% P2P ($\sigma \approx 10\%$):</p>
+<table>
+<thead><tr><th>Sleeve</th><th>$w_i$</th><th>$w_i \times \sigma_i$</th><th>Share of risk</th></tr></thead>
+<tbody><tr><td>Equity,0.80,0.80 × 0.18 = 0.144,0.144 / 0.1595 ≈ <strong>90%</strong></td><td>Gold,0.15,0.15 × 0.15 = 0.0225,≈ <strong>14%</strong></td><td>P2P,0.05,0.05 × 0.10 = 0.005,≈ <strong>3%</strong></td><td><strong>Total</strong>,1.00,0.1595,100% (shares rounded)</td></tr></tbody>
+</table>
+<p>Read the table: the P2P sleeve is 5% of the money but only ~3% of the <em>risk</em>; gold is 15% of the money but ~14% of the risk. A risk budget says: <em>this is the share of my total risk I am willing to let each sleeve carry</em>, and then you choose nominal weights to achieve it — which is why a P2P sleeve at 7% nominal is a much larger <em>risk</em> commitment than the same percentage in short-duration bonds. The debt anchor here is the policy rate: with repo near 5.25% through late 2025 (last verified: 2026-08-06; src-rbi-repo), short-duration debt is genuinely <em>positive</em> yield, which is what makes it the correct ballast for a risk budget.</p>
+<2>Core-satellite: the structure that makes risk budgeting implementable</2>
+<pre>flowchart TD
+  P["Portfolio (Bucket 3)"] --> C["CORE — 70-85%"]
+  P --> S["SATELLITE — 15-30%"]
+  C --> C1["Broad index (Nifty 500 + small/mid flexi)\nLowest expense ratio, no theses"]
+  S --> S1["Active manager PMS (once ₹50L+ gate met)"]
+  S --> S2["P2P credit (RBI-regulated, capped 4-7% nominal)"]
+  S --> S3["Commodity (gold ETF)"]
+  S1 &amp; S2 &amp; S3 --> R["Each satellite: written thesis,\npre-sized cap, its own trigger"]</pre>
+<p>Text version: the core is the broad index sleeve holding 70–85% of the risk budget with zero thesis required; each satellite (active PMS, P2P credit, commodity) gets a written thesis, a pre-set nominal cap, and its own rebalancing trigger; satellites never get promoted to core.</p>
+<p>The core is deliberately <em>uninteresting</em>: index funds at the lowest available expense ratio. The satellites are where views live — a PMS with a real edge, a P2P vintage you have diligenced, a gold position hedging currency/fear. Three structural rules:</p>
+<ul>
+<li><strong>Cap satellites so that a total satellite failure cannot endanger the bucket.</strong> In <code>pf-wealth-plan-10-lakh</code>, P2P is 4–7% nominal across risk grades for exactly this reason.</li>
+<li><strong>Satellites de-gear or die.</strong> A P2P vintage is a point-in-time credit decision: hold to scheduled maturity, do not "renew with more" unless you re-diligence from scratch.</li>
+<li><strong>Promotion is one-way.</strong> When a satellite proves out (e.g., PMS beats its benchmark on a risk-adjusted basis for 3+ years) <em>and</em> your capital crosses the gate, you may raise its cap — never its status. Core stays core.</li>
+</ul>
+<2>Drawdowns: the recovery table that should end the argument</2>
+<p>A drawdown is not a symmetric event. Losing X% requires gaining X/(1−X)% to recover — the denominator shrinks with the loss, and that is the nonlinearity that kills portfolios:</p>
+<p>$$\text{Recovery required} = \frac{-d}{1-d} \times 100\% \qquad (d = \text{drawdown, e.g. } 0.50)$$</p>
+<table>
+<thead><tr><th>Drawdown</th><th>Recovery required to break even</th></tr></thead>
+<tbody><tr><td>10%,11.1%</td><td>20%,25.0%</td><td>30%,42.9%</td><td>40%,66.7%</td><td><strong>50%</strong>,<strong>100%</strong></td><td>60%,150%</td><td>70%,233.3%</td><td>90%,900%</td></tr></tbody>
+</table>
+<p>The 50% row is the one to memorize: <strong>a 50% loss needs a 100% gain.</strong> Now plug in the numbers the market has actually produced. Indian broad equity has given investors multi-year 40–60% drawdowns (e.g., post-2008 and the 2020 crash-to-recovery). A full-equity portfolio that fell 50% at a realistic 12% <em>planning</em> CAGR (an assumption, not a forecast) needs <strong>~6 years</strong> to break even from the trough — meaning the first 6 years of any subsequent investment sequence start from a hole, not from zero. That is the quantitative argument for: (a) the risk grade in <code>pf-wealth-plan-10-lakh</code>, (b) the 5% bands here, and (c) the de-gearing of Buckets 1–2 before the goal dates. Drawdown management is not paranoia; it is the arithmetic of asymmetry.</p>
+<2>Fees, taxes, and the silent cost of doing it all wrong</2>
+<p>Three cost lines, all compounding against you (the fee-drag method is fully worked in <code>foundations-compounding-returns</code>):</p>
+<ol>
+<li><strong>Expense-ratio drag.</strong> ~1% ER on a 12% gross equity return is worth roughly ₹1.58 lakh lost per ₹10 lakh start over 20 years (12% gross → ₹9.65L vs 11% net → ₹8.06L; assumptions labelled there). Across a core-satellite structure, <em>core at index-ETF cost</em> is where you stop paying for a view you do not have.</li>
+<li><strong>Rebalancing trade cost.</strong> With 5% absolute bands, a typical year produces 0–2 sleeve events; executing them in ETFs/direct funds keeps cost &lt; 0.5% of the moved amount. Quarterly bands would nearly double the churn without meaningful risk improvement — do not over-trade the trigger.</li>
+<li><strong>Tax churn.</strong> The tax-aware rules above are worth more than most "alpha." Selling into a band top <em>with losses offset first</em> and <em>cash-first funding</em> is a systematic, repeatable edge that costs nothing to implement.</li>
+</ol>
+<2>Putting it together: a construction sequence</2>
+<pre>flowchart LR
+  B["1. Three buckets\n(by goal date)"] --> A["2. Target weights\nper bucket (risk grade)"]
+  A --> RB["3. Risk budget\n(vol. contribution)"]
+  RB --> CS["4. Core-satellite\nbuild"]
+  CS --> TR["5. Triggers\n(5% bands + annual review)"]
+  TR --> EX["6. Execute\ntax-aware, cash-first"]
+  EX --> D["7. Monitor drawdowns\n(recovery table)"]
+  D --> B</pre>
+<p>Text version: the seven steps form a loop — the monitoring step feeds back into bucket review, because goal dates and income change; the loop is the portfolio.</p>
+<2>How this article uses calculators</2>
+<p>The DhanPedia calculators page at <code>/calculators</code> operationalizes this article's arithmetic:</p>
+<ul>
+<li><strong>Rebalance tool</strong> — enter the 60/40 start (₹6L/₹4L) and the 48%/−4% year; it should output the exact trade pair: sell ₹1,24,800 equity / buy ₹1,24,800 bond.</li>
+<li><strong>Drawdown-recovery tool</strong> — enter 50% and confirm 100% recovery; enter the −30% stress case from <code>pf-wealth-plan-10-lakh</code>'s scenario table and see the break-even horizon at your assumed CAGR.</li>
+<li><strong>XIRR/fee-drag tool</strong> — verify the 1% expense-ratio drag on your actual contribution history (method and assumptions in <code>foundations-compounding-returns</code>).</li>
+<li><strong>Slab calculator context</strong> — after a tax-aware rebalance, run the ITR-side numbers against the FY 2025-26 slabs (new regime: nil to ₹4L … 30% above ₹24L; 87A rebate ₹60,000) to confirm the LCG math.</li>
+</ul>
+<p>Use the calculators as the <em>audit</em> step: the article builds the plan, the calculators verify the plan, and the update-log figures below verify the plan's inputs.</p>
+<2>Update log</2>
+<ul>
+<li><strong>RBI policy repo near 5.25% through late 2025</strong> (debt-ballast anchor; re-verify at each MPC) — last verified: 2026-08-06; src-rbi-repo</li>
+<li><strong>Equity LCG at 12.5% + 4% cess; debt LCG (&gt; 3 yrs) merges into slab income</strong> — re-verify at each Budget — last verified: 2026-08-06</li>
+<li><strong>Planning CAGR assumption 12% and volatility figures (equity ~18–20%, gold ~15%, P2P ~10%)</strong> — planning inputs, labelled as assumptions throughout, not forecasts; refresh the volatility inputs against a fresh 10-year rolling window before republishing</li>
+<li><strong>No PPF/SCSS/SGB rates are claimed in this article</strong> (those live in <code>pf-wealth-plan-10-lakh</code> and <code>retirement-fire-annuities</code>, each with their own update logs)</li>
+</ul>
+<2>Related</2>
+<ul>
+<li><code>foundations-risk-allocation-behavior</code> — the risk definitions and behavioural traps this method is designed to defeat</li>
+<li><code>pf-wealth-plan-10-lakh</code> — a concrete ₹10 lakh instance of this construction method</li>
+<li><code>alternatives-pms-aif-private</code> — satellite anatomy: PMS/AIF gates, minimums, fees</li>
+<li><code>p2p-lending-complete</code> — the P2P satellite sleeve, in full: framework, expected loss, due diligence</li>
+<li><code>foundations-compounding-returns</code> — fee-drag and post-tax math used in the cost section</li>
+</ul>
+<2>Sources &amp; citations</2>
+<ul>
+<li><code>src-rbi-repo</code> — Reserve Bank of India, "MPC decision: policy repo rate held near 5.25% through late 2025", https://www.business-standard.com/finance/news/rbi-to-keep-interest-rates-steady-at-5-25-through-2026-reuters-poll-126012900085_1.html — supports the debt-ballast / positive-yield anchor claim; re-verify quarterly per its limitation note.</li>
+</ul>
+<p>The 5% band, risk-budget and recovery figures are the article's own arithmetic on labelled assumptions, not external statistics.</p>
+<2>Editorial / review status</2>
+<p>Published; last verified 2026-08-06; next review due 2027-02-28. Educational content, not individualized advice.</p></article>
+<article data-chapter="pf-wealth-plan-10-lakh"><h1>Your 10 Lakh Wealth Plan: Allocation, SIP Scaling & the Road to PMS/AIF</h1><p>A ₹10 lakh portfolio is the stage where most Indian investors stop <em>planning</em> and start <em>doing</em>: the emergency fund is built, insurance is in place, and a first meaningful chunk of investable capital is ready. But "I have ₹10,00,000 — now what?" has no single answer. It depends on your risk grade, your horizon, your tax regime, and whether the plan has a growth path that does not strand you in a SIP-only mindset forever.</p>
+<p>This article gives you a concrete, risk-graded plan for a ₹10,00,000 starter portfolio: exact allocation amounts for three risk grades, the SIP scaling math with the formula shown, a growth path that leads into PMS and AIFs when capital supports them, and honest about when those higher-capital avenues are the wrong tool. Everything below is educational and illustrative — not individualized advice. Numbers labelled "assumption" or "illustrative" are planning inputs you should stress-test with your own income and risk tolerance; numbers anchored to regulation or current policy are marked with their verification date.</p>
+<2>Assumptions block</2>
+<p>Every plan is only as good as the assumptions written down before the money moves. This article assumes:</p>
+<table>
+<thead><tr><th>Item</th><th>Assumption</th><th>Why it matters</th></tr></thead>
+<tbody><tr><td>Investable now,₹10,00,000, <strong>in addition to</strong> a 6-month emergency fund held in liquid instruments,The starter capital must never be the safety net</td><td>Age / horizon,Reader in their 20s–40s; goal horizon 15+ years,Long horizons absorb equity drawdowns; short horizons cannot</td><td>Income,Stable salaried income, expected to grow 8–10% a year,Feasible step-ups on the SIP depend on this</td><td>Tax regime,New regime (the default since the FY 2024-25 transition; slabs and 87A per FY 2025-26),Changes what "tax-efficient" means in every sleeve</td><td>Equity planning return,10–12% nominal long-run — an <strong>assumption for planning</strong>, not a forecast,All compounding figures in this article scale with this</td><td>Debt-side anchor,PPF at ~7.1–7.2% p.a. and repo near 5.25% (last verified: 2026-08-06),Debt sleeves are priced off these</td><td>Risk protection,Term + health insurance in place; no high-cost consumer debt,Otherwise the "growth" plan is a liability</td></tr></tbody>
+</table>
+<p>If your actual situation breaks one of these rows, the plan below still works as a template — change the assumption, keep the structure, and re-check the risk grade.</p>
+<2>Three risk grades: pick one, know why</2>
+<p>You cannot allocate ₹10 lakh across five sleeves without first deciding how much pain you can actually sit through. We define three grades. The labels are about <strong>your</strong> behaviour in a −30% equity year, not about the markets.</p>
+<pre>flowchart TD
+  A["₹10 lakh starter portfolio"] --> B{"Which risk grade is yours?"}
+  B --> C["Conservative"]
+  B --> D["Aggressive"]
+  B --> E["Maximum"]
+  C --> C1["~65% equity-exposure incl. ELSS\n35% index · 30% PPF/ELSS · 15% bonds · 10% gold · 5% P2P"]
+  D --> D1["~75% equity-exposure incl. ELSS\n55% index · 20% PPF/ELSS · 10% gold · 8% bonds/SCSS · 7% P2P"]
+  E --> E1["~82% equity-exposure incl. ELSS\n70% index+smid · 12% ELSS/NPS · 8% gold · 6% bonds · 4% P2P"]</pre>
+<p>Text version of the diagram: one entry node (your ₹10 lakh) branches into three grades; each grade expands into its sleeve split.</p>
+<table>
+<thead><tr><th>Sleeve</th><th>Conservative</th><th>Aggressive</th><th>Maximum</th></tr></thead>
+<tbody><tr><td>Index equity (Nifty 50 + Nifty 500 ETFs/funds; maximum adds small &amp; mid flexi),35% → ₹3.5 lakh,55% → ₹5.5 lakh,70% → ₹7.0 lakh</td><td>PPF + ELSS (longer-horizon tax-efficient sleeve),30% → ₹3.0 lakh,20% → ₹2.0 lakh,12% → ₹1.2 lakh</td><td>Gold (gold ETFs; SGBs are no longer the route — see update log),10% → ₹1.0 lakh,10% → ₹1.0 lakh,8% → ₹0.8 lakh</td><td>Bonds / SCSS when eligible,15% → ₹1.5 lakh,8% → ₹0.8 lakh,6% → ₹0.6 lakh</td><td>P2P credit sleeve (RBI-regulated platforms only),5% → ₹0.5 lakh,7% → ₹0.7 lakh,4% → ₹0.4 lakh</td><td><strong>Total</strong>,<strong>100% → ₹10.0 lakh</strong>,<strong>100% → ₹10.0 lakh</strong>,<strong>100% → ₹10.0 lakh</strong></td></tr></tbody>
+</table>
+<p><strong>What each sleeve is doing.</strong> The index sleeve is the compounder: low-cost, Nifty 50 plus Nifty 500 exposure, bought partly as a lump sum and partly as a monthly SIP so that market timing is mostly removed. The PPF + ELSS sleeve is the tax-advantaged, long-tenor middle: PPF runs 15 years at ~7.1–7.2% p.a. (last verified: 2026-08-06) with tax-exempt interest, and ELSS gives you a three-year equity lock-in (per the SEBI investor-education guide to ELSS, src-sebi-elss). The gold sleeve uses ETFs rather than Sovereign Gold Bonds, because SGBs stopped accepting new tranches from FY 2024-25 (last tranche February 2024; status re-check against the latest Budget note — src-sgb-discontinued). The bonds/SCSS sleeve earns the repo-linked fixed-income anchor — with policy repo near 5.25% through late 2025 (last verified: 2026-08-06, src-rbi-repo); SCSS at 8.2% p.a. for FY 2025-26 (last verified: 2026-08-06) applies only to seniors (60+), so for a 20s–40s reader that sleeve is short-duration bond funds and a PPF-heavy tilt instead, and the SCSS rate becomes relevant to you much later or to your parents' planning. The P2P sleeve is the satellite: a small, capped slice in RBI-regulated peer-to-peer lending for a yield pickup over bonds, sized so a bad vintage cannot hurt. We deliberately keep it at 4–7% of portfolio in every grade; the full due-diligence framework lives in <code>p2p-lending-complete</code>.</p>
+<p><strong>Choosing your grade.</strong> Conservative suits anyone with near-term goal overlap, a young family without dual income, or genuine inability to watch a 30% drawdown. Aggressive is the default for a stable-income reader in their 20s–30s with 15+ years to the goal. Maximum is for 30s–40s readers with high and growing income, no dependents at risk, and a written statement that they will add (not panic-sell) in a crash. Write the choice down. The grade decides the numbers in the table; the table decides the behaviour.</p>
+<2>SIP scaling: the math that moves the needle</2>
+<p>A ₹10 lakh lump is a good start, but the plan's engine is the monthly SIP. The standard formula for the future value of a monthly SIP (ordinary annuity, monthly compounding of the annual CAGR) is:</p>
+<p>$$FV \;=\; P \times \frac{(1+i)^{n}-1}{i}, \qquad i=\frac{CAGR}{12},\quad n=\text{number of months}$$</p>
+<p>Worked example, stated precisely so you can reproduce it: <strong>P = ₹15,000/month, assumed CAGR = 12%, horizon 15 years = 180 months</strong>, so i = 1%.</p>
+<ol>
+<li>Monthly growth factor: $(1+i) = 1.01$</li>
+<li>$(1.01)^{180} = e^{180 \times \ln 1.01} = e^{180 \times 0.00995} = e^{1.7911} \approx 5.996$</li>
+<li>Annuity factor: $\frac{5.996 - 1}{0.01} \approx 499.6$</li>
+<li>$FV = 15{,}000 \times 499.6 \approx \text{₹}74{,}94{,}000$</li>
+</ol>
+<p>So ₹15,000 a month at a 12% assumed CAGR for 15 years yields <strong>≈ ₹74.9 lakh</strong>, against <strong>₹27.0 lakh actually invested</strong> (15,000 × 180) — the gain is roughly ₹47.9 lakh, and nearly two-thirds of the final corpus is compounding, not contributions. (Be wary of figures like ₹44.7 lakh floating around for this exact setup: that number comes from a shorter horizon or a lower assumed CAGR. Show the formula; check the exponent.)</p>
+<p>Two refinements, honestly labelled:</p>
+<ul>
+<li><strong>Annuity-due variant.</strong> SIPs are paid at the start of the month, so each instalment earns one extra month: $FV_{due} = FV_{ordinary} \times (1+i) \approx 74.9 \times 1.01 \approx ₹75.7$ lakh. The difference is small; the habit of stating which convention you used is not optional.</li>
+<li><strong>Step-ups change everything.</strong> If your income grows and you raise the SIP 10% every year (a growing annuity: year-1 SIP ₹1.8 lakh, year-2 ₹1.98 lakh, … at the same 12% planning CAGR), the 15-year <em>SIP</em> corpus alone rises to <strong>≈ ₹1.23 crore</strong> (illustrative, same assumptions; with the ₹10 lakh lump included, the total is ≈ ₹1.78 crore). Step-ups are the single largest behavioural lever in the whole plan — larger than any allocation tweak. The mechanism: a higher contribution in later years compounds for fewer years, but the sheer size of the contribution dominates; the two effects together turn a ₹74.9 lakh outcome into ₹1.23 crore from the SIP stream alone.</li>
+</ul>
+<p>The CAGR you will quote anywhere else in this plan is defined as:</p>
+<p>$$CAGR = \left(\frac{V_{end}}{V_{begin}}\right)^{1/t} - 1$$</p>
+<p>where t is in years. Keep the pair: the formula for building (SIP FV) and the formula for checking (CAGR).</p>
+<2>Growth path: from ₹10 lakh to PMS/AIF territory</2>
+<p>SIPs do not age gracefully. Below roughly ₹50 lakh, index funds are simply the right vehicle. Beyond that, the menu opens — but only if you <em>plan</em> the transition instead of stumbling into it.</p>
+<p>The milestone math, at the same 12% planning CAGR: ₹10 lakh lump + ₹15,000 monthly SIP reaches <strong>≈ ₹48.8 lakh by year 8</strong> (lump: 10 × 1.12⁸ ≈ ₹24.8 lakh; SIP: 15,000 × ((1.01)⁹⁶ − 1)/0.01 ≈ ₹24.0 lakh) and crosses <strong>₹50 lakh around year 8–8.5</strong>. Illustrative, not a forecast.</p>
+<pre>flowchart LR
+  S["₹10L lump + ₹15k/mo SIP\n@12% planning CAGR"] --> M1["~₹50L corpus\n≈ year 8-8.5"]
+  M1 --> M0["SIF sleeve available\n(SEBI 2026, ₹10L aggregate min)"]
+  M1 --> M2["PMS-eligible\n(₹50 lakh regulatory minimum)"]
+  M2 --> M3["AIF Category II / SIPP\ncapital scales further"]</pre>
+<p>Text version: the corpus path flows from the starter plan, through the ₹50 lakh PMS milestone, to AIF Category II territory as capital grows.</p>
+<ul>
+<li><strong>SIF: the new bridge rung at your current corpus.</strong> SEBI’s 2026 Mutual Fund Regulations added the <strong>Specialized Investment Fund</strong> category (effective 1 April 2026) with a <strong>₹10 lakh aggregate minimum</strong> per PAN within a single AMC’s SIF offerings. That is <em>exactly</em> your starting corpus, so for the first time a ₹10L investor can own a "sophisticated" strategy tier (dynamic allocation, sector rotation, capped long-short) inside a regulated pooled vehicle taxed like a mutual fund — without jumping straight to the ₹50L PMS gate. Rule of thumb: keep the SIF sleeve to roughly 15–25% of total corpus and only on top of a solid index/debt core. Full treatment: <a href="../alternatives/alternatives-sif-specialized-funds.mdx">SIF: The ₹10 Lakh Tier</a>.</li>
+</ul>
+<ul>
+<li><strong>PMS entry at ₹50 lakh.</strong> Portfolio Management Schemes have a ₹50 lakh minimum; above that the 1–2% management-fee structure becomes efficient <em>only if</em> the manager genuinely adds value against an index benchmark. The full anatomy — AIF Categories I/II/III, SEBI minimums, fee and lock-in comparisons, when PMS beats a fund house — is in <code>alternatives-pms-aif-private</code>. For this plan, treat ₹50 lakh as the <em>first</em> gate, not the last: a realistic 15-year outcome at these assumptions is a <strong>≈ ₹1.3 crore</strong> corpus (₹54.7 lakh from the lump: 10 × 1.12¹⁵ ≈ ₹54.7 lakh, plus the ₹74.9 lakh SIP corpus).</li>
+<li><strong>AIF Category II for private/smids.</strong> Category II AIFs (typically long-only, no leverage beyond caps) are the natural home for private-market and small/mid-cap concentrated books once you have enough capital that a ₹50 lakh PMS no longer dwarfs your investable surplus. The rule of thumb: move a sleeve, never the whole plan, and only after the PMS stage.</li>
+</ul>
+<3>When NOT to use PMS/AIF</3>
+<p>Higher capital access is not automatically better. Do <strong>not</strong> move into PMS/AIF when:</p>
+<ul>
+<li><strong>Your horizon for that money is under 5 years.</strong> PMS lock-ins, AIF commitments and private-market illiquidity all assume you can wait through a full equity cycle.</li>
+<li><strong>You need liquidity.</strong> A ₹50 lakh PMS position is not something you unwind in a week for a goal that moved up by two years.</li>
+<li><strong>Your total investable capital is near the minimum.</strong> A 1.5% fee on a ₹50 lakh book that is benchmark-indexable is pure drag; index funds at ~0.1–0.5% expense ratios win on arithmetic alone.</li>
+<li><strong>You have not written an Investment Policy Statement.</strong> PMS/AIF decisions without a written benchmark and sizing rule become concentration decisions in disguise.</li>
+<li><strong>The alternative is boring but correct.</strong> If an index + gold + debt mix at your risk grade beats every available PMS on a risk-adjusted basis, stay in it.</li>
+</ul>
+<2>Tax drag: how slabs, 87A and lock-ins shape the plan</2>
+<p>Under the new regime for FY 2025-26 (src-it-slab-fy2025-26), the individual slabs are:</p>
+<table>
+<thead><tr><th>Slab (new regime, FY 2025-26)</th><th>Rate</th></tr></thead>
+<tbody><tr><td>Nil to ₹4,00,000,Nil</td><td>₹4,00,001 – ₹8,00,000,5%</td><td>₹8,00,001 – ₹12,00,000,10%</td><td>₹12,00,001 – ₹16,00,000,15%</td><td>₹16,00,001 – ₹20,00,000,20%</td><td>₹20,00,001 – ₹24,00,000,25%</td><td>Above ₹24,00,000,30%</td></tr></tbody>
+</table>
+<p>With the <strong>₹75,000 standard deduction</strong> and the <strong>₹60,000 Section 87A rebate</strong>, a salaried individual with taxable income up to <strong>₹12,00,000</strong> (i.e., gross salary up to ₹12.75 lakh) pays <strong>zero income tax</strong>. This is the quiet superpower of the new regime: most readers of a ₹10 lakh plan will live in the zero-tax zone for years, which means <em>tax drag while accumulating</em> is small. The drag concentrates at <strong>exits</strong>: long-term equity capital gains at 12.5% plus 4% cess (effective ~13%) on gains — last verified: 2026-08-06 — and short-term gains at 20%. Two worked intuitions:</p>
+<ul>
+<li>Realising ₹3 lakh of LCG costs you ₹37,500 tax plus ₹1,500 cess — ₹39,000, an effective 13% haircut on that slice.</li>
+<li>Dividends and bond interest are taxed at slab rates; for a reader inside 87A that tax is 0%, which is precisely why PPF's tax-exempt interest (~7.1–7.2%, last verified: 2026-08-06) is a <em>real</em> advantage in this plan and not just a marketing one.</li>
+</ul>
+<p><strong>Regime nuance, stated plainly:</strong> the ₹1.5 lakh 80C deduction (PPF, ELSS, etc.) and the extra ₹50,000 80CCD(1B) for NPS exist <strong>only under the old regime</strong> (80C limit: src-it-80c-150k). If you stay on the new regime, the PPF + ELSS sleeve in the tables above is valued for <strong>capital protection, tenor and tax-free compounding</strong>, not for the deduction. If your income puts you in a high slab where old-regime deductions pay more than 87A's rebate, the regime choice is a genuine arbitrage question — run it against the FY 2025-26 slabs above before you sign anything. (Full treatment in <code>tax-india-investor-complete</code>.)</p>
+<3>Pick the regime by arithmetic, not habit</3>
+<p>The new regime is the <strong>default</strong> for FY 2026-27, and for most people at this income level it is the <em>lower-tax</em> choice even with zero deductions, because the slab structure was reset so that income up to <strong>₹12 lakh is effectively tax-free</strong> (₹12.75 lakh gross for a salaried person after the ₹75,000 standard deduction). The <strong>old regime</strong> only wins when your Chapter VI-A stack (80C, 80D, 24(b) home-loan interest, 80CCD-1B NPS, HRA) is large enough that its deductions outweigh the new regime’s flatter slabs — usually meaning a big home-loan or heavy insurance/NPS outlay, often somewhere above ₹20–25L of income. <strong>Work the number for your own facts both ways</strong> (the calculators page has the slab math) and commit to the lower-tax regime each year; it is a reversible, annual decision. Capital-gains and interest tax are <em>outside</em> this regime choice and are governed by the slab/CAPG rules in the taxation article.</p>
+<2>Two-year action checklist</2>
+<p><strong>Months 0–3 — foundations</strong></p>
+<ul>
+<li>[ ] Confirm the 6-month emergency fund is in a liquid fund or sweep, separate from this portfolio</li>
+<li>[ ] Pick your risk grade in writing; fill the three-number table above with your grade</li>
+<li>[ ] Open demat; start the ₹15,000/month index SIP (Nifty 50 + Nifty 500 split per your grade)</li>
+<li>[ ] Open PPF (₹1.5L annual cap) and, if old-regime, ELSS within the 80C ₹1.5L limit</li>
+<li>[ ] Allocate the gold sleeve into a gold ETF, not jewellery</li>
+<li>[ ] If any P2P: RBI-regulated platform only, start at half your sleeve size, due-diligence per <code>p2p-lending-complete</code></li>
+<li>[ ] Write a one-page Investment Policy Statement: grade, sleeves, trigger, no-trade rule (minimum 3 months between discretionary trades)</li>
+</ul>
+<p><strong>Months 4–12 — first review</strong></p>
+<ul>
+<li>[ ] Step-up check: if income grew, raise the SIP 5–10%</li>
+<li>[ ] First annual rebalance to target weights (rules in <code>portfolio-construction-rebalancing</code>)</li>
+<li>[ ] File ITR; confirm regime choice (new vs old) in writing for next year</li>
+<li>[ ] Note any single position that crossed 10% of portfolio — flag for the review</li>
+</ul>
+<p><strong>Months 13–24 — second cycle</strong></p>
+<ul>
+<li>[ ] Re-grade risk if life changed (new family, new city, new employer)</li>
+<li>[ ] Second step-up if budget allows; record the assumed CAGR you are <em>actually</em> planning against</li>
+<li>[ ] Corpus check: if you are on the 12% planning path, you should be near ₹14–16 lakh by month 24 (illustrative)</li>
+<li>[ ] PMS not yet — the plan says the gate is ₹50 lakh. Anyone selling you PMS entry at ₹10 lakh is selling you a minimum</li>
+</ul>
+<2>Three risk scenarios for the plan</2>
+<p>Illustrative stress tests, not forecasts. "Aggressive" grade numbers: ~75% equity exposure (index + ELSS).</p>
+<table>
+<thead><tr><th>Scenario</th><th>What the market does</th><th>What happens to the plan</th><th>Response encoded in the plan</th></tr></thead>
+<tbody><tr><td><strong>Bear</strong>,Nifty −30 to −40% over 12–18 months,Aggressive portfolio drawdown ≈ −28%; P2P vintage stress may follow credit stress,SIPs continue (buying falls is the whole point); no chasing; P2P sleeve not added to; 3-month no-trade rule respected</td><td><strong>Bull</strong>,Nifty +40% in 18 months,Drift to ~85% equity; the plan silently becomes "maximum",Band rebalance back to targets (see <code>portfolio-construction-rebalancing</code>); step-up SIP; still no PMS until the ₹50L gate — measured on a smoothed, not peak, corpus</td><td><strong>Stagflation</strong>,Inflation 8%+, repo near 5.25% (last verified: 2026-08-06) and cut slowly,Real equity returns compress; gold and short-duration debt hold value; bond yields chase inflation,Keep the 10% gold sleeve; tilt bonds short-duration; P2P stays at the minimum of the grade (5% or less) since defaults tick up</td></tr></tbody>
+</table>
+<p>The scenario table is the plan's insurance: because the responses are pre-decided, none of the three moments becomes a fresh decision under pressure.</p>
+<2>Key formulas</2>
+<p>$$FV = P\,\frac{(1+i)^n - 1}{i} \qquad\text{(SIP future value; } i = \tfrac{CAGR}{12}\text{, } n \text{ in months)}$$</p>
+<p>$$CAGR = \left(\frac{V_{end}}{V_{begin}}\right)^{1/t} - 1 \qquad\text{(t in years)}$$</p>
+<p>Check figures in this article against these two formulas and the stated convention (ordinary vs annuity-due, nominal vs effective).</p>
+<2>How this article uses calculators</2>
+<p>The SIP FV, CAGR and fee-drag figures in this article are reproducible on the DhanPedia calculators page at <code>/calculators</code>: enter P = ₹15,000, assumed CAGR 12%, 180 months, and you should land on ≈ ₹74.9 lakh (ordinary annuity). Use the XIRR tool on any real statement before you ever quote a personal CAGR — the worked example in <code>foundations-compounding-returns</code> shows why naive CAGR on a contribution stream is misleading. The calculators document their own assumptions (compounding convention, tax treatment) — read them once, then trust the arithmetic.</p>
+<2>Update log</2>
+<p>Time-sensitive figures used in this article, each marked where it appears:</p>
+<ul>
+<li><strong>PPF rate ~7.1–7.2% p.a.</strong> — revised quarterly (last verified: 2026-08-06)</li>
+<li><strong>RBI policy repo near 5.25% through late 2025</strong> — re-verify at each MPC (last verified: 2026-08-06; src-rbi-repo)</li>
+<li><strong>SCSS 8.2% p.a. for FY 2025-26</strong> — revised quarterly (last verified: 2026-08-06)</li>
+<li><strong>SGB scheme discontinued from FY 2024-25; last tranche February 2024</strong> — re-check at each Union Budget before republishing (last verified: 2026-08-06)</li>
+<li><strong>FY 2025-26 new-regime slabs, ₹75,000 standard deduction, ₹60,000 87A rebate</strong> — re-verify at each Budget (last verified: 2026-08-06; src-it-slab-fy2025-26)</li>
+<li><strong>ELSS 3-year lock-in; 80C ₹1.5 lakh limit (old regime)</strong> — re-verify at each Budget (last verified: 2026-08-06; src-sebi-elss)</li>
+</ul>
+<2>Related</2>
+<ul>
+<li><code>foundations-compounding-returns</code> — the CAGR/XIRR/real-return math behind every figure here</li>
+<li><code>portfolio-construction-rebalancing</code> — band triggers and rebalancing rules for the sleeves</li>
+<li><code>alternatives-pms-aif-private</code> — PMS/AIF anatomy, SEBI minimums, fees, lock-ins</li>
+<li><code>tax-india-investor-complete</code> — regimes, slabs, 80C/80CCD, capital-gains reporting</li>
+<li><code>mf-sip-swp-stp-goals</code> — SIP/STP/SWP mechanics and goal-based planning</li>
+</ul>
+<2>Sources &amp; citations</2>
+<ul>
+<li><code>src-rbi-repo</code> — Reserve Bank of India, "MPC decision: policy repo rate held near 5.25% through late 2025", https://www.business-standard.com/finance/news/rbi-to-keep-interest-rates-steady-at-5-25-through-2026-reuters-poll-126012900085_1.html</li>
+<li><code>src-it-slab-fy2025-26</code> — Income Tax Department / Union Budget 2025, "Income tax slabs FY 2025-26 (new regime default; old regime optional)", https://www.incometax.gov.in/iec/foportal/help/individual/return-applicable-1</li>
+<li><code>src-sebi-elss</code> — SEBI Investor Education, "Securities Market Investment: A Guide to ELSS", https://investor.sebi.gov.in/elss.html</li>
+</ul>
+<p>Supporting context (not in this article's frontmatter, carried by the linked articles): PPF/SCSS rates and SGB status via <code>pf-</code> and <code>retirement-fire-annuities</code> articles; P2P framework via <code>p2p-lending-complete</code> (RBI P2P Directions 2025); 80C limit via <code>tax-india-investor-complete</code>.</p>
+<2>Editorial / review status</2>
+<p>Published; last verified 2026-08-06; next review due 2027-02-28 (or earlier at the next MPC / Budget if a figure above changed). Educational content, not individualized advice.</p></article>
+<footer>© 2026 Chirag Singhal / DhanPedia. Content CC BY 4.0. Educational only — not individualized investment, tax, accounting, or legal advice.</footer>
+</body></html>

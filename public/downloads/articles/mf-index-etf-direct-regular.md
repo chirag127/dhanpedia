@@ -1,0 +1,159 @@
+
+# Index Funds, ETFs, Direct vs Regular Plans & Tracking Error
+
+Index funds and exchange-traded funds (ETFs) are the least expensive way to own the market: a mandate with no manager discretion, a published benchmark, and costs that you can see in full. This article unpacks the four questions every Indian investor eventually faces — *why passive has an edge*, *what the direct-vs-regular plan choice actually costs you*, *how an ETF differs from an index fund*, and *how to measure whether the fund is really tracking its index*.
+
+## Why passive has an edge in India
+
+Start from the mechanic, not from performance tables. An active manager's job is to beat their benchmark **after** the fund's expenses are deducted. A passive fund's job is to match the benchmark **minus** its (small) expenses. So the active fund's hurdle is strictly higher: it needs genuine stock-selection alpha *plus* it has to pay for it out of the same assets. Costs do not stay fixed at 1% of a small portfolio — they are taken out of every unit of returns, every year, forever you hold the fund. On average, the market does exactly that: most managers roughly cover the cost of their own expense ratio, so most active funds *fail their hurdle* in any given period.
+
+India adds two structural reasons this gap is wide. First, the market is retail-driven and volatile, which means active managers pay for a lot of turnover, and turnover burns money. Second, the benchmark indices are transparent — the Nifty 50 and Nifty 500 compositions are public, so a passive fund knows exactly what it must hold. You are not paying a manager for a secret list of stocks; if a manager claims to know that list better, the burden of proof is on them.
+
+We deliberately avoid quoting "X% of active funds underperform over Y years." Such numbers are real, but they are period-specific, category-specific, and often cited out of context (the [fund comparison article](../mutual-funds/mf-choosing-comparing-funds.mdx) argues why three-year win rates are the most dangerous input in fund selection). The point here is the *logic*: after costs, most active mandates cannot beat the index; a few can, but you cannot know in advance which few, and the expense-ratio table in the other article shows what the chasing itself costs.
+
+## Direct plans vs regular plans: the cost drag, computed
+
+A **regular plan** pays a commission to the distribution channel (broker, bank, distributor) that sold you the fund. That commission is funded by the fund's expense ratio — you pay it, invisibly, every single year you hold it. A **direct plan** goes straight to the asset management company (AMC) through its own site or a discounting platform; no distributor exists, so the expense ratio is lower. The difference is typically on the order of **0.4–0.8 percentage points of the expense ratio** depending on the fund category — *check the fund's current expense ratio before assuming any number* (time-sensitive; verify against the fund's latest factsheet).
+
+Assume a clean **0.6% annual expense gap** between a regular and direct version of the same fund. Gross expected return: 12%. So the direct plan earns 11.8% net and the regular plan earns 11.2% net, year after year, in perpetuity. Now compound it.
+
+$$\text{Gap}(t) = P\left[(1+r_D)^t - (1+r_R)^t\right], \qquad r_D = r - e_D,\; r_R = r - e_R$$
+
+Worked example: ₹10,00,000 invested today, held for up to 25 years.
+
+| Horizon | Direct (11.8%) | Regular (11.2%) | Difference | Gap as % of regular corpus |
+|---|---|---|---|---|
+| 10 yrs | ₹30.52L | ₹28.91L | ₹1.61L | 5.6% |
+| 15 yrs | ₹53.32L | ₹49.15L | ₹4.17L | 8.5% |
+| 20 yrs | ₹93.15L | ₹83.58L | ₹9.57L | 11.4% |
+| 25 yrs | ₹162.7L | ₹142.1L | ₹20.6L | ~14.5% |
+
+**Read this table carefully.** A widely-circulated back-of-the-envelope claim says the 0.6% gap "compounds to a 13–14% corpus difference after 15 years." That is not what the math shows: at 15 years the gap is ~8.5% of the regular-plan corpus (₹4.2L on ₹10L). The **13–14% figure belongs to the 20–25 year horizon** — ₹20.6L of a ₹162.7L corpus at 25 years. The same error direction is worth naming because it's everywhere: the gap *does* compound, and it compounds at the *growth rate of the portfolio itself*, which is exactly why the horizon matters so much. A 15-year wealth plan loses ₹4.2L; a 25-year plan (retirement-plus) loses ₹20.6L, on identical inputs.
+
+The SIP version is proportionally smaller in percentage terms but the same in principle. ₹10,000/month, 15 years, 11.8% vs 11.2% net (monthly rate = annual/12, the standard SIP convention):
+
+$$FV = P\left[\frac{(1+i)^n-1}{i}\right],\quad i=\frac{0.118}{12},\; n=180$$
+
+- Direct (11.8%): $i=0.0098333$, $(1+i)^{180}=5.819$ → FV ≈ ₹49.0L
+- Regular (11.2%): $i=0.0093333$, $(1+i)^{180}=5.324$ → FV ≈ ₹46.3L
+
+Gap: **₹2.7L over 15 years on ₹18L contributed** — your direct plan is worth about 6% more, for zero extra effort.
+
+### Practical rules
+
+1. **If you hold a regular plan today, switch to the direct version of the same fund** (a "switch/transfer," not a redemption). The AMCs support this for equity funds; the switch itself can carry a tax event, so time it after long-term holding periods where possible.
+2. **Never pay for a regular plan in an SIP** — the annual commission bleed is the entire reason direct plans exist.
+3. **Regular plans have one legitimate use:** a human advisor who charges a flat fee and you actually need. The test is simple: is the commission you're paying through the higher expense ratio larger than the value of the advice? Most investors, most of the time, the answer is yes.
+
+## Index funds vs ETFs: same mandate, different plumbing
+
+Both hold the same index. Everything below is about *how you transact and settle*.
+
+| Property | Mutual index fund | ETF |
+|---|---|---|
+| Account needed | Demat optional (AMC folio) | Demat account mandatory |
+| Pricing | Once daily at NAV (T+2 settlement convention) | Continuous intraday, T+0 execution (settlement per exchange cycle — verify the current cycle) |
+| Intraday trading | Not possible | Possible, with bid-ask |
+| Minimum ticket | Usually ₹500–₹1,000 SIP | One lot, often ₹2,000–₹5,000 depending on ETF price |
+| Dividends | Distributing funds pay you; growth plans reinvest | Most Indian index ETFs are growth; dividends accrue to NAV |
+| Liquidity mechanism | Redemption to AMC at NAV | Market trade + **creation/redemption arbitrage** keeps price near NAV |
+| Tax treatment | Equity-oriented fund CG rules | Identical — the ETF is an equity instrument, not a fund wrapper |
+
+### The mechanics that matter
+
+**Demat.** ETFs trade on NSE/BSE like shares; you must have a demat account. Index funds can run through a plain folio. This is the first real cost difference: brokerage on each ETF trade (zero for delivery-based equity trades, but intraday trades attract a different charge class — check your broker's schedule).
+
+**T+0 vs T+2.** An index-fund purchase is priced at that day's NAV and units settle per the fund's settlement cycle; you cannot react to the intraday tape. An ETF executes the moment you place the order. In fast markets that is a real, if small, edge — and the same edge cuts the other way if you trade on impulse.
+
+**Tracking.** Both track the index by holding it (fully or sampled). An ETF can *additionally* use a derivative sleeve to track, and the creation/redemption mechanism (below) forces the market price to hug NAV continuously; an index fund has no such mechanism because it's bought and sold only at NAV.
+
+**Liquidity.** A broad ETF (Nifty 50, Sensex) trades in depth all day. A narrow or niche ETF can have a wide bid-ask spread — you can trade, but the spread is a hidden cost. Before buying any ETF, look at the spread: a half-percent-wide spread on a ₹3,000 price is a bigger cost than most expense ratios.
+
+**Circuit breakers.** ETFs are listed instruments, so intraday price limits apply. In a violent day, the ETF price can hit its circuit and stop trading even while the underlying index keeps moving — you may be locked out of your exit. An index fund cannot "halt" intraday; you redeem at NAV when markets reopen. Neither is safer overall; the risk profile just differs and you should know which one you hold.
+
+**Premiums and discounts.** Because ETFs trade on the market, price can deviate from NAV. Buying at a 1% premium means you've paid 1% extra for exactly what the fund already costs. The arbitrage mechanism below is what normally polices this, but in stress or illiquidity the policing gets weak. Check the premium/discount before trading.
+
+### How ETF arbitrage keeps price at NAV (explained simply)
+
+The instrument: **creation units**, sold by the *authorised participant* (AP — a broker or bank that has the right to create/redeem) to the **authorised purchaser**. One creation unit is a basket worth, say, ₹10,000 of the index, and it is redeemable for (roughly) that same basket's worth of index stocks.
+
+- **Price above NAV (premium).** The AP buys the creation unit for ~NAV, sells it into the market at the premium, pocketing the difference. Selling pressure pushes the ETF price back down toward NAV.
+- **Price below NAV (discount).** The AP buys the cheap ETF in the market, exchanges it for a creation unit, sells the underlying basket for more. Buying pressure pushes the ETF price back up.
+
+The same mechanism also lets fund managers move big money without moving the market: to raise the ETF, the manager *redeems* creation units (the AP assembles the basket of index stocks and hands it over); to shrink it, the manager *creates* units (the AP takes the creation unit, breaks it into the index stocks, and distributes them to the redeemers). For you as a holder, the takeaway is simple: **the ETF price self-corrects to NAV continuously, through a small handful of professional participants, and the ETF's net asset value — not its price — is the honest number to track.**
+
+## Nifty 50 vs Nifty 500 vs Sensex: the small-cap tilt debate, without fabricated studies
+
+All three are large, liquid, Indian equity indices. The *construction logic* drives the debate:
+
+- **Sensex (30)** — the oldest index, 30 large caps. Extremely concentrated: the top 10 names are a large slice of the whole index. Cheapest to hold, least breadth.
+- **Nifty 50** — 50 large caps, slightly broader than the Sensex, and the basis for the most liquid index products in India.
+- **Nifty 500** — top 500 by float-adjusted market cap, so it sweeps in a heavy **mid- and small-cap sleeve**. Its expected return *and* its volatility both live or die with that sleeve, which you do not see in a Sensex or Nifty 50 product.
+
+The honest framing of the "Nifty 500 wins" question: *you are not picking a different index, you are picking a different risk position.* Nifty 500 carries a structurally higher weight in small and mid caps, which historically earns a premium but also means deeper drawdowns in the small-cap correction cycles. "Small-cap tilt pays" is a period-specific claim; a three-year sample that happened to include a strong small-cap run is *not* evidence. If you want the tilt deliberately, use it as a satellite, not the core. If you want the simplest possible core, Nifty 50 (or the Sensex) is the cleanest default. The [goal-planning article](../mutual-funds/mf-sip-swp-stp-goals.mdx) has the framework for splitting core vs satellite; this article is where you decide which index *is* the core.
+
+## Tracking error and tracking difference — definitions and the 1-year vs 3-year nuance
+
+**Tracking error (TE)** = standard deviation of (fund return − benchmark return), annualised, over a rolling window. It measures *how much the fund wiggles around* the benchmark. **Tracking difference (TD)** = mean of (fund return − benchmark return) over the window — *the level of that wiggle, on average.* For a passive fund you want TE near zero **and** TD near zero (or a small negative, equal to the expense ratio).
+
+The 1-year vs 3-year window matters for two reasons:
+
+1. **Expense drag is deterministic.** The fund's expense ratio and the benchmark's own return pattern are not noise; they produce a systematic, slowly-accumulating gap. A one-year TD can look flat for a fund that is quietly losing 0.6% a year to costs, because the 0.6% has not yet visibly separated out of the noise. A three-year window gives the drag time to show up.
+2. **TE behaves differently from TD.** A fund can have TE of 0.5% and TD of −0.6% — it wiggles a little but on average runs below the index. It can also have TE of 1.5% and TD of 0 — it wiggles a lot in both directions. The first is a cost problem; the second is a structure problem (derivative overlays, sampling, lag). Report **both** and read them together.
+
+A fund whose TE has been creeping up year over year, or whose TD has deteriorated by more than its expense ratio can explain, is a fund whose plumbing has changed. That deserves a question to the AMC before you add money.
+
+## SIPs vs lump sums in index products, and their tax identity
+
+**SIP vs lump sum** in an index fund is identical to the math in the [SIP article](../mutual-funds/mf-sip-swp-stp-goals.mdx): SIPs smooth entry, lump sums are cheaper on average in rising markets and more expensive in falling markets, and *you cannot predict which regime you are in*. For index products specifically, the practical pattern is: **SIP for the monthly money** (stable, salary-driven), **ladder of lump sums** for a windfall (split across months to limit sequence-of-returns risk on the entry itself). Both feed the same mandate; the entry rhythm is the only difference.
+
+**Tax identity.** This is where ETFs and index funds are identical and where people get confused: *the tax treatment is that of the instrument, not the wrapper.*
+
+- A **broad-market equity index fund** and a **broad-market equity ETF** are both equity-oriented. The gains are taxed under the equity capital-gains regime: short-term gains (holding under 12 months) at a flat rate, long-term gains above the annual exemption at a (lower) flat rate, with no indexation (verify current rates against the income tax slabs reference — [src-it-slab-calculator](../mutual-funds/mf-index-etf-direct-regular.mdx) time-sensitive, last verified 2026-08-06).
+- **ELSS** (Equity Linked Saving Scheme) is a 3-year lock-in mutual-fund category with a Section 80C claim, under SEBI's rules ([src-sebi-elss](../mutual-funds/mf-index-etf-direct-regular.mdx)) — it is an *active* category, not a passive one, and the lock-in is its whole tax value. An index fund or an ETF is **not** an ELSS.
+- **Debt index funds / ETFs** that track a bond index are *not* equity-oriented; their capital gains follow the debt-instrument rules. Before you call something "an index product," check its classification.
+
+The tax identity does not differ between the fund and the ETF, so the choice between them is plumbing, not tax.
+
+## Common ETF mistakes (the ones that actually cost money)
+
+1. **Buying at a premium without checking.** The price-to-NAV gap is visible on the exchange. A 1% premium is a guaranteed cost on top of the fund's expense ratio.
+2. **Treating a wide-spread ETF like a liquid one.** Check the bid-ask before you trade. A 0.5% spread on a small cap-ETF is real money, paid on every side.
+3. **Assuming T+0 = risk-free.** Intraday execution is a tool, not a safety. The same day you can buy, you can be stopped out at the circuit.
+4. **Confusing a sector ETF with "the market."** A Nifty 50 ETF *is* the market. A banking ETF is a bet on one industry, not an index in the passive sense, and it carries all the active-fund risk the section above describes.
+5. **Holding regular-plan equivalents.** ETFs and index funds have a direct-plan analogue; some platforms sell the "regular" version. Read the expense ratio, not the product name.
+6. **Picking an index fund and an ETF that are the same underlying.** Owning both a Nifty 50 index fund and a Nifty 50 ETF is one position with two expense ratios, not two positions. Consolidate.
+7. **Ignoring the dividend policy.** Growth index funds reinvest; some distributing variants pay out. If your mandate is "let it compound," pick growth and let the reinvestment do the work.
+
+## Choosing: a fast decision rule
+
+- **Core, monthly, salary-driven** → a Nifty 50 or Sensex direct index fund (or ETF if you already have a demat and prefer intraday tooling).
+- **Windfall, need a ladder** → split across months in the same product.
+- **Small deliberate small/mid-cap tilt** → a Nifty 500 ETF as a satellite, sized as a satellite.
+- **Need a tax-saving instrument inside 80C** → ELSS (active category, 3-year lock-in, [src-sebi-elss](../mutual-funds/mf-index-etf-direct-regular.mdx)); do not mistake it for a passive tool.
+- **Already hold a regular plan** → switch to the direct version before you add more.
+
+## Related
+
+- [SIP, STP & SWP: Structured Investing and Goal Planning](../mutual-funds/mf-sip-swp-stp-goals.mdx) — the funding-rhythm math and the goal-ladder method this article defers to.
+- [How to Choose and Compare Mutual Funds](../mutual-funds/mf-choosing-comparing-funds.mdx) — the 10-step selection process and the argument against performance chasing, which this article's "passive wins on cost" claim depends on.
+- [Your 10 Lakh Wealth Plan](../personal-finance/pf-wealth-plan-10-lakh.mdx) — where index products sit inside a full allocation.
+
+## Sources
+
+- `src-sebi-elss` — SEBI investor-education guide on ELSS (80C claim, 3-year lock-in).
+- `src-it-slab-calculator` — secondary summary of the FY 2025-26 / FY 2026-27 income tax slabs; referenced for the *time-sensitive* capital-gains rate claims, all marked "verify."
+
+## Update log
+
+- **2026-08-06** — last verified. Equity capital-gains flat rates (short-term and long-term) and the annual long-term exemption threshold are marked "verify against the latest income-tax slabs source"; no specific figures were asserted, by design. Direct vs regular expense-ratio gap (0.4–0.8 pp) is a pattern, not a fixed number — check the fund's current factsheet before quoting it. All numbers in the worked tables are arithmetic, not market data.
+
+
+## Sources & Citations
+
+- **SEBI Investor Education** — Securities Market Investment: A Guide to ELSS. https://investor.sebi.gov.in/elss.html (verified 2026-08-06)
+- **Cleartax (secondary summary of official slabs)** — Income Tax Slabs FY 2025-26 & FY 2026-27 (New and Old Regime). https://cleartax.in/s/income-tax-slabs (verified 2026-08-06)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.

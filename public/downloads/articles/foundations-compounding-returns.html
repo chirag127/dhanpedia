@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Compounding, CAGR, XIRR & Real Returns: The Math That Actually Matters</title>
+<style>body{font:16px/1.7 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#14231d}
+h1{font-size:1.8rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border:1px solid #ccc;padding:.4rem .5rem}code{background:#f1efe7;padding:.1rem .3rem;border-radius:4px}
+.eq code{display:block;text-align:center;margin:.8rem 0}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}</style>
+</head><body><h1>Compounding, CAGR, XIRR & Real Returns: The Math That Actually Matters</h1><p style="color:#3c4b44"><em>Nominal vs real returns, CAGR vs XIRR vs time-weighted, how inflation and fees quietly destroy wealth, with worked numbers.</em></p>
+<p style="font-size:.8rem;color:#555">DhanPedia · Author Chirag Singhal · Verified 2026-08-06</p>
+<p>"Your fund returned 14% this year." — a claim that tells you almost nothing about what it did <em>for you</em>. The gap between that number and your actual experience of wealth is where most Indian investors lose more money than they lose to market falls: to the difference between nominal and real returns, between CAGR and XIRR, and to the quiet, compounding bleed of fees and taxes. This article builds the full toolkit — with worked Indian numbers — so that every return you ever quote or believe is the <em>right</em> return for the question you are asking.</p>
+<2>What "return" actually means</2>
+<p>Three different numbers get called "the return" of the same asset:</p>
+<ul>
+<li><strong>Nominal return</strong> — what happened to the price in rupee terms, before inflation and before tax.</li>
+<li><strong>Real return</strong> — what happened to <em>purchasing power</em>.</li>
+<li><strong>Post-tax return</strong> — what actually reached your bank account after the taxman took his share.</li>
+</ul>
+<p>The bridge from nominal to real is exact, and it is not "subtract inflation" (that is a shortcut that quietly overstates real returns at high inflation):</p>
+<p>$$r_{real} = \frac{1 + r_{nominal}}{1 + \pi} - 1$$</p>
+<p>where $\pi$ is the inflation rate. Worked example: an equity fund earns a <strong>nominal 12%</strong> in a year with <strong>5% inflation</strong>. Real return = 1.12/1.05 − 1 = <strong>6.67%</strong>, not 7.0%. The "just subtract" rule gives 7.0%; the exact formula gives 6.67%. At single-digit inflation the difference is small; at 8% inflation it widens (12% nominal against 8% inflation is 3.70% real, not 4.0%), which is exactly the stagflation year when the distinction matters most.</p>
+<2>CAGR: the clean number and its blind spot</2>
+<p>Compound annual growth rate is the geometric mean of growth over a period:</p>
+<p>$$CAGR = \left(\frac{V_{end}}{V_{begin}}\right)^{1/t} - 1$$</p>
+<p>Example: ₹10 lakh grows to ₹30 lakh over 12 years → CAGR = (3.0)^(1/12) − 1 ≈ 10.0%. Clean. And here is the blind spot: <strong>CAGR assumes all money sat in from day one.</strong> It says nothing about cash-flow timing. A fund with CAGR 10% that you loaded into in month 1 of a crash, versus the identical fund loaded in at the top of the same year, produces <em>different</em> personal outcomes — same CAGR, wildly different money-weighted result. That is the entire argument for XIRR.</p>
+<2>XIRR: the metric that respects your cash flows</2>
+<p>XIRR solves for the annual rate r that makes the present value of every cash flow (negative = you paid in, positive = you got out) equal to zero:</p>
+<p>$$\sum_{k} CF_k \times (1 + r)^{-t_k} \;=\; 0, \qquad t_k \text{ in years from the first flow}$$</p>
+<p>Worked example with real dates (assumptions: one lump and two mid-stream top-ups, single exit):</p>
+<table>
+<thead><tr><th>Date</th><th>Cash flow</th><th>Note</th></tr></thead>
+<tbody><tr><td>1 Jan 2019,−₹1,00,000,initial lump</td><td>1 Jan 2021,−₹50,000,top-up after two years</td><td>1 Jan 2022,−₹75,000,top-up after three years</td><td>1 Jan 2026,+₹3,20,000,full exit</td></tr></tbody>
+</table>
+<p>Total in: ₹2,25,000. Naive "CAGR" over the ~7 years would compute (3.20/2.25)^(1/7) − 1 ≈ <strong>5.2%</strong> — but that pretends all ₹2.25 lakh was in from 2019, when two of the three contributions were latecomers. Solving the XIRR equation by iteration:</p>
+<ul>
+<li>At r = 7%: future value at exit = 1,00,000×1.07⁷ + 50,000×1.07⁵ + 75,000×1.07⁴ ≈ 1,60,578 + 70,128 + 98,310 = ₹3,29,016 — too high, so the true rate is below 7%.</li>
+<li>At r = 6.4%: ≈ 1,54,392 + 68,191 + 96,124 = ₹3,18,707 — just below ₹3,20,000.</li>
+<li>Interpolating: <strong>XIRR ≈ 6.4–6.5% p.a.</strong></li>
+</ul>
+<p>The honest statement: "This investor earned about 6.5% a year on the timing of his actual money." The 5.2% naive number understates it (money was in later, so it had less time to grow — the <em>same</em> ₹3.2 lakh exit is a <em>better</em> result per rupee than the naive CAGR implies). The lesson is direction and discipline, not the exact digit: <strong>CAGR describes the asset; XIRR describes you.</strong></p>
+<2>Time-weighted vs money-weighted: who gets credited</2>
+<p>The two families of return metrics answer different questions, and the Indian fund industry quietly mixes them up:</p>
+<ul>
+<li><strong>Time-weighted return (TWR)</strong> measures the <em>manager</em>: contributions and withdrawals are stripped out by chaining sub-period returns. It is the fair benchmark number, because the manager did not choose when you added money.</li>
+<li><strong>Money-weighted return (MWR)</strong> — which is exactly your XIRR — measures <em>you</em>: it weights each period by the capital you actually had in it. Add a big lump in a crash year and your MWR on a decent fund can be far above the TWR; add at the top and it can be far below.</li>
+</ul>
+<p>Practical use: judge a fund by TWR vs its benchmark TWR; judge your own wealth creation by XIRR on your own statements. Never use a manager's TWR to estimate what <em>your</em> irregular SIPs will do.</p>
+<2>The rule of 72 — and why inflation is the real boss</2>
+<p>The rule of 72: doubling time (years) ≈ 72 ÷ annual return %. It is just the log approximation of the CAGR formula, and it is the fastest sanity check you will own:</p>
+<ul>
+<li>12% nominal → doubles every 72/12 = <strong>6 years</strong>.</li>
+<li>5% inflation → your rupee purchasing power doubles in cost terms every 72/5 = <strong>14.4 years</strong>.</li>
+<li>12% nominal against 5% inflation → real 6.67% (by the exact formula above) → purchasing power doubles every 72/6.67 ≈ <strong>10.8 years</strong>.</li>
+</ul>
+<p>That 10.8-year real doubling is the number that should live behind every goal-corporus estimate you make. A "6-year doubling" is a <em>nominal</em> claim; it is only about 58% of what sounds like it once inflation is on the table.</p>
+<2>Fee drag: the 1% that is not a 1%</2>
+<p>Expense ratios are quoted annually, which makes them look trivial: 1% on a year. They are not trivial because they compound <em>against</em> you for the entire holding period, and the damage is proportional to time, not to the fee.</p>
+<p>Worked example — <strong>assumptions: a ₹1,00,000 lump sum, annual compounding, 20-year hold, a flat 1% expense ratio, no tax, no cash flows (each labelled because each one matters):</strong></p>
+<table>
+<thead><tr><th>Version</th><th>Formula</th><th>20-year value</th></tr></thead>
+<tbody><tr><td>12% gross, no fee,1,00,000 × 1.12²⁰ = 1,00,000 × 9.646,<strong>₹9,64,600 (≈ ₹9.65 lakh)</strong></td><td>11% net after 1% fee,1,00,000 × 1.11²⁰ = 1,00,000 × 8.062,<strong>₹8,06,200 (≈ ₹8.06 lakh)</strong></td><td>Drag,difference,<strong>≈ ₹1,58,400 (≈ ₹1.58 lakh)</strong></td></tr></tbody>
+</table>
+<p>Read the table the right way: a <em>1-percentage-point</em> fee cost about <strong>16% of the final corpus</strong> on this horizon. Scale it to a ₹10 lakh start (linear, same assumptions) and the 1% fee destroys <strong>≈ ₹15.8 lakh</strong> of a ₹96.5 lakh gross outcome — leaving ₹80.6 lakh. And for a SIP, the drag is proportionally <em>more</em> severe: every instalment spends more of its life compounding, so the fee eats more years. Two practical consequences: index funds (expense ratios in the low single tenths of a percent, direct plans) are not a fad, they are arithmetic; and a fund's "14% return" should always be read as gross, with your net figure one or two points lower depending on its ER.</p>
+<2>Post-tax: the third layer the fund fact-sheet never shows</2>
+<p>Equity long-term capital gains in India are taxed at <strong>12.5% plus 4% cess — an effective ~13% on the gain</strong> (last verified: 2026-08-06; re-check at Budgets), which is why an index-and-hold strategy's real drag is modest compared with income streams taxed at slab rates. Worked, with the same labelled assumptions (₹1,00,000 lump, 12% gross, 20 years, single exit):</p>
+<table>
+<thead><tr><th>Layer</th><th>20-year outcome</th><th>Effective annual CAGR</th></tr></thead>
+<tbody><tr><td>Gross,₹9,64,600 (₹8,64,600 gain),12.0%</td><td>After LCG tax 12.5% only,gain × 0.875 → ≈ ₹8,56,500,≈ 11.3%</td><td>After LCG tax incl. 4% cess (effective ~13%),gain × 0.87 → ≈ ₹8,52,200,≈ 11.3%</td><td>Headline planning number,,<strong>≈ 11.3%</strong></td></tr></tbody>
+</table>
+<p>For a reader in a 20–30% income slab, that 13% on gains is a <em>lower</em> marginal burden than the slab itself — the equity exit is comparatively cheap, which is the whole tax logic of the equity allocation in <code>pf-wealth-plan-10-lakh</code>. Compare with a debt fund's gains, which (after the 3-year LT threshold) merge into your slab income at 20–30% — the structural reason long-horizon Indian investors tilt equity.</p>
+<p><strong>The combined honest number.</strong> Stack all three layers on one illustrative case (₹1 lakh lump, 12% gross, 1% fee, 20 years, 5% average inflation, LCG exit tax effective ~13%): 12% gross − 1% fee = 11% net → ₹8.06 lakh; exit tax on the ₹7.06 lakh gain ≈ ₹0.92 lakh → <strong>₹7.14 lakh</strong>; post-tax CAGR ≈ <strong>10.3%</strong>; real (against 5% inflation) ≈ <strong>5.1% per year</strong>. Five points a year of <em>real, after-fee, after-tax</em> growth on an equity lump sum is the number your retirement corpus should actually be built from — not the 12% on the fact sheet. Every figure in this paragraph is labelled illustration; the <em>method</em> is the deliverable.</p>
+<2>A short decision list</2>
+<ol>
+<li>Nominal vs real: if the decision is about lifestyle, always convert to real with the exact formula.</li>
+<li>CAGR vs XIRR: quote XIRR for anything with your own cash flows; CAGR for pure asset comparisons.</li>
+<li>TWR for the manager, MWR/XIRR for yourself — never swap.</li>
+<li>Fees: compare final corpus, not the fee line.</li>
+<li>Tax: price the <em>exit</em> before you price the entry.</li>
+</ol>
+<2>How this article uses calculators</2>
+<p>The DhanPedia calculators page at <code>/calculators</code> carries the machinery this article teaches: an XIRR tool (enter the four dated cash flows above and it should return ≈ 6.4–6.5%), CAGR and doubling-time tools, and a fee-drag comparison tool (₹1 lakh, 12% vs 11%, 20 years → ₹9.65 lakh vs ₹8.06 lakh). Use the calculators as the <em>checker</em> for the hand math — if your entry gives a different answer, you have found an assumption mismatch (compounding convention, tax, or date basis), which is the whole point of the exercise.</p>
+<2>Related</2>
+<ul>
+<li><code>foundations-risk-allocation-behavior</code> — what the returns are <em>for</em>: pricing risk and avoiding the behavioural traps that erase them</li>
+<li><code>pf-wealth-plan-10-lakh</code> — the 10-lakh plan that spends these exact formulas</li>
+</ul>
+<2>Sources &amp; citations</2>
+<ul>
+<li><code>src-it-slab-calculator</code> — Cleartax (secondary summary of official slabs), "Income Tax Slabs FY 2025-26 &amp; FY 2026-27 (New and Old Regime)", https://cleartax.in/s/income-tax-slabs — supports the slab context used in the post-tax discussion.</li>
+</ul>
+<p>The 12.5% LCG rate with 4% cess and the 12% planning CAGR in the worked examples are the article's own planning inputs, marked time-sensitive below.</p>
+<2>Update log</2>
+<ul>
+<li><strong>Equity long-term capital gains: 12.5% + 4% cess (effective ~13%)</strong> — re-verify at each Union Budget (last verified: 2026-08-06)</li>
+<li><strong>Planning inflation assumption: ~5%</strong> — a planning input, not a statistic; refresh against the latest CPI print before republishing</li>
+<li><strong>12% planning CAGR for equity</strong> — planning assumption labelled as such throughout; not a forecast</li>
+<li>No external rate data is claimed in this article; the fee-drag and tax figures are arithmetic on stated assumptions</li>
+</ul>
+<2>Editorial / review status</2>
+<p>Published; last verified 2026-08-06; next review due 2027-02-28. Educational content, not individualized advice.</p>
+<h2>Sources</h2><ol><li>Cleartax (secondary summary of official slabs) — Income Tax Slabs FY 2025-26 &amp; FY 2026-27 (New and Old Regime): https://cleartax.in/s/income-tax-slabs (verified 2026-08-06)</li></ol>
+<p style="font-size:.75rem;color:#666;margin-top:2rem;border-top:1px solid #ccc;padding-top:1rem">Educational content, not individualized investment, tax, accounting, or legal advice.</p>
+</body></html>

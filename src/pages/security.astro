@@ -1,0 +1,47 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@lib/site';
+---
+
+<BaseLayout title="Security & Privacy" description="How DhanPedia handles security, privacy, and vulnerability reporting.">
+  <section style="padding:3rem 0 3rem;">
+    <div class="container" style="max-width:46rem;">
+      <h1 style="font-size:2rem; margin:0 0 .4rem;">Security &amp; privacy</h1>
+      <p style="color:var(--ink-soft); line-height:1.75;">
+        DhanPedia is a static, privacy-first site. It has no backend, no user
+        accounts, no login, and no PII collection. Every calculator runs
+        entirely in your browser — no input you type is ever sent anywhere.
+      </p>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Reporting vulnerabilities</h2>
+      <p style="color:var(--ink-soft); line-height:1.75;">
+        Found an injection, a broken link target, a dependency issue, or any
+        process that could leak data? Email <a href="mailto:{SITE.authorEmail}">{SITE.authorEmail}</a>
+        with a short description, the affected page, and repro steps.
+        Critical issues are fixed before public deployment.
+      </p>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Design principles</h2>
+      <ul style="color:var(--ink-soft); line-height:1.9;">
+        <li><strong style="color:var(--ink);">Static &amp; serverless.</strong> No backend, no login, no PII.</li>
+        <li><strong style="color:var(--ink);">No secrets in the repo.</strong> Only the <code>GITHUB_TOKEN</code> CI provides is ever used.</li>
+        <li><strong style="color:var(--ink);">Dependency hygiene.</strong> Pinned ranges, generated lockfile, <code>npm audit</code> in CI.</li>
+        <li><strong style="color:var(--ink);">Safe links.</strong> External links use <code>rel="noopener noreferrer"</code> when opening new tabs.</li>
+        <li><strong style="color:var(--ink);">Input validation.</strong> Calculator inputs are validated &amp; clamped; no division-by-zero or overflow crashes.</li>
+      </ul>
+
+      <h2 style="font-size:1.2rem; margin-bottom:.5rem;">Privacy</h2>
+      <p style="color:var(--ink-soft); line-height:1.75;">
+        There are no trackers by default. If analytics are ever added, they are
+        optional and disclosed. Search is client-side (Pagefind) — your query
+        never leaves your device. No calculator inputs are sent to any external
+        service.
+      </p>
+
+      <p style="font-size:.85rem; color:var(--ink-soft); margin-top:1.5rem;">
+        See the full security policy in the repository: <code>SECURITY.md</code>.
+        Security fixes are listed in <code>CHANGELOG.md</code>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

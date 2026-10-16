@@ -1,0 +1,141 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>SIP, STP & SWP: Structured Investing and Goal Planning</title>
+<style>body{font:16px/1.7 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#14231d}
+h1{font-size:1.8rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border:1px solid #ccc;padding:.4rem .5rem}code{background:#f1efe7;padding:.1rem .3rem;border-radius:4px}
+.eq code{display:block;text-align:center;margin:.8rem 0}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}</style>
+</head><body><h1>SIP, STP & SWP: Structured Investing and Goal Planning</h1><p style="color:#3c4b44"><em>SIP future value, SIP vs lump-sum timing, STP harvesting gains, SWP creating income, and goal-based planning with explicit assumptions.</em></p>
+<p style="font-size:.8rem;color:#555">DhanPedia · Author Chirag Singhal · Verified 2026-08-06</p>
+<1>SIP, STP &amp; SWP: Structured Investing and Goal Planning</1>
+<p>Three automation tools — Systematic Investment Plan (SIP), Systematic Transfer Plan (STP), and Systematic Withdrawal Plan (SWP) — cover the three life phases of money: <strong>putting it in</strong>, <strong>moving it between risk buckets</strong>, and <strong>taking it out</strong>. This article gives you the exact math for each, worked examples with stated assumptions, and the goal-ladder method that turns "I want a car in 3 years" into a specific monthly number.</p>
+<p>Every number below states its assumption. If you change the return, change the answer — that is the whole point of doing the arithmetic yourself rather than trusting a headline.</p>
+<2>The SIP future value formula</2>
+<p>$$FV = P\,\frac{(1+i)^{n}-1}{i}$$</p>
+<p>where $P$ is the monthly contribution, $i$ is the <strong>monthly</strong> expected return (annual return ÷ 12), and $n$ is the number of months. The standard SIP convention assumes each instalment is invested at the start of the month and that interest compounds monthly. A different convention (instalments at month-end, no intra-month compounding) gives a slightly lower FV; the difference is small and the <a href="#calculator-cross-reference">calculator cross-reference</a> below is where you can check both.</p>
+<3>Worked example 1 — 12% p.a.</3>
+<p>₹10,000/month, 15 years, 12% p.a. ($i = 0.01$):</p>
+<p>$$(1.01)^{180} = 5.997 \quad\Rightarrow\quad FV = 10{,}000 \times \frac{5.997-1}{0.01} = 10{,}000 \times 499.7 \approx ₹49.9\text{L}$$</p>
+<ul>
+<li><strong>Total contributed:</strong> ₹10,000 × 180 = <strong>₹18L</strong></li>
+<li><strong>Return earned (paper gain):</strong> ₹49.9L − ₹18L = <strong>₹31.9L</strong></li>
+</ul>
+<3>Worked example 2 — 15% p.a.</3>
+<p>₹10,000/month, 15 years, 15% p.a. ($i = 0.0125$):</p>
+<p>$$(1.0125)^{180} \approx 9.356 \quad\Rightarrow\quad FV = 10{,}000 \times \frac{9.356-1}{0.0125} = 10{,}000 \times 668.5 \approx ₹66.9\text{L}$$</p>
+<ul>
+<li><strong>Total contributed:</strong> ₹18L</li>
+<li><strong>Return earned:</strong> <strong>₹48.9L</strong></li>
+</ul>
+<3>What the two examples actually teach you</3>
+<p>The return gap is 3 percentage points (12% vs 15%). The corpus gap is ₹17L — <strong>₹66.9L vs ₹49.9L</strong>. A 3 pp return difference, sustained for 15 years, is a 34% larger corpus. This is the <em>entire</em> case for indexing and cost discipline: the index-fund article's direct-vs-regular gap (a 0.6% expense drag) is the same species of "small number, sustained, compounded" — but here the <em>return assumption</em> is the biggest driver, and the return assumption is the number you control least. The <a href="../mutual-funds/mf-index-etf-direct-regular.mdx">index article</a> covers the cost side; this article covers the assumption side.</p>
+<p><strong>Assumptions, stated explicitly, for both examples:</strong></p>
+<ul>
+<li>12% and 15% are <em>nominal annual</em> expected equity returns, not promises. India's equity market has delivered different realised returns in every historical window; a 15% assumption over 15 years is the <em>upper end</em> of a plausible range, not a forecast.</li>
+<li>Monthly compounding at annual/12. No intra-month timing.</li>
+<li>No taxes on the intermediate gains (equity SIP gains are taxed at redemption, under the equity capital-gains regime — verify current rates and exemptions against the income-tax slabs reference, <a href="../mutual-funds/mf-sip-swp-stp-goals.mdx">src-it-slab-calculator</a>, time-sensitive, last verified 2026-08-06).</li>
+<li>No step-ups. If your income grows, the SIP should grow; the examples above are level.</li>
+</ul>
+<2>SIP vs lump sum: the honest version</2>
+<p>The common framing — "market timing is hard, so SIP wins" — is incomplete, and this article says it plainly:</p>
+<blockquote><strong>In a sustained bull market, a lump sum invested on day one beats the SIP, because the money was at work from day one. In a sustained down market, the SIP beats the lump sum, because the SIP bought more units on the way down. You cannot predict which regime you are in. Therefore: on a risk-adjusted basis, SIPs dominate — not because they earn more when markets go up, but because they cap your loss when they go down, and the capping is the value that compounds.</strong></blockquote>
+<p>The three-part structure is the argument. Drop any part and the conclusion breaks:</p>
+<ul>
+<li>"Lump sums win in bull markets" — true, and the part most SIP marketing ignores.</li>
+<li>"SIPs win in down markets" — true, and the part most lump-sum marketing ignores.</li>
+<li>"You cannot tell which market you are in" — the part that makes the choice a <em>risk</em> choice, not a <em>return</em> choice. A SIP is a risk-reduction tool with a cost (you sacrifice the bull-market edge); a lump sum is a risk-increase tool with a benefit (the bull-market edge). If your money is for a goal with a hard deadline, the risk of the lump sum sitting in an equity market for the final months is <em>your</em> risk, not the market's. That is the argument for the <a href="#the-goal-ladder-method">ladder</a>, not for "always do SIPs."</li>
+</ul>
+<2>STP: harvesting gains between buckets</2>
+<p>A <strong>Systematic Transfer Plan</strong> automatically moves money from one fund to another on a schedule (monthly, quarterly, trigger-based). The canonical use in India is <strong>debt-to-equity harvesting</strong>: you hold a corpus in a debt fund or PPF-adjacent bucket, and on each pay day a slice STPs into an equity fund. Two things make this tool quietly powerful:</p>
+<ol>
+<li><strong>The transfer is a deemed redemption.</strong> The slice you move out of the debt fund is taxed at that moment (debt-instrument capital-gains rules apply to the debt portion; verify the current rules against the slabs reference). The equity slice then <em>starts a new holding period</em> in the equity fund — the clock for the equity capital-gains rules restarts on every STP'd tranche. Over a multi-year STP schedule, you have naturally layered a long tail of holding periods, which is the same effect the <a href="#fixed-income-laddering-by-proxy">laddering section</a> describes for bonds.</li>
+<li><strong>The STP removes the behavioural layer.</strong> You do not decide each month "should I move money into equity?" — the schedule does. The decision you <em>do</em> make, once, is: source bucket, destination bucket, amount, frequency.</li>
+</ol>
+<p>The tax note is the one most people miss: <strong>an STP is not tax-free because it is "just a transfer."</strong> It is a redemption plus a purchase. If the source is a tax-exempt bucket (a PPF, for example, until maturity), the "deemed redemption" framing changes — PPF has its own partial-withdrawal rules; check the scheme's current limits before you plan an STP out of it.</p>
+<2>SWP: creating income from a corpus</2>
+<p>A <strong>Systematic Withdrawal Plan</strong> does the mirror: on a schedule, a value (or number of units) is redeemed out of the fund and paid to you. The three income sources every retiree in India is offered are the SWP, the FD (fixed deposit), and the annuity. Here is the honest comparison:</p>
+<table>
+<thead><tr><th></th><th>SWP (diversified equity/debt fund)</th><th>FD withdrawal</th><th>Annuity (pension scheme)</th></tr></thead>
+<tbody><tr><td>Where the income comes from,Units sold; corpus can grow or fall,Fixed coupon; principal untouched unless you break the FD,Premium paid; return is the annuity payout</td><td>Tax on the income,Capital-gains treatment (short- or long-term, depending on the unit sold and its holding period; equity-oriented funds follow the equity CG regime),Interest is taxed <strong>every year</strong> at your slab rate, on the full amount,Tax treatment depends on the scheme and the annuity's composition — verify the current rules</td><td>Inflation protection,If the corpus is growth-weighted, the corpus itself compounds against inflation,None built in; a fixed ₹X/year gets more expensive to live on every year,None built in, unless the annuity has an inflation rider (if offered)</td><td>Loss of principal risk,Yes — in a bad sequence, the corpus can fall and the SWP can accelerate the fall,No (until you need the principal, which is the FD's own risk),No — the annuity is the point</td><td>What you give up,The full upside of the corpus; the tax complexity,The compounding of the corpus you break,The flexibility of the corpus; the insurer's credit risk replaces the market's</td></tr></tbody>
+</table>
+<p>The <strong>sequence-of-returns risk</strong> is the SWP's real hazard: a bad first year after retirement (a deep drawdown) forces the SWP to sell units at the bottom, and the corpus has less time to recover. The <a href="../retirement-fire/retirement-fire-annuities.mdx">retirement article</a> has the 4% rule and the sequence-risk math; the SWP here is the <em>mechanism</em> that delivers the 4% rule on a fund, not the strategy itself. If you are on the taxable-coupon side (FD, most debt funds), the SWP has one structural edge: you are paying capital-gains tax on the units you sell, not slab-rate tax on every rupee of interest, every year. That is worth quantifying against your specific slab before you choose the income source.</p>
+<2>The goal-ladder method</2>
+<p>The rule: <strong>one goal, one corpus, one horizon, one return assumption, one funding mechanism.</strong> Then work backwards. The return assumption is <em>risk-matched to the horizon</em>:</p>
+<ul>
+<li><strong>≤ 3 years</strong> — money in a debt bucket. A 3-year goal has no time to absorb an equity drawdown; the return assumption should be the realistic debt return, not the equity average. (The current repo rate sits near 5.25% as of late 2025 — time-sensitive, verified 2026-08-06; debt yields track it, verify the current rate before quoting it.)</li>
+<li><strong>3–10 years</strong> — a debt-leaning mix. The closer to 10 years, the more equity you can carry; at 10 years the corpus has time to recover a mid-decade drawdown.</li>
+<li><strong>&gt; 10 years</strong> — an equity-leaning mix. The long horizon is where the two worked examples above apply.</li>
+</ul>
+<3>Worked: a car in 3 years, ₹50L</3>
+<ul>
+<li><strong>Horizon:</strong> 36 months. <strong>Return assumption:</strong> 12% p.a. (a debt-heavy mix that <em>happens</em> to earn 12% is not realistic; use the debt bucket's realistic number and re-run the math below — the point is the <em>method</em>, not the 12%).</li>
+<li><strong>Required FV:</strong> ₹50,00,000.</li>
+<li><strong>SIP formula, $i=0.01$, $n=36$:</strong></li>
+</ul>
+<p>$$FV = P\,\frac{(1.01)^{36}-1}{0.01} = P \times 43.08 \quad\Rightarrow\quad P = \frac{50{,}00{,}000}{43.08} \approx ₹1{,}16{,}000/\text{month}$$</p>
+<ul>
+<li><strong>Total contributed:</strong> ₹1.16L × 36 ≈ <strong>₹41.8L</strong>. <strong>Return earned:</strong> ~<strong>₹8.2L</strong> over 3 years.</li>
+<li><strong>Sensitivity:</strong> at 8% p.a. (a more conservative debt-mix assumption), the factor is $\frac{(1.006667)^{36}-1}{0.006667} \approx 40.54$, so $P \approx ₹1.23\text{L}/\text{month}$. A 4 pp return assumption moves your required monthly SIP by ~₹7,000.</li>
+</ul>
+<3>The ladder, in one table</3>
+<table>
+<thead><tr><th>Goal</th><th>Corpus</th><th>Horizon</th><th>Assumed return</th><th>i (mo)</th><th>n</th><th>Annuity factor</th><th>Required SIP</th></tr></thead>
+<tbody><tr><td>Car,₹50L,3 yrs,12% (debt-mix),0.01,36,43.08,≈ ₹1.16L/mo</td><td>Home down payment,₹35L,5 yrs,12%,0.01,60,81.67,≈ ₹42,900/mo</td><td>Child's education,₹80L,10 yrs,10% (debt-leaning),0.008333,120,204.96,≈ ₹39,000/mo</td><td>Retirement corpus,₹4Cr,20 yrs,12% (equity-leaning),0.01,240,989.2,≈ ₹40,400/mo</td></tr></tbody>
+</table>
+<p><em>Verification of every row (so the ladder is fully auditable):</em> $P = FV \div \text{factor}$, where factor $= ((1+i)^n - 1)/i$ and $i = r_{annual}/12$.</p>
+<ul>
+<li><strong>Car:</strong> $(1.01)^{36}=1.4308$ → factor $=43.08$ → $P=50{,}00{,}000/43.08 = ₹1{,}16{,}076$ ≈ ₹1.16L/mo.</li>
+<li><strong>Home:</strong> $(1.01)^{60}=1.8167$ → factor $=81.67$ → $P=35{,}00{,}000/81.67 = ₹42{,}856$ ≈ ₹42,900/mo.</li>
+<li><strong>Education:</strong> $(1.008333)^{120}=2.7080$ → factor $=204.96$ → $P=80{,}00{,}000/204.96 = ₹39{,}031$ ≈ ₹39,000/mo.</li>
+<li><strong>Retirement:</strong> $(1.01)^{240}=10.892$ → factor $=989.2$ → $P=40{,}00{,}000/989.2 = ₹40{,}437$ ≈ ₹40,400/mo. (Sanity: ₹10,000/mo at 12% for 20 yrs grows to ≈ ₹98.9L, so ₹4Cr needs ~₹40,400/mo — consistent.)</li>
+</ul>
+<p>Each row is one corpus, one horizon, one mechanism. <strong>Do not merge rows</strong> — the education corpus and the retirement corpus are different risk budgets, and merging them into one "growth SIP" is the most common self-inflated plan in Indian household finance.</p>
+<3>The last-12-months rule</3>
+<p>In every row, the final 12 months of the horizon are in a debt bucket, no matter what. The equity portion of the corpus is STP'd or redeemed (in tranches) into debt over the 12 months before the goal date. This is where the sequence-of-returns risk actually lives: a ₹35L home deposit is <em>not</em> something you let ride an equity index for the last year.</p>
+<2>Fixed-income laddering, by proxy</2>
+<p>The same laddering logic that applies to bonds (a maturing coupon every year, reinvested into the next rung) is what a <strong>debt→equity STP schedule</strong> does for an equity corpus: every STP'd tranche starts a new holding period, so the <em>tax</em> profile of the corpus ladders automatically. For the bond version of this — explicit rungs, maturing coupons, a 10-year ladder against a known income need — see the <a href="../fixed-income/fixed-income-bonds-credit.mdx">fixed-income article</a>.</p>
+<3>Step-up SIPs and top-ups</3>
+<p>A level SIP is the cleanest model but under-plans for a life in which income grows. Two mechanisms fix that:</p>
+<ul>
+<li><strong>Step-up SIP:</strong> the instalment grows by a fixed <em>percentage</em> each year (or at the start of a new year). The classic use: raise the SIP by your expected salary-growth rate each year.</li>
+<li><strong>Top-up / lump addition:</strong> a one-off extra instalment (a bonus, a side-income windfall) added to the running SIP.</li>
+</ul>
+<p>Step-up math (worked, contribution side only — the FV gap scales with it): ₹10,000/month, 20 years, 10% p.a. step-up.</p>
+<ul>
+<li><strong>Total contributed, flat SIP:</strong> ₹10,000 × 12 × 20 = <strong>₹24L</strong>.</li>
+<li><strong>Total contributed, 10% step-up:</strong> $\sum_{k=1}^{20} 10{,}000 \times 12 \times (1.1)^{k-1} = 1{,}20{,}000 \times \frac{1.1^{20}-1}{0.1} = 1{,}20{,}000 \times 57.28 \approx \mathbf{₹68.7L}$ total (vs ₹24L flat) — i.e. <strong>₹44.7L of extra contribution</strong> on top of the flat-SIP total.</li>
+</ul>
+<p>The FV advantage of the step-up is <em>more</em> than the extra contribution, because the later (bigger) instalments have more time to compound — but the exact FV depends on the compounding convention, so use the calculator rather than a headline. The decision worth making is the <em>step-up rate</em>: set it at your realistic income growth, not at hope. A 10% step-up you cannot sustain in year 6 is worse than a 5% step-up you sustain for 20.</p>
+<3>Inflation-adjusting the goal value</3>
+<p>A nominal goal understates the money you need. A car quoted at ₹47L <em>today</em> is not ₹47L in three years if car prices rise with inflation:</p>
+<p>$$\text{Future goal} = \text{Today's value} \times (1+g)^{h}$$</p>
+<p>At 6% p.a. price growth over 3 years: $47 \times 1.06^3 = 47 \times 1.191 \approx ₹55.9\text{L}$. The car example in the goal-ladder above used a clean ₹50L target; inflation-adjusting it to ~₹56L moves the required SIP up by roughly 12%. <strong>Inflation-adjust every goal before you run the ladder math</strong> — this is the step that turns a "₹50L car" plan into an actually-achievable one. The growth rate $g$ to use is the <em>price inflation of that good or service</em> (education and medical costs historically run above general CPI; a car's price is closer to general inflation). Label your $g$ explicitly.</p>
+<3>Reverse STP: equity to debt near the goal</3>
+<p>The STP tool also runs the other direction, and this is where goal planning meets sequence risk. With 12 months to a hard-deadline goal, the discipline is to <strong>STP the equity corpus into a debt bucket</strong> (or redeem in tranches into debt) so the final stretch is not riding an equity index. This <em>harvests</em> the equity gain you have so far (taxed at that moment under the equity CG rules — verify current rates) and locks the principal into a low-duration instrument. You are paying a small tax cost now to remove the single biggest threat to a deadline goal: a market drawdown in the final 6–12 months. The forward STP (debt→equity) is a growth tool; the reverse STP (equity→debt) is a <em>protection</em> tool, and goal-based planning is the context in which it earns its keep.</p>
+<3>SWP execution: amount method vs unit method</3>
+<p>The SWP's mechanics matter more than the marketing implies. Two execution modes:</p>
+<ul>
+<li><strong>Amount method (fixed ₹/month):</strong> the platform redems whatever units equal that ₹ amount. In a down market, more units are sold to raise the same ₹ — the corpus erodes faster exactly when it can least afford it. This is the dangerous mode near retirement, because the first-year drawdown compounds.</li>
+<li><strong>Unit method (fixed units/month):</strong> a fixed number of units is sold regardless of NAV; the ₹ paid to you <em>varies</em> with the NAV. The corpus erosion is more stable, but your income fluctuates — bad for a retiree who needs a steady pension-like payout.</li>
+</ul>
+<p>Most retirement SWPs use the amount method with a <em>floor</em> on the withdrawal rate (the 4% rule's analogue). The honest read: the amount method is a <em>smoother income</em> at the cost of <em>higher sequence risk</em>; the unit method is the reverse. Whichever you pick, the <a href="../retirement-fire/retirement-fire-annuities.mdx">retirement article</a> governs the <em>rate</em>, and this section governs the <em>execution</em>. The tax note applies to both: the units sold carry their own holding period, so an SWP that has been running for years is selling long-term-hold units (favourable) early on and short-term-hold units (less favourable) only for the recent tranches.</p>
+<3>The behaviour layer: auto-debit and the crash-year instinct</3>
+<p>The structural value of a SIP is <em>automaticity</em>: the money moves whether the market is up or down. The single most expensive behaviour pattern in Indian investing is <strong>pausing the SIP in a crash year</strong>, because that is the year the units are cheapest and the compounding benefit is largest. Auto-debit removes that decision from the month it is hardest to make. If you must keep manual control, the rule that survives scrutiny: <em>never pause a running SIP on the basis of a single quarter's return</em>; the only legitimate pause is a cash-flow event (a job loss, a large expected expense), and even then, a <em>reduced</em> SIP beats a <em>stopped</em> one.</p>
+<2>Calculator cross-reference</2>
+<p>The two worked examples above are deliberately <em>not</em> a calculator, because the point is that you can run the same arithmetic in 30 seconds with the formula above. If you want a tool that does it for you and also handles the step-up SIP (the ₹10,000/month that grows to ₹12,000/month after year 2), use the <strong>DhanPedia SIP calculator</strong> on this site: enter $P$, $i$, $n$, and a step-up rate, and it will print the FV, the total contributed, and the paper gain — the same three numbers the examples above print, in one click. The calculator's assumptions (monthly compounding, start-of-month instalment) match the formula above; if you use a calculator that assumes month-end, your FV will be marginally lower, and that is correct, not a bug.</p>
+<2>Related</2>
+<ul>
+<li><a href="../mutual-funds/mf-index-etf-direct-regular.mdx">Index Funds, ETFs, Direct vs Regular Plans &amp; Tracking Error</a> — the cost side this article's return assumption depends on.</li>
+<li><a href="../mutual-funds/mf-choosing-comparing-funds.mdx">How to Choose and Compare Mutual Funds</a> — the mandate-clarity step that decides <em>which</em> fund the SIP feeds.</li>
+<li><a href="../personal-finance/pf-wealth-plan-10-lakh.mdx">Your 10 Lakh Wealth Plan</a> — the allocation framework that decides <em>what fraction</em> of your income is the SIP's $P$.</li>
+<li><a href="../retirement-fire/retirement-fire-annuities.mdx">Retirement &amp; FIRE</a> — the SWP side, and the sequence-of-returns risk this article names.</li>
+</ul>
+<2>Sources</2>
+<ul>
+<li><code>src-it-slab-calculator</code> — secondary summary of the FY 2025-26 / FY 2026-27 income-tax slabs; referenced for the <em>time-sensitive</em> capital-gains-rate and slab-rate claims throughout this article, all marked "verify." No specific tax figure is asserted.</li>
+</ul>
+<2>Update log</2>
+<ul>
+<li><strong>2026-08-06</strong> — last verified. The 12% and 15% return assumptions are <em>assumptions</em>, not forecasts; they are labelled as such in both worked examples. The repo-rate figure (≈5.25%, late 2025) is time-sensitive and marked "verify against the latest RBI MPC." All SIP FV numbers are arithmetic under the stated monthly-compounding convention; a different convention gives a slightly different FV, which the <a href="#calculator-cross-reference">calculator cross-reference</a> acknowledges. The car-in-3-years example is a method illustration; its 12% assumption is flagged as unrealistically high for a debt bucket and the reader is directed to re-run the math at their debt bucket's realistic yield.</li>
+</ul>
+<h2>Sources</h2><ol><li>Cleartax (secondary summary of official slabs) — Income Tax Slabs FY 2025-26 &amp; FY 2026-27 (New and Old Regime): https://cleartax.in/s/income-tax-slabs (verified 2026-08-06)</li></ol>
+<p style="font-size:.75rem;color:#666;margin-top:2rem;border-top:1px solid #ccc;padding-top:1rem">Educational content, not individualized investment, tax, accounting, or legal advice.</p>
+</body></html>

@@ -1,0 +1,108 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+import { CATEGORIES, SITE } from '@lib/site';
+import { ARTICLES, BOOKS } from '@lib/content';
+
+const featured = ARTICLES.filter((a) => a.status === 'published').slice(0, 6);
+const topBooks = BOOKS.slice(0, 4);
+---
+
+<BaseLayout title="Home" description={SITE.description}>
+  <section class="hero" style="padding:4rem 0 3rem; border-bottom:1px solid var(--line);">
+    <div class="container" style="max-width:52rem;">
+      <p style="font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700;">
+        {SITE.tagline}
+      </p>
+      <h1 style="font-size:clamp(2rem,5vw,3.2rem); margin:.6rem 0; line-height:1.05;">
+        Understand every investment.<br />Build wealth with knowledge.
+      </h1>
+      <p style="color:var(--ink-soft); font-size:1.05rem; max-width:44rem;">
+        A free, evidence-based encyclopedia of every major investment avenue,
+        instrument, and wealth-building strategy for India — with clear
+        explanations, accurate local calculators, and downloadable books. No
+        jargon walls, no paid paywalls, no fabricated returns.
+      </p>
+
+      <div style="margin-top:1.6rem; display:flex; gap:.8rem; flex-wrap:wrap;">
+        <a href={link('/topics')} style="background:var(--accent-strong); color:#fff; padding:.7rem 1.2rem; border-radius:10px; text-decoration:none; font-weight:600; font-size:.95rem;">Browse topics</a>
+        <a href={link('/calculators')} style="border:1px solid var(--line); padding:.7rem 1.2rem; border-radius:10px; text-decoration:none; font-weight:600; font-size:.95rem; color:var(--ink);">Try the calculators</a>
+        <a href={link('/books')} style="border:1px solid var(--line); padding:.7rem 1.2rem; border-radius:10px; text-decoration:none; font-weight:600; font-size:.95rem; color:var(--ink);">Download books</a>
+      </div>
+
+      <div style="margin-top:2.2rem; display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; max-width:40rem;">
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem;">
+          <div style="font-family:var(--font-serif); font-size:1.6rem; font-weight:700;">{ARTICLES.length}</div>
+          <div style="font-size:.85rem; color:var(--ink-soft);">Deep articles, source-cited</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem;">
+          <div style="font-family:var(--font-serif); font-size:1.6rem; font-weight:700;">{BOOKS.length}</div>
+          <div style="font-size:.85rem; color:var(--ink-soft);">Downloadable books</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem;">
+          <div style="font-family:var(--font-serif); font-size:1.6rem; font-weight:700;">{CATEGORIES.length}</div>
+          <div style="font-size:.85rem; color:var(--ink-soft);">Investment avenues</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:3rem 0;">
+    <div class="container">
+      <h2 style="font-size:1.6rem; margin-bottom:1.2rem;">Browse by investment avenue</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:1rem;">
+        {CATEGORIES.map((c) => (
+          <a href={link(`/topics/${c.slug}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem; text-decoration:none; display:block; transition:border-color .15s;">
+            <div style="font-weight:600; color:var(--ink); font-size:.98rem;">{c.title}</div>
+            <div style="font-size:.82rem; color:var(--ink-soft); margin-top:.35rem; line-height:1.5;">{c.blurb}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:2.5rem 0; background:var(--surface-2); border-block:1px solid var(--line);">
+    <div class="container">
+      <h2 style="font-size:1.6rem; margin-bottom:1rem;">Featured guides</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1rem;">
+        {featured.map((a) => (
+          <a href={link(`/articles/${a.id}`)} style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem; text-decoration:none; display:block;">
+            <div style="font-size:.75rem; color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:.06em;">{a.category}</div>
+            <div style="font-weight:600; color:var(--ink); margin-top:.3rem; font-size:1.02rem;">{a.title}</div>
+            <div style="font-size:.85rem; color:var(--ink-soft); margin-top:.4rem; line-height:1.55;">{a.summary}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:3rem 0;">
+    <div class="container">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:.5rem;">
+        <h2 style="font-size:1.6rem; margin:0;">Books & downloads</h2>
+        <a href={link('/books')} style="font-size:.9rem;">View all →</a>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; margin-top:1rem;">
+        {topBooks.map((b) => (
+          <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem;">
+            <div style="font-family:var(--font-serif); font-weight:600; font-size:1.05rem;">{b.title}</div>
+            <div style="font-size:.85rem; color:var(--ink-soft); margin-top:.4rem; line-height:1.55;">{b.description}</div>
+            <div style="margin-top:.8rem; font-size:.78rem; color:var(--ink-soft);">{b.chapters.length} chapters · {b.formats.join(' · ')}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:2.5rem 0 4rem;">
+    <div class="container" style="max-width:48rem; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:1.6rem 1.8rem;">
+      <h2 style="font-size:1.3rem; margin-top:0;">How DhanPedia works</h2>
+      <ol style="color:var(--ink-soft); line-height:1.8;">
+        <li><strong style="color:var(--ink);">Evidence first.</strong> Every time-sensitive claim links to a real, checkable source and carries a verification date.</li>
+        <li><strong style="color:var(--ink);">Local calculators.</strong> Financial math runs in your browser — no paid APIs, no data sent anywhere.</li>
+        <li><strong style="color:var(--ink);">Educational, not advisory.</strong> We explain mechanics, risks, taxes, and failure modes; we never promise returns.</li>
+        <li><strong style="color:var(--ink);">Free & open.</strong> Code is MIT-licensed, content is CC BY 4.0. Read, print, download, and learn.</li>
+      </ol>
+    </div>
+  </section>
+</BaseLayout>

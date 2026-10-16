@@ -1,0 +1,65 @@
+---
+// Reusable ECharts visualization (lazy-loaded island; the ECharts library is
+// only pulled in when a chart is actually present on the page).
+//
+// Props:
+//   title  — visible caption (required, doubles as the text alternative).
+//   alt    — screen-reader description (required).
+//   height — pixel height, default 340.
+//   data   — a JS object shaped as a base ECharts `option`; the component
+//            merges in a sensible default theme and accessibility labels.
+//
+// Usage in MDX:
+//   <Chart
+//     title="SIP growth: ₹15,000/mo at 12% for 15 years"
+//     alt="Line chart showing the portfolio growing from 0 to roughly ₹75 lakh over 15 years."
+//     height={360}
+//     data={{ xAxis:{type:'category', data:[...years]}, series:[{type:'line', data:[...values]}] }}
+//   />
+import * as echarts from 'echarts/core';
+import { LineChart, BarChart, PieChart } from 'echarts/charts';
+import { GridComponent, TooltipComponent, LegendComponent, TitleComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+
+echarts.use([LineChart, BarChart, PieChart, GridComponent, TooltipComponent, LegendComponent, TitleComponent, CanvasRenderer]);
+
+const { title = '', alt = '', height = 340, data = {} } = Astro.props;
+const option = {
+  textStyle: { color: 'var(--ink)', fontFamily: 'inherit' },
+  tooltip: { trigger: 'axis' },
+  grid: { left: 48, right: 16, top: 32, bottom: 32, containLabel: true },
+  ...data,
+};
+const cfg = JSON.stringify(option);
+---
+
+<figure class="chart-fig" style="margin:1.5rem 0;">
+  {title && <figcaption style="font-size:.85rem; font-weight:600; color:var(--ink-soft); margin-bottom:.4rem;">{title}</figcaption>}
+  <!-- Accessible text alternative is always present (for SR + print) -->
+  <p class="chart-alt" style="font-size:.85rem; color:var(--ink-soft);">{alt}</p>
+  <div id="chart" style="width:100%; height:{height}px;" role="img" aria-label={alt}></div>
+</figure>
+
+<script define:vars={{ cfg }}>
+  // The script module above imports echarts at build time but only for pages
+  // that include a Chart. Each island instantiates against its own container.
+  import * as echarts from 'echarts/core';
+  import { LineChart, BarChart, PieChart } from 'echarts/charts';
+  import { GridComponent, TooltipComponent, LegendComponent, TitleComponent } from 'echarts/components';
+  import { CanvasRenderer } from 'echarts/renderers';
+  echarts.use([LineChart, BarChart, PieChart, GridComponent, TooltipComponent, LegendComponent, TitleComponent, CanvasRenderer]);
+
+  const option = JSON.parse(cfg);
+  const el = document.getElementById('chart');
+  if (el && window.innerWidth >= 320) {
+    const chart = echarts.init(el, null, { renderer: 'canvas' });
+    chart.setOption(option);
+    const observer = new ResizeObserver(() => chart.resize());
+    observer.observe(el);
+    window.addEventListener('themechange', () => {
+      chart.dispose();
+      const c2 = echarts.init(el, null, { renderer: 'canvas' });
+      c2.setOption(option);
+    });
+  }
+</script>

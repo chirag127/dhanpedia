@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { link } from '@lib/nav';
+---
+
+<BaseLayout title="Page not found" description="The page you are looking for does not exist.">
+  <section style="padding:5rem 0 4rem; text-align:center;">
+    <div class="container" style="max-width:36rem;">
+      <div style="font-size:3.5rem; line-height:1; margin-bottom:.5rem;">₹</div>
+      <h1 style="font-size:1.8rem; margin:0 0 .5rem;">Page not found</h1>
+      <p style="color:var(--ink-soft);">That URL doesn't exist. It may have moved — try one of these:</p>
+      <div style="display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1.4rem;">
+        <a href={link('/')} style="border:1px solid var(--line); border-radius:9px; padding:.55rem 1rem; text-decoration:none; font-size:.9rem; color:var(--ink);">Home</a>
+        <a href={link('/topics')} style="border:1px solid var(--line); border-radius:9px; padding:.55rem 1rem; text-decoration:none; font-size:.9rem; color:var(--ink);">Topics</a>
+        <a href={link('/search')} style="border:1px solid var(--line); border-radius:9px; padding:.55rem 1rem; text-decoration:none; font-size:.9rem; color:var(--ink);">Search</a>
+        <a href={link('/glossary')} style="border:1px solid var(--line); border-radius:9px; padding:.55rem 1rem; text-decoration:none; font-size:.9rem; color:var(--ink);">Glossary</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
