@@ -1,14 +1,45 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 18: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 47 → 48 articles; 31 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 19: 1 new article + 1 new finance function + 1 new calculator + 8 unit tests + 2 e2e tests; 48 → 49 articles; 32 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 48 on disk / registered. Wave 18 added 1: `international-dtaa-country-rate-reference` (the *DTAA corridor* layer: the 11-corridor country-rate table for India-source NRO interest/dividends/royalties under domestic TDS vs the treaty rate, the lower-of-Act-or-treaty mechanics under Sec 90/90A + 159(4), the TRC + Form 41 (formerly 10F) + Form 67 claim sequence, exemption-method vs credit-method corridors, the capital-gains caveat, surcharge+cess stacking, a ₹10L NRO-interest worked example across 4 corridors, and the honest limits of treaty claims).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 17, indian-taxation 14 (+ tax-capital-gains-rollover-54-54f-54ec), p2p-lending 4, wealth-beyond-10l 15.
-- **Sources:** 57 in `sources.json` (Wave 18 added 1: src-dtaa-country-rates-2026, 11-corridor treaty rate table for interest/dividends/royalties, exemption vs credit method, Form 41/67 sequence, capital-gains caveat, primary-sourced to crosscheckai 97-treaty aggregator + TaxClue Income-tax Act 2025 guide, cross-corroborated with government snippets).
-- **Update-log:** 54 tracked (Wave 18 added `ul-dtaa-corridor-rates-fy2026-27`, reviewAfter 2027-04-17).
-- **Calculators:** 31 (Wave 18 added `dtaa-rate-reference`, powered by the new `dtaaReliefFY27()` pure function, with 7 unit tests and 2 e2e tests).
+- **Articles:** 49 on disk / registered. Wave 19 added 1: `tax-esop-vesting-tax-walkthrough` (the *two-stage ESOP/RSU lifecycle* layer: the exercise-date perquisite (FMV minus exercise price, slab tax on salary), the FMV cost-base step-up under Sec 49(2AA)/Act-2025 Sec 73, the CG-head selection (112A listed LTCG pool vs 111A unlisted LTCG vs Sec 112 STCG at the marginal rate), the shared ₹1.25L annual 112A pool, 4% cess + surcharge stacking, the 80-IAC 60-month startup deferral, the TDS 192→392 Act-2025 migration, the "taxed before you can sell" trap + three escape hatches, the Schedule FA / FAST-DS foreign-parent layer, the advance-tax obligation on the CG stage, two full worked examples (listed ₹10L grant + unlisted startup with deferral), and an ITR filing checklist).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 17, indian-taxation 15 (+ tax-esop-vesting-tax-walkthrough), p2p-lending 4, wealth-beyond-10l 15.
+- **Sources:** 57 in `sources.json` (Wave 19 reused `src-esop-tax-it-dept` and `src-it-slab-fy2026-27`; no new source needed — the IT department's own ESOP guidance + the FY 2026-27 slab table already registered).
+- **Update-log:** 55 tracked (Wave 19 added `ul-esop-80iac-60mo-fy2026-27`, reviewAfter 2027-04-17 — the 60-month 80-IAC window for shares allotted on/after 1 Apr 2026).
+- **Calculators:** 32 (Wave 19 added `esop-vesting-tax`, powered by the new `esopVestingTaxFY27()` pure function, with 8 unit tests and 2 e2e tests).
+
+## Wave 19 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/taxation/tax-esop-vesting-tax-walkthrough.mdx` — the *two-stage ESOP/RSU lifecycle* layer (the existing `tax-esop-stock-grants` article covered the framework at surface level; this is the full worked math): the lifecycle table (grant → vesting/exercise → perquisite → FMV cost-base step-up → sale → CG-head selection), how FMV is fixed (listed: open+close average; unlisted: Category-I merchant-banker valuation within 180 days), the 80-IAC deferral (60-month window for shares allotted on/after 1 Apr 2026; 48-month for earlier; only DPIIT+IMB-certified startups), the TDS 192→392 Act-2025 migration, two full worked examples (listed company ₹10L grant + unlisted startup ₹10L perquisite with deferral), the "taxed before you can sell" trap + three escape hatches, the Schedule FA / FAST-DS foreign-parent layer, the advance-tax obligation on the CG stage (which the employer does NOT cover), and an ITR filing checklist.
+
+### New finance function + calculator + tests
+- [x] `esopVestingTaxFY27()` in `src/lib/finance/index.ts` — Stage 1 perquisite (FMV − exercise price) × shares, slab-placed into the salary pool for the incremental-tax math, the FMV cost-base step-up, the Stage 2 CG head selection (112A listed LTCG / 111A unlisted LTCG / Sec 112 STCG at the combined marginal rate), the shared ₹1.25L annual 112A pool consumption, 4% cess + surcharge, the 80-IAC deferral flag, and TDS netting.
+- [x] `esop-vesting-tax` calculator page (category: Tax) — 10 inputs (shares, exercise price, FMV, sale price, listed flag, months held, other salary, other 112A LTCG, startup deferral flag, TDS already deducted), 8 result rows, ECharts 4-bar split (Stage 1 / Stage 2 / Surcharge / Total).
+- [x] 8 new unit tests (perquisite math, cost-base step-up, 112A pool consumption, listed-vs-unlisted head split, STCG marginal rate, 80-IAC deferral flag, TDS netting, zero-share edge) — **134/134 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile) — **80/80 e2e tests pass**.
+
+### Build gotchas hit this session
+- **e2e chart-title assertion bug (new test)** — the first version asserted `getByText('Where the two-stage ESOP tax lands')` (the ECharts `chart.title`), which renders *inside the canvas*, not as DOM text → 5s timeout. Fixed by asserting a results-row DOM label (`'Stage 1 incremental slab tax'`) and keeping the `[role="img"]` canvas check.
+- **e2e strict-mode heading collision (new test)** — `/Worked walk-through/` matched **two** H2s (listed company + unlisted startup) → "multiple elements found". Fixed by asserting both unique headings (`/Worked walk-through: listed company/` and `/Worked walk-through: unlisted startup/`). Same class of bug as the Wave 18 `Sources & citations` collision; the new gotcha: **any heading text used by two H2s in one article fails a non-`.first()` assertion**.
+
+### Research verified this session
+- [x] **80-IAC 60-month window** — shares allotted on/after 1 Apr 2026 get the 60-month (5-year) deferral; earlier allotments keep 48 months; the deferral resets on sale, leaving the company, or expiry — whichever is earliest; employer must hold the DPIIT+IMB certificate.
+- [x] **TDS 192 → 392** — Income-tax Act 2025 (effective 1 Apr 2026) renumbers the perquisite-TDS section; the amount and the timing are unchanged; Form 64C/64D → 78/79 for FY 2025-26 filings.
+- [x] **FMV cost-base step-up** — Sec 49(2AA) / Act-2025 Sec 73: the FMV at exercise becomes the cost of acquisition for the CG head, so the salary-taxed slice is never re-taxed as CG.
+- [x] **Two worked examples verified** — listed company (1000 shares, Rs 500 exercise, Rs 1500 FMV, Rs 1800 sale, 15 months): perquisite Rs 10L, LTCG head 112A; unlisted startup (same numbers, 24+ months): perquisite Rs 10L deferred under 80-IAC, CG head 111A at the marginal rate.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 134 passed.
+- [x] `node scripts/validate-content.mjs` → 49 articles, 4 books, 57 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 215 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (18,869 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 49/49 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 80 passed (40 desktop + 40 mobile).
 
 ## Wave 18 session (verified 2026-10-18 via web research)
 
@@ -99,11 +130,11 @@ Last updated: **2026-10-18** (Wave 18: 1 new article + 1 new finance function + 
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
 - [ ] Resolve the open 80TTB conflict (`ul-senior-80ttb-limit-2026`): confirm whether the Budget-2026 raise to Rs 1,00,000 is in the Finance Act text - re-run the senior-regime decision if so.
-- [ ] Phase 4 deeper expansion: Wave 19 candidate = an ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), a GIFT City FoF deep-dive, a 54EC tranche-tracker, or a 10L capital-ladder roadmap article tying together all the rungs.
+- [ ] Phase 4 deeper expansion: Wave 20 candidate = GIFT City FoF deep-dive, a 54EC tranche-tracker, or the 10L capital-ladder roadmap article tying together all the rungs.
 
 ## Next 3 actions
 1. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-2. Continue the daily article habit (Wave 19 candidate: ESOP-vesting tax walkthrough — highest-value remaining gap, directly tied to the user's "can get more capital in future" ladder).
+2. Continue the daily article habit (Wave 20 candidate: 10L capital-ladder roadmap — directly answers the user's "I have 10L now but can get more in future" ladder question; highest-value personalization play).
 3. Resolve the 80TTB conflict and re-verify time-sensitive claims at their reviewAfter dates.
 
 ## Known build-gotchas (recurring)
@@ -112,4 +143,6 @@ Last updated: **2026-10-18** (Wave 18: 1 new article + 1 new finance function + 
 - **Calculator array-insertion brace:** inserting a new calculator entry in `src/lib/calculators.ts` by replacing the `},\n];` tail has repeatedly (Waves 10/11/12/14) either dropped the previous entry's closing `},` or left a duplicate `];`. After every insertion, verify `]`-close count is exactly 1 before `export function getCalc` and that the previous entry ends with `},\n  },` (use `_check_calc_braces.mjs`).
 - **Node version:** `npx astro build` via the Agnes wrapper (Node v22.14) fails — Astro 7 needs ≥22.22. Use the system `npx` on PATH (Node v24.18.0).
 - **e2e heading collision:** the page auto-renders a `Sources & citations` `<h2>` at `src/pages/articles/[id].astro:130`. Article body headings must use `## Sources` (not `## Sources & citations`) to avoid strict-mode collision (hit in Wave 18).
+- **e2e chart-title assertion:** ECharts `chart.title` renders *inside the canvas*, not as DOM text — `getByText('<chart title>')` will 5s-timeout. Assert a results-row DOM label instead, and keep the `[role="img"]` check for the canvas (hit in Wave 19).
+- **e2e strict-mode double-heading:** any heading text used by two H2s in one article fails a non-`.first()` assertion ("multiple elements found"). Write assertions on the *unique* suffix (e.g. `Worked walk-through: listed company` not just `Worked walk-through`) (hit in Wave 19; same class as the Wave 18 collision).
 - **Scratch scripts:** keep one-off registry scripts (`_register-waveN.mjs`) for audit; delete transient inspection scripts.

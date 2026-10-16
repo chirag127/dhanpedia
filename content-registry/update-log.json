@@ -473,6 +473,15 @@
       "reviewAfter": "2027-04-17",
       "status": "verified",
       "notes": "Corridor headline rates are stable but specific treaty texts (holding conditions, MLI Principal Purpose Test, the exact 10%/15% dividend threshold) shift at each treaty ratification - re-verify the corridor table against the Income-tax Department country-wise withholding chart at review time. The 54EC/12.5% no-indexation base and the 112A threshold also ride the Finance Act cycle."
+    },
+    {
+      "id": "ul-esop-80iac-60mo-fy2026-27",
+      "claim": "80-IAC deferral window extended from 48 to 60 months for shares allotted on/after 1 Apr 2026; TDS section migrates 192->392 under Income-tax Act 2025; FAST-DS disclosure deadline 31 Dec 2026; Schedule FA penalty Rs 10L/year under Black Money Act s.43",
+      "source": "taxgarden.in, thefinestate.com, calcguru.in, csmllp.in (verified 2026-10-18)",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "status": "ok",
+      "notes": "Section numbers: s.17(2)(vi)->s.17(1)(d), s.49(2AA)->s.73, s.111A->s.196(1)(i), s.112A->s.198(2)(a), s.112->s.197(1)(b), s.192->s.392"
     }
   ]
 }

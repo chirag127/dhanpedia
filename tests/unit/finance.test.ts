@@ -14,7 +14,7 @@ import {
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
-  dtaaReliefFY27 } from '@lib/finance/index';
+  dtaaReliefFY27, esopVestingTaxFY27 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1178,3 +1178,82 @@ describe('dtaaReliefFY27', () => {
     expect(r.savingAllIn).toBe(0);
   });
 });
+
+
+describe('esopVestingTaxFY27', () => {
+  const base = (o: Record<string, unknown> = {}) => ({
+    shares: 1000,
+    exercisePrice: 500,
+    fmvAtExercise: 1500,
+    salePrice: 1800,
+    listed: true,
+    monthsHeld: 15,
+    otherSalary: 2000000,
+    otherListedLtcg: 0,
+    startupDeferral: false,
+    tdsOnPerquisite: 0,
+    ...o,
+  });
+
+  it('computes the Stage-1 perquisite as (FMV - exercise price) x shares', () => {
+    const r = esopVestingTaxFY27(base());
+    // (1500 - 500) x 1000 = 1000000
+    expect(r.perquisite).toBe(1000000);
+  });
+
+  it('listed LTCG consumes the 1.25L pool and taxes the excess at 12.5%', () => {
+    const r = esopVestingTaxFY27(base());
+    // CG = (1800 - 1500) x 1000 = 300000
+    expect(r.capitalGain).toBe(300000);
+    expect(r.isLtcg).toBe(true);
+    expect(r.cgHead).toBe('112A');
+    // pool 125000 consumed, taxable = 175000
+    expect(r.poolConsumed).toBe(125000);
+    expect(r.taxableCg).toBe(175000);
+    expect(r.cgTax).toBeCloseTo(175000 * 0.125, 6);
+  });
+
+  it('listed STCG (held under 12 months) is taxed flat at 20%', () => {
+    const r = esopVestingTaxFY27(base({ monthsHeld: 6 }));
+    expect(r.isLtcg).toBe(false);
+    expect(r.cgHead).toBe('111A');
+    expect(r.cgTax).toBeCloseTo(300000 * 0.2, 6);
+  });
+
+  it('unlisted LTCG (>24 months) uses Sec 112 at 12.5% with no pool', () => {
+    const r = esopVestingTaxFY27(base({ listed: false, monthsHeld: 30 }));
+    expect(r.isLtcg).toBe(true);
+    expect(r.cgHead).toBe('sec112');
+    expect(r.poolConsumed).toBe(0);
+    expect(r.cgTax).toBeCloseTo(300000 * 0.125, 6);
+  });
+
+  it('when other listed LTCG exhausts the pool, none is consumed', () => {
+    const r = esopVestingTaxFY27(base({ otherListedLtcg: 125000 }));
+    expect(r.poolConsumed).toBe(0);
+    expect(r.taxableCg).toBe(300000);
+    expect(r.cgTax).toBeCloseTo(300000 * 0.125, 6);
+  });
+
+  it('not-sold (salePrice 0) zeroes the Stage-2 gain and keeps perquisite intact', () => {
+    const r = esopVestingTaxFY27(base({ salePrice: 0, monthsHeld: 0 }));
+    expect(r.capitalGain).toBe(0);
+    expect(r.cgHead).toBe('none');
+    expect(r.perquisite).toBe(1000000);
+  });
+
+  it('80-IAC deferral flag is surfaced without changing the tax amount', () => {
+    const withDef = esopVestingTaxFY27(base({ startupDeferral: true }));
+    const noDef = esopVestingTaxFY27(base());
+    expect(withDef.deferralApplies).toBe(true);
+    expect(withDef.deferralNote.length).toBeGreaterThan(0);
+    // Deferral changes timing, not amount
+    expect(withDef.totalTwoStageTax).toBeCloseTo(noDef.totalTwoStageTax, 6);
+  });
+
+  it('netTaxAfterTds subtracts the employer-withheld perquisite TDS', () => {
+    const r = esopVestingTaxFY27(base({ tdsOnPerquisite: 200000 }));
+    expect(r.netTaxAfterTds).toBeCloseTo(r.totalTwoStageTax - 200000, 6);
+  });
+});
+

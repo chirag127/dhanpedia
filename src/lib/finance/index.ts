@@ -2062,3 +2062,207 @@ export function dtaaReliefFY27(inp: DtaaReliefFY27Input): DtaaReliefFY27Output {
     creditMethod: residenceTax > 0,
   };
 }
+
+/* ------------------------------------------------------------------ *
+ * ESOP / RSU two-stage tax (perquisite at exercise + CG at sale)
+ * ------------------------------------------------------------------ */
+
+export interface EsopVestingTaxInput {
+  /** Number of shares exercised or vested */
+  shares: number;
+  /** Exercise price per share in Rs (0 for RSUs) */
+  exercisePrice: number;
+  /** FMV per share on the exercise/vesting date in Rs */
+  fmvAtExercise: number;
+  /** Sale price per share in Rs (0 = not yet sold) */
+  salePrice: number;
+  /** true = listed (STT-paid) equity, false = unlisted/private */
+  listed: boolean;
+  /** Whole months held from exercise to sale (0 if not yet sold) */
+  monthsHeld: number;
+  /** Other salary income in the FY, excluding this ESOP perquisite (Rs) */
+  otherSalary: number;
+  /** Aggregate listed-equity LTCG in the FY from sources other than this ESOP (Rs) */
+  otherListedLtcg: number;
+  /** true if the employer holds a valid 80-IAC / IMB deferral certificate */
+  startupDeferral: boolean;
+  /** TDS already deducted on the perquisite this FY (Rs) */
+  tdsOnPerquisite: number;
+}
+
+export interface EsopVestingTaxResult {
+  /** Perquisite = (FMV - exercise price) x shares */
+  perquisite: number;
+  /** Incremental slab tax caused by adding the perquisite to other salary */
+  perquisiteIncrementalTax: number;
+  /** Whether the capital gain (if any) qualifies as long-term */
+  isLtcg: boolean;
+  /** CG head label: '112A' | '111A' | 'sec112' | 'slab-unlisted' | 'none' */
+  cgHead: string;
+  /** Gross capital gain = (sale price - FMV) x shares (0 if not sold) */
+  capitalGain: number;
+  /** 112A pool amount consumed by this gain (Rs, 0 if not 112A) */
+  poolConsumed: number;
+  /** Capital gain after pool subtraction (Rs) */
+  taxableCg: number;
+  /** CG tax before surcharge + cess (Rs) */
+  cgTax: number;
+  /** Perquisite tax with 4% cess (Rs) */
+  perqTaxWithCess: number;
+  /** CG tax with 4% cess (Rs) */
+  cgTaxWithCess: number;
+  /** Combined two-stage tax incl. cess and surcharge (Rs) */
+  totalTwoStageTax: number;
+  /** Surcharge on total income (Rs, pre-cess) */
+  surcharge: number;
+  /** Net tax after TDS already paid (Rs) */
+  netTaxAfterTds: number;
+  /** Whether 80-IAC deferral applies to the perquisite TDS */
+  deferralApplies: boolean;
+  /** Human-readable deferral note */
+  deferralNote: string;
+  /** Total gross gain from exercise price to sale (Rs) */
+  totalGrossGain: number;
+  /** Effective combined tax rate = totalTwoStageTax / totalGrossGain */
+  effectiveTaxRate: number;
+}
+
+/**
+ * Two-stage ESOP/RSU tax for FY 2026-27.
+ *
+ * Stage 1 (perquisite): (FMV at exercise - exercise price) x shares,
+ *   taxed at the new-regime slab on (otherSalary + perquisite).
+ *   The incremental tax is the difference between the slab on the
+ *   combined income and the slab on other salary alone.
+ *
+ * Stage 2 (capital gain): (sale price - FMV at exercise) x shares.
+ *   - Listed > 12 mo  -> 112A: 12.5% on the amount above the 1.25L
+ *     aggregate pool (pool is shared with otherListedLtcg).
+ *   - Listed <= 12 mo -> 111A: 20% flat STCG on listed equity (STT-paid).
+ *   - Unlisted > 24 mo -> Sec 112: 12.5% no indexation, no pool.
+ *   - Unlisted <= 24 mo -> slab: marginal rate at the combined-income level.
+ *
+ * Cess: 4% on (perquisite tax + CG tax). Surcharge on total income
+ * (salary + perquisite + taxable CG) using FY 2026-27 new-regime bands.
+ *
+ * 80-IAC deferral: if `startupDeferral` is true, perquisite TDS is
+ * deferred to the earliest of 60 months from end of allotment AY,
+ * sale date, or cessation of employment. Tax amount unchanged.
+ */
+export function esopVestingTaxFY27(inp: EsopVestingTaxInput): EsopVestingTaxResult {
+  const shares = Math.max(0, Math.floor(inp.shares));
+  const exPrice = Math.max(0, inp.exercisePrice);
+  const fmv = Math.max(0, inp.fmvAtExercise);
+  const saleP = Math.max(0, inp.salePrice);
+  const listed = inp.listed;
+  const months = Math.max(0, Math.floor(inp.monthsHeld));
+  const otherSal = Math.max(0, inp.otherSalary);
+  const otherLtcg = Math.max(0, inp.otherListedLtcg);
+  const deferred = inp.startupDeferral;
+  const tdsP = Math.max(0, inp.tdsOnPerquisite);
+
+  // Stage 1: perquisite
+  const perqPerShare = Math.max(0, fmv - exPrice);
+  const perquisite = perqPerShare * shares;
+
+  const salBefore = newRegimeTaxFY27(otherSal);
+  const salAfter = newRegimeTaxFY27(otherSal + perquisite);
+  const perqIncTax = Math.max(0, salAfter - salBefore);
+
+  // Stage 2: capital gain
+  const hasSale = saleP > 0;
+  const cgPerShare = hasSale ? Math.max(0, saleP - fmv) : 0;
+  const capitalGain = cgPerShare * shares;
+
+  let isLtcg: boolean;
+  let cgHead: string;
+  let poolConsumed = 0;
+  let taxableCg = 0;
+  let cgTax = 0;
+
+  if (hasSale && capitalGain > 0) {
+    if (listed) {
+      isLtcg = months > 12;
+      if (isLtcg) {
+        cgHead = '112A';
+        const poolAvailable = Math.max(0, 125000 - otherLtcg);
+        poolConsumed = Math.min(poolAvailable, capitalGain);
+        taxableCg = capitalGain - poolConsumed;
+        cgTax = taxableCg * 0.125;
+      } else {
+        cgHead = '111A';
+        taxableCg = capitalGain;
+        cgTax = capitalGain * 0.20;
+      }
+    } else {
+      isLtcg = months > 24;
+      if (isLtcg) {
+        cgHead = 'sec112';
+        taxableCg = capitalGain;
+        cgTax = capitalGain * 0.125;
+      } else {
+        cgHead = 'slab-unlisted';
+        taxableCg = capitalGain;
+        const slabWithCg = newRegimeTaxFY27(otherSal + perquisite + capitalGain);
+        const slabWithoutCg = newRegimeTaxFY27(otherSal + perquisite);
+        cgTax = Math.max(0, slabWithCg - slabWithoutCg);
+      }
+    }
+  } else {
+    isLtcg = false;
+    cgHead = hasSale
+      ? (listed ? (months > 12 ? '112A' : '111A') : (months > 24 ? 'sec112' : 'slab-unlisted'))
+      : 'none';
+  }
+
+  // Cess (4%) on perquisite tax + CG tax
+  const perqTaxWithCess = perqIncTax * 1.04;
+  const cgTaxWithCess = cgTax * 1.04;
+
+  // Surcharge on total income (salary + perquisite + taxable CG)
+  const totalIncome = otherSal + perquisite + taxableCg;
+  let surcharge = 0;
+  if (totalIncome > 5000000) {
+    if (totalIncome <= 10000000) surcharge = (perqIncTax + cgTax) * 0.10;
+    else if (totalIncome <= 20000000) surcharge = (perqIncTax + cgTax) * 0.15;
+    else surcharge = (perqIncTax + cgTax) * 0.25;
+  }
+  const totalSurchargeWithCess = surcharge * 1.04;
+
+  // Totals
+  const totalTwoStageTax = perqTaxWithCess + cgTaxWithCess + totalSurchargeWithCess;
+  const totalGrossGain = hasSale
+    ? Math.max(0, saleP - exPrice) * shares
+    : perquisite;
+  const effectiveTaxRate = totalGrossGain > 0 ? totalTwoStageTax / totalGrossGain : 0;
+  const netTaxAfterTds = Math.max(0, totalTwoStageTax - tdsP);
+
+  let deferralNote = '';
+  if (deferred) {
+    deferralNote =
+      '80-IAC deferral active: perquisite TDS deferred to the earliest of ' +
+      '60 months from the end of the allotment AY, the sale date, or ' +
+      'cessation of employment. Tax is computed at allotment-year rates.';
+  }
+
+  return {
+    perquisite,
+    perquisiteIncrementalTax: perqIncTax,
+    isLtcg,
+    cgHead,
+    capitalGain,
+    poolConsumed,
+    taxableCg,
+    cgTax,
+    perqTaxWithCess,
+    cgTaxWithCess,
+    totalTwoStageTax,
+    surcharge,
+    netTaxAfterTds,
+    deferralApplies: deferred,
+    deferralNote,
+    totalGrossGain,
+    effectiveTaxRate,
+  };
+}
+

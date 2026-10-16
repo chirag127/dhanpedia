@@ -385,4 +385,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('esop-vesting-tax calculator renders the two-stage split', async ({ page }) => {
+    await page.goto('/calculators/esop-vesting-tax');
+    await expect(
+      page.getByText('Stage 1 perquisite (salary-taxed)', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Total two-stage tax (with cess + surcharge)', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Stage 1 incremental slab tax', { exact: true }),
+    ).toBeVisible();
+    // ECharts canvas holds the chart title; assert the chart container instead.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('ESOP vesting tax walkthrough article renders the lifecycle table', async ({ page }) => {
+    await page.goto('/articles/tax-esop-vesting-tax-walkthrough');
+    await expect(
+      page.getByRole('heading', { name: /The lifecycle in one table/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The 80-IAC deferral/ }),
+    ).toBeVisible();
+    // Two 'Worked walk-through' H2s exist (listed + unlisted) - assert the unique prefix.
+    await expect(
+      page.getByRole('heading', { name: /Worked walk-through: listed company/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Worked walk-through: unlisted startup/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

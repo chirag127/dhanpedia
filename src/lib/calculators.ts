@@ -21,6 +21,7 @@ import {
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
   npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
   nriIndiaTaxFY27, rolloverExemption, dtaaReliefFY27,
+  esopVestingTaxFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1944,6 +1945,95 @@ export const CALCULATORS: CalcDef[] = [
                   show: true,
                   formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L`,
                 },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'esop-vesting-tax',
+    title: 'ESOP / RSU Two-Stage Tax Walkthrough (Perquisite + Capital Gains, FY 2026-27)',
+    category: 'Tax',
+    description:
+      'Model the full two-stage ESOP/RSU burden: the exercise-date perquisite (FMV minus exercise price, slab tax on salary) plus the later capital gain (head depends on listed vs unlisted and the holding clock), with the shared Rs 1.25L 112A pool, 4% cess, surcharge, employer TDS, and the 80-IAC startup deferral. Shows what lands in your pocket after both events.',
+    inputs: [
+      { key: 'shares', label: 'Shares exercised / vested', default: 1000, min: 0, step: 100, hint: 'Whole shares allotted on the exercise or vesting date.' },
+      { key: 'exercisePrice', label: 'Exercise price per share (Rs)', default: 500, min: 0, step: 50, hint: 'Rs 0 for RSUs (you pay nothing to receive the share).' },
+      { key: 'fmvAtExercise', label: 'FMV per share on exercise date (Rs)', default: 1500, min: 0, step: 50, hint: 'Listed: avg of open+close that day. Unlisted: Category-I merchant-banker valuation within 180 days.' },
+      { key: 'salePrice', label: 'Sale price per share (Rs)', default: 1800, min: 0, step: 50, hint: 'Rs 0 if you have not sold yet (then only the Stage-1 perquisite is computed).' },
+      { key: 'listed', label: 'Listed (STT-paid) equity?', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - listed on Indian exchange' }, { value: 0, label: 'No - unlisted / private' }], hint: 'Sets the 12-month (listed) vs 24-month (unlisted) long-term clock and the 112A pool applicability.' },
+      { key: 'monthsHeld', label: 'Months held from exercise to sale', default: 15, min: 0, step: 1, hint: 'Whole months from the exercise/allotment date to the sale date. Over 12 (listed) or over 24 (unlisted) makes it long-term.' },
+      { key: 'otherSalary', label: 'Other salary income in the FY (Rs)', default: 2000000, min: 0, step: 100000, hint: 'Salary excluding this ESOP perquisite - used to place the perquisite in the slab and find the unlisted-STCG marginal rate.' },
+      { key: 'otherListedLtcg', label: 'Other listed-equity LTCG this FY (Rs)', default: 0, min: 0, step: 10000, hint: 'Other 112A gains that share the Rs 1.25L aggregate pool. Reduces the pool available to this ESOP gain.' },
+      { key: 'startupDeferral', label: 'Employer has 80-IAC / IMB deferral certificate?', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No - normal TDS at exercise' }, { value: 1, label: 'Yes - DPIIT + IMB certified startup' }], hint: 'Defers the perquisite TDS to the earliest of 60 months, sale, or leaving. Only a few thousand startups hold the certificate.' },
+      { key: 'tdsOnPerquisite', label: 'TDS already deducted on the perquisite (Rs)', default: 0, min: 0, step: 1000, hint: 'The employer-withheld perquisite tax. Reduces the net out-of-pocket bill.' },
+    ],
+    assumptions: [
+      'New-regime slabs for the perquisite salary (FY 2026-27); the CG stages use the statutory 112A/111A/Sec-112 rates.',
+      'Perquisite cost base is the FMV at exercise (Sec 49(2AA) / Act-2025 Sec 73 step-up), so the salary-taxed slice is never re-taxed as CG.',
+      'The Rs 1.25L 112A pool is annual and aggregate across all listed-equity LTCG, not per transaction.',
+      '4% health & education cess applies to the perquisite tax, CG tax and surcharge.',
+      'Unlisted short-term gains are taxed at the marginal new-regime rate at the combined-income level.',
+      '80-IAC deferral changes only the timing of the perquisite TDS, not the amount; tax is computed at allotment-year rates.',
+    ],
+    limitations: [
+      'Exercises on or after 1 Apr 2026 move the perquisite TDS from Sec 192 to Sec 392 (Income-tax Act 2025) - the amount is unchanged.',
+      'Surcharge marginal-relief at the Rs 50L/1Cr/2Cr boundaries is modelled with the pre-cess band, a documented approximation.',
+      'Foreign-parent ESOPs/RSUs add Schedule FA disclosure and a 24-month foreign-LTCG clock that are not modelled here.',
+      'This is a decision model, not a filing compute - reconcile with Form 16/12BA and a CA before acting.',
+    ],
+    compute: (v) => {
+      const r = esopVestingTaxFY27({
+        shares: v.shares,
+        exercisePrice: v.exercisePrice,
+        fmvAtExercise: v.fmvAtExercise,
+        salePrice: v.salePrice,
+        listed: v.listed > 0.5,
+        monthsHeld: v.monthsHeld,
+        otherSalary: v.otherSalary,
+        otherListedLtcg: v.otherListedLtcg,
+        startupDeferral: v.startupDeferral > 0.5,
+        tdsOnPerquisite: v.tdsOnPerquisite,
+      });
+      const lcr = (n: number) => `Rs ${Math.round(n / 100000).toLocaleString('en-IN')}L`;
+      const results = [
+        { label: 'Stage 1 perquisite (salary-taxed)', value: lcr(r.perquisite), sub: 'FMV - exercise price, times shares' },
+        { label: 'Stage 1 incremental slab tax', value: lcr(r.perquisiteIncrementalTax), sub: `cess-included Rs ${Math.round(r.perqTaxWithCess / 1000)}k` },
+        { label: 'Stage 2 capital gain (gross)', value: lcr(r.capitalGain), sub: `head ${r.cgHead}${r.isLtcg ? ' (long-term)' : ''}` },
+        { label: '112A pool consumed', value: lcr(r.poolConsumed), sub: 'of the Rs 1.25L annual aggregate pool' },
+        { label: 'Stage 2 CG tax', value: lcr(r.cgTax), sub: `cess-included Rs ${Math.round(r.cgTaxWithCess / 1000)}k` },
+        { label: 'Surcharge (pre-cess)', value: lcr(r.surcharge), sub: 'on total income above 50L' },
+        { label: 'Total two-stage tax (with cess + surcharge)', value: lcr(r.totalTwoStageTax), sub: `net after TDS Rs ${Math.round(r.netTaxAfterTds / 1000)}k` },
+        { label: 'Effective tax on gross gain', value: `${(r.effectiveTaxRate * 100).toFixed(1)}%`, sub: r.deferralApplies ? '80-IAC deferral active' : 'no deferral' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'Where the two-stage ESOP tax lands',
+          alt: 'Bar chart splitting the ESOP tax into the Stage-1 perquisite (salary) and Stage-2 capital-gain legs plus surcharge',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: {
+              type: 'category',
+              data: ['Stage 1 perquisite', 'Stage 2 CG tax', 'Surcharge', 'Total'],
+            },
+            yAxis: { type: 'value', axisLabel: { formatter: (x: number) => `Rs ${Math.round(x / 1e5)}L` } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Tax (with cess)',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.perqTaxWithCess), itemStyle: { color: '#c65d3b' } },
+                  { value: Math.round(r.cgTaxWithCess), itemStyle: { color: '#3a6ea5' } },
+                  { value: Math.round(r.surcharge * 1.04), itemStyle: { color: '#8a8f98' } },
+                  { value: Math.round(r.totalTwoStageTax), itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
               },
             ],
           },
