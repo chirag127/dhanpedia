@@ -1,14 +1,39 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 11: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 40 → 41 articles; 24 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 12: 1 new article + 1 new finance function + 1 new calculator + 1 new source; 41 → 42 articles; 25 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 41 on disk / registered. Wave 11 added 1: `tax-surcharge-cess-high-income` (the high-income layer: the three-tier computation base tax → surcharge with marginal relief → 4% cess; the FY 2026-27 change that **abolished the 37% surcharge in the new regime (capped at 25%)** while the old regime keeps 37% above ₹5Cr; the 15% equity-surcharge cap; worked regime comparisons at 55L / 2.5Cr / 8Cr / 3Cr+5Cr-LTCG; the marginal-relief cliff math at ₹50L).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 11 (+ tax-surcharge-cess-high-income), p2p-lending 4, wealth-beyond-10l 14.
-- **Sources:** 50 in `sources.json` (Wave 11 added 1: src-surcharge-cess-fy2026-27, Income-tax Act 2025 surcharge/cess structure).
-- **Update-log:** 45 tracked (Wave 11 added `ul-new-regime-surcharge-cap-25-2026`).
-- **Calculators:** 24 (Wave 11 added `high-income-regime`, powered by the new `highIncomeTaxFY27()` pure function with marginal relief + equity 15% cap, 7 unit tests and an e2e test).
+- **Articles:** 42 on disk / registered. Wave 12 added 1: `tax-huf-second-slab-gifting-high-income` (the high-income HUF layer: the second-assessable-person math — a worked 30L+5L new-regime split saves ₹1.56L/yr because the HUF's own 87A threshold zeroes its leg; the income-eligibility table (coparcenary income yes, 64(2)/99(3)-(4) self-acquired conversion no, spouse/minor clubbing); the 56(2) gifting rules incl. the ₹50k non-relative cliff and the "exempt gift, taxed income" trap; and the two-advance-tax-clocks consequence).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 14, indian-taxation 12 (+ tax-huf-second-slab-gifting-high-income), p2p-lending 4, wealth-beyond-10l 14.
+- **Sources:** 51 in `sources.json` (Wave 12 added 1: src-gifts-clubbing-fy2026-27, 56(2) gift cliffs + 64(1)/(2) clubbing + Act-2025 renumbering).
+- **Update-log:** 47 tracked (Wave 12 added `ul-56-2-gift-cliff-2026` + `ul-64-2-huf-renumber-act-2025`).
+- **Calculators:** 25 (Wave 12 added `huf-income-split`, powered by the new `hufIncomeSplitFY27()` pure function built on highIncomeTaxFY27(), with 5 unit tests and an e2e test).
+
+## Wave 12 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/taxation/tax-huf-second-slab-gifting-high-income.mdx` — the *high-income HUF* layer: the second-assessable-person math (30L individual + 5L HUF new regime: solo ₹6,31,800 → split ₹4,75,800, saving ₹1,56,000/yr because the HUF's own 87A threshold zeroes its leg), the income-eligibility table (coparcenary income YES; 64(2)/99(3)-(4) self-acquired-to-HUF conversion NO; 64(1)(iv) spouse / 64(1A) minor income clubbed), the 56(2) gifting rules (relative gifts exempt unlimited; non-relative aggregate over ₹50k → entire amount taxed; wedding/inheritance/12A always exempt), the "exempt gift, taxed income" trap, and the two-advance-tax-clocks section (HUF PAN runs its own 234B/234C clocks + files its own ITR-2/3).
+
+### New finance function + calculator + tests
+- [x] `hufIncomeSplitFY27()` in `src/lib/finance/index.ts` — solo (one PAN) vs split (two PANs) through highIncomeTaxFY27 (full slab + surcharge + marginal relief + cess on each), annual saving, effective rates, and per-PAN advance-tax flags/duties.
+- [x] `huf-income-split` calculator page (category: Tax) — 6 inputs, solo-vs-split bar chart, per-advance-tax-stream results.
+- [x] 5 new unit tests (worked 30L+5L new-regime values, HUF-under-87A zero bill, old-regime 80C baseline, HUF 50L-crossing second stream, zero-income tie) — **84/84 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile) — **52/52 pass**.
+
+### Research verified this session
+- [x] **56(2) gifts + clubbing 60-65** — relative exemption, ₹50k non-relative cliff (whole amount, not excess), wedding/inheritance/12A always exempt, 64(1)(iv) spouse income clubbing, 64(1A) minor income to higher-income parent, 64(2) self-acquired-to-HUF conversion (→ 99(3)-(4) of the Act 2025), 65 joint-and-several liability; AIS cross-PAN detection (TaxClue / Legal Suvidha, FY 2026-27).
+- [x] **HUF advance tax per PAN** — the HUF is a separate assessable person; its own 234B/234C clocks and ITR-2/3 deadline (Oquilia / etnownews, FY 2026-27).
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 84 passed.
+- [x] `node scripts/validate-content.mjs` → 42 articles, 4 books, 51 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 187 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed (17,668 words).
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 42/42 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 52 passed (26 desktop + 26 mobile).
 
 ## Wave 11 session (verified 2026-10-18 via web research)
 
@@ -195,12 +220,12 @@ Last updated: **2026-10-18** (Wave 11: 1 new article + 1 new finance function + 
 ## Not yet done
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
-- [ ] Phase 4 deeper expansion: Wave 12 candidate = HUF / family-office structuring article (tax on HUF income, 234B/234C interplay at high incomes, gifting rules), or a senior-citizen / NRI tax-structure article, or an ESOP-vesting tax-walkthrough calculator.
+- [ ] Phase 4 deeper expansion: Wave 13 candidate = ESOP-vesting tax-walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), or a senior-citizen / NRI tax-structure article, or an NPS 80CCD(1B) + 80CCD(2) standalone tax-shield calculator.
 
 ## Next 3 actions
-1. Commit Wave 11: 1 new article + highIncomeTaxFY27() function + high-income-regime calculator + 1 source + tests.
+1. Commit Wave 12: 1 new article + hufIncomeSplitFY27() function + huf-income-split calculator + 1 source + tests.
 2. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-3. Continue the daily article habit (Wave 12 candidate: HUF structuring / high-income gifting rules, or senior-citizen + NRI tax structures).
+3. Continue the daily article habit (Wave 13 candidate: ESOP-vesting tax walkthrough, or NPS 80CCD(1B)/(2) tax-shield calculator, or senior-citizen + NRI structures).
 
 ## Known build-gotchas (recurring)
 - **MDX parse error:** `<₹` / `<digit` in prose/tables breaks JSX parsing. Use "up to ₹X" / "under N months" instead.

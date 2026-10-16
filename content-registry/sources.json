@@ -688,5 +688,25 @@
    "A 10Cr income in the new regime saves roughly Rs 3Cr vs the old regime from the surcharge differential alone (secondary worked estimate)"
   ],
   "notes": "The new-regime 25% cap and the 37% abolition are the Income-tax Act, 2025 positions (assent 21 Aug 2025, effective 1 Apr 2026) per this CA-published source; re-verify the exact bands at each Finance Act and against the Income-tax Department threshold tables before advising at the very top bands."
+ },
+ {
+  "id": "src-gifts-clubbing-fy2026-27",
+  "title": "Gifts (Sec 56(2)) and clubbing of income (Sec 60-65; 64(2) = 99(3)-(4) of the Act 2025) FY 2026-27: gifts from specified relatives exempt with no limit; non-relative gifts aggregate over Rs 50,000 in a year makes the ENTIRE amount taxable at slab (a cliff, not an excess); wedding/inheritance/12A-trust gifts always exempt; 64(1)(iv) clubs income on assets gifted to a spouse; 64(1A) clubs a minor's income to the higher-income parent; 64(2) clubs income from self-acquired property converted into a HUF the transferor belongs in; 65 makes the transferee jointly liable",
+  "publisher": "TaxClue tax-on-gifts guide / Legal Suvidha clubbing-of-income guide (FY 2026-27)",
+  "url": "https://legalsuvidha.com/blog/clubbing-of-income/",
+  "type": "financial-publication",
+  "authority": "secondary",
+  "verified": "2026-10-18",
+  "lastVerified": "2026-10-18",
+  "claims": [
+   "Gifts from specified relatives (spouse, siblings, lineal ascendants/descendants and their spouses) are exempt with no limit under 56(2)",
+   "From non-relatives, the aggregate of all gifts in a year over Rs 50,000 makes the entire amount taxable at slab - a cliff, not a free allowance (e.g. Rs 60,000 of gifts -> all Rs 60,000 taxed)",
+   "Always exempt regardless of amount: wedding gifts, inheritance under a will, gifts from 12A/10(23C) registered trusts, and employer gifts up to Rs 5,000",
+   "Sec 64(1)(iv): income arising from an asset gifted to a spouse (directly or indirectly, without adequate consideration) is clubbed into the transferor - only direct income on the original asset, not income on reinvested income",
+   "Sec 64(1A): a minor child investment income is clubbed into the higher-income parent; the grandparent gift to the grandchild is safe at the grandparent level but the parent bears the income tax",
+   "Sec 64(2) (renumbered 99(3)-(4) in the Income-tax Act, 2025): converting SELF-ACQUIRED property into a HUF the transferor belongs in taxes the income in the transferor's hands, not the HUF's",
+   "Sec 65: the spouse/child who received the asset is jointly and severally liable for the transferor clubbed-income tax"
+  ],
+  "notes": "The AIS now matches transfers across PANs, so clubbing triggers leave an electronic audit trail before filing. Verify the exact Act-2025 renumbering (64(2) -> 99(3)-(4)) against the Income-tax Act, 2025 text before advising a HUF structure."
  }
 ]

@@ -204,6 +204,26 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
 
+  test('huf-income-split calculator renders the second-slab saving and advance-tax streams', async ({ page }) => {
+    await page.goto('/calculators/huf-income-split');
+    await expect(page.getByText('Solo (one PAN) total bill')).toBeVisible();
+    await expect(page.getByText('Split (individual + HUF) total bill')).toBeVisible();
+    await expect(page.getByText('Annual saving from the split')).toBeVisible();
+    await expect(page.getByText('HUF advance-tax stream')).toBeVisible();
+    // Chart container for the solo-vs-split bill comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('HUF second-slab gifting article renders the eligibility table and two-clocks section', async ({ page }) => {
+    await page.goto('/articles/tax-huf-second-slab-gifting-high-income');
+    await expect(page.getByRole('heading', { name: /The HUF at High Income/ })).toBeVisible();
+    // Stable, unique H2 headings in the body.
+    await expect(page.getByRole('heading', { name: /Which income may legally sit in the HUF/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /The two advance-tax clocks/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sources & citations/ })).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

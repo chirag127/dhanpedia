@@ -33,12 +33,12 @@
     "src/lib/finance/index.ts",
     "src/lib/calculators.ts"
    ],
-   "validation_status": "79/79 unit tests pass (Wave-11 added highIncomeTaxFY27: both-regime end-to-end with 112A/111A equity heads, surcharge bands (new 25% cap / old 37% above 5Cr), 15% equity surcharge cap, marginal relief, 4% cess, effective rates, regime winner)",
+   "validation_status": "84/84 unit tests pass (Wave-12 added hufIncomeSplitFY27: solo vs two-PAN split through highIncomeTaxFY27, annual saving, effective rates, per-PAN advance-tax flags)",
    "next_action": null
   },
   {
    "id": "T-calc-ui",
-   "title": "React calculator islands + 24 calculator pages",
+   "title": "React calculator islands + 25 calculator pages",
    "workstream": "calculators",
    "status": "complete",
    "priority": 2,
@@ -49,12 +49,12 @@
     "src/components/CalculatorIsland.tsx",
     "src/pages/calculators/"
    ],
-   "validation_status": "builds; 24 calculator pages (Wave-11 added high-income-regime); data-driven via src/lib/calculators.ts + [id].astro",
+   "validation_status": "builds; 25 calculator pages (Wave-12 added huf-income-split); data-driven via src/lib/calculators.ts + [id].astro",
    "next_action": "Playwright e2e interaction check"
   },
   {
    "id": "T-articles",
-   "title": "41 deep articles across all 17 avenues (source-cited, verified)",
+   "title": "42 deep articles across all 17 avenues (source-cited, verified)",
    "workstream": "content",
    "status": "complete",
    "priority": 2,
@@ -64,8 +64,8 @@
    "output_files": [
     "src/content/**"
    ],
-   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge; Wave-11 tax-surcharge-cess-high-income (3-tier tax, new-regime 25% surcharge cap vs old 37%, 15% equity cap, marginal relief)",
-   "next_action": "Daily article habit: Wave-12 candidate = HUF / family-office structuring (HUF income tax, gifting rules, 234B/234C interplay), senior-citizen / NRI tax structures, or an ESOP-vesting tax-walkthrough calculator"
+   "validation_status": "Wave-4 tax-free-stack/HUF/NCD/REIT; Wave-5 hnw-selection+advance-tax; Wave-6 sif-strategy-families+reit-invit-timing; Wave-7 aif-category-selection+aif-taxation; Wave-8 aif-waterfall-economics; Wave-9 tax-80c-baskets-regime-decision; Wave-10 pms-sif-aif-after-tax-wedge; Wave-11 tax-surcharge-cess-high-income; Wave-12 tax-huf-second-slab-gifting-high-income (HUF second-slab, 56(2) gifting cliff, 64(2) self-acquired clubbing, two advance-tax clocks)",
+   "next_action": "Daily article habit: Wave-13 candidate = ESOP-vesting tax walkthrough (exercise/ESOT/SSTT/112A timing, new-regime impact), NPS 80CCD(1B)/(2) tax-shield calculator, or senior-citizen + NRI tax structures"
   },
   {
    "id": "T-sources",

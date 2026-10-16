@@ -1238,6 +1238,43 @@
    "books": [
     "book-indian-taxation"
    ]
+  },
+  {
+   "id": "tax-huf-second-slab-gifting-high-income",
+   "title": "The HUF at High Income: Second-Slab Savings, the Gifting Rules, and the Two Advance-Tax Clocks",
+   "category": "taxation",
+   "difficulty": "advanced",
+   "status": "published",
+   "tags": [
+    "huf",
+    "clubbing",
+    "64-2",
+    "56-2",
+    "gifting",
+    "advance-tax",
+    "234b",
+    "234c",
+    "second-slab",
+    "karta",
+    "inheritance"
+   ],
+   "summary": "The high-income layer over the HUF: why a second assessable person beats one high slab (worked 30L+5L split saves 1.56L/yr in the new regime), which income legally sits in the HUF vs which gets clubbed back (64(2) self-acquired conversion, 64(1)(iv) spouse, 64(1A) minor), the 56(2) gifting rules and the 50k non-relative cliff, and why a HUF that earns above 10K carries its own 234B/234C advance-tax clock.",
+   "file": "src/content/taxation/tax-huf-second-slab-gifting-high-income.mdx",
+   "sources": [
+    "src-huf-tax-2026",
+    "src-gifts-clubbing-fy2026-27",
+    "src-advance-tax-fy2026-27"
+   ],
+   "related": [
+    "tax-huf-wealth-structure",
+    "tax-advance-itr-final-checklist",
+    "tax-surcharge-cess-high-income",
+    "tax-india-investor-complete",
+    "pf-wealth-plan-10-lakh"
+   ],
+   "books": [
+    "book-indian-taxation"
+   ]
   }
  ]
 }

@@ -909,6 +909,103 @@ export function deductionShieldFY27(d: DeductionShieldInput): DeductionShieldRes
 }
 
 /**
+ * HUF income-split decision aid: the annual value of moving income from a
+ * high-slab individual to a second HUF slab, plus each party's advance-tax
+ * position.
+ *
+ * Conventions:
+ *  - "Solo" = all income in one individual's hands; "split" = the same income
+ *    in two assessable persons (the individual + the HUF). Both sides run
+ *    through highIncomeTaxFY27 so the 50L/1Cr/2Cr/5Cr surcharge structure is
+ *    honoured on each side.
+ *  - The HUF is a separate assessable person: its own liability over 10,000
+ *    is a SECOND advance-tax stream (234B/234C clocks run per PAN).
+ *  - This is a planning aid: it does NOT model the clubbing rules (64(2)
+ *    self-acquired-to-HUF, 64(1)(iv) spouse, 64(1A) minor) - the article
+ *    explains which income is legally eligible to sit in the HUF.
+ */
+export interface HufSplitInput {
+  individualIncome: number;
+  hufIncome: number;
+  regime: 'new' | 'old';
+  eightyC?: number;
+  healthInsurance?: number;
+  homeLoanInterest?: number;
+}
+
+export interface HufSplitResult {
+  soloBill: number;
+  splitBill: number;
+  individualBill: number;
+  hufBill: number;
+  annualSaving: number;
+  soloEffectiveRate: number;
+  splitEffectiveRate: number;
+  totalIncome: number;
+  hufNeedsAdvanceTax: boolean;
+  hufAdvanceTaxDue: number;
+  individualNeedsAdvanceTax: boolean;
+  individualAdvanceTaxDue: number;
+}
+
+export function hufIncomeSplitFY27(s: HufSplitInput): HufSplitResult {
+  const solo = highIncomeTaxFY27({
+    nonEquityIncome: s.individualIncome + s.hufIncome,
+    equityLtcg: 0,
+    equityStcg: 0,
+    eightyC: s.eightyC ?? 0,
+    npsSelf: 0,
+    healthInsurance: s.healthInsurance ?? 0,
+    homeLoanInterest: s.homeLoanInterest ?? 0,
+    npsEmployer: 0,
+    salaried: true,
+  });
+  const soloBill = s.regime === 'new' ? solo.new.total : solo.old.total;
+
+  // HUF is not a salaried individual: no standard deduction line.
+  const ind = highIncomeTaxFY27({
+    nonEquityIncome: s.individualIncome,
+    equityLtcg: 0,
+    equityStcg: 0,
+    eightyC: s.eightyC ?? 0,
+    npsSelf: 0,
+    healthInsurance: s.healthInsurance ?? 0,
+    homeLoanInterest: s.homeLoanInterest ?? 0,
+    npsEmployer: 0,
+    salaried: true,
+  });
+  const huf = highIncomeTaxFY27({
+    nonEquityIncome: s.hufIncome,
+    equityLtcg: 0,
+    equityStcg: 0,
+    eightyC: 0,
+    npsSelf: 0,
+    healthInsurance: 0,
+    homeLoanInterest: 0,
+    npsEmployer: 0,
+    salaried: false,
+  });
+  const individualBill = s.regime === 'new' ? ind.new.total : ind.old.total;
+  const hufBill = s.regime === 'new' ? huf.new.total : huf.old.total;
+  const splitBill = individualBill + hufBill;
+  const totalIncome = s.individualIncome + s.hufIncome;
+  return {
+    soloBill,
+    splitBill,
+    individualBill,
+    hufBill,
+    annualSaving: soloBill - splitBill,
+    soloEffectiveRate: totalIncome > 0 ? soloBill / totalIncome : 0,
+    splitEffectiveRate: totalIncome > 0 ? splitBill / totalIncome : 0,
+    totalIncome,
+    hufNeedsAdvanceTax: hufBill > 10000,
+    hufAdvanceTaxDue: Math.max(0, hufBill),
+    individualNeedsAdvanceTax: individualBill > 10000,
+    individualAdvanceTaxDue: Math.max(0, individualBill),
+  };
+}
+
+/**
  * AIF end-of-fund "2 and 20" waterfall (European-style, single distribution).
  *
  * Models a fund that returns `grossMultiple` on committed capital at the end of

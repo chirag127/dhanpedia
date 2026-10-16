@@ -392,6 +392,24 @@
    "reviewAfter": "2027-04-17",
    "status": "verified",
    "notes": "Income-tax Act, 2025 (assent 21 Aug 2025) position per CA-published secondary source; re-verify the bands at each Finance Act and against the Income-tax Department threshold tables. The highIncomeTaxFY27() function models these bands."
+  },
+  {
+   "id": "ul-56-2-gift-cliff-2026",
+   "claim": "Sec 56(2) gifts: relative gifts exempt with no limit; non-relative gifts aggregate over Rs 50,000 in a year makes the entire amount taxable at slab (a cliff); wedding/inheritance/12A-trust gifts always exempt; Budget 2025 did not change the threshold",
+   "source": "src-gifts-clubbing-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "The 50k cliff and the relative-list are stable; re-verify at each Finance Act."
+  },
+  {
+   "id": "ul-64-2-huf-renumber-act-2025",
+   "claim": "Sec 64(2) self-acquired-to-HUF clubbing is renumbered Sec 99(3)-(4) in the Income-tax Act, 2025 (effective 1 Apr 2026); Sec 64(1)(iv) spouse-income and 64(1A) minor-income carry through; Sec 65 joint-and-several liability of the transferee remains",
+   "source": "src-gifts-clubbing-fy2026-27",
+   "lastVerified": "2026-10-18",
+   "reviewAfter": "2027-04-17",
+   "status": "verified",
+   "notes": "Confirm the exact Act-2025 section numbers against the Income-tax Act, 2025 text before advising a HUF structure; the AIS cross-PAN matching makes the clubbing triggers leave an electronic audit trail."
   }
  ]
 }

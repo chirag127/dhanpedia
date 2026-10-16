@@ -1376,3 +1376,88 @@ UPDATE LOG
 • 2026-10-18 — Wave 11: three-tier computation (base → surcharge with marginal relief → 4% cess), the
 
 FY 2026-27 surcharge table with the new-regime 25% cap vs old-regime 37% above Rs. 5Cr (Income-tax Act, 2025, effective 1 Apr 2026), the 15% equity-surcharge cap, worked regime comparisons at 55L / 2.5Cr / 8Cr / 3Cr+5Cr-LTCG, and the marginal-relief cliff math at Rs. 50L (Rs. 1,040 not Rs. 1,08,000+ on an extra Rs. 1,000). Model verified against the Act 2025 secondary source; exact boundary figures should be confirmed with the ITR utility. Re-verify the surcharge bands at each Finance Act.
+
+
+
+THE HUF AT HIGH INCOME: SECOND-SLAB SAVINGS, THE GIFTING RULES, AND THE TWO ADVANCE-TAX CLOCKS
+
+The HUF wealth-structure article (./tax-huf-wealth-structure.mdx) covered what a HUF is and how to set one up. This article is the high-income layer: what the HUF actually saves you once you are past Rs. 50L–Rs. 1Cr of income, which income legally gets to sit in it (and which is clawed straight back into your hands), and why a HUF that earns a meaningful amount carries its own advance-tax clocks.
+
+THE SECOND-SLAB VALUE
+=====================
+
+A HUF is a separate assessable person with its own PAN, its own slabs, its own Rs. 1.25L equity-LTCG pool (via 112A), its own surcharge structure, and — under the new regime — its own tax-free Rs. 12L/87A threshold. That last point is the whole game at the margin: a HUF earning Rs. 5L a year in the new regime owes Rs. 0, while the same Rs. 5L stacked on a Rs. 35L individual is taxed at the 30% top slab.
+
+Run it (new regime, no deductions, via the HUF income-split calculator (/calculators/huf-income-split)):
+
+Leg: Individual ₹30L + HUF ₹5L,₹6,31,800 (eff. 18.1%),₹4,75,800 (eff. 13.6%),**₹1,56,000/yr**  |  Solo bill:   |  Split bill:   |  Saving: 
+
+The HUF's own 87A threshold does all the work: its Rs. 5L leg is tax-free, so the family's combined bill drops from an 18% effective rate to 13.6%. In the old regime the HUF also gets its own 80C/80D buckets as an entity, which makes the split even more powerful — but the 87A-only new regime is the cleaner, deduction-free version and is usually the better default.
+
+WHICH INCOME MAY LEGALLY SIT IN THE HUF (AND WHICH DOES NOT)
+============================================================
+
+This is where most HUF planning goes wrong. The HUF is a family entity, and the clubbing rules draw the line between family income and your income:
+
+Income: **Coparcenary property** (born-into / inherited HUF assets) income,**Yes**,Genuinely family property; taxed at the HUF's slabs  |  May it sit in the HUF?: **Gift from a non-member relative** to the HUF,**Yes** (56(2) exemption, see below),The HUF receives it as an entity  |  Why: **Inheritance into the HUF** (from a lineal ancestor),**Yes**,Not a conversion of self-acquired property
+
+The single most expensive mistake: earning your way to a commercial property, then "gifting" it to the family HUF to split the rent. Section 64(2) / 99(3)-(4) claws the entire rental income back to you, year after year, for as long as you hold the asset. The HUF only gets income it was born with or inherited, not income you converted into it.
+
+THE GIFTING RULES THAT FEED A HUF (SECTION 56(2))
+=================================================
+
+To lawfully move new wealth into the HUF (or to anyone), you use the gift provisions — and the line between "exempt" and "fully taxable" is a Rs. 50,000 cliff on non-relatives:
+• Gifts from specified relatives (spouse, siblings, lineal ascendants/descendants, their spouses)
+
+are exempt with no limit — the gift itself is not taxed.
+• **From non-relatives, if the aggregate value in a year exceeds Rs. 50,000, the entire amount is
+
+taxable** at your slab rate — not just the excess. Rs. 60,000 of friends' gifts → all Rs. 60,000 taxed.
+• Always exempt regardless of amount: wedding gifts, inheritance under a will, gifts from a
+
+12A/10(23C) registered trust, and a genuine employer gift up to Rs. 5,000.
+
+The two traps:
+1. Exempt gift ≠ exempt income. A gift from a relative is tax-free in your hands, but if you then
+
+give it to your spouse and it earns returns, Sec 64(1)(iv) clubs that income back to you. The gift is safe; the income it generates is not.
+1. A "gift" that is really a loan or unexplained cash can be taxed under Sec 68 / 56 with penalty.
+
+For any significant transfer: a registered gift deed (mandatory for immovable property), banking channels, proof of the donor's relationship, and the donor's PAN.
+
+THE TWO ADVANCE-TAX CLOCKS
+==========================
+
+This is the piece most HUF structuring articles skip, and it is the one that will actually cost you money if you ignore it. A HUF is a separate assessable person, so:
+• Each PAN runs its own 234B/234C clock. If the HUF's leg of income crosses Rs. 10,000 of tax (after
+
+its own TDS, which is usually nil for rental/interest), the HUF itself owes advance tax in the four cumulative instalments (15/45/75/100% on 15 Jun / 15 Sep / 15 Dec / 15 Mar). The family must track two streams of advance tax — the individual's and the HUF's — or the 234C interest clocks (./tax-advance-itr-final-checklist.mdx) start ticking on the HUF PAN independently.
+• The HUF files its own ITR (ITR-2 for investment income, ITR-3 if it has business income) by the
+
+same 31-Jul non-audit deadline as you, and owes its own 234B 90% backstop.
+• Partition is not a taxable event (Vineeta Sharma, SC 2020: every daughter is a coparcener by
+
+birth, so a genuine partition of HUF property is not a taxable event in the family), but a fake partition of your self-acquired assets is — see the 64(2) row above.
+
+$$ \underbrace{\text{Family total bill}}_{\text{one PAN}} \;\geq\; \underbrace{T_{\text{individual}} + T_{\text{HUF}}}_{\text{two PANs, two 87A thresholds, two 112A pools, two advance-tax clocks}} $$
+
+The inequality is what you are buying: two tax-free thresholds, two Rs. 1.25L equity pools, and a lower combined effective rate — paid for in the compliance of a second ITR and a second set of advance-tax instalments.
+
+RELATED
+=======
+• The HUF Wealth Structure (setup, Karta, deed, ITR-2) (./tax-huf-wealth-structure.mdx)
+• Advance Tax, the 234B/234C Interest Clock & the Final ITR Checklist (./tax-advance-itr-final-checklist.mdx)
+• Surcharge, Cess & the High-Income Regime (above Rs. 50L) (./tax-surcharge-cess-high-income.mdx)
+• India Taxation: The Complete Investor's Guide (./tax-india-investor-complete.mdx)
+
+SOURCES
+=======
+• HUF as a separate assessable person; 64(2) → 99(3)-(4) Act 2025 renumbering; Vineeta Sharma partition; HUF 80C/80D entity buckets — <a href="https://www.legalsuvidha.com/blog/clubbing-of-income/">Legal Suvidha HUF / clubbing coverage</a>
+• 56(2) gifts: relative exemption, Rs. 50k non-relative cliff, wedding/inheritance exemptions — <a href="https://taxclue.in/guide/tax-on-gifts">TaxClue tax-on-gifts guide</a>
+• Advance tax per assessable person; 234B/234C per PAN; 15/45/75/100% schedule — <a href="https://www.oquilia.com/news/advance-tax-calendar-fy2627">Oquilia advance-tax calendar FY 2026-27</a>
+
+UPDATE LOG
+==========
+• 2026-10-18 — Wave 12: HUF second-slab worked example (30L+5L split saves Rs. 1.56L/yr in the new regime),
+
+the income-eligibility table (coparcenary vs self-acquired 64(2) conversion), the 56(2) gifting cliff and the "exempt gift, taxed income" trap, and the two-advance-tax-clock consequence of a HUF being a separate PAN. The 64(2)→99(3)-(4) renumbering and the HUF ITR-2/3 deadlines are per src-huf-tax-2026; re-verify the HUF filing dates at each Income-tax Department notification.

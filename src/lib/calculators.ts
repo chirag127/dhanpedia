@@ -18,7 +18,7 @@ import {
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27,
-  afterTaxProductWedge, highIncomeTaxFY27,
+  afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -1325,6 +1325,98 @@ export const CALCULATORS: CalcDef[] = [
                 data: [
                   { value: Math.round(r.new.total), itemStyle: { color: r.winner === 'new' ? '#1f7a5c' : '#b45309' } },
                   { value: Math.round(r.old.total), itemStyle: { color: r.winner === 'old' ? '#1f7a5c' : '#b45309' } },
+                ],
+                label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'huf-income-split',
+    title: 'HUF Income Split: Second Slab & Advance-Tax Streams',
+    category: 'Tax',
+    description: 'Compare one high-slab individual against the same income split between that individual and a HUF (each its own assessable person on its own slabs and surcharge), and see the annual saving, the effective rates, and the two separate advance-tax streams the split creates.',
+    inputs: [
+      { key: 'individualIncome', label: 'Individual income (Rs)', default: 3000000, min: 0, step: 100000, hint: 'The slab income currently (or hypothetically) in the individual\'s hands: salary, rent, interest, unlisted gains, etc.' },
+      { key: 'hufIncome', label: 'Income that may sit in the HUF (Rs)', default: 500000, min: 0, step: 100000, hint: 'Income LEGALLY eligible for the HUF: coparcenary property income, HUF-sourced rental/interest, gifts from non-member relatives. NOT self-acquired property you gift to the HUF (that is clubbed back - Sec 64(2) / 99(3)-(4) of the 2025 Act) and NOT your spouse\'s income.' },
+      { key: 'regime', label: 'Regime (both parties)', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'New regime' }, { value: 1, label: 'Old regime' }], hint: 'The HUF is a separate assessable person that can pick its own regime; in practice both are usually run the same way.' },
+      { key: 'eightyC', label: '80C basket on the individual leg (Rs, old regime only)', default: 0, min: 0, max: 150000, step: 10000, hint: 'The HUF itself can also claim 80C/80D as an entity in the old regime - not modelled here; the saving is larger in the old regime than this baseline shows.' },
+      { key: 'healthInsurance', label: '80D on the individual leg (Rs, old regime only)', default: 0, min: 0, max: 100000, step: 10000, hint: 'Health insurance premium, old regime only.' },
+      { key: 'homeLoanInterest', label: 'Home-loan interest 24(b) on the individual leg (Rs, old regime only)', default: 0, min: 0, max: 200000, step: 10000, hint: 'Old regime only; the HUF leg could carry a separate home loan, not modelled.' },
+    ],
+    assumptions: [
+      'Solo vs split is computed on the SAME total income: solo = one PAN at that total; split = two PANs, each run through the full slab + 112A/111A + surcharge + marginal relief + 4% cess model (highIncomeTaxFY27).',
+      'The HUF is a separate assessable person with its own slabs, 87A, surcharge and - crucially - its own advance-tax duty (Sec 207 / Sec 404 of the Act 2025).',
+      'Old-regime 80C/80D/24(b) inputs apply to the individual leg only; a HUF can claim its own entity-level buckets in the old regime, which the model does not double-count.',
+      'No TDS is modelled (neither leg is salary): the advance-tax figures are the full liability on each leg.',
+    ],
+    limitations: [
+      'This is a planning aid, not a legality check: the article covers WHICH income may legally sit in the HUF (coparcenary income, HUF gifts; not self-acquired conversion under 64(2), not spouse income under 64(1)(iv), not minor income under 64(1A)).',
+      'A husband-wife-only pair is not a valid HUF; a HUF needs at least the father + son (or existing coparceners).',
+      'The HUF must file its own ITR (ITR-2/ITR-3) and pay its own advance tax; the 234B/234C clocks run per PAN.',
+    ],
+    compute: (v) => {
+      const r = hufIncomeSplitFY27({
+        individualIncome: v.individualIncome,
+        hufIncome: v.hufIncome,
+        regime: v.regime === 1 ? 'old' : 'new',
+        eightyC: v.eightyC,
+        healthInsurance: v.healthInsurance,
+        homeLoanInterest: v.homeLoanInterest,
+      });
+      const inr = (x: number) => Math.round(x).toLocaleString('en-IN');
+      const pct = (x: number) => (x * 100).toFixed(1) + '%';
+      return {
+        results: [
+          {
+            label: 'Solo (one PAN) total bill',
+            value: inr(r.soloBill),
+            kind: 'inr',
+            note: `Effective ${pct(r.soloEffectiveRate)} on ${inr(r.totalIncome)} total income`,
+          },
+          {
+            label: 'Split (individual + HUF) total bill',
+            value: inr(r.splitBill),
+            kind: 'inr',
+            note: `Individual ${inr(r.individualBill)} + HUF ${inr(r.hufBill)}; effective ${pct(r.splitEffectiveRate)}`,
+          },
+          {
+            label: 'Annual saving from the split',
+            value: inr(r.annualSaving),
+            kind: 'inr',
+            note: r.annualSaving > 0 ? 'The second slab is worth this much - before the HUF\'s own 80C/80D buckets in the old regime' : 'No saving at these numbers; the split is not worth it here',
+          },
+          {
+            label: 'HUF advance-tax stream',
+            value: r.hufNeedsAdvanceTax ? inr(r.hufAdvanceTaxDue) : 'Nil',
+            kind: 'inr',
+            note: r.hufNeedsAdvanceTax ? 'The HUF owes its OWN advance tax on its own leg - a second 234B/234C clock runs on the HUF PAN' : 'HUF income is below the 10,000 advance-tax threshold on its own',
+          },
+          {
+            label: 'Individual advance-tax stream',
+            value: r.individualNeedsAdvanceTax ? inr(r.individualAdvanceTaxDue) : 'Nil',
+            kind: 'inr',
+            note: r.individualNeedsAdvanceTax ? 'The individual\'s own advance-tax duty on its leg' : 'Below the 10,000 threshold on the individual leg',
+          },
+        ],
+        chart: {
+          title: 'Total tax bill: solo vs split (Rs)',
+          alt: `Solo bill Rs ${inr(r.soloBill)} vs split bill Rs ${inr(r.splitBill)}; the HUF second-slab split saves Rs ${inr(r.annualSaving)} a year.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `Rs ${inr(x)}` },
+            xAxis: { type: 'category', data: ['Solo (1 PAN)', 'Split (2 PANs)'] },
+            yAxis: { type: 'value', name: 'Rs', axisLabel: { formatter: (x: number) => `${Math.round(x / 1e5)}L` } },
+            series: [
+              {
+                name: 'Total bill',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.soloBill), itemStyle: { color: '#b45309' } },
+                  { value: Math.round(r.splitBill), itemStyle: { color: r.annualSaving > 0 ? '#1f7a5c' : '#b45309' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
               },

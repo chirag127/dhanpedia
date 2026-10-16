@@ -13,7 +13,7 @@ import {
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
-  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27,
+  sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -730,5 +730,56 @@ describe('High-income tax: surcharge, cess, regime (FY 2026-27)', () => {
     expect(r.new.total).toBe(0);
     expect(r.old.total).toBe(0);
     expect(r.winner).toBe('tie');
+  });
+});
+
+describe('HUF income split (second slab + advance tax streams)', () => {
+  const base = (over: Record<string, unknown> = {}) => ({
+    individualIncome: 0, hufIncome: 0, regime: 'new', ...over,
+  });
+
+  it('moving income to a low-slab HUF saves tax in the new regime (worked 30L + 5L)', () => {
+    const r = hufIncomeSplitFY27(base({ individualIncome: 3000000, hufIncome: 500000, regime: 'new' }));
+    expect(r.soloBill).toBe(631800);
+    expect(r.annualSaving).toBeGreaterThan(100000);
+    expect(r.soloEffectiveRate).toBeGreaterThan(0.17);
+    expect(r.splitEffectiveRate).toBeLessThan(0.15);
+    expect(r.hufBill).toBe(0); // HUF 5L is under the 12L new-regime tax-free threshold
+  });
+
+  it('the HUF pays no tax when its income is under the 87A threshold', () => {
+    const r = hufIncomeSplitFY27(base({ individualIncome: 3000000, hufIncome: 500000, regime: 'new' }));
+    expect(r.hufNeedsAdvanceTax).toBe(false);
+    // The individual still owes advance tax on their own leg
+    expect(r.individualNeedsAdvanceTax).toBe(true);
+  });
+
+  it('in the old regime with 80C on the individual leg, the split still saves (HUF leg under the 87A nil band)', () => {
+    const r = hufIncomeSplitFY27(base({
+      individualIncome: 3000000, hufIncome: 500000, regime: 'old', eightyC: 150000,
+    }));
+    expect(r.soloBill).toBe(834600);
+    expect(r.hufBill).toBe(0); // old-regime 87A keeps HUF income up to 5L tax-free
+    expect(r.annualSaving).toBe(156000);
+    // The HUF leg in the old regime can claim its OWN 80C/80D buckets as a
+    // separate entity (not modelled here - see the article), which makes the
+    // old-regime split even more powerful than this baseline.
+    expect(r.splitEffectiveRate).toBeLessThan(r.soloEffectiveRate);
+  });
+
+  it('a HUF income leg that crosses 50L creates its own advance-tax stream', () => {
+    const r = hufIncomeSplitFY27(base({ individualIncome: 5000000, hufIncome: 20000000, regime: 'new' }));
+    expect(r.hufNeedsAdvanceTax).toBe(true);
+    expect(r.hufAdvanceTaxDue).toBeGreaterThan(300000);
+    // Both legs carry the 15% surcharge band
+    expect(r.hufBill).toBeGreaterThan(0);
+  });
+
+  it('zero income on both sides: zero bill, zero saving', () => {
+    const r = hufIncomeSplitFY27(base({}));
+    expect(r.soloBill).toBe(0);
+    expect(r.annualSaving).toBe(0);
+    expect(r.hufNeedsAdvanceTax).toBe(false);
+    expect(r.individualNeedsAdvanceTax).toBe(false);
   });
 });
