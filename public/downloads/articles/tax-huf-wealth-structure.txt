@@ -1,0 +1,104 @@
+# HUF Wealth Structure: The Second Tax Entity Your Family Can Legally Create
+
+How a Hindu Undivided Family works as a separate income-tax person: creation, the Karta and the deed, PAN and ITR-2, what income may sit in the HUF, the Section 64 clubbing traps, Vineeta Sharma partition, and a worked two-entity example.
+
+An HUF (Hindu Undivided Family) is one of the most misunderstood structures in Indian personal finance — and one of the most useful, because it is not a company and not a partnership: it is a person in the eyes of the income-tax law, arising by operation of family law, with its own PAN, its own bank account, and its own slab of taxable income. Used properly, a family that has one working adult earner plus the assets they generate gets a second slab to spread income across. Used improperly, it is an artificial arrangement that the clubbing rules will claw back — with interest. This article covers the full mechanics as they stand in FY 2026-27, under both the 1961 Act and the renumbered Income Tax Act 2025 (which took effect 1 April 2026 and moved the old Section 64(2) clubbing to Sections 99(3)–(4) (src-huf-tax-2026)).
+
+WHAT AN HUF ACTUALLY IS (AND WHAT IT IS NOT)
+============================================
+
+An HUF is recognised only for persons who follow Hindu, Buddhist, Jain, or Sikh personal law (src-huf-tax-2026). Three properties define it:
+• It exists by operation of law, not by registration. A family of two or more persons lineally descended from a common ancestor (coparceners) can be an HUF the moment it is formed — a father with one minor son is already one; there is no "creation filing." What you create on paper is the documentation: a HUF deed, then the PAN, then the account. (A husband-and-wife pair with no parent or child is not an HUF; that is the single most common "creation" error — no deed, no PAN, and the arrangement quietly fails.)
+• It is a separate legal person (Section 2(31) of the 1961 Act; corresponding provision in the 2025 Act). It can own property, borrow, enter contracts, and — the point of this article — it is assessed to tax as a distinct person at the same slab rates as an individual, with its own 87A basic-exemption layer.
+• It persists through partition. A partition splits the property among the coparceners; the HUF can survive with the surviving members (a family can be re-formed as an HUF after partition), and partition itself has a specific tax position (below).
+
+The Karta — the senior-most competent male member, or a woman who acts as head — conducts the HUF's affairs, signs the PAN application, operates the bank account, and files the ITR. The Karta role and the legal-heir question are related but separate: the Karta is a managerial office, not an ownership interest (Wills & Succession (../personal-finance/pf-wills-succession.mdx) covers the heir side; a Karta who dies does not cause the HUF to "die" or the property to lapse to the heirs automatically).
+
+THE THREE-STEP SETUP (WHAT ACTUALLY GETS CREATED)
+=================================================
+1. The HUF deed. A notarised declaration naming all members, identifying the Karta, stating the formation date and the corpus (ancestral property, gifts, or the family's agreed initial contributions). Stamp + notary cost in the low thousands of rupees; the deed itself is not a statutory requirement but is the evidence that keeps the structure defensible.
+2. The PAN — applied for via NSDL/UTIITSL on Form 49A with the deed, at nominal cost. The HUF's PAN gets its own AIS (Annual Information Statement), its own 26AS, and eventually its own ITR.
+3. The HUF bank account — opened with the PAN and the deed. This is where the family deliberately routes HUF-owned income (gifts received by the family, income from family property).
+
+What a HUF cannot do: it cannot claim HRA, or any personal deduction that presupposes an individual life (80D is available to the HUF as an entity insuring its members, but the everyday salary-driven deductions of 80C-HRA type belong to the individuals). And a HUF's 80C Rs. 1.5L, like everything in the stack, is old-regime only (src-it-slab-fy2026-27).
+
+WHICH INCOME MAY SIT IN THE HUF — AND WHICH GETS CLUBBED
+========================================================
+
+This is where "HUF is a tax hack" advice usually collapses, because the line between lawful family income and income artificially shifted into the family is policed by the clubbing provisions (Section 64(2) of the 1961 Act; Sections 99(3)–(4) of the Income Tax Act 2025, src-huf-tax-2026).
+
+Income that genuinely belongs to the HUF (taxed in the HUF's hands, in the HUF's slab):
+• Ancestral / coparcenary property income — rent or sale proceeds from property the family already owns undivided. This is the cleanest HUF income: it is family property by birthright, not a transfer.
+• Gifts to the HUF from persons who are not members — for example, a gift of cash or property from a sibling's spouse or a distant relative who is not a coparcener. The gift itself: gifts to a HUF from non-relatives are taxable in the HUF's hands to the same extent as in an individual's — over Rs. 50,000 from a non-relative is a taxable gift (Section 56; see Gift-tax mechanics (../personal-finance/pf-wills-succession.mdx) and src-gift-tax-it-dept) — but the income generated by the gifted asset is HUF income, which is the useful part.
+• Gifts to a minor member at marriage — wedding gifts received as a family occasion are customarily treated as HUF gifts; the income from them is HUF income.
+• The HUF's own earning — a HUF that runs a business (rare at the retail scale) or holds and lends out family assets, with the Karta operating it properly.
+
+Income that gets clubbed into a member's hands (the traps):
+• Property gifted by a member (or by the member's spouse) to the HUF → the income from that property is taxed in the transferor's hands, not the HUF's. The family's own savings moved "into the HUF" to earn interest is the most common version of this error: the Karta's own Rs. 10L deposited into the HUF account to earn interest is still the Karta's income for tax.
+• Income from property gifted by a parent to a minor child → clubbed into the parent's income.
+• A transfer that is purely an income-shifting device — the department looks at whether the HUF structure was created for the income; a HUF that exists on paper but has no real family function ("two members who never meet") is the profile that gets reassessed.
+
+The honest design, then: an HUF is worth creating when the family already has coparcenary assets or receives family gifts; it is a poor tool for moving one member's own savings into a second slab.
+
+PARTITION: THE VINEETA SHARMA POSITION
+======================================
+
+The landmark Vineeta Sharma judgment (SC, 2020, cited in src-huf-tax-2026's treatment of the 2025 Act) fixed two things: every daughter has coparcener status by birth (no longer dependent on the father being alive), and — for tax planning — a partition of HUF property is not a taxable event in the hands of the family: you do not pay gift tax or capital gains merely because a joint family asset was divided among coparceners.
+
+That makes partition a legitimate and often under-used move: a HUF's coparcenary property can be divided, after which each coparcener owns their share outright, the HUF (now smaller or dissolved) stops reporting that property's income, and the individual holds it in their own name with their own cost basis. The discipline is that it must be a genuine partition — the same evidence-of-function test as everywhere in this article: deed, separate management, separate accounts, the family actually living that way.
+
+THE WORKED EXAMPLE: WHY THE SECOND SLAB MATTERS
+===============================================
+
+A family with one full-time earner (the other partner is a homemaker):
+
+Entity: Individual (Karta),₹22L gross − 80C ₹1.5L − standard ₹50k = ₹19.6L taxable,≈ ₹4.17L tax incl. cess (30% band on the ₹10L–₹19.6L slice)  |  Annual income: HUF,₹8L: coparcenary property rent ₹5L + non-relative family gift income ₹3L (post-₹50k tax treatment applied),≈ ₹0.75L tax incl. cess (5% to ₹5L, 20% above; **HUFs cannot claim the 87A rebate** under either regime)  |  Tax regime math (old regime, FY 2026-27 slabs: nil to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above): **Combined**,,**≈ ₹4.92L**, versus a *single-person* version of the same ₹30L (₹30L − 80C ₹1.5L − standard ₹50k = ₹28L taxable → ≈ **₹6.79L**)
+
+The gap is not a fixed number — it is the depth of the second slab: while the individual sits in 20–30% territory, the HUF's income is still running at 5–20%, and the combined position saves the spread. Two honesty notes that matter when you reuse this arithmetic: (1) HUFs cannot claim the Section 87A rebate — the 87A tax-free tiers (Rs. 5L old / Rs. 12L new) belong to resident individuals only, so the HUF is taxed from its first rupee on the slab rates. (2) Income that is genuinely the Karta's own is clubbed back under Section 64(2), so the HUF's slab room only works on family income — coparcenary property rent, gifts from non-member relatives, HUF-owned investments — never on a parked version of the Karta's salary.
+
+What the example deliberately does not do: it does not move the Karta's own salary or own-savings interest into the HUF — that is the 64(2)/99(3) clubbing trap above, and a HUF whose income is "just the Karta's money in a family-name account" is exactly the arrangement that gets reassessed.
+
+FILING: THE HUF'S OWN ITR
+=========================
+• Form: ITR-2 if the HUF has only investment/property income; ITR-3 if the HUF carries business income (src-huf-tax-2026).
+• Deadlines for AY 2026-27 (FY 2025-26): 31 July 2026 for non-audit returns; 31 October 2026 where a statutory audit applies (as of mid-2026, the July date is the operative one — the October audit-track deadline is the carry-over convention; check the Income Tax Department's current-year notice for any extension).
+• What the Karta must keep: the deed, the PAN-49A certificate, the HUF's 26AS/AIS reconciled against the family's demat and bank statements (REIT/InvIT distributions held in the HUF demat, NCD coupons, rental receipts — each lands in the HUF's AIS under the HUF PAN, not the Karta's), and the partition deed if the family partitioned during the year.
+• A HUF with no income files a nil return? — not required for a HUF (unlike an individual in a few circumstances), but a HUF with a PAN and with any investment income is a filer; the "HUF has Rs. 0 this year, no filing" habit is the one that quietly builds a reassessment file.
+
+WHEN AN HUF IS THE WRONG TOOL
+=============================
+• The family is husband-and-wife only, or a single adult — no HUF can exist; the deed is false on its face and any "HUF" claim fails.
+• The only "HUF asset" is one member's own savings — clubbing will put it back in that member's hands; you are paying a CA's fee to get your own income taxed twice over on paper.
+• The family uses it to shelter speculative/investment behaviour (a HUF trading F&O, a HUF running a P2P book) — the income form, not the owner's name, sets the tax treatment, and a HUF trading account is exactly the pattern that triggers the "real function?" test.
+• Partition is imminent — the structure is being used to hold assets just long enough to convert coparcenary status into separate ownership with one partition deed; that is the legitimate use (Vineeta Sharma), but the family needs a deed that evidences the genuine division, not a one-page "partition of accounts" signed the month before an asset event.
+
+CHECKLIST BEFORE YOU CREATE ONE
+===============================
+1. [ ] Does the family already include coparceners by blood or a marriage-adjacent structure (two or more persons lineally related through a common ancestor, at least one of whom is a Karta-eligible senior member)? If the answer is "no, it's just the two of us," stop.
+2. [ ] Which assets are genuinely family assets (ancestral, jointly held, family-occasion gifts) versus member-only assets? Only the first set goes in the HUF's name.
+3. [ ] Deed executed, naming all members, Karta identified, corpus listed with document references.
+4. [ ] PAN applied (Form 49A) and in hand; HUF bank account opened after the PAN.
+5. [ ] HUF's own demat opened (HUF PAN on it) so that family-held instruments (REITs, NCDs, SGBs, gold ETFs) are issued in the HUF's name — the moment they are in the individual's demat, the income is the individual's.
+6. [ ] Karta's personal ITR and HUF ITR filed separately, every year, with the HUF's 26AS/AIS reconciled; a HUF with a PAN and a nil income year still keeps the records even if no filing is due that year.
+7. [ ] A partition deed if the family partitions — executed with a lawyer, witnessed, and referenced in the next year's HUF filing.
+8. [ ] Insurance: a HUF cannot own a term policy on its own, but family-structured protection (a Karta as proposer for the family's cover) is a separate planning line; don't let the HUF paperwork crowd it out.
+
+RELATED
+=======
+• Indian Taxation for Investors (./tax-india-investor-complete.mdx) — slabs, 87A, and the ITR-form map this structure sits inside.
+• Building the Tax-Efficient Wealth Stack (./tax-tax-free-wealth-stack.mdx) — the individual's stack; the HUF is the family's parallel track.
+• Wills, Succession & the Nominee Trap (../personal-finance/pf-wills-succession.mdx) — the heir-law side of the same family assets; a partition deed and a will do not replace each other.
+• NBFC Debenture Underwriting (../fixed-income/fixed-income-nbfc-debentures.mdx) — if the HUF holds NCDs in its demat, the coupons land in the HUF's ITR; the underwriting discipline is the same either way.
+
+SOURCES
+=======
+• src-huf-tax-2026 — Income Tax Department (incometaxindia.gov.in HUF guidance) + FY 2025-26 HUF filing guides: HUF as a separate taxable person under Section 2(31), own PAN, ITR-2/ITR-3, clubbing under 64(2)→99(3)–(4) in the Income Tax Act 2025, Vineeta Sharma partition position, AY 2026-27 filing dates.
+• src-it-slab-fy2026-27 — the slab and 87A structure the HUF's second slab is measured against.
+• src-gift-tax-it-dept — Section 56 gift-tax mechanics for gifts received by a HUF from non-members (over Rs. 50,000 from a non-relative).
+• src-wills-succession-2026 — Karta / legal-heir distinction and family property succession context.
+
+UPDATE LOG
+==========
+• 2026-10-17: Verified HUF-creation/PAN/ITR-2 mechanics and the Income Tax Act 2025 renumbering (64(2) → 99(3)–(4)) from src-huf-tax-2026; flagged the 31 October 2026 audit-track HUF deadline as a carry-over convention pending the current-year notice.
+• 2027-04-01: Scheduled re-verification at next Budget: HUF slab parity with individual slabs, 87A applicability to HUFs, and any change to the Vineeta Sharma partition position.
+

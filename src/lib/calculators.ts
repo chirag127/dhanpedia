@@ -16,6 +16,7 @@ import {
   withdrawalSustainability, sustainableInitialWithdrawal, p2pExpectedNetReturn,
   bondPrice, macaulayDuration, feeImpact, currencyScenario, rentalYield,
   portfolioExpectedReturn, maxDrawdown, pmsSimulation,
+  newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -519,6 +520,116 @@ export const CALCULATORS: CalcDef[] = [
               { name: 'With fees', type: 'line', smooth: true, data: withFeesSeries, areaStyle: { opacity: 0.12 }, lineStyle: { color: '#b45309' }, itemStyle: { color: '#b45309' } },
               { name: 'No fees', type: 'line', smooth: true, data: noFeesSeries, lineStyle: { color: '#1f7a5c', type: 'dashed' }, itemStyle: { color: '#1f7a5c' } },
             ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'tax-shield',
+    title: 'New vs Old Regime Tax Shield (FY 2026-27)',
+    category: 'Tax',
+    description: 'Compare your FY 2026-27 income-tax liability under the new regime (default, no 80C/80D/80CCD deductions, 75k standard deduction) against the old regime (50k standard deduction plus your deduction stack). Slabs: new nil to ₹4L … 30% above ₹24L, 87A rebate to ₹12L; old nil to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above.',
+    inputs: [
+      { key: 'gross', label: 'Gross salary / salary income (₹)', default: 1500000, min: 0, step: 50000, hint: 'Your CTC salary component. Investment income is taxed the same under both regimes and cancels out of the comparison.' },
+      { key: 'ded80c', label: '80C + 80CCD(1B) deductions (₹)', default: 200000, min: 0, max: 200000, step: 10000, hint: 'PPF + ELSS + life insurance + NPS, capped at ₹1,50,000 for 80C plus ₹50,000 extra under 80CCD(1B).' },
+      { key: 'ded80d', label: '80D health premium (₹)', default: 25000, min: 0, max: 50000, step: 5000, hint: '₹25,000 base (₹50,000 for seniors), plus ₹25,000 for self and ₹50,000 for senior parents.' },
+      { key: 'dedloan', label: 'Home-loan interest 24(b) (₹)', default: 0, min: 0, max: 200000, step: 10000, hint: 'Self-occupied property interest, capped at ₹2,00,000/yr. Let-out property interest is uncapped and allowed in both regimes — add it to both sides, or just note it cancels out.' },
+      { key: 'hrra', label: 'HRA exemption (₹)', default: 0, min: 0, step: 10000, hint: 'Only usable under the old regime. Compute with the lowest-of-three rule (50% of salary, rent − 10% of salary, rent paid).' },
+    ],
+    assumptions: [
+      'FY 2026-27 slabs, resident individual below 60, no surcharge (income under ₹50L).',
+      'New regime: 75k standard deduction, 87A rebate keeps income up to ₹12L tax-free.',
+      'Old regime: 50k standard deduction, nil to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above; 87A rebate keeps income up to ₹5L tax-free (₹12,500 rebate).',
+      '4% health & education cess added to both; investment and capital-gains income excluded (same in both regimes).',
+    ],
+    limitations: [
+      'Surcharge, senior-citizen nil bands, and marginal relief above ₹12L are not modelled — high-income users should verify with a CA.',
+      'HRA and let-out house property interest depend on your rent/city; treat the HRA input as your own computed figure, not a default.',
+    ],
+    compute: (v) => {
+      const newTax = newRegimeTaxFY27(v.gross - 75000);
+      const oldTax = oldRegimeTaxFY27(v.gross - 50000 - v.ded80c - v.ded80d - v.dedloan - v.hrra);
+      const newTotal = newTax * 1.04;
+      const oldTotal = oldTax * 1.04;
+      const winner = newTotal <= oldTotal ? 'new' : 'old';
+      const series = Array.from({ length: 10 }, (_, i) => {
+        const g = (v.gross / 10) * (i + 1);
+        return [Math.round(g / 1000) * 1000, Math.round(newRegimeTaxFY27(g - 75000) * 1.04), Math.round(oldRegimeTaxFY27(Math.max(0, g - 50000 - v.ded80c - v.ded80d - v.dedloan - v.hrra)) * 1.04)];
+      });
+      return {
+        results: [
+          { label: 'New-regime tax + cess', value: Math.round(newTotal), kind: 'inr', note: `₹${Math.round(newTax).toLocaleString('en-IN')} + 4% cess` },
+          { label: 'Old-regime tax + cess', value: Math.round(oldTotal), kind: 'inr', note: `₹${Math.round(oldTax).toLocaleString('en-IN')} + 4% cess` },
+          { label: 'Save by choosing ' + winner, value: Math.round(Math.abs(newTotal - oldTotal)), kind: 'inr', note: winner === 'new' ? 'Deductions do not beat the flatter new slabs' : 'Deduction stack wins this year' },
+        ],
+        chart: {
+          title: `Tax liability as gross salary scales (${winner}-regime advantage at your deduction stack)`,
+          alt: `A two-line chart: new-regime and old-regime total tax (including 4% cess) as gross salary scales from one-tenth to your entered gross salary, with your deduction stack applied to the old regime.`,
+          option: {
+            tooltip: { trigger: 'axis', valueFormatter: (x: number) => `₹${(x / 1e5).toFixed(2)}L` },
+            legend: { data: ['New regime', 'Old regime'] },
+            xAxis: { type: 'category', data: series.map((r) => `₹${(r[0] / 1e5).toFixed(1)}L`), name: 'Gross salary' },
+            yAxis: { type: 'value', name: '₹ (lakh)', axisLabel: { formatter: (x: number) => `${(x / 1e5).toFixed(1)}` } },
+            series: [
+              { name: 'New regime', type: 'line', smooth: true, data: series.map((r) => r[1]), lineStyle: { color: '#1f7a5c' }, itemStyle: { color: '#1f7a5c' } },
+              { name: 'Old regime', type: 'line', smooth: true, data: series.map((r) => r[2]), lineStyle: { color: '#b45309' }, itemStyle: { color: '#b45309' } },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'core-satellite',
+    title: 'NCD Core-Satellite Blend',
+    category: 'Fixed income',
+    description: 'Blend a high-grade AAA/AA core with a smaller A/BBB satellite to raise blended yield, and see how much principal one satellite default costs. Illustrates the Q2-2026 yield ladder (AAA 7–8%, AA 8–9.5%, A 9.5–11.5%, BBB 11.5%+).',
+    inputs: [
+      { key: 'corpus', label: 'Fixed-income corpus (₹)', default: 1000000, min: 100000, step: 100000, hint: 'The amount you would split between the two rungs.' },
+      { key: 'corePct', label: 'Share in AAA/AA core (%)', default: 70, min: 0, max: 100, step: 5, hint: 'The safety-first portion. Most conservative retail builds keep 60–80% here.' },
+      { key: 'coreYield', label: 'Core yield, AAA/AA (%)', default: 8.2, min: 3, max: 15, step: 0.1, hint: 'Q2-2026 reference: AAA 7.0–8.0%, AA 8.0–9.5%.' },
+      { key: 'satYield', label: 'Satellite yield, A/BBB (%)', default: 11, min: 3, max: 20, step: 0.5, hint: 'Q2-2026 reference: A 9.5–11.5%, BBB 11.5–13%+.' },
+      { key: 'issuers', label: 'Satellite issuers (equal-weight)', default: 4, min: 1, max: 20, step: 1, hint: 'Number of separate A/BBB names in the satellite. Each issuer carries its own default risk.' },
+    ],
+    assumptions: [
+      'Yields are fixed-coupon illustrations for one year; the result is annual interest, not a compounded corpus projection.',
+      'Coupons on NCDs are taxed at your slab rate (with TDS on unlisted; listed NCDs in demat generally have no TDS), so a high nominal yield can be worth considerably less after tax.',
+      'One-issuer default: you lose that issuer\u2019s entire satellite equal-weight; recovery at maturity (typically 30–70% in historical defaults) is not modelled.',
+    ],
+    limitations: [
+      'Yield bands move with the repo cycle; re-run before allocating. The 2026 reference bands are time-sensitive.',
+      'Diversification across issuers cuts single-name risk, not sector-wide credit stress.',
+    ],
+    compute: (v) => {
+      const r = coreSatelliteBlend(v.corpus, v.corePct / 100, v.coreYield / 100, v.satYield / 100, v.issuers);
+      const coreAlloc = Math.round(v.corpus * (v.corePct / 100));
+      const satAlloc = v.corpus - coreAlloc;
+      return {
+        results: [
+          { label: 'Blended annual yield', value: r.blendedYield, kind: 'pct', note: `₹${Math.round(r.totalInterest).toLocaleString('en-IN')} interest on ₹${v.corpus.toLocaleString('en-IN')}` },
+          { label: 'Core allocation', value: coreAlloc, kind: 'inr', note: `${v.corePct}% at ${v.coreYield}%` },
+          { label: 'Satellite allocation', value: satAlloc, kind: 'inr', note: `${100 - v.corePct}% across ${v.issuers} issuers at ${v.satYield}%` },
+          { label: 'If one satellite issuer defaults', value: Math.round(r.singleDefaultLoss), kind: 'inr', note: `Principal at risk on ${v.issuers} equal-weight names; recovery (30–70% historically) would cut this loss` },
+        ],
+        chart: {
+          title: 'Blended yield vs all-core baseline',
+          alt: `Two bars: the blended yield of ${v.corePct}% core at ${v.coreYield}% plus ${100 - v.corePct}% satellite at ${v.satYield}%, versus a pure-core portfolio at ${v.coreYield}%, showing the yield uplift bought by satellite risk.`,
+          option: {
+            tooltip: { valueFormatter: (x: number) => `${x}%` },
+            xAxis: { type: 'category', data: [`Blended (${v.corePct}% core)`, `All core`, `All satellite`] },
+            yAxis: { type: 'value', name: '% p.a.', axisLabel: { formatter: (x: number) => `${x}%` } },
+            series: [{
+              name: 'Yield', type: 'bar',
+              data: [
+                { value: +(r.blendedYield * 100).toFixed(2), itemStyle: { color: '#1f7a5c' } },
+                { value: v.coreYield, itemStyle: { color: '#84a98c' } },
+                { value: v.satYield, itemStyle: { color: '#b45309' } },
+              ],
+              label: { show: true, formatter: (p: { value: number }) => `${p.value}%` },
+            }],
           },
         },
       };

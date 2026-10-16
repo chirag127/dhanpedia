@@ -1026,7 +1026,21 @@ A Real Estate Investment Trust in India is a SEBI-regulated vehicle (under the S
 
 **Liquidity and the listed advantage.** The listed REIT is the only Indian real-estate route that is liquid daily and accessible in a demat account — the same advantage the gold ETF has over the gold bar. The cost is the market's own pricing: you are paying what the market pays, with the market's own liquidity risk on top.
 
-**The tax position.** Distributions from a REIT are taxed at the investor's slab rate (verify the current-year treatment; REIT distributions have had their own tax history). The FY 2025-26 new regime slabs (nil up to ₹4L, 30% top, ₹75,000 standard deduction — verified 2026-08-06, `src-it-slab-fy2025-26`) determine the after-tax value of a REIT distribution to a salaried investor.
+**The tax position — the pass-through structure that changes the math.** REITs and InvITs are *business trusts* under Section 2(13A) of the Income-tax Act (Section 2(21) of the Income Tax Act, 2025), and their defining tax feature is **pass-through status under Section 115UA**: the trust itself pays no income tax on most categories of income, and the income passes through to unitholders, who are taxed on it (`src-reit-invit-tax-2026`). That means the tax position is not "REIT distribution = slab rate" — it is a *component-by-component* position, and every distribution statement splits the payout into components, each taxed differently:
+
+| Distribution component | Tax in your hands (AY 2026-27) | TDS at source (194LBA, resident) |
+|---|---|---|
+| Interest from the SPV (the trust-SPV loan structure — 50–70% of most payouts) | Slab rate, "other sources" | 10% |
+| Dividend from a SPV that **did not** opt for 115BAA (regular corporate rate) | **Exempt** (pass-through) | Nil |
+| Dividend from a SPV that **did** opt for 115BAA (22% concessional rate — most large SPVs) | Slab rate | 10% |
+| Rental income from property held directly by the REIT | Slab rate | 10% |
+| Repayment of debt / return of capital | **Not income** — reduces your cost of acquisition, except where cumulative distributions exceed the unit's *issue price* (Finance Act 2023 rules, from AY 2024-25, `src-reit-invit-tax-2026`) | Nil |
+
+The last row is the one that trips people up: a ₹5,000 "return of capital" distribution on a unit you bought at ₹30,000 is *not* income — it is your own money coming back, and it *reduces* your cost basis, which increases the capital gain when you sell. But once the cumulative return-of-capital on a unit exceeds what you *paid* for the unit, the excess is taxed as other sources (Section 56(2)(xii)).
+
+**Capital gains on selling units** (the same rates as listed equity, `src-reit-invit-tax-2026`): a holding of more than 12 months on listed units is long-term, and the gain is **12.5% above the ₹1.25L annual exemption** under Section 112A — *shared with your listed shares, equity funds, and ELSS gains in the same year* (`src-elss-ltcg-2026`); under 12 months is 20% STCG under 111A. STT is paid on exchange sales and is the condition for both rates. Two consequences: (1) REIT/InvIT units are *not* a separate LTCG exemption bucket — a big REIT sale in a year with big equity sales eats the same ₹1.25L pool; and (2) selling a REIT after a return-of-capital distribution must use the *adjusted* cost, not the original purchase price.
+
+**TDS mechanics**: the trust deducts 10% under Section 194LBA on *every rupee* of the interest, taxable-dividend and rental components — there is no threshold, unlike the ₹10,000 TDS limit on company dividends. The TDS lands in your 26AS/AIS; claim the credit in the ITR, and any excess over your final liability is refunded. The new-regime slabs (nil up to ₹4L, 30% top, ₹75,000 standard deduction — verified 2026-08-06, `src-it-slab-fy2025-26`) determine the after-tax value of the slab-taxed components to a salaried investor. The detailed component-level filing guide is [Tax Garden's REIT/InvIT AY 2026-27 treatment](https://taxgarden.in/blog/reit-invit-taxation-india-ay-2026-27-section-115ua-distributions-capital-gains) (`src-reit-invit-tax-2026`).
 
 ## InvITs: cash flows you cannot easily hold directly
 
@@ -1092,10 +1106,13 @@ F -->|defect found| I[Walk away or<br/>demand the<br/>discount; the<br/>risk is 
 ## Sources
 
 - `src-it-slab-fy2025-26` — FY 2025-26 income-tax slab structure (new regime default: nil up to ₹4L, 30% top, ₹75,000 standard deduction). Used for the rental-income tax context; verify the current-year slab and the standard-expense deduction limit before relying on the after-tax yield.
+- `src-reit-invit-tax-2026` — REIT & InvIT distribution-component tax treatment for AY 2026-27 (Section 115UA pass-through; 115BAA two-fork dividend rule; Section 194LBA 10% TDS with no threshold; return-of-capital under Section 56(2)(xii) from AY 2024-25; 112A LTCG 12.5% above ₹1.25L shared with equity gains; 111A STCG 20% under 12 months).
+- `src-elss-ltcg-2026` — the shared ₹1.25L/yr equity LTCG exemption and 12.5% rate that REIT/InvIT units share with listed shares and equity funds.
 - Repo near 5.25% (late 2025), DICGC ₹5L deposit-insurance limit, 90% REIT/InvIT distribution requirement, and the 75-year prior-search heuristic are marked "(verified 2026-08-06)" or "verify" in the body, not sourced to a named publication in this article.
 
 ## Update log
 
+- 2026-10-17: Replaced the placeholder REIT tax paragraph with the full component-level pass-through treatment (115UA, 194LBA TDS, 56(2)(xii) return-of-capital, 112A/111A capital gains) from `src-reit-invit-tax-2026`; flagged the August 2026 amendment to Section 115UA(2) (corporate-level gains on trust disposal — unitholder side unchanged) as a verify item.
 - 2026-08-06: Verified repo near 5.25% (late 2025) and DICGC ₹5L limit as "(verified 2026-08-06)" anchors; flagged both for re-verification against the latest RBI MPC and DICGC notification.
 - 2026-08-06: Verified FY 2025-26 slab structure against `src-it-slab-fy2025-26`; flagged the standard-expense deduction limit on rental income as "verify the current-year limit."
 - 5–10% REIT/InvIT distribution yield band and the 2–3% residential NPI band are pattern-level statements, not sourced constants; revisit when you source a specific city's rental data or a specific REIT's distribution history.
@@ -1106,6 +1123,8 @@ F -->|defect found| I[Walk away or<br/>demand the<br/>discount; the<br/>risk is 
 ## Sources & Citations
 
 - **Income Tax Department / Union Budget 2025** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) - unchanged from the Budget 2025 reset. https://www.indiabudget.gov.in/doc/Finance_Bill.pdf (verified 2026-10-16)
+- **Tax Garden (31 Aug 2026) / VittSphere ONE / SEBI Item 13 memo (Sep 2025)** — REIT/InvIT taxation AY 2026-27: Section 115UA pass-through; distribution components (interest / dividend two-fork under 115BAA / rental / return-of-capital) taxed separately; 194LBA TDS 10% (resident) no threshold; 56(2)(xii) return-of-capital tax from AY 2024-25; capital gains 111A STCG 20% under 12 months, 112A LTCG 12.5% above Rs 1.25L (shared with equity gains, Sec 112A expressly covers units of a business trust). https://taxgarden.in/blog/reit-invit-taxation-india-ay-2026-27-section-115ua-distributions-capital-gains (verified 2026-10-17)
+- **Upstox / Value Research / SEBI Investor / Economic Times (ELSS + FY 2025-26 MF tax rules)** — ELSS taxation 2026: Rs 1.5L 80C deduction (old regime only; no deduction under the default new regime), mandatory 3-year lock-in per allotment (SIP instalments lock-in separately), 80% equity minimum, LTCG 12.5% above Rs 1.25L/yr shared across all equity gains. https://upstox.com/learning-center/mutual-funds/how-to-calculate-ltcg-tax-on-elss-mutual-funds/article-943 (verified 2026-10-17)
 
 ---
 Educational content, not individualized investment, tax, accounting, or legal advice.

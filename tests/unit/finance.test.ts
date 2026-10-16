@@ -12,6 +12,7 @@ import {
   p2pExpectedNetReturn, portfolioExpectedReturn, maxDrawdown, feeImpact,
   bondPrice, macaulayDuration, currencyScenario, rentalYield, propertyTransactionCosts,
   pmsSimulation,
+  newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend,
 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
@@ -284,5 +285,50 @@ describe('currency, rental, transaction costs', () => {
   });
   it('transaction costs round-trip', () => {
     expect(propertyTransactionCosts(10000000, 0.07, 0.02)).toBeCloseTo(900000, 0);
+  });
+});
+
+describe('FY 2026-27 tax slabs', () => {
+  it('new regime: slabs + 87A rebate', () => {
+    // nil up to 12L via the 87A rebate
+    expect(newRegimeTaxFY27(0)).toBe(0);
+    expect(newRegimeTaxFY27(1200000)).toBe(0);
+    // 14.25L -> 4L@0 + 4L@5% + 4L@10% + 2.25L@15%
+    expect(newRegimeTaxFY27(1425000)).toBe(20000 + 40000 + 33750);
+    // 25L -> 4L@0 + 4L@5% + 4L@10% + 4L@15% + 4L@20% + 4L@25% + 1L@30%
+    expect(newRegimeTaxFY27(2500000)).toBe(20000 + 40000 + 60000 + 80000 + 100000 + 30000);
+  });
+
+  it('old regime: classic 4-slab structure, 87A to 5L', () => {
+    // nil up to 5L via the 87A (Rs 12,500) rebate
+    expect(oldRegimeTaxFY27(0)).toBe(0);
+    expect(oldRegimeTaxFY27(500000)).toBe(0);
+    // 10L -> 0.25L@5% + 0.5L@20%
+    expect(oldRegimeTaxFY27(1000000)).toBe(12500 + 100000);
+    // 15L -> 12500 + 100000 + 5L@30%
+    expect(oldRegimeTaxFY27(1500000)).toBe(12500 + 100000 + 150000);
+    // 10.25L example from the article
+    expect(oldRegimeTaxFY27(1025000)).toBe(12500 + 100000 + 7500);
+    // 19.6L -> 12500 + 100000 + 9.6L@30%
+    expect(oldRegimeTaxFY27(1960000)).toBe(12500 + 100000 + 288000);
+  });
+
+  it('regime comparison at defaults', () => {
+    // 15L gross, no deductions: new regime is cheaper
+    expect(newRegimeTaxFY27(1500000 - 75000)).toBeLessThan(oldRegimeTaxFY27(1500000 - 50000));
+    // 15L gross with 2.4L deductions: old taxable = 12.1L -> 12500 + 100000 + 2.1L@30% = 175500
+    const o = oldRegimeTaxFY27(1500000 - 50000 - 240000);
+    expect(o).toBe(12500 + 100000 + 63000);
+  });
+
+  it('core-satellite blend math', () => {
+    const r = coreSatelliteBlend(1000000, 0.7, 0.082, 0.11, 4);
+    expect(r.blendedYield).toBeCloseTo(0.0904, 4); // 70%@8.2 + 30%@11 = 9.04
+    expect(r.totalInterest).toBeCloseTo(90400, 0);
+    expect(r.coreInterest).toBeCloseTo(57400, 0);
+    expect(r.satelliteInterest).toBeCloseTo(33000, 0);
+    expect(r.singleDefaultLoss).toBeCloseTo(75000, 6); // 30% of 10L across 4 names
+    const none = coreSatelliteBlend(0, 0.7, 0.082, 0.11, 4);
+    expect(none.blendedYield).toBe(0);
   });
 });

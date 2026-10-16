@@ -34,7 +34,7 @@ This is the key number to remember: the new regime is deliberately engineered to
 
 ### Old-regime slabs (still available as an option in FY 2026-27)
 
-The old regime keeps its classic structure — 0% up to ₹3L, 5% to ₹7L, 20% to ₹10L, 30% above (those lower slabs were widened in Budget 2025 and carry over unchanged to FY 2026-27) — **and** it unlocks Chapter VI-A deductions: 80C (₹1,50,000), 80D (₹25,000, more for senior parents), home-loan interest under 24(b) (₹2,00,000 of interest, 20% of that = ₹40,000 in deduction), HRA, and 80CCD(1B) NPS (₹50,000 extra, on top of 80C). Because the top slab is 30% and the deduction stack is rich, the old regime can win for high-income people with big housing or insurance outlays — but only if the deductions actually exceed the slab savings. That is the decision, and it is a *calculation*, not a vibe.
+The old regime keeps its classic structure — **nil up to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above** (Budget 2025 widened the *new* regime slabs only; the old regime kept this shape and it carries unchanged into FY 2026-27; senior citizens get a ₹3L nil band, super-seniors ₹5L) — **and** it unlocks Chapter VI-A deductions: 80C (₹1,50,000), 80D (₹25,000, more for senior parents), home-loan interest under 24(b) (₹2,00,000 of interest, 20% of that = ₹40,000 in deduction), HRA, and 80CCD(1B) NPS (₹50,000 extra, on top of 80C). Because the top slab is 30% and the deduction stack is rich, the old regime can win for high-income people with big housing or insurance outlays — but only if the deductions actually exceed the slab savings. That is the decision, and it is a *calculation*, not a vibe.
 
 ### Worked example: ₹15 lakh salary, HRA shown as illustrative
 
@@ -60,21 +60,20 @@ Income is above ₹12L, so no 87A rebate. Below ₹50L, so no surcharge. Add **4
 
 ```math
 T_{\text{taxable}} = 15{,}00{,}000 - 1{,}20{,}000_{\text{HRA}} - 1{,}50{,}000_{\text{80C}}
-- 50{,}000_{\text{80CCD(1B)}} - 25{,}000_{\text{80D}} = 10{,}25{,}000
+- 50{,}000_{\text{80CCD(1B)}} - 25{,}000_{\text{80D}} - 50{,}000_{\text{std. deduction}} = 11{,}05{,}000
 ```
 
 | Slab | Amount in slab | Tax |
 |---|---|---|
-| Up to ₹3L | ₹3,00,000 | ₹0 |
-| ₹3L–₹5L | ₹2,00,000 | ₹10,000 (5%) |
-| ₹5L–₹7L | ₹2,00,000 | ₹50,000 (20%) |
-| ₹7L–₹10L | ₹3,00,000 | ₹1,20,000 (20%) |
-| Above ₹10L | ₹25,000 | ₹10,500 (30%) |
-| **Tax before cess** | | **≈ ₹1,90,500** |
+| Up to ₹2.5L | ₹2,50,000 | ₹0 |
+| ₹2.5L–₹5L | ₹2,50,000 | ₹12,500 (5%) |
+| ₹5L–₹10L | ₹5,00,000 | ₹1,00,000 (20%) |
+| Above ₹10L | ₹1,05,000 | ₹31,500 (30%) |
+| **Tax before cess** | | **₹1,44,000** |
 
-No 87A rebate (income > ₹5L, and 87A applies only when total income is below the rebate ceiling). Add 4% cess ≈ ₹7,620. **Total old-regime tax ≈ ₹1,98,120.**
+No 87A rebate (income > ₹5L, and 87A applies only when total income is below the ₹5L old-regime ceiling). Add 4% cess: 0.04 × 1,44,000 = ₹5,760. **Total old-regime tax ≈ ₹1,50,000.**
 
-**Reading the result.** The new regime wins by nearly ₹1 lakh. Why? At ₹15L the slab benefit of the new regime (15% on the ₹12–16L band) is so strong that even giving up ~₹3.3L of old-regime deductions does not close the gap. This is the typical picture for a salaried person in this bracket: **new regime.** The old regime becomes competitive only when your *deduction stack is very large* (a big home-loan interest, heavy 80C, 80CCD(1B), and medical) — often somewhere above ₹20–25L of income — at which point the 30% marginal rate makes each ₹1 of deduction worth ₹0.30 while a new-regime rupee of income is often taxed at just 20–25%.
+**Reading the result.** The new regime wins by about ₹52,000 (₹97,500 vs ₹1,50,000). Why? The ~₹3.3L of old-regime deductions is real, but it only lowers taxable income — it does not change the steeper old-regime slabs (20% from ₹5L, 30% above ₹10L). At ₹15L the new regime's flatter 15% band on the ₹12–16L slice means the *lower* taxable income under the old regime still lands in a heavier slab load, so the new regime's cleaner rate structure beats the deductions. This is the typical picture for a salaried person in this bracket: **new regime.** The old regime becomes competitive only when your *deduction stack is very large* (a big home-loan interest, heavy 80C, 80CCD(1B), and medical) that pushes old-regime taxable income down deep enough to escape the 20%/30% bands — often only somewhere above ₹20–25L of income, where each ₹1 of a 30%-slab deduction saves ₹0.30 while a new-regime rupee of income is often taxed at just 15–20%.
 
 The cleanest way to express "what does one more rupee of income cost me here" is the **marginal tax rate**, the rate on the next incremental rupee:
 

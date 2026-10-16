@@ -17,6 +17,8 @@ Tax rules are the single most time-sensitive part of this book. Every figure is 
 3. International Investing & LRS for Indian Residents
 4. ESOPs & RSUs for Indian Employees: The Two-Stage Tax That Everyone Gets Wrong
 5. Tax Loss Harvesting & Set-Off in India: The 8-Year Loss Asset Most Investors Let Expire
+6. Building the Tax-Efficient Wealth Stack: 80C, NPS, PPF, ELSS & the Interest Layers, Worked Out
+7. HUF Wealth Structure: The Second Tax Entity Your Family Can Legally Create
 
 
 
@@ -58,7 +60,7 @@ This is the key number to remember: the new regime is deliberately engineered to
 
 ### Old-regime slabs (still available as an option in FY 2026-27)
 
-The old regime keeps its classic structure — 0% up to ₹3L, 5% to ₹7L, 20% to ₹10L, 30% above (those lower slabs were widened in Budget 2025 and carry over unchanged to FY 2026-27) — **and** it unlocks Chapter VI-A deductions: 80C (₹1,50,000), 80D (₹25,000, more for senior parents), home-loan interest under 24(b) (₹2,00,000 of interest, 20% of that = ₹40,000 in deduction), HRA, and 80CCD(1B) NPS (₹50,000 extra, on top of 80C). Because the top slab is 30% and the deduction stack is rich, the old regime can win for high-income people with big housing or insurance outlays — but only if the deductions actually exceed the slab savings. That is the decision, and it is a *calculation*, not a vibe.
+The old regime keeps its classic structure — **nil up to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above** (Budget 2025 widened the *new* regime slabs only; the old regime kept this shape and it carries unchanged into FY 2026-27; senior citizens get a ₹3L nil band, super-seniors ₹5L) — **and** it unlocks Chapter VI-A deductions: 80C (₹1,50,000), 80D (₹25,000, more for senior parents), home-loan interest under 24(b) (₹2,00,000 of interest, 20% of that = ₹40,000 in deduction), HRA, and 80CCD(1B) NPS (₹50,000 extra, on top of 80C). Because the top slab is 30% and the deduction stack is rich, the old regime can win for high-income people with big housing or insurance outlays — but only if the deductions actually exceed the slab savings. That is the decision, and it is a *calculation*, not a vibe.
 
 ### Worked example: ₹15 lakh salary, HRA shown as illustrative
 
@@ -84,21 +86,20 @@ Income is above ₹12L, so no 87A rebate. Below ₹50L, so no surcharge. Add **4
 
 ```math
 T_{\text{taxable}} = 15{,}00{,}000 - 1{,}20{,}000_{\text{HRA}} - 1{,}50{,}000_{\text{80C}}
-- 50{,}000_{\text{80CCD(1B)}} - 25{,}000_{\text{80D}} = 10{,}25{,}000
+- 50{,}000_{\text{80CCD(1B)}} - 25{,}000_{\text{80D}} - 50{,}000_{\text{std. deduction}} = 11{,}05{,}000
 ```
 
 | Slab | Amount in slab | Tax |
 |---|---|---|
-| Up to ₹3L | ₹3,00,000 | ₹0 |
-| ₹3L–₹5L | ₹2,00,000 | ₹10,000 (5%) |
-| ₹5L–₹7L | ₹2,00,000 | ₹50,000 (20%) |
-| ₹7L–₹10L | ₹3,00,000 | ₹1,20,000 (20%) |
-| Above ₹10L | ₹25,000 | ₹10,500 (30%) |
-| **Tax before cess** | | **≈ ₹1,90,500** |
+| Up to ₹2.5L | ₹2,50,000 | ₹0 |
+| ₹2.5L–₹5L | ₹2,50,000 | ₹12,500 (5%) |
+| ₹5L–₹10L | ₹5,00,000 | ₹1,00,000 (20%) |
+| Above ₹10L | ₹1,05,000 | ₹31,500 (30%) |
+| **Tax before cess** | | **₹1,44,000** |
 
-No 87A rebate (income > ₹5L, and 87A applies only when total income is below the rebate ceiling). Add 4% cess ≈ ₹7,620. **Total old-regime tax ≈ ₹1,98,120.**
+No 87A rebate (income > ₹5L, and 87A applies only when total income is below the ₹5L old-regime ceiling). Add 4% cess: 0.04 × 1,44,000 = ₹5,760. **Total old-regime tax ≈ ₹1,50,000.**
 
-**Reading the result.** The new regime wins by nearly ₹1 lakh. Why? At ₹15L the slab benefit of the new regime (15% on the ₹12–16L band) is so strong that even giving up ~₹3.3L of old-regime deductions does not close the gap. This is the typical picture for a salaried person in this bracket: **new regime.** The old regime becomes competitive only when your *deduction stack is very large* (a big home-loan interest, heavy 80C, 80CCD(1B), and medical) — often somewhere above ₹20–25L of income — at which point the 30% marginal rate makes each ₹1 of deduction worth ₹0.30 while a new-regime rupee of income is often taxed at just 20–25%.
+**Reading the result.** The new regime wins by about ₹52,000 (₹97,500 vs ₹1,50,000). Why? The ~₹3.3L of old-regime deductions is real, but it only lowers taxable income — it does not change the steeper old-regime slabs (20% from ₹5L, 30% above ₹10L). At ₹15L the new regime's flatter 15% band on the ₹12–16L slice means the *lower* taxable income under the old regime still lands in a heavier slab load, so the new regime's cleaner rate structure beats the deductions. This is the typical picture for a salaried person in this bracket: **new regime.** The old regime becomes competitive only when your *deduction stack is very large* (a big home-loan interest, heavy 80C, 80CCD(1B), and medical) that pushes old-regime taxable income down deep enough to escape the 20%/30% bands — often only somewhere above ₹20–25L of income, where each ₹1 of a 30%-slab deduction saves ₹0.30 while a new-regime rupee of income is often taxed at just 15–20%.
 
 The cleanest way to express "what does one more rupee of income cost me here" is the **marginal tax rate**, the rate on the next incremental rupee:
 
@@ -912,6 +913,288 @@ A practical *minimum* harvesting routine:
 - **NumberIQ / CalcWise / Patron Accounting (AY 2026-27 set-off & carry-forward guides)** — Set-off and carry-forward of losses, AY 2026-27: Sec 70 intra-head first, Sec 71 inter-head (₹2L house-property cap; capital losses cannot offset salary/interest), unabsorbed capital losses carry 8 AYs under Sec 70(3) only if the return is filed by the Sec 139(1) due date; speculation losses have no 70(3) carry-forward. https://numberiq.in/insights/set-off-carry-forward-losses-income-tax (verified 2026-10-16)
 - **Income Tax Department / Union Budget 2025 (Finance Act 2025) — FY 2026-27 slabs** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) — unchanged from the Budget 2025 reset: 0-4L nil, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30%+; Sec 87A rebate extends tax-free up to Rs 12L; standard deduction Rs 75,000. https://cleartax.in/s/income-tax-slabs (verified 2026-10-16)
 - **Ministry of Finance / SEBI (Rajya Sabha written reply)** — Ministry of Finance written reply, Rajya Sabha Unstarred Q 2633 (retail investor protection in F&O trading), 11 Aug 2026. https://sansad.in/getFile/annex/271/AU2633_w2b25X.pdf (verified 2026-10-16)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.
+
+
+
+---
+
+
+Most Indian investors pick tax-saving instruments one at a time, driven by whichever one an advisor mentioned first. The better approach is to see the whole stack at once: every layer has its own limit, its own instrument pool, and its own exit tax, and the layers stack *additively* before they hit a slippage into the wrong slab. This article lays out the complete FY 2026-27 stack — what qualifies, what the limit is, what the exit cost is — and then works one full example end-to-end, including the new-regime-vs-old-regime break-even that decides whether the stack earns its keep at all.
+
+## The stack at a glance
+
+```mermaid
+flowchart TD
+A[Gross income] --> B[Standard deduction<br/>Rs.75k new / Rs.50k old]
+B --> C[Layer 1: 80C + 80CCD1 + 80CCD1B<br/>Rs.1.5L + Rs.50k + Rs.1.5L employer]
+C --> D[Layer 2: 80D health<br/>Rs.25k / Rs.50k]
+D --> E[Layer 3: loan interest<br/>24b Rs.2L / 80E Rs.1L]
+E --> F[Layer 4: interest income<br/>80TTA Rs.10k / 80TTB Rs.50k]
+F --> G[Taxable income]
+G --> H{87A rebate?}
+H -->|new regime, under Rs.12L| I[Rs.0 tax]
+H -->|else| J[Slab + 4% cess]
+```
+
+Three things control everything downstream:
+
+1. **The stack is an old-regime device.** Under the new (default) regime, Chapter VI-A deductions — 80C, 80CCD(1B), 80D, 80E, 80G, 80TTB — are *not available* (`src-it-slab-fy2026-27`, `src-eldeductions-fy2026-27`). The exceptions that do survive in the new regime are the employer NPS contribution under 80CCD(2) (up to 14% of salary), let-out property interest under 24(b), the Agniveer corpus, and gratuity/leave-encashment exemptions. So before building any stack, run the break-even test below; a ₹10L-income taxpayer usually does *not* need it.
+2. **Each layer has a hard limit.** 80C caps at ₹1.5L across all instruments *combined*; 80CCD(1B) is a separate ₹50,000; 80D is ₹50,000 (₹1L for senior citizen parents); loan interest layers are ₹2L / ₹1L. Unused capacity in one layer does not flow to the next.
+3. **Exit tax is the other half of the benefit.** A PPF that saves you 30% on entry returns tax-free at exit; an NPS saves you 30% on entry but forces a 40% annuity component whose pension is taxed for life; an ELSS saves 30% on entry but the gains are 12.5% above ₹1.25L at exit. The net value of every instrument is entry benefit minus exit cost.
+
+## Layer 1 — the 80C bucket (₹1.5L, old regime only)
+
+Everything below shares *one* ₹1.5L ceiling per individual (the family does not multiply it, except via HUF — see [HUF Wealth Structure](./tax-huf-wealth-structure.mdx)):
+
+| Instrument | Limit within 80C | Lock-in | Exit tax on income/gains | What actually makes it worth it |
+|---|---|---|---|---|
+| PPF | ₹1.5L/yr | 15 yrs | **Nil** (EEE) | 7.1% p.a. FY 2025-26, sovereign-backed, fully tax-free at every stage; the best *risk-free* use of 80C for anyone under 40 |
+| ELSS mutual fund | ₹1.5L/yr | 3 yrs | LTCG 12.5% above ₹1.25L (shared with all equity gains, `src-elss-ltcg-2026`) | Shortest lock-in in the bucket; the 3-year staggered lock-in per SIP instalment; highest-growth use of 80C |
+| SSY | ₹1.5L/yr | to 21 from opening | **Nil** | 8.2% p.a., tax-free including maturity; only for a girl child up to age 10 — for that child it beats PPF on both rate and tax |
+| NSC | ₹1.5L/yr | 5 yrs | Interest taxed at slab (except last year) | 7.7% p.a.; the annual "deemed reinvestment" lets next year's accrued interest qualify as fresh 80C — a compounding tax trick |
+| Tax-saver FD (5-yr) | ₹1.5L/yr | 5 yrs | Interest at slab every year | Locks a 6–7% coupon in a falling-rate world; *no* tax-free status, so the 80C benefit is entry-only |
+| EPF (own contribution above 12%) | up to ₹1.5L | until retirement | tax-free for 5+ years of service | The 12% employer portion is exempt separately; extra self-contribution beyond 12% fills 80C at ~8.25% (FY 2025-26 EPF rate, verified elsewhere on this site) |
+| Life-insurance premium | ₹1.5L/yr | policy term | maturity tax-free if premium under ₹2.5L/yr and sum assured at least 10x premium | Term policies are the *efficient* form: pure protection, premium well inside 80C |
+| Home-loan principal | amount paid | none (loan life) | none (principal is your asset) | The only 80C item with no instrument limit of its own; stamp duty on purchase year also counts |
+| NPS Tier-I own (80CCD(1)) | ₹1.5L/yr | to 60 | partial (below) | Low-cost retirement corpus; the *distinct* 80CCD(1B) part is the point of using NPS |
+| Tuition fees | up to 2 children | none | none | full-time education, India or abroad (verify current eligibility text) |
+
+**The one-line rule:** PPF/SSY/NSC give tax-free or near-free *income*; ELSS and tax-saver FDs give tax on *gains*; life insurance and home-loan principal give *no tax at exit at all* because they aren't income-producing in the first place. If your marginal rate is 20–30% and you have a 15-year horizon, PPF and SSY are the highest net-value uses of 80C. If the horizon is under 5 years, ELSS is the only 80C instrument that unlocks.
+
+## Layer 2 — NPS: the ₹2L route and the December 2025 exit change
+
+NPS is the only retirement instrument with *three* separate tax levers (`src-nps-deductions-2026`):
+
+- **80CCD(1)** — your own contribution, *inside* the ₹1.5L 80C cap (old regime).
+- **80CCD(1B)** — an *additional* ₹50,000 over and above the cap, old regime only. Since FY 2025-26, the same ₹50,000 also covers contributions to a **minor child's NPS Vatsalya** account (a parent chooses: own NPS *or* the child's, not both, within the single limit).
+- **80CCD(2)** — employer contribution, up to 14% of Basic+DA in the new regime (raised from 10% for private-sector employees effective FY 2025-26), available in **both** regimes, and separately capped: combined employer contribution to EPF + NPS + superannuation is exempt up to ₹7.5L a year; anything above is taxable.
+
+The exit side changed on 16 December 2025 (`src-nps-2025-exit`, PFRDA amendment): non-government subscribers can now withdraw **80% of the corpus as lump sum** with only **20% going into the mandatory annuity** (previously 60/40), deferment is extended to age 85, and a corpus under ₹8 lakh can be taken out 100% as lump sum. **The subtlety that secondary summaries miss:** the *allowance* to withdraw 80% is a PFRDA rule; the *tax exemption* under Section 10(12A) still exempts only 60% of the corpus. If you take the extra 20% lump sum, that slice is taxable at your slab. Plan the final exit as: 60% tax-free lump sum + 20% more lump sum at slab rate + 20% annuity (pension taxed for life), and pick the annuity provider on price (Pension Fund Regulator's annuity price tables, or the insurance company route).
+
+Partial withdrawals remain available from year 3 (up to 25% of own contribution, once, for approved purposes). And the equity allocation is no longer effectively capped: the December 2025 amendment allows up to 100% equity option for the growth allocation.
+
+**Who is NPS *not* for?** A new-regime taxpayer who gets no employer NPS contribution: you lock money to 60 for a deduction you cannot claim. The math only works under the old regime, or when your employer is *already* contributing (then it is a free tax-free wrapper in both regimes).
+
+## Layer 3 — loan interest (24(b), 80E, 80EEA/80EEB status)
+
+- **24(b)** — home-loan interest: ₹2L/yr cap on *self-occupied* property (old regime only; for let-out property there is **no cap** and it works in *both* regimes). Pre-construction interest spreads over 5 equal instalments from the year construction completes.
+- **80E** — education-loan interest: up to ₹1L/yr for 8 consecutive years (or until the loan is repaid), old regime. No cap means a ₹25L engineering loan at ~10% generates ₹2–2.5L of annual interest, of which ₹1L is deductible — the most underused deduction in the code for salaried families.
+- **80EEA / 80EEB** — the affordable-housing and EV-loan extra ₹1.5L deductions: both windows are **closed for new loans** (80EEA sanction window ended 31 Mar 2022; 80EEB ended 31 Mar 2023). Existing eligible borrowers continue to claim; nobody new can. (`src-eldeductions-fy2026-27` lists the closed windows.)
+
+## Layer 4 — interest income: 80TTB, 80TTA, and the tax-free interest pool
+
+Deposit and scheme interest is the biggest *post-stack* leak for the ₹10L+ saver, because it is income at your full slab rate every year. Four tools:
+
+1. **80TTA** — savings-account interest deduction, up to ₹10,000/yr, non-seniors only, old regime.
+2. **80TTB** — interest on bank/post-office/co-op deposits (savings, FD, RD, SCSS, NSC) deductible up to **₹50,000/yr** for resident senior citizens (60+), old regime. *Note:* Budget 2026 coverage (BasuNivesh, Mar 2026) reports the 80TTB cap raised to **₹1L** for FY 2026-27 with the TDS threshold for seniors also doubled — this is a secondary-report claim; verify against the Income Tax Department's portal before filing AY 2026-27 (`src-eldeductions-fy2026-27`, flagged "verify").
+3. **Tax-free interest pool** — PPF (7.1%), SSY (8.2%), Sovereign Gold Bonds (coupon tax-free, gains tax-free after 3 years, `src-sgb-discontinued` notes the *issuance* of SGBs stopped in April 2024 but outstanding bonds continue to pay tax-free), and tax-free municipal-bond interest (verify current issue list) — these need no deduction at all because the income itself is exempt.
+4. **SCSS** — 8.2% for 60+, ₹30L cap (`src-scss-8-2`); interest is *taxed* but 80TTB absorbs up to ₹50,000 (₹8.2% x ₹30L = ₹2.46L interest — so 80TTB only shields the slice, and the excess is at slab).
+
+**The sequencing rule:** before buying any taxed-interest product (FD, tax-saver FD, SCSS, NCD — see [NBFC Debenture Underwriting](../fixed-income/fixed-income-nbfc-debentures.mdx)), first fill the tax-free pool (PPF, SSY, SGBs, tax-free bonds). A ₹1L PPF at 7.1% is worth ₹7,100 *in your hand*; a ₹1L FD at 6.5% in the 30% slab is worth ₹4,550. The tax asymmetry beats the 50bp rate gap, which is why "PPF vs FD" is not a fair 7.1 vs 6.5 comparison.
+
+## Worked example: the full stack for a ₹18L-income taxpayer (old regime)
+
+Assumptions: 35-year-old salaried, gross ₹18L, old regime, family of two, no house yet, a 9-year-old girl child. (All figures rounded; verify your own numbers against the latest slab table.)
+
+| Layer | Instrument | Amount | Notes |
+|---|---|---|---|
+| 80C pool (cap ₹1.5L) | PPF | ₹60,000 | tax-free ~7.1%, 15-yr clock starts |
+| 80C pool | ELSS | ₹50,000 | 3-yr lock-in, highest-growth use |
+| 80C pool | SSY | ₹30,000 | 8.2% tax-free, girl child under 10 |
+| 80CCD(1B) | NPS Tier-I | ₹50,000 | *over and above* the 80C cap |
+| 80D | Family health + parents | ₹30,000 | preventive check-up included |
+| Total deductible | | ₹1,80,000 | the 80C items fit under the ₹1.5L cap; NPS and 80D add on top |
+| Standard deduction | | ₹50,000 | old regime |
+
+Pre-deduction income: ₹18,00,000. Post-deductions: ₹18L − ₹1.8L − ₹50k standard = ₹15,70,000. Old-regime tax on ₹15.7L (nil to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above) = 12,500 + 1,00,000 + 1,61,000 = ₹2,73,500; with 4% cess ≈ **₹2.84L**, versus ₹3,37,500 + cess ≈ **₹3.51L** without the stack. The stack saves about **₹72,000** — every rupee of it is worth 30 paise plus cess, because the whole deduction slice from ₹15.7L up to ₹17.5L sits in the 30% band. Note the arithmetic trap: the 80C items are capped at ₹1.5L, so "invest ₹1.6L in PPF/ELSS/SSY" does *not* buy ₹1.6L of deduction — the extra ₹10k buys nothing. And the older 5/10/15% intermediate slabs found in some pre-2013 references no longer exist; the old regime today has just four bands. At a 5% marginal slab (taxable income under ₹5L), the same stack saves under ₹12,000 and the new regime almost certainly wins.
+
+**ELSS exit check:** the ₹40,000 ELSS bought in FY 2026-27 (at the same notional return the PPF earns for comparison, say a 12% CAGR) becomes ₹57,700+ in three years; the ~₹17,000+ gain is under the ₹1.25L annual exemption shared with all equity gains (`src-elss-ltcg-2026`) — so at this scale, ELSS exit cost is *zero*, and the entire 20% entry saving is pure gain. At ₹1.5L/yr forever, gains eventually cross ₹1.25L/yr and the 12.5% tax starts biting; that is the point to re-balance ELSS into plain index funds (which have no 80C entry benefit but the *same* exit treatment).
+
+## The break-even: when the old regime wins
+
+The new regime's advantage is not deductions — it is *lower slabs* (nil to ₹4L, stepping to 30% above ₹24L) plus the ₹75,000 standard deduction (`src-it-slab-fy2026-27`). The decision is mechanical:
+
+**Run both computations** (new-regime tax on gross − 75k standard; old-regime tax on gross − 50k standard − all deductions) and pick the lower. As a rule of thumb (illustrative, not a substitute for the computation): a salaried taxpayer whose total available deductions (80C + 80CCD(1B) + 80D + loan interest) is under roughly **₹3.5–4L** usually lands in the new regime; above that, the old regime's slab depth typically wins. The *only* new-regime NPS benefit is the employer's 80CCD(2) — if your employer already contributes to NPS, ask HR to maximise that slice within the ₹7.5L combined cap; it reduces your tax under *both* regimes without any extra money from you.
+
+The [Tax Shield calculator](/calculators/tax-shield) runs exactly this comparison on your own numbers.
+
+## Common mistakes that destroy the stack
+
+1. **Buying a ULIP "for the 80C benefit."** The 80C deduction on the premium is real, but the fund charges 2–5% per year in loads and fund expenses, and the 5-year lock-in plus exit charges make ULIPs structurally worse than a term plan *plus* an index SIP (worked out in [Insurance Claims, ULIPs & Mis-selling](../insurance/insurance-claims-ulip-mis-selling.mdx)). The same 80C money goes further in an ELSS.
+2. **Letting 80C capacity go unused in March.** The ₹1.5L cap is *annual*, not one-time — the March 2026 ELSS/PPF purchase does not buy you a deduction for April 2026. Set the stack in by January and hold it.
+3. **NSC interest booked as "investment" instead of income.** The deemed-reinvestment trick works, but the interest is still slab-rate income except the final year; model it, don't assume it is tax-free.
+4. **NPS as a tax play in the new regime.** No employer contribution, new regime, NPS chosen purely for the ₹50,000: the deduction does not exist, and you just gave up 20+ years of liquidity for nothing. The only new-regime NPS value is the employer's 80CCD(2) slice.
+5. **Forgetting the shared LTCG bucket.** The ₹1.25L annual exemption is *one bucket across all equity*: listed shares, equity funds, ELSS, REIT/InvIT units (`src-reit-invit-tax-2026`), and foreign equity gains all stack into it. A big equity sale in the year you also redeem ELSS can push the combined gains over the exemption.
+6. **Stacking without insurance.** A ₹2L family health cover and a 20x-income term plan cost under ₹60,000/yr; without them, the 80D and term-premium lines of the stack are the only layer protecting the family, and everything above is just tax arithmetic on money that could vanish under one hospital bill.
+
+## The stack as a habit, not a March scramble
+
+The difference between "filed a tax-saving ITR" and "built a tax-efficient wealth stack" is that the stack has *time asymmetry*: PPF/SSY/ELSS compounding starts on the first rupee, not on the first assessment year. The minimum viable version for a ₹10L-income, 30-year-old, old-regime taxpayer is:
+
+- **Fixed, monthly:** PPF ₹8,000/mo (₹96k/yr) + ELSS ₹4,000/mo (₹48k/yr, SIP so the 3-year lock-in staggers), term + health premiums billed monthly.
+- **Fixed, yearly:** 80CCD(1B) ₹50,000 NPS (January), NSC/SSY top-ups, 80D balance before 31 March.
+- **Quarterly check:** AIS (Annual Information Statement) against bank/demat statements — TDS on REIT distributions, NCD coupons, and rental income all land in the AIS, and the stack's value is destroyed by an income line nobody noticed (`src-reit-invit-tax-2026` has the component-level filing guide).
+- **Annual:** re-run the regime break-even, re-price the NPS annuity at 60, and decide whether the ELSS bucket has outgrown its 80C job.
+
+## Related
+
+- [Indian Taxation for Investors](./tax-india-investor-complete.mdx) — the slab and capital-gains substrate this stack sits on.
+- [HUF Wealth Structure](./tax-huf-wealth-structure.mdx) — the second *entity* that multiplies the stack's capacity legally.
+- [Small Savings Schemes](../government-schemes/govt-small-savings-schemes.mdx) — the tax-free pool (PPF, SSY, NSC, SCSS, SGBs) in detail.
+- [Your 10 Lakh Wealth Plan](../personal-finance/pf-wealth-plan-10-lakh.mdx) — where the stack's fixed lines live inside a real monthly plan.
+
+## Sources
+
+- `src-it-80c-150k` — Section 80C limit ₹1.5L, old regime only.
+- `src-nps-2025-exit` — PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 16 Dec 2025: 80% lump sum / 20% annuity allowance, deferment to 85, ₹8L full-withdrawal threshold; Section 10(12A) tax exemption remains 60% (corroborated by PFRDA press release 19 Dec 2025).
+- `src-nps-deductions-2026` — 80CCD(1)/(1B)/(2) structure: ₹50,000 extra under 1B (old regime, incl. Vatsalya from FY 2025-26), employer 14% both regimes, ₹7.5L combined employer cap.
+- `src-elss-ltcg-2026` — ELSS 3-year lock-in, 80C ₹1.5L, LTCG 12.5% above ₹1.25L shared across equity gains; new regime: no deduction.
+- `src-eldeductions-fy2026-27` — FY 2026-27 deduction list: 80TTB reported hike to ₹1L (verify against Income Tax portal), 80EEA/80EEB windows closed, Income Tax Act 2025 renumbering (80C → 123 etc.).
+- `src-it-slab-fy2026-27` — FY 2026-27 new-regime slabs (nil to ₹4L … 30% above ₹24L), 87A ₹12L, ₹75k standard deduction.
+- `src-sgb-discontinued` — SGB issuance stopped April 2024; outstanding bonds keep paying tax-free coupon, gains tax-free after 3 years.
+- `src-scss-8-2` — SCSS 8.2%, ₹30L cap, 60+.
+
+## Update log
+
+- 2026-10-17: Verified 80CCD(1B) Vatsalya inclusion, NPS 14% employer both-regime rule, PFRDA 16 Dec 2025 80/20 exit amendment and its Section 10(12A) 60%-exemption gap, ELSS 12.5%-above-₹1.25L shared bucket.
+- 2026-10-17: 80TTB "raised to ₹1L in Budget 2026" is a secondary-report claim (`src-eldeductions-fy2026-27`); the Income Tax Department's threshold page still shows ₹50,000 — kept as flagged pending official confirmation.
+- 2027-04-01: Scheduled re-verification at next Budget: 80C cap, 80CCD(1B) limit, 87A threshold, 80TTB limit, and the regime break-even slabs.
+
+
+## Sources & Citations
+
+- **Income Tax Act / Economic Times** — Section 80C limit remains ₹1.5 lakh (old regime only). https://economictimes.indiatimes.com/wealth/tax/has-section-80c-deduction-limit-hiked-check-how-much-tax-you-can-save-after-union-budget-2025/articleshow/117821055.cms (verified 2026-08-06)
+- **PFRDA (Exits and Withdrawals under NPS) (Amendment) Regulations, 2025** — PFRDA (Exits and Withdrawals under the NPS) (Amendment) Regulations, 2025, w.e.f. 16 Dec 2025. https://www.pfrda.org.in/documents/33652/184762/Gazette+PFRDA+Exit+and+Withdrawals+under+the+NPS+Amendment+Regulations+2025.pdf (verified 2026-10-16)
+- **1 Finance / ClearTax / PFRDA (NPS tax-benefits coverage, 2025-26)** — NPS deduction structure 2026: 80CCD(1) within 80C Rs 1.5L (old regime); 80CCD(1B) extra Rs 50,000 old-regime-only, incl. NPS Vatsalya for a minor child from FY 2025-26; 80CCD(2) employer up to 14% of salary in BOTH regimes (raised from 10% for private sector, FY 2025-26), combined employer EPF+NPS+superannuation exempt cap Rs 7.5L/yr. https://1finance.co.in/blog/nps-tax-benefits-80ccd (verified 2026-10-17)
+- **Upstox / Value Research / SEBI Investor / Economic Times (ELSS + FY 2025-26 MF tax rules)** — ELSS taxation 2026: Rs 1.5L 80C deduction (old regime only; no deduction under the default new regime), mandatory 3-year lock-in per allotment (SIP instalments lock-in separately), 80% equity minimum, LTCG 12.5% above Rs 1.25L/yr shared across all equity gains. https://upstox.com/learning-center/mutual-funds/how-to-calculate-ltcg-tax-on-elss-mutual-funds/article-943 (verified 2026-10-17)
+- **BasuNivesh (18 Mar 2026) + Income Tax Department threshold-limits page (cross-check)** — All tax deductions old vs new regime FY 2026-27 (Budget 2026 + Income Tax Act 2025): 80C Rs 1.5L, 80CCD(1B) Rs 50k, 80D Rs 50k/Rs 1L, 80E Rs 1L, 80TTA Rs 10k, 80TTB reported raised to Rs 1L for seniors (verify - department portal still shows Rs 50k); 80EEA/80EEB sanction windows closed; Income Tax Act 2025 renumbers 80C to Sec 123 etc.; 87A rebate keeps new-regime income up to Rs 12L tax-free. https://www.basunivesh.com/all-tax-deductions-old-vs-new-regime-full-list-fy-2026-27 (verified 2026-10-17)
+- **Income Tax Department / Union Budget 2025 (Finance Act 2025) — FY 2026-27 slabs** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) — unchanged from the Budget 2025 reset: 0-4L nil, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30%+; Sec 87A rebate extends tax-free up to Rs 12L; standard deduction Rs 75,000. https://cleartax.in/s/income-tax-slabs (verified 2026-10-16)
+- **PMJJLayojana / multiple finance desks (consistent report)** — SGB scheme stopped issuing new tranches from FY 2024-25; last tranche Feb 2024. https://pmujjwalayojana.in/sovereign-gold-bond-scheme/ (verified 2026-08-06)
+- **Economic Times / Moneycontrol (quoting govt. quarterly review)** — Senior Citizens' Savings Scheme interest rate 8.2% p.a. for FY 2025-26. https://economictimes.indiatimes.com/wealth/invest/senior-citizens-savings-scheme-has-the-government-revised-scss-interest-rate-for-the-december-quarter/ (verified 2026-10-16)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.
+
+
+
+---
+
+
+An HUF (Hindu Undivided Family) is one of the most misunderstood structures in Indian personal finance — and one of the most useful, because it is not a *company* and not a *partnership*: it is a **person in the eyes of the income-tax law**, arising by operation of family law, with its own PAN, its own bank account, and its own slab of taxable income. Used properly, a family that has one working adult earner plus the assets they generate gets a *second* slab to spread income across. Used improperly, it is an artificial arrangement that the clubbing rules will claw back — with interest. This article covers the full mechanics as they stand in FY 2026-27, under both the 1961 Act and the renumbered Income Tax Act 2025 (which took effect 1 April 2026 and moved the old Section 64(2) clubbing to Sections 99(3)–(4) (`src-huf-tax-2026`)).
+
+## What an HUF actually is (and what it is not)
+
+An HUF is recognised only for persons who follow **Hindu, Buddhist, Jain, or Sikh** personal law (`src-huf-tax-2026`). Three properties define it:
+
+- **It exists by operation of law, not by registration.** A family of two or more persons lineally descended from a common ancestor (coparceners) can be an HUF the moment it is formed — a father with one minor son is already one; there is no "creation filing." What you create on paper is the *documentation*: a HUF deed, then the PAN, then the account. (A husband-and-wife pair with no parent or child is *not* an HUF; that is the single most common "creation" error — no deed, no PAN, and the arrangement quietly fails.)
+- **It is a separate legal person (Section 2(31) of the 1961 Act; corresponding provision in the 2025 Act).** It can own property, borrow, enter contracts, and — the point of this article — it is assessed to tax *as a distinct person* at the same slab rates as an individual, with its own 87A basic-exemption layer.
+- **It persists through partition.** A *partition* splits the property among the coparceners; the HUF can survive with the surviving members (a family can be re-formed as an HUF after partition), and partition itself has a specific tax position (below).
+
+The **Karta** — the senior-most competent male member, or a woman who acts as head — conducts the HUF's affairs, signs the PAN application, operates the bank account, and files the ITR. The Karta role and the legal-heir question are related but separate: the Karta is a *managerial* office, not an ownership interest ([Wills & Succession](../personal-finance/pf-wills-succession.mdx) covers the heir side; a Karta who dies does not cause the HUF to "die" or the property to lapse to the heirs automatically).
+
+## The three-step setup (what actually gets created)
+
+1. **The HUF deed.** A notarised declaration naming all members, identifying the Karta, stating the formation date and the corpus (ancestral property, gifts, or the family's agreed initial contributions). Stamp + notary cost in the low thousands of rupees; the deed itself is not a statutory requirement but is the *evidence* that keeps the structure defensible.
+2. **The PAN** — applied for via NSDL/UTIITSL on Form 49A with the deed, at nominal cost. The HUF's PAN gets its own AIS (Annual Information Statement), its own 26AS, and eventually its own ITR.
+3. **The HUF bank account** — opened with the PAN and the deed. This is where the family *deliberately* routes HUF-owned income (gifts received by the family, income from family property).
+
+**What a HUF cannot do:** it cannot claim HRA, or any personal deduction that presupposes an individual life (80D is available to the HUF as an *entity* insuring its members, but the everyday salary-driven deductions of 80C-HRA type belong to the individuals). And a HUF's 80C ₹1.5L, like everything in the stack, is **old-regime only** (`src-it-slab-fy2026-27`).
+
+## Which income may sit in the HUF — and which gets clubbed
+
+This is where "HUF is a tax hack" advice usually collapses, because the line between *lawful family income* and *income artificially shifted into the family* is policed by the clubbing provisions (Section 64(2) of the 1961 Act; Sections 99(3)–(4) of the Income Tax Act 2025, `src-huf-tax-2026`).
+
+**Income that genuinely belongs to the HUF** (taxed in the HUF's hands, in the HUF's slab):
+
+- **Ancestral / coparcenary property income** — rent or sale proceeds from property the family already owns undivided. This is the cleanest HUF income: it is family property by birthright, not a transfer.
+- **Gifts to the HUF from persons who are not members** — for example, a gift of cash or property from a *sibling's* spouse or a distant relative who is not a coparcener. The gift itself: gifts to a HUF from non-relatives are taxable in the HUF's hands *to the same extent as in an individual's* — over ₹50,000 from a non-relative is a taxable gift (Section 56; see [Gift-tax mechanics](../personal-finance/pf-wills-succession.mdx) and `src-gift-tax-it-dept`) — but the *income generated by the gifted asset* is HUF income, which is the useful part.
+- **Gifts to a minor member at marriage** — wedding gifts received *as a family occasion* are customarily treated as HUF gifts; the income from them is HUF income.
+- **The HUF's own earning** — a HUF that runs a business (rare at the retail scale) or holds and lends out family assets, with the Karta operating it properly.
+
+**Income that gets clubbed into a member's hands** (the traps):
+
+- **Property gifted *by a member* (or by the member's spouse) to the HUF** → the income from that property is taxed in the *transferor's* hands, not the HUF's. The family's own savings moved "into the HUF" to earn interest is the most common version of this error: the Karta's own ₹10L deposited into the HUF account to earn interest is still the Karta's income for tax.
+- **Income from property gifted by a parent to a minor child** → clubbed into the parent's income.
+- **A transfer that is purely an income-shifting device** — the department looks at whether the HUF structure was created *for* the income; a HUF that exists on paper but has no real family function ("two members who never meet") is the profile that gets reassessed.
+
+The honest design, then: an HUF is worth creating when the family *already has* coparcenary assets or receives family gifts; it is a poor tool for moving one member's own savings into a second slab.
+
+## Partition: the Vineeta Sharma position
+
+The landmark **Vineeta Sharma** judgment (SC, 2020, cited in `src-huf-tax-2026`'s treatment of the 2025 Act) fixed two things: every *daughter* has coparcener status by birth (no longer dependent on the father being alive), and — for tax planning — a **partition of HUF property is not a taxable event in the hands of the family**: you do not pay gift tax or capital gains merely because a joint family asset was divided among coparceners.
+
+That makes partition a legitimate and often under-used move: a HUF's coparcenary property can be *divided*, after which each coparcener owns their share outright, the HUF (now smaller or dissolved) stops reporting that property's income, and the individual holds it in their own name with their own cost basis. The discipline is that it must be a *genuine partition* — the same evidence-of-function test as everywhere in this article: deed, separate management, separate accounts, the family actually living that way.
+
+## The worked example: why the second slab matters
+
+A family with one full-time earner (the other partner is a homemaker):
+
+| Entity | Annual income | Tax regime math (old regime, FY 2026-27 slabs: nil to ₹2.5L, 5% to ₹5L, 20% to ₹10L, 30% above) |
+|---|---|---|
+| Individual (Karta) | ₹22L gross − 80C ₹1.5L − standard ₹50k = ₹19.6L taxable | ≈ ₹4.17L tax incl. cess (30% band on the ₹10L–₹19.6L slice) |
+| HUF | ₹8L: coparcenary property rent ₹5L + non-relative family gift income ₹3L (post-₹50k tax treatment applied) | ≈ ₹0.75L tax incl. cess (5% to ₹5L, 20% above; **HUFs cannot claim the 87A rebate** under either regime) |
+| **Combined** | | **≈ ₹4.92L**, versus a *single-person* version of the same ₹30L (₹30L − 80C ₹1.5L − standard ₹50k = ₹28L taxable → ≈ **₹6.79L**) |
+
+The gap is not a fixed number — it is the depth of the *second* slab: while the individual sits in 20–30% territory, the HUF's income is still running at 5–20%, and the combined position saves the spread. Two honesty notes that matter when you reuse this arithmetic: (1) **HUFs cannot claim the Section 87A rebate** — the 87A tax-free tiers (₹5L old / ₹12L new) belong to resident individuals only, so the HUF is taxed from its first rupee on the slab rates. (2) **Income that is genuinely the Karta's own is clubbed back** under Section 64(2), so the HUF's slab room only works on *family* income — coparcenary property rent, gifts from non-member relatives, HUF-owned investments — never on a parked version of the Karta's salary.
+
+**What the example deliberately does *not* do:** it does not move the Karta's own salary or own-savings interest into the HUF — that is the 64(2)/99(3) clubbing trap above, and a HUF whose income is "just the Karta's money in a family-name account" is exactly the arrangement that gets reassessed.
+
+## Filing: the HUF's own ITR
+
+- **Form:** ITR-2 if the HUF has only investment/property income; ITR-3 if the HUF carries business income (`src-huf-tax-2026`).
+- **Deadlines for AY 2026-27 (FY 2025-26):** 31 July 2026 for non-audit returns; 31 October 2026 where a statutory audit applies (as of mid-2026, the July date is the operative one — the October audit-track deadline is the carry-over convention; check the Income Tax Department's current-year notice for any extension).
+- **What the Karta must keep:** the deed, the PAN-49A certificate, the HUF's 26AS/AIS reconciled against the family's demat and bank statements (REIT/InvIT distributions held in the HUF demat, NCD coupons, rental receipts — each lands in the HUF's AIS under the HUF PAN, not the Karta's), and the partition deed if the family partitioned during the year.
+- **A HUF with no income files a nil return?** — *not required* for a HUF (unlike an individual in a few circumstances), but a HUF with a PAN and with *any* investment income is a filer; the "HUF has ₹0 this year, no filing" habit is the one that quietly builds a reassessment file.
+
+## When an HUF is the wrong tool
+
+- **The family is husband-and-wife only, or a single adult** — no HUF can exist; the deed is false on its face and any "HUF" claim fails.
+- **The only "HUF asset" is one member's own savings** — clubbing will put it back in that member's hands; you are paying a CA's fee to get your own income taxed twice over on paper.
+- **The family uses it to shelter speculative/investment behaviour** (a HUF trading F&O, a HUF running a P2P book) — the income form, not the owner's name, sets the tax treatment, and a HUF trading account is exactly the pattern that triggers the "real function?" test.
+- **Partition is imminent** — the structure is being used to hold assets *just long enough* to convert coparcenary status into separate ownership with one partition deed; that is the legitimate use (Vineeta Sharma), but the family needs a deed that evidences the *genuine division*, not a one-page "partition of accounts" signed the month before an asset event.
+
+## Checklist before you create one
+
+1. [ ] Does the family already include *coparceners by blood or a marriage-adjacent* structure (two or more persons lineally related through a common ancestor, at least one of whom is a Karta-eligible senior member)? If the answer is "no, it's just the two of us," stop.
+2. [ ] Which assets are genuinely *family* assets (ancestral, jointly held, family-occasion gifts) versus member-only assets? Only the first set goes in the HUF's name.
+3. [ ] Deed executed, naming all members, Karta identified, corpus listed with document references.
+4. [ ] PAN applied (Form 49A) and in hand; HUF bank account opened *after* the PAN.
+5. [ ] HUF's own demat opened (HUF PAN on it) so that family-held instruments (REITs, NCDs, SGBs, gold ETFs) are issued in the HUF's name — the moment they are in the *individual's* demat, the income is the individual's.
+6. [ ] Karta's personal ITR and HUF ITR filed *separately, every year*, with the HUF's 26AS/AIS reconciled; a HUF with a PAN and a nil income year still keeps the records even if no filing is due that year.
+7. [ ] A partition deed if the family partitions — executed with a lawyer, witnessed, and referenced in the next year's HUF filing.
+8. [ ] Insurance: a HUF cannot own a *term* policy on its own, but family-structured protection (a Karta as proposer for the family's cover) is a separate planning line; don't let the HUF paperwork crowd it out.
+
+## Related
+
+- [Indian Taxation for Investors](./tax-india-investor-complete.mdx) — slabs, 87A, and the ITR-form map this structure sits inside.
+- [Building the Tax-Efficient Wealth Stack](./tax-tax-free-wealth-stack.mdx) — the individual's stack; the HUF is the family's parallel track.
+- [Wills, Succession & the Nominee Trap](../personal-finance/pf-wills-succession.mdx) — the heir-law side of the same family assets; a partition deed and a will do not replace each other.
+- [NBFC Debenture Underwriting](../fixed-income/fixed-income-nbfc-debentures.mdx) — if the HUF holds NCDs in its demat, the coupons land in the HUF's ITR; the underwriting discipline is the same either way.
+
+## Sources
+
+- `src-huf-tax-2026` — Income Tax Department (incometaxindia.gov.in HUF guidance) + FY 2025-26 HUF filing guides: HUF as a separate taxable person under Section 2(31), own PAN, ITR-2/ITR-3, clubbing under 64(2)→99(3)–(4) in the Income Tax Act 2025, Vineeta Sharma partition position, AY 2026-27 filing dates.
+- `src-it-slab-fy2026-27` — the slab and 87A structure the HUF's second slab is measured against.
+- `src-gift-tax-it-dept` — Section 56 gift-tax mechanics for gifts received by a HUF from non-members (over ₹50,000 from a non-relative).
+- `src-wills-succession-2026` — Karta / legal-heir distinction and family property succession context.
+
+## Update log
+
+- 2026-10-17: Verified HUF-creation/PAN/ITR-2 mechanics and the Income Tax Act 2025 renumbering (64(2) → 99(3)–(4)) from `src-huf-tax-2026`; flagged the 31 October 2026 audit-track HUF deadline as a carry-over convention pending the current-year notice.
+- 2027-04-01: Scheduled re-verification at next Budget: HUF slab parity with individual slabs, 87A applicability to HUFs, and any change to the Vineeta Sharma partition position.
+
+
+## Sources & Citations
+
+- **Income Tax Department HUF guidance + Tradeviser / SetIndiaBiz / TaxClue HUF guides (Oct 2026)** — HUF taxation FY 2025-26 / AY 2026-27: HUF is a separate taxable person (Sec 2(31) of the 1961 Act), own PAN, files ITR-2 (investment income) or ITR-3 (business income); dues 31 Jul 2026 non-audit / 31 Oct 2026 audit; clubbing under Sec 64(2) (old Act) = Sec 99(3)-(4) of the Income Tax Act 2025; Vineeta Sharma partition position; HUF gets its own slab + 87A layer. https://www.incometaxindia.gov.in/huf (verified 2026-10-17)
+- **Income Tax Department / Union Budget 2025 (Finance Act 2025) — FY 2026-27 slabs** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) — unchanged from the Budget 2025 reset: 0-4L nil, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30%+; Sec 87A rebate extends tax-free up to Rs 12L; standard deduction Rs 75,000. https://cleartax.in/s/income-tax-slabs (verified 2026-10-16)
+- **Income Tax Department, India** — Tax treatment of gifts received by an individual or HUF: gifts from specified 'relatives' (and on marriage occasion) are exempt; gifts > ₹50,000 from non-relatives are taxable to the recipient under Sec 57(xii). https://www.incometaxindia.gov.in/w/tax-treatment-of-gifts-received-by-an-individual-or-huf-1 (verified 2026-10-16)
+- **GHAR.tv Intelligence / Harunraaj / iWills estate-planning guides (2026)** — Property inheritance & succession law in India 2026: will vs nominee vs succession certificate vs probate — a nominee is a trustee, not an owner; probate requirements vary by state for immovable property. https://www.ghar.tv/intelligence/property-inheritance-succession-law-india-2026-wills-nominee-legal-heir/artgi133 (verified 2026-10-16)
 
 ---
 Educational content, not individualized investment, tax, accounting, or legal advice.

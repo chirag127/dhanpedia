@@ -470,3 +470,99 @@ export function pmsSimulation(
   const feeShareOfFinal = value > 0 ? totalFees / value : 0;
   return { finalValue: value, totalMgmtFees: totalMgmt, totalPerfFees: totalPerf, totalFees, feeShareOfFinal };
 }
+
+/* ------------------------------------------------------------------ *
+ * Income-tax regime comparison (FY 2026-27 slab structure)
+ * ------------------------------------------------------------------ */
+
+/**
+ * New-regime tax on taxable income for FY 2026-27 (the default regime;
+ * slabs unchanged by Budget 2026): nil up to 4L, 5% to 8L, 10% to 12L,
+ * 15% to 16L, 20% to 20L, 25% to 24L, 30% above; 87A rebate keeps income
+ * up to 12L tax-free. `income` is AFTER the standard deduction.
+ * Returns tax before cess.
+ */
+export function newRegimeTaxFY27(income: number): number {
+  if (income <= 0) return 0;
+  let tax = 0;
+  const slabs: Array<[number, number, number]> = [
+    [0, 400000, 0],
+    [400000, 800000, 0.05],
+    [800000, 1200000, 0.1],
+    [1200000, 1600000, 0.15],
+    [1600000, 2000000, 0.2],
+    [2000000, 2400000, 0.25],
+    [2400000, Infinity, 0.3],
+  ];
+  for (const [lo, hi, rate] of slabs) {
+    if (income > lo) tax += Math.min(income, hi) - lo > 0 ? (Math.min(income, hi) - lo) * rate : 0;
+  }
+  // 87A: taxable income up to 12L -> tax capped at the 60k rebate, i.e. zero.
+  if (income <= 1200000) return 0;
+  return tax;
+}
+
+/**
+ * Old-regime income tax on taxable income for FY 2026-27 (general,
+ * resident individual below 60). Verified structure (Economic Times /
+ * Grant Thornton, Budget 2026; TaxFetch; Cleartax):
+ *
+ *   nil up to ₹2,50,000
+ *   5%  on ₹2,50,001 – ₹5,00,000
+ *   20% on ₹5,00,001 – ₹10,00,000
+ *   30% above ₹10,00,000
+ *
+ * Budget 2025 widened the NEW regime only; the old regime kept its classic
+ * 4-slab structure, unchanged into FY 2026-27. `income` is taxable income
+ * after all deductions and the ₹50,000 standard deduction (old regime).
+ * Returns tax before surcharge and cess. The Section 87A old-regime rebate
+ * (₹12,500) makes income up to ₹5,00,000 effectively nil.
+ * Senior (₹3L nil) and super-senior (₹5L nil) exemptions are NOT modelled
+ * here; they only shift the nil band.
+ */
+export function oldRegimeTaxFY27(income: number): number {
+  if (income <= 500000) return 0; // 87A old-regime rebate ceiling
+  let tax = 0;
+  const slabs: Array<[number, number, number]> = [
+    [250000, 500000, 0.05],
+    [500000, 1000000, 0.2],
+    [1000000, Infinity, 0.3],
+  ];
+  for (const [lo, hi, rate] of slabs) {
+    if (income > lo) tax += (Math.min(income, hi) - lo) * rate;
+  }
+  return tax;
+}
+
+/* ------------------------------------------------------------------ *
+ * NCD core-satellite blending (yield ladder diversification math)
+ * ------------------------------------------------------------------ */
+
+export interface CoreSatelliteResult {
+  blendedYield: number;
+  coreInterest: number;
+  satelliteInterest: number;
+  totalInterest: number;
+  /** Principal lost if exactly one of `issuers` satellite issuers defaults (equal weights). */
+  singleDefaultLoss: number;
+}
+
+/**
+ * Core-satellite fixed-income blend: `corpus` split `corePct` at
+ * `coreYield` (AAA/AA) and (1-corePct) at `satYield` (A/BBB) across
+ * `issuers` equally-weighted satellite names. Mathematical illustration.
+ */
+export function coreSatelliteBlend(
+  corpus: number,
+  corePct: number,
+  coreYield: number,
+  satYield: number,
+  issuers: number,
+): CoreSatelliteResult {
+  const coreInterest = corpus * corePct * coreYield;
+  const satInterest = corpus * (1 - corePct) * satYield;
+  const totalInterest = coreInterest + satInterest;
+  const blendedYield = corpus > 0 ? totalInterest / corpus : 0;
+  const singleDefaultLoss = issuers > 0 ? (corpus * (1 - corePct)) / issuers : 0;
+  return { blendedYield, coreInterest, satelliteInterest: satInterest, totalInterest, singleDefaultLoss };
+}

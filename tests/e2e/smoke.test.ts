@@ -44,6 +44,23 @@ test.describe('DhanPedia smoke tests', () => {
     await expect(page.locator('[role="img"]')).toBeVisible();
   });
 
+  test('tax-shield calculator compares new vs old regime', async ({ page }) => {
+    await page.goto('/calculators/tax-shield');
+    await expect(page.getByText('New-regime tax + cess')).toBeVisible();
+    await expect(page.getByText('Old-regime tax + cess')).toBeVisible();
+    await expect(page.getByText(/Save by choosing (new|old)/)).toBeVisible();
+    // Chart for the salary-scaling comparison is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('core-satellite NCD blend calculator renders blended yield', async ({ page }) => {
+    await page.goto('/calculators/core-satellite');
+    await expect(page.getByText('Blended annual yield')).toBeVisible();
+    await expect(page.getByText('Core allocation')).toBeVisible();
+    await expect(page.getByText('Satellite allocation')).toBeVisible();
+    await expect(page.getByText(/If one satellite issuer defaults/)).toBeVisible();
+  });
+
   test('dark mode toggle flips theme and persists', async ({ page }) => {
     await page.goto('/');
     const toggle = page.locator('#theme-toggle');

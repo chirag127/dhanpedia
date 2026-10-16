@@ -1,116 +1,120 @@
 {
-  "note": "Minimum deep book set (revised 2026-10-16). Each book is a coherent collection of reviewed/registered articles. Exports: markdown, html, plain-text (TTS-friendly), epub, print-pdf. Pipeline: scripts/generate-books.mjs.",
-  "version": "2.0",
-  "books": [
-    {
-      "id": "book-complete-indian-investor",
-      "title": "The Complete Indian Investor",
-      "subtitle": "Foundations, Allocation, Mutual Funds, Small-Savings Schemes & Your 10L Plan",
-      "description": "A single-volume reference from first principles (compounding, risk, behavior) through index funds, SIPs, PPF/EPF/NPS/SSY/NSC, gold bonds, and a concrete Rs.10 lakh starting allocation.",
-      "audience": "Beginner-to-intermediate Indian investor with basic financial literacy",
-      "chapters": [
-        "foundations-compounding-returns",
-        "foundations-risk-allocation-behavior",
-        "mf-index-etf-direct-regular",
-        "mf-sip-swp-stp-goals",
-        "mf-choosing-comparing-funds",
-        "govt-small-savings-schemes",
-        "govt-sovereign-gold-bonds",
-        "portfolio-construction-rebalancing",
-        "pf-wealth-plan-10-lakh",
-        "derivatives-fno-retail-realities",
-        "banking-safety-deposits-fd",
-        "pf-credit-loans-debt",
-        "insurance-claims-ulip-mis-selling"
-      ],
-      "preface": "This book is the core DhanPedia volume. It assumes you understand what a bank account and a salary are, and takes you to a complete, tax-aware, risk-graded personal portfolio you can actually build with Rs.10 lakh.",
-      "version": "1.0",
-      "published": "2026-10-16",
-      "formats": [
-        "md",
-        "html",
-        "txt",
-        "tts",
-        "epub",
-        "pdf"
-      ]
-    },
-    {
-      "id": "book-p2p-lending",
-      "title": "P2P Lending in India",
-      "subtitle": "Framework, Expected Loss, Due Diligence, Recovery & Tax (Deep)",
-      "description": "The definitive educational treatment of RBI-regulated peer-to-peer lending: how the 2025 framework works, how returns are generated, expected-loss and loss-given-default math, platform underwriting, recovery, tax treatment, and a portfolio stress test.",
-      "audience": "Advanced investor considering P2P as part of a credit sleeve",
-      "chapters": [
-        "p2p-lending-complete",
-        "fixed-income-bonds-credit",
-        "insurance-protection"
-      ],
-      "preface": "P2P is not a 'safe high-yield' instrument. This book explains the mechanism, the math, and the failure modes so a reader can decide deliberately, not by headline yield.",
-      "version": "1.0",
-      "published": "2026-10-16",
-      "formats": [
-        "md",
-        "html",
-        "txt",
-        "tts",
-        "epub",
-        "pdf"
-      ]
-    },
-    {
-      "id": "book-indian-taxation",
-      "title": "Indian Taxation for Investors",
-      "subtitle": "Regimes, Capital Gains, Deductions, Reporting & International Rules",
-      "description": "A single reference for the tax treatment of every major Indian investment avenue: new vs old regime, slab math, equity STCG/LCG, debt and commodity gains, ELSS/80C, NPS 80CCD, TDS, ITR forms, HUF and DTA reporting.",
-      "audience": "Any Indian investor; advanced for the reporting chapters",
-      "chapters": [
-        "tax-india-investor-complete",
-        "govt-small-savings-schemes",
-        "international-investing-lrs",
-        "tax-esop-stock-grants",
-        "tax-loss-harvesting"
-      ],
-      "preface": "Tax rules are the single most time-sensitive part of this book. Every figure is marked with its verification date and re-verified each Budget cycle.",
-      "version": "1.0",
-      "published": "2026-10-16",
-      "formats": [
-        "md",
-        "html",
-        "txt",
-        "tts",
-        "epub",
-        "pdf"
-      ]
-    },
-    {
-      "id": "book-wealth-beyond-10l",
-      "title": "Wealth Beyond 10 Lakh",
-      "subtitle": "The SIP-to-PMS-to-AIF Growth Path, Alternative Avenues & Retirement",
-      "description": "What happens as your investable capital grows past Rs.10L: structured SIP scaling, PMS and AIF entry, private-market and international avenues, real estate and REITs, and a retirement/FIRE plan that ties it together.",
-      "audience": "Growth-stage investor (Rs.10L+ committed, multi-year horizon)",
-      "chapters": [
-        "pf-wealth-plan-10-lakh",
-        "mf-sip-swp-stp-goals",
-        "alternatives-sif-specialized-funds",
-        "alternatives-pms-aif-private",
-        "international-investing-lrs",
-        "real-estate-reit-invit",
-        "retirement-fire-annuities",
-        "pf-wills-succession",
-        "international-fof-gift-city-lrs"
-      ],
-      "preface": "Higher-return avenues usually require higher capital and longer lock-ins. This book maps the path so the move from SIP to PMS to AIF is deliberate, not a reaction to a good year.",
-      "version": "1.0",
-      "published": "2026-10-16",
-      "formats": [
-        "md",
-        "html",
-        "txt",
-        "tts",
-        "epub",
-        "pdf"
-      ]
-    }
-  ]
+ "note": "Minimum deep book set (revised 2026-10-16). Each book is a coherent collection of reviewed/registered articles. Exports: markdown, html, plain-text (TTS-friendly), epub, print-pdf. Pipeline: scripts/generate-books.mjs.",
+ "version": "2.0",
+ "books": [
+  {
+   "id": "book-complete-indian-investor",
+   "title": "The Complete Indian Investor",
+   "subtitle": "Foundations, Allocation, Mutual Funds, Small-Savings Schemes & Your 10L Plan",
+   "description": "A single-volume reference from first principles (compounding, risk, behavior) through index funds, SIPs, PPF/EPF/NPS/SSY/NSC, gold bonds, and a concrete Rs.10 lakh starting allocation.",
+   "audience": "Beginner-to-intermediate Indian investor with basic financial literacy",
+   "chapters": [
+    "foundations-compounding-returns",
+    "foundations-risk-allocation-behavior",
+    "mf-index-etf-direct-regular",
+    "mf-sip-swp-stp-goals",
+    "mf-choosing-comparing-funds",
+    "govt-small-savings-schemes",
+    "govt-sovereign-gold-bonds",
+    "portfolio-construction-rebalancing",
+    "pf-wealth-plan-10-lakh",
+    "derivatives-fno-retail-realities",
+    "banking-safety-deposits-fd",
+    "pf-credit-loans-debt",
+    "insurance-claims-ulip-mis-selling",
+    "tax-tax-free-wealth-stack"
+   ],
+   "preface": "This book is the core DhanPedia volume. It assumes you understand what a bank account and a salary are, and takes you to a complete, tax-aware, risk-graded personal portfolio you can actually build with Rs.10 lakh.",
+   "version": "1.0",
+   "published": "2026-10-16",
+   "formats": [
+    "md",
+    "html",
+    "txt",
+    "tts",
+    "epub",
+    "pdf"
+   ]
+  },
+  {
+   "id": "book-p2p-lending",
+   "title": "P2P Lending in India",
+   "subtitle": "Framework, Expected Loss, Due Diligence, Recovery & Tax (Deep)",
+   "description": "The definitive educational treatment of RBI-regulated peer-to-peer lending: how the 2025 framework works, how returns are generated, expected-loss and loss-given-default math, platform underwriting, recovery, tax treatment, and a portfolio stress test.",
+   "audience": "Advanced investor considering P2P as part of a credit sleeve",
+   "chapters": [
+    "p2p-lending-complete",
+    "fixed-income-bonds-credit",
+    "insurance-protection",
+    "fixed-income-nbfc-debentures"
+   ],
+   "preface": "P2P is not a 'safe high-yield' instrument. This book explains the mechanism, the math, and the failure modes so a reader can decide deliberately, not by headline yield.",
+   "version": "1.0",
+   "published": "2026-10-16",
+   "formats": [
+    "md",
+    "html",
+    "txt",
+    "tts",
+    "epub",
+    "pdf"
+   ]
+  },
+  {
+   "id": "book-indian-taxation",
+   "title": "Indian Taxation for Investors",
+   "subtitle": "Regimes, Capital Gains, Deductions, Reporting & International Rules",
+   "description": "A single reference for the tax treatment of every major Indian investment avenue: new vs old regime, slab math, equity STCG/LCG, debt and commodity gains, ELSS/80C, NPS 80CCD, TDS, ITR forms, HUF and DTA reporting.",
+   "audience": "Any Indian investor; advanced for the reporting chapters",
+   "chapters": [
+    "tax-india-investor-complete",
+    "govt-small-savings-schemes",
+    "international-investing-lrs",
+    "tax-esop-stock-grants",
+    "tax-loss-harvesting",
+    "tax-tax-free-wealth-stack",
+    "tax-huf-wealth-structure"
+   ],
+   "preface": "Tax rules are the single most time-sensitive part of this book. Every figure is marked with its verification date and re-verified each Budget cycle.",
+   "version": "1.0",
+   "published": "2026-10-16",
+   "formats": [
+    "md",
+    "html",
+    "txt",
+    "tts",
+    "epub",
+    "pdf"
+   ]
+  },
+  {
+   "id": "book-wealth-beyond-10l",
+   "title": "Wealth Beyond 10 Lakh",
+   "subtitle": "The SIP-to-PMS-to-AIF Growth Path, Alternative Avenues & Retirement",
+   "description": "What happens as your investable capital grows past Rs.10L: structured SIP scaling, PMS and AIF entry, private-market and international avenues, real estate and REITs, and a retirement/FIRE plan that ties it together.",
+   "audience": "Growth-stage investor (Rs.10L+ committed, multi-year horizon)",
+   "chapters": [
+    "pf-wealth-plan-10-lakh",
+    "mf-sip-swp-stp-goals",
+    "alternatives-sif-specialized-funds",
+    "alternatives-pms-aif-private",
+    "international-investing-lrs",
+    "real-estate-reit-invit",
+    "retirement-fire-annuities",
+    "pf-wills-succession",
+    "international-fof-gift-city-lrs"
+   ],
+   "preface": "Higher-return avenues usually require higher capital and longer lock-ins. This book maps the path so the move from SIP to PMS to AIF is deliberate, not a reaction to a good year.",
+   "version": "1.0",
+   "published": "2026-10-16",
+   "formats": [
+    "md",
+    "html",
+    "txt",
+    "tts",
+    "epub",
+    "pdf"
+   ]
+  }
+ ]
 }
