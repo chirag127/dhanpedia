@@ -2063,6 +2063,199 @@ export function dtaaReliefFY27(inp: DtaaReliefFY27Input): DtaaReliefFY27Output {
   };
 }
 
+/* ------------------------------------------------------------------
+ * Capital Ladder: the "I have 10L now, more later" roadmap
+ *
+ * Models the investor's corpus growth (lump + monthly SIP + an optional
+ * future lump-sum event) against the four regulatory rung thresholds that
+ * unlock the professional-grade avenues (SIF, PMS/PRIM, standard PMS, AIF)
+ * and reports the surcharge tier at a current vs a future income level.
+ *
+ * Verified FY 2026-27 rung thresholds (SEBI):
+ *   - SIF  (SEBI MF Regs 2026, eff 1 Apr 2026)             : Rs 10,00,000 (PAN-level)
+ *   - PMS/PRIM MF-only (SEBI PM Regs 2026, eff 1 Apr 2027) : Rs 25,00,000
+ *   - AIF employee/director exception                       : Rs 25,00,000
+ *   - Standard PMS (minimum per client)                      : Rs 50,00,000
+ *   - AIF (HNI route)                                       : Rs 1,00,00,000
+ *
+ * All math is pure and deterministic. `monthlySip` and `annualReturn`
+ * drive the corpus trajectory; the surcharge model uses the FY 2026-27
+ * new-regime bands (10% above 50L, 15% above 1Cr, 25% above 2Cr).
+ * ------------------------------------------------------------------ */
+
+export interface CapitalLadderRung {
+  id: string;
+  name: string;
+  threshold: number;
+  unlocks: string;
+  instruments: string[];
+  status: 'unlocked' | 'locked';
+  /** 0 = already unlocked, -1 = not within the 30-year horizon. */
+  monthsToUnlock: number;
+}
+
+export interface CapitalLadderSurcharge {
+  currentTier: { label: string; rate: number };
+  futureTier: { label: string; rate: number };
+  /** Rs, pre-cess, on currentAnnualIncome. */
+  surchargeNow: number;
+  /** Rs, pre-cess, on futureAnnualIncome. */
+  surchargeLater: number;
+  increase: number;
+}
+
+export interface CapitalLadderInput {
+  currentCorpus: number;
+  monthlySip: number;
+  /** Nominal annual return as a decimal, e.g. 0.09. */
+  annualReturn: number;
+  /** A future lump-sum event (promotion / bonus / ESOP). */
+  additionalCapital?: number;
+  /** 1-based month it lands; 0/undefined = none. */
+  additionalCapitalMonth?: number;
+  currentAnnualIncome?: number;
+  futureAnnualIncome?: number;
+  regime?: 'new' | 'old';
+}
+
+export interface CapitalLadderResult {
+  rungs: CapitalLadderRung[];
+  nextRungId: string | null;
+  /** -1 if no rung remains or none is reached within the horizon. */
+  monthsToNextRung: number;
+  /** Fractional years; -1 when no next rung. */
+  yearsToNextRung: number;
+  corpusAtHorizon: number;
+  horizonMonths: number;
+  surcharge: CapitalLadderSurcharge;
+}
+
+/** The four regulatory rung thresholds (verified SEBI minimums). */
+const LADDER_RUNGS: Array<Omit<CapitalLadderRung, 'status' | 'monthsToUnlock'>> = [
+  {
+    id: 'sif-10l',
+    name: 'SIF unlock',
+    threshold: 1000000,
+    unlocks:
+      'SEBI Specialised Investment Fund (MF Regs 2026, eff 1 Apr 2026) - your first professional-grade actively-managed instrument; 10L is the PAN-level aggregate minimum across all SIF strategies of one AMC.',
+    instruments: ['SIF long-short', 'SIF multi-asset', 'SIF credit'],
+  },
+  {
+    id: 'prim-25l',
+    name: 'PMS/PRIM + AIF-employee',
+    threshold: 2500000,
+    unlocks:
+      'SEBI (Portfolio Managers) Regs 2026 (eff 1 Apr 2027) opens the Rs 25L mutual-fund-only PMS "PRIM" route; the same Rs 25L is the AIF minimum for eligible employees/directors of a portfolio company.',
+    instruments: ['PRIM (MF-only PMS)', 'AIF Cat-I (employee/director exception)'],
+  },
+  {
+    id: 'pms-50l',
+    name: 'Standard PMS',
+    threshold: 5000000,
+    unlocks:
+      'The general PMS minimum per client (Rs 50L) - a dedicated portfolio run by a SEBI-registered manager at 1-2.5% management + 10-20% performance fees; the 54EC infrastructure-bond rollover cap is also set at 50L.',
+    instruments: ['PMS (all strategies)', 'AIF Cat-II', '54EC bond recycling'],
+  },
+  {
+    id: 'aif-1cr',
+    name: 'AIF (HNI route)',
+    threshold: 10000000,
+    unlocks:
+      'The standard AIF minimum (Rs 1Cr) - Category I (VC/PE), II (fixed-return debt), III (open-end long-short / leveraged) funds; pass-through taxation and the SEBI 2026 AIF form migration apply.',
+    instruments: ['AIF Cat-I (VC/PE)', 'AIF Cat-II (debt)', 'AIF Cat-III (long-short)'],
+  },
+];
+
+/**
+ * Compute the month-by-month corpus trajectory, the first month each rung
+ * unlocks, and the surcharge-tier shift between a current and a future
+ * income level. Pure and deterministic.
+ */
+export function capitalLadderFY27(inp: CapitalLadderInput): CapitalLadderResult {
+  const corpus0 = Math.max(0, inp.currentCorpus);
+  const sip = Math.max(0, inp.monthlySip);
+  const rMonthly = inp.annualReturn / 12;
+  const addCap = Math.max(0, inp.additionalCapital ?? 0);
+  const addMonth = inp.additionalCapitalMonth ?? 0;
+  const regime: 'new' | 'old' = inp.regime ?? 'new';
+  const horizonMonths = 360;
+
+  let current = corpus0;
+  const trajectory: number[] = [current];
+  for (let m = 1; m <= horizonMonths; m++) {
+    current = current * (1 + rMonthly) + sip;
+    if (addCap > 0 && m === addMonth) current += addCap;
+    trajectory.push(current);
+  }
+
+  const rungs: CapitalLadderRung[] = LADDER_RUNGS.map((def) => {
+    const alreadyUnlocked = corpus0 >= def.threshold;
+    let months = 0;
+    if (!alreadyUnlocked) {
+      months = -1;
+      for (let m = 1; m <= horizonMonths; m++) {
+        if (trajectory[m] >= def.threshold) {
+          months = m;
+          break;
+        }
+      }
+    }
+    return {
+      id: def.id,
+      name: def.name,
+      threshold: def.threshold,
+      unlocks: def.unlocks,
+      instruments: def.instruments,
+      status: alreadyUnlocked ? 'unlocked' : 'locked',
+      monthsToUnlock: months,
+    };
+  });
+
+  const nextLocked = rungs.find((rg) => rg.status === 'locked');
+  const nextRungId = nextLocked ? nextLocked.id : null;
+  const monthsToNextRung = nextLocked ? nextLocked.monthsToUnlock : -1;
+  const yearsToNextRung =
+    nextLocked && nextLocked.monthsToUnlock > 0 ? nextLocked.monthsToUnlock / 12 : -1;
+
+  // Surcharge-tier comparison (new-regime base tax + the band surcharge, pre-cess).
+  const curIncome = Math.max(0, inp.currentAnnualIncome ?? 0);
+  const futIncome = Math.max(0, inp.futureAnnualIncome ?? curIncome);
+  const baseNow = newRegimeTaxFY27(curIncome);
+  const baseLater = newRegimeTaxFY27(futIncome);
+  const scNow = baseNow * surchargeBandRate(curIncome, regime);
+  const scLater = baseLater * surchargeBandRate(futIncome, regime);
+  const surcharge: CapitalLadderSurcharge = {
+    currentTier: ladderTierLabel(curIncome, regime),
+    futureTier: ladderTierLabel(futIncome, regime),
+    surchargeNow: scNow,
+    surchargeLater: scLater,
+    increase: scLater - scNow,
+  };
+
+  return {
+    rungs,
+    nextRungId,
+    monthsToNextRung,
+    yearsToNextRung,
+    corpusAtHorizon: trajectory[horizonMonths],
+    horizonMonths,
+    surcharge,
+  };
+}
+
+function ladderTierLabel(income: number, regime: 'new' | 'old'): { label: string; rate: number } {
+  const rate = surchargeBandRate(income, regime);
+  const tier = SURCHARGE_TIER_LABELS.find((t) => Math.abs(t.rate - rate) < 1e-9);
+  return tier ? { label: tier.label, rate } : { label: rate === 0 ? 'no surcharge' : 'band', rate };
+}
+
+/** Surcharge tiers, new regime (FY 2026-27): 10% > 50L, 15% > 1Cr, 25% > 2Cr. */
+const SURCHARGE_TIER_LABELS: Array<{ above: number; rate: number; label: string }> = [
+  { above: 5000000, rate: 0.1, label: '10% above Rs 50L' },
+  { above: 10000000, rate: 0.15, label: '15% above Rs 1Cr' },
+  { above: 20000000, rate: 0.25, label: '25% above Rs 2Cr' },
+];
+
 /* ------------------------------------------------------------------ *
  * ESOP / RSU two-stage tax (perquisite at exercise + CG at sale)
  * ------------------------------------------------------------------ */

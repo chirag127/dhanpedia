@@ -1,14 +1,44 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 19: 1 new article + 1 new finance function + 1 new calculator + 8 unit tests + 2 e2e tests; 48 → 49 articles; 32 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 20: 1 new article + 1 new finance function + 1 new calculator + 8 unit tests + 2 e2e tests; 49 → 50 articles; 33 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 49 on disk / registered. Wave 19 added 1: `tax-esop-vesting-tax-walkthrough` (the *two-stage ESOP/RSU lifecycle* layer: the exercise-date perquisite (FMV minus exercise price, slab tax on salary), the FMV cost-base step-up under Sec 49(2AA)/Act-2025 Sec 73, the CG-head selection (112A listed LTCG pool vs 111A unlisted LTCG vs Sec 112 STCG at the marginal rate), the shared ₹1.25L annual 112A pool, 4% cess + surcharge stacking, the 80-IAC 60-month startup deferral, the TDS 192→392 Act-2025 migration, the "taxed before you can sell" trap + three escape hatches, the Schedule FA / FAST-DS foreign-parent layer, the advance-tax obligation on the CG stage, two full worked examples (listed ₹10L grant + unlisted startup with deferral), and an ITR filing checklist).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 17, indian-taxation 15 (+ tax-esop-vesting-tax-walkthrough), p2p-lending 4, wealth-beyond-10l 15.
-- **Sources:** 57 in `sources.json` (Wave 19 reused `src-esop-tax-it-dept` and `src-it-slab-fy2026-27`; no new source needed — the IT department's own ESOP guidance + the FY 2026-27 slab table already registered).
-- **Update-log:** 55 tracked (Wave 19 added `ul-esop-80iac-60mo-fy2026-27`, reviewAfter 2027-04-17 — the 60-month 80-IAC window for shares allotted on/after 1 Apr 2026).
-- **Calculators:** 32 (Wave 19 added `esop-vesting-tax`, powered by the new `esopVestingTaxFY27()` pure function, with 8 unit tests and 2 e2e tests).
+- **Articles:** 50 on disk / registered. Wave 20 added 1: `pf-capital-ladder-10l-to-1cr` (the *capital-ladder* layer that answers the user's "I have ₹10L now but can get more later" question: the four SEBI rung thresholds in order — SIF ₹10L (PAN-level, MF Regs 2026, eff 1 Apr 2026), PMS/PRIM + AIF-employee ₹25L (PM Regs 2026, eff 1 Apr 2027), standard PMS ₹50L (which also meets the ₹50L 54EC cap), AIF ₹1Cr HNI route — the corpus math for when each door opens (SIP + optional future lump-sum event), the surcharge-tier shift as income climbs (new-regime 10% > 50L, 15% > 1Cr, 25% cap > 2Cr), a full worked example (₹10L corpus + ₹50k SIP + ₹5L bonus at month 12), and the honest "when a higher rung is the wrong tool" layer). Wave 19 added 1: `tax-esop-vesting-tax-walkthrough` (the *two-stage ESOP/RSU lifecycle* layer: the exercise-date perquisite (FMV minus exercise price, slab tax on salary), the FMV cost-base step-up under Sec 49(2AA)/Act-2025 Sec 73, the CG-head selection (112A listed LTCG pool vs 111A unlisted LTCG vs Sec 112 STCG at the marginal rate), the shared ₹1.25L annual 112A pool, 4% cess + surcharge stacking, the 80-IAC 60-month startup deferral, the TDS 192→392 Act-2025 migration, the "taxed before you can sell" trap + three escape hatches, the Schedule FA / FAST-DS foreign-parent layer, the advance-tax obligation on the CG stage, two full worked examples (listed ₹10L grant + unlisted startup with deferral), and an ITR filing checklist).
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 18, indian-taxation 15 (+ tax-esop-vesting-tax-walkthrough in Wave 19), p2p-lending 4, wealth-beyond-10l 16. Wave 20 added `pf-capital-ladder-10l-to-1cr` as a chapter to both complete-indian-investor and wealth-beyond-10l.
+- **Sources:** 57 in `sources.json` (Wave 20 reused 4 existing sources: `src-sebi-sif-2026`, `src-pms-aif-fees-2026`, `src-aif-categories-2026`, `src-surcharge-cess-fy2026-27` — no new source needed).
+- **Update-log:** 56 tracked (Wave 20 added `ul-capital-ladder-rungs-fy2026-27`, reviewAfter 2027-04-17 — the four SEBI rung thresholds + FY 2026-27 surcharge tiers).
+- **Calculators:** 33 (Wave 20 added `capital-ladder`, powered by the new `capitalLadderFY27()` pure function, with 8 unit tests and 2 e2e tests).
+
+## Wave 20 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/personal-finance/pf-capital-ladder-10l-to-1cr.mdx` — the *capital-ladder* layer that answers the user's "I have ₹10L now but can get more later" question directly: the four SEBI rung thresholds in order (SIF ₹10L PAN-level · MF Regs 2026, eff 1 Apr 2026; PMS/PRIM + AIF-employee ₹25L · PM Regs 2026, eff 1 Apr 2027; standard PMS ₹50L, which also meets the ₹50L 54EC cap; AIF ₹1Cr HNI route), the corpus math for when each door opens (SIP + an optional future lump-sum event), the surcharge-tier shift as income climbs (new-regime 10% > 50L, 15% > 1Cr, 25% cap > 2Cr), a full worked example (₹10L corpus + ₹50k SIP + ₹5L bonus at month 12), and the honest "when a higher rung is the wrong tool" layer (fee-crossover, the ₹25L AIF-employee exception trap, the 1 Apr 2027 PRIM date).
+
+### New finance function + calculator + tests
+- [x] `capitalLadderFY27()` in `src/lib/finance/index.ts` — month-by-month corpus trajectory (lump + SIP + optional event), first-month crossing of each of the four rung thresholds, the next-locked-rung report, and the new-regime surcharge-tier comparison between a current and a future income level.
+- [x] `capital-ladder` calculator page (category: Personal Finance) — 7 inputs (corpus, SIP, expected return, future event ₹ + month, current/future income), 8 result rows, ECharts step chart (rung thresholds + months-to-unlock line).
+- [x] 8 new unit tests (rung-threshold ordering, 10L-already-SIF-unlocked, next-locked-rung, all-unlocked-at-1.5Cr, event-accelerates-rungs, all-locked-zero-corpus, surcharge-tier-shift, corpus-compounding-monotonicity) — **142/142 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; the article test asserts the unique `The four rungs, in order` and `The surcharge-tier shift` headings, avoiding the recurring strict-mode double-heading collision) — **84/84 e2e tests pass**.
+
+### Research verified this session
+- [x] **SIF ₹10L minimum** — SEBI (Mutual Funds) Regulations 2026, introduced 27 Feb 2026, effective 1 Apr 2026; PAN-level aggregate across all SIF strategies of one AMC; ₹13,814 Cr SIF assets by May 2026 (SEBI / etmoney / policycircle cross-checks; the government SEBI PDF is behind a JS shell, corroborated via secondary sources).
+- [x] **PRIM ₹25L MF-only PMS route** — SEBI (Portfolio Managers) Regulations 2026 (replaces the 2020 framework), effective 1 Apr 2027; opens IPO / unlisted-debt / overseas-sec avenues to managers and adds the ₹25L mutual-fund-only "PRIM" portfolio route (PTI / ET / 5paisa / cafemutual).
+- [x] **AIF ₹1Cr / ₹25L employee-director** — the general HNI AIF minimum is ₹1Cr; eligible employees/directors of a portfolio company can enter at ₹25L (aequitas / pcjholdings AIF guides, cross-checked against the hnw-pms-aif-sif-selection article already in the corpus).
+- [x] **Surcharge tiers new regime FY 2026-27** — 10% above ₹50L, 15% above ₹1Cr, 25% cap above ₹2Cr (the 37% old-regime tier above ₹5Cr is abolished for the new regime); 4% cess on top. `src-surcharge-cess-fy2026-27` already registered and consistent.
+
+### Build gotcha hit this session
+- **Unit-test expected-value miscalculation (new test)** — the first version of the "event-accelerates-rungs" test asserted the ₹25L event with zero SIP never reaches ₹50L within 30 years; at 9% p.a. the 25L compounds to 50L in ~93 months and 1Cr in ~186 months, both inside the horizon. Fixed by asserting `93 < months < 96` and `180 < months < 190` for the PMS and AIF rungs respectively. Recurring theme: **always run the unit test after writing it** — the trajectory math is easy to eyeball wrong.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 142 passed.
+- [x] `node scripts/validate-content.mjs` → 50 articles, 4 books, 57 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 216 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed.
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 50/50 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 84 passed (42 desktop + 42 mobile).
 
 ## Wave 19 session (verified 2026-10-18 via web research)
 
@@ -130,11 +160,11 @@ Last updated: **2026-10-18** (Wave 19: 1 new article + 1 new finance function + 
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
 - [ ] Resolve the open 80TTB conflict (`ul-senior-80ttb-limit-2026`): confirm whether the Budget-2026 raise to Rs 1,00,000 is in the Finance Act text - re-run the senior-regime decision if so.
-- [ ] Phase 4 deeper expansion: Wave 20 candidate = GIFT City FoF deep-dive, a 54EC tranche-tracker, or the 10L capital-ladder roadmap article tying together all the rungs.
+- [ ] Phase 4 deeper expansion: Wave 21 candidate = GIFT City FoF deep-dive, a 54EC tranche-tracker, or the personalized `pf-wealth-plan-10-lakh` rewrite once the user answers the 14 questions.
 
 ## Next 3 actions
-1. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers.
-2. Continue the daily article habit (Wave 20 candidate: 10L capital-ladder roadmap — directly answers the user's "I have 10L now but can get more in future" ladder question; highest-value personalization play).
+1. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers (the 10L capital-ladder article now gives the roadmap that the rewrite plugs into).
+2. Continue the daily article habit (Wave 21 candidate: GIFT City FoF deep-dive or a 54EC tranche-tracker).
 3. Resolve the 80TTB conflict and re-verify time-sensitive claims at their reviewAfter dates.
 
 ## Known build-gotchas (recurring)

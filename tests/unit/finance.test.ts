@@ -14,7 +14,7 @@ import {
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
-  dtaaReliefFY27, esopVestingTaxFY27 } from '@lib/finance/index';
+  dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1254,6 +1254,81 @@ describe('esopVestingTaxFY27', () => {
   it('netTaxAfterTds subtracts the employer-withheld perquisite TDS', () => {
     const r = esopVestingTaxFY27(base({ tdsOnPerquisite: 200000 }));
     expect(r.netTaxAfterTds).toBeCloseTo(r.totalTwoStageTax - 200000, 6);
+  });
+});
+
+describe('capitalLadderFY27', () => {
+  const base = (over: Partial<Parameters<typeof capitalLadderFY27>[0]> = {}) => ({
+    currentCorpus: 1000000,
+    monthlySip: 50000,
+    annualReturn: 0.09,
+    ...over,
+  });
+
+  it('exposes the four rung thresholds in ascending order', () => {
+    const r = capitalLadderFY27(base());
+    expect(r.rungs.map((x) => x.threshold)).toEqual([1000000, 2500000, 5000000, 10000000]);
+  });
+
+  it('treats a 10L corpus as already SIF-unlocked', () => {
+    const r = capitalLadderFY27(base());
+    const sif = r.rungs[0];
+    expect(sif.status).toBe('unlocked');
+    expect(sif.monthsToUnlock).toBe(0);
+  });
+
+  it('reports the next locked rung and its months-to-unlock', () => {
+    const r = capitalLadderFY27(base());
+    expect(r.nextRungId).toBe('prim-25l');
+    expect(r.monthsToNextRung).toBe(r.rungs[1].monthsToUnlock);
+    expect(r.monthsToNextRung).toBeGreaterThan(0);
+    expect(r.yearsToNextRung).toBeCloseTo(r.monthsToNextRung / 12, 6);
+  });
+
+  it('marks every rung unlocked when the corpus already exceeds 1Cr', () => {
+    const r = capitalLadderFY27(base({ currentCorpus: 15000000 }));
+    expect(r.rungs.every((x) => x.status === 'unlocked' && x.monthsToUnlock === 0)).toBe(true);
+    expect(r.nextRungId).toBeNull();
+    expect(r.monthsToNextRung).toBe(-1);
+  });
+
+  it('counts a future lump-sum event into the rung timing', () => {
+    // Corpus starts at 0; a 25L event at month 1: SIF and PRIM open at m=1,
+    // then 25L compounds to 50L (PMS, ~93 mo) and 1Cr (AIF, ~186 mo) within 30 yr.
+    const r = capitalLadderFY27(base({
+      currentCorpus: 0, monthlySip: 0,
+      additionalCapital: 2500000, additionalCapitalMonth: 1,
+    }));
+    expect(r.rungs[0].monthsToUnlock).toBe(1); // SIF 10L
+    expect(r.rungs[1].monthsToUnlock).toBe(1); // PRIM 25L
+    expect(r.rungs[2].monthsToUnlock).toBeGreaterThan(90);
+    expect(r.rungs[2].monthsToUnlock).toBeLessThan(96);
+    expect(r.rungs[3].monthsToUnlock).toBeGreaterThan(180);
+    expect(r.rungs[3].monthsToUnlock).toBeLessThan(190);
+  });
+
+  it('with no corpus, no SIP and no event stays fully locked', () => {
+    const r = capitalLadderFY27(base({ currentCorpus: 0, monthlySip: 0 }));
+    expect(r.rungs.every((x) => x.status === 'locked')).toBe(true);
+    expect(r.nextRungId).toBe('sif-10l');
+    expect(r.monthsToNextRung).toBe(-1);
+    expect(r.corpusAtHorizon).toBe(0);
+  });
+
+  it('shifts the surcharge tier as income crosses 50L', () => {
+    const r = capitalLadderFY27(base({ currentAnnualIncome: 4000000, futureAnnualIncome: 6000000 }));
+    // 40L income: base tax 7.8L, no surcharge (below the 50L band). 60L: base 13.8L, 10% surcharge = 1.38L.
+    expect(r.surcharge.surchargeNow).toBe(0);
+    expect(r.surcharge.surchargeLater).toBeCloseTo(138000, 0);
+    expect(r.surcharge.futureTier.rate).toBe(0.1);
+    expect(r.surcharge.increase).toBeCloseTo(r.surcharge.surchargeLater, 0);
+  });
+
+  it('compounds the corpus monotonically toward the horizon', () => {
+    const a = capitalLadderFY27(base());
+    const b = capitalLadderFY27(base({ monthlySip: 100000 }));
+    expect(b.corpusAtHorizon).toBeGreaterThan(a.corpusAtHorizon);
+    expect(a.corpusAtHorizon).toBeGreaterThan(0);
   });
 });
 

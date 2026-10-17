@@ -21,7 +21,7 @@ import {
   afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27,
   npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
   nriIndiaTaxFY27, rolloverExemption, dtaaReliefFY27,
-  esopVestingTaxFY27,
+  esopVestingTaxFY27, capitalLadderFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2034,6 +2034,88 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.totalTwoStageTax), itemStyle: { color: '#1f7a5c' } },
                 ],
                 label: { show: true, formatter: (p: { value: number }) => `Rs ${Math.round(p.value / 1e5)}L` },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'capital-ladder',
+    title: 'The 10L Capital Ladder: Rung-by-Rung Unlock (SIF / PMS / AIF, FY 2026-27)',
+    category: 'Personal Finance',
+    description:
+      'Model how a Rs 10L starter corpus (plus a monthly SIP and an optional future lump-sum event) climbs the SEBI rung ladder: the SIF 10L unlock (MF Regs 2026), the Rs 25L PMS/PRIM + AIF-employee unlock (PM Regs 2026), the standard PMS 50L unlock, and the AIF 1Cr unlock - with the months to cross each door and the surcharge-tier shift as income grows.',
+    inputs: [
+      { key: 'currentCorpus', label: 'Current investable corpus (Rs)', default: 1000000, min: 0, step: 100000, hint: 'The lump sum you can deploy today. 10L already unlocks the SIF door.' },
+      { key: 'monthlySip', label: 'Monthly SIP / top-up (Rs)', default: 50000, min: 0, step: 5000, hint: 'The recurring amount added at month-end each month.' },
+      { key: 'annualReturn', label: 'Expected annual return (%)', default: 9, min: 0, max: 30, step: 0.5, hint: 'Nominal annual return on the combined corpus; 9-10% is a conservative blended long/short assumption.' },
+      { key: 'additionalCapital', label: 'Future lump-sum event (Rs)', default: 500000, min: 0, step: 50000, hint: 'A promotion bonus, ESOP exercise, or inherited capital landing later. 0 for none.' },
+      { key: 'additionalCapitalMonth', label: 'Month that event lands', default: 12, min: 0, max: 360, step: 1, hint: '1-based month it is added to the corpus. 0 = no event.' },
+      { key: 'currentAnnualIncome', label: 'Current annual income (Rs)', default: 2000000, min: 0, step: 100000, hint: 'For the surcharge-tier model: your income today (pre-supercharge base tax at the new-regime slabs).' },
+      { key: 'futureAnnualIncome', label: 'Future annual income (Rs)', default: 4000000, min: 0, step: 100000, hint: 'Your expected income when the corpus is larger; shows the surcharge-tier jump (10% above 50L, 15% above 1Cr, 25% above 2Cr).' },
+    ],
+    assumptions: [
+      'Rung thresholds are the SEBI regulatory minimums (verified FY 2026-27): SIF Rs 10L (PAN-level), PMS/PRIM Rs 25L (MF-only, PM Regs 2026), standard PMS Rs 50L, AIF Rs 1Cr.',
+      'The corpus grows at a constant monthly return plus the SIP; the optional lump-sum event is added at its month and compounds afterwards.',
+      'Surcharge uses the new-regime FY 2026-27 bands (10% above 50L, 15% above 1Cr, 25% above 2Cr) applied to the new-regime base tax, pre-cess.',
+      'Reaching a rung means the corpus *available for deployment* clears the minimum; it does not require abandoning existing investments.',
+    ],
+    limitations: [
+      'SIF and PMS fees are not modelled here (see the after-tax-wedge calculator); this tool answers "when do I qualify?", not "should I?".',
+      'AIF Category-I employee/director minimum is Rs 25L only when you are an eligible employee/director of the portfolio company; the general HNI route is Rs 1Cr.',
+      'The 25L PRIM route opens 1 Apr 2027; before that, the only sub-50L professional door is the SIF at 10L.',
+      'This is a qualification-timing model, not a filing or tax computation - reconcile with a CA before acting.',
+    ],
+    compute: (v) => {
+      const r = capitalLadderFY27({
+        currentCorpus: v.currentCorpus,
+        monthlySip: v.monthlySip,
+        annualReturn: v.annualReturn / 100,
+        additionalCapital: v.additionalCapital,
+        additionalCapitalMonth: v.additionalCapitalMonth,
+        currentAnnualIncome: v.currentAnnualIncome,
+        futureAnnualIncome: v.futureAnnualIncome,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const mfmt = (m: number) => m < 0 ? 'beyond 30 yr' : m === 0 ? 'now' : m + ' mo (' + (m / 12).toFixed(1) + ' yr)';
+      const results = [
+        { label: 'SIF (Rs 10L) status', value: mfmt(r.rungs[0].monthsToUnlock), sub: r.rungs[0].status },
+        { label: 'PMS/PRIM (Rs 25L) status', value: mfmt(r.rungs[1].monthsToUnlock), sub: 'PM Regs 2026, eff 1 Apr 2027' },
+        { label: 'Standard PMS (Rs 50L) status', value: mfmt(r.rungs[2].monthsToUnlock), sub: 'min per client' },
+        { label: 'AIF (Rs 1Cr) status', value: mfmt(r.rungs[3].monthsToUnlock), sub: 'HNI route' },
+        { label: 'Next locked rung', value: r.nextRungId ? cr(r.rungs.find((x) => x.id === r.nextRungId).threshold) : 'all unlocked', sub: mfmt(r.monthsToNextRung) },
+        { label: 'Corpus at 30-yr horizon', value: cr(r.corpusAtHorizon), sub: 'with SIP + event' },
+        { label: 'Surcharge tier now', value: r.surcharge.currentTier.label, sub: cr(r.surcharge.surchargeNow) },
+        { label: 'Surcharge tier later', value: r.surcharge.futureTier.label, sub: cr(r.surcharge.surchargeLater) },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'When each rung unlocks (months)',
+          alt: 'Step chart of the four rung thresholds with the months to reach each from the current corpus plus SIP',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: { type: 'category', data: r.rungs.map((x) => x.name.replace(' unlock', '')) },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Threshold',
+                type: 'bar',
+                data: r.rungs.map((x) => x.threshold),
+                itemStyle: { color: '#3a6ea5' },
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+              {
+                name: 'Months to unlock',
+                type: 'line',
+                data: r.rungs.map((x) => (x.monthsToUnlock < 0 ? null : x.monthsToUnlock)),
+                itemStyle: { color: '#1f7a5c' },
+                yAxisIndex: 0,
               },
             ],
           },

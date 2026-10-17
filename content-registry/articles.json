@@ -1538,6 +1538,48 @@
       "books": [
         "book-indian-taxation"
       ]
+    },
+    {
+      "id": "pf-capital-ladder-10l-to-1cr",
+      "file": "src/content/personal-finance/pf-capital-ladder-10l-to-1cr.mdx",
+      "title": "The 10-Lakh Capital Ladder: The Rung-by-Rung Roadmap from ₹10L to ₹1Cr+ (FY 2026-27)",
+      "category": "personal-finance",
+      "status": "published",
+      "difficulty": "intermediate",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "capital-ladder",
+        "sif",
+        "pms",
+        "prim",
+        "aif",
+        "hni",
+        "sebi-2026",
+        "surcharge",
+        "10-lakh",
+        "corpus",
+        "roadmap",
+        "allocation"
+      ],
+      "sources": [
+        "src-sebi-sif-2026",
+        "src-pms-aif-fees-2026",
+        "src-aif-categories-2026",
+        "src-surcharge-cess-fy2026-27"
+      ],
+      "related": [
+        "pf-wealth-plan-10-lakh",
+        "alternatives-hnw-pms-aif-sif-selection",
+        "alternatives-sif-specialized-funds",
+        "alternatives-pms-aif-private",
+        "tax-surcharge-cess-high-income",
+        "portfolio-construction-rebalancing"
+      ],
+      "books": [
+        "book-complete-indian-investor",
+        "book-wealth-beyond-10l"
+      ]
     }
   ]
 }

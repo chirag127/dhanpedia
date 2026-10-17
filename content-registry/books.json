@@ -25,7 +25,8 @@
         "tax-tax-free-wealth-stack",
         "retirement-nps-exit-annuity-tax-deep-dive",
         "international-nri-tax-residency-tds-dtaa",
-        "international-dtaa-country-rate-reference"
+        "international-dtaa-country-rate-reference",
+        "pf-capital-ladder-10l-to-1cr"
       ],
       "preface": "This book is the core DhanPedia volume. It assumes you understand what a bank account and a salary are, and takes you to a complete, tax-aware, risk-graded personal portfolio you can actually build with Rs.10 lakh.",
       "version": "1.0",
@@ -119,7 +120,8 @@
         "alternatives-aif-category-selection-guide",
         "alternatives-aif-waterfall-economics",
         "alternatives-pms-sif-aif-after-tax-wedge",
-        "alternatives-pre-ipo-unlisted-equity-hni"
+        "alternatives-pre-ipo-unlisted-equity-hni",
+        "pf-capital-ladder-10l-to-1cr"
       ],
       "preface": "Higher-return avenues usually require higher capital and longer lock-ins. This book maps the path so the move from SIP to PMS to AIF is deliberate, not a reaction to a good year.",
       "version": "1.0",

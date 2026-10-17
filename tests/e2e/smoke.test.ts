@@ -418,4 +418,33 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('capital-ladder calculator renders the rung unlock schedule', async ({ page }) => {
+    await page.goto('/calculators/capital-ladder');
+    // Result-row DOM labels the island renders (unique, not the ECharts canvas title).
+    await expect(
+      page.getByText('SIF (Rs 10L) status', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Standard PMS (Rs 50L) status', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Surcharge tier now', { exact: true }),
+    ).toBeVisible();
+    // The rung-unlock step chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('10L capital-ladder article renders the rung table and surcharge sections', async ({ page }) => {
+    await page.goto('/articles/pf-capital-ladder-10l-to-1cr');
+    await expect(
+      page.getByRole('heading', { name: /The four rungs, in order/ }),
+    ).toBeVisible();
+    // 'When a rung unlocks' appears twice (the body section + a worked example),
+    // so assert the unique section prefix instead of a bare name.
+    await expect(
+      page.getByRole('heading', { name: /The surcharge-tier shift/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });
