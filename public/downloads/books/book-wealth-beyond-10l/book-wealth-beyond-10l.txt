@@ -2137,3 +2137,103 @@ RELATED
 • The 10-Lakh Capital Ladder (when the global sleeve scales) (/articles/pf-capital-ladder-10l-to-1cr)
 • Capital Gains Rollover (54/54F/54EC) (/articles/tax-capital-gains-rollover-54-54f-54ec)
 • The gift-city-lrs-tax calculator — run your exact remittance through the TCS reservation and both tax treatments.
+
+
+
+GIFT CITY LIVE SCHEMES & THE GIFT-VS-DIRECT ROUTE DECISION (FY 2026-27)
+
+The deep-dive article (./international-gift-city-ifsc-tax-timing-deep-dive.mdx) flagged two open items: the live scheme list (as of mid-2026) and the tax-treatment conflict (Indian-side foreign-asset + Schedule FA vs fund-level post-tax NAV). This page closes both. The tax-treatment resolution is grounded in a primary anchor (the DSP knowledge hub, which states the position explicitly); the live scheme table is pulled from the IFSCA-registered scheme factsheets and the 2026 scheme-launch reports. The route decision is a planning model, not a filing computation.
+
+THE TAX-TREATMENT RESOLUTION (CLOSING THE WAVE 22 CONFLICT)
+===========================================================
+
+The two 2026 secondary guides genuinely disagreed: one (Deepak Wealth) described GIFT City gains as a foreign asset on the Indian side (12.5% no-indexation LTCG + Schedule FA), while DSP's own hub described the position as fund-level — "tax is paid at the fund level using the fund's PAN, not against the investor's PAN; investors pay no capital-gains tax on redemption in India, and no TDS is deducted on redemptions or distributions." The DSP position is the primary anchor here. It also states the reported fund-level schedule: 14.95% LTCG (>24 months), 42.74% STCG, and adds the operational corollary that no Schedule FA is required on the DSP position.
+
+The honest resolution, in the order a planner should apply it:
+1. Read the scheme's offer document. If the scheme explicitly carries the DSP fund-level position, use the DSP numbers (14.95% / 42.74%, no Schedule FA, no TDS on redemption).
+2. If the scheme is taxed on the Indian-side foreign-asset rules (a subset of schemes, often the more inbound or domestic-equity-flavoured GIFT City structures), use the 12.5% no-indexation LTCG + Schedule FA.
+3. A CA can confirm the specific scheme's posture — this is a 30-minute call, not a structural unknown, and the difference on a Rs. 5L sleeve over 5 years is a few lakhs, not a guess.
+
+The gift-city-route-comparison calculator lets you plug in either fund-level rate and see the two-route decision.
+
+THE LIVE SCHEME TABLE (2026)
+============================
+
+The IFSCA-registered GIFT City schemes retail investors can access under LRS, as of October 2026. [src-gift-city-scheme-terms-2026]
+
+Scheme: Parag Parikh IFSC S&P 500 Fund of Fund,Passive index FoF,PPFAS,0.30% / ~0.35% all-in,USD 5,000,~USD 19.6Mn (Jul 2026),20 Mar 2026  |  Type: Parag Parikh IFSC Nasdaq 100 Fund of Fund,Passive index FoF,PPFAS,0.30% / ~0.60% all-in,USD 5,000,~USD 9.4Mn (Sep 2026),May 2026  |  House: DSP Global Equity Fund,Actively managed global,DSP,up to ~1.75% all-in,USD 5,000,~USD 56.3Mn (Sep 2026),22 Sep 2025  |  TER (scheme / all-in): Edelweiss Greater China Fund,Actively managed regional,Edelweiss,published per scheme doc,USD 5,000,—,Mar 2026  |  Min ticket: Marcellus Global Equities Fund,Actively managed global,Marcellus,published per scheme doc,published per scheme doc,—,2026  |  AUM (where published): HDFC AM Developed Markets / Emerging Markets passive,Pipeline, not yet live,HDFC,TBD,TBD,—,in pipeline  |  Launched: **Tata India Dynamic Equity Fund (GIFT City)**,**Inbound** (Indian equity, *not* outbound),Tata,~2.5% all-in,**USD 500**,published,2026
+
+Two important distinctions the table makes explicit:
+• The first five are outbound schemes — they invest from India outward into US/global markets, which is what a global-diversification sleeve actually is. The HDFC ones are still in pipeline; confirm the live list before remitting.
+• Tata India Dynamic Equity is inbound: a GIFT City-domiciled fund that invests in domestic Indian equity, sold to NRIs/foreigners (the $500 minimum is the NRI-retail ticket, not the LRS outbound ticket). It does not belong on your global-diversification sleeve; it is a different route with a different use case. Mixing the two up is a common mistake when the live list is first scanned.
+
+WHY THE TER GAP MATTERS (THE COST-DECAY LAYER)
+==============================================
+
+The all-in TER spread between the routes is the quiet, compounding cost difference:
+• PPFAS passive FoFs: ~0.35–0.60% all-in (the cheapest GIFT City options; the scheme TER is 0.30% plus the underlying-ETF TER).
+• DSP Global Equity: up to ~1.75% — a 4–5× cost gap vs the passive FoFs, and the price of active global management.
+• Inbound GIFT City domestic-equity funds (Tata): ~2.5% — the most expensive of the group.
+• Direct LRS low-cost US ETF (VOO-class): ~0.03% TER — essentially the floor of the global-investing cost curve.
+
+At 0.32 pp/year between a direct VOO-class ETF and the PPFAS S&P 500 FoF all-in TER, a Rs. 5L sleeve compounded over 20 years loses roughly Rs. 65k–Rs. 90k to the TER gap alone (the gift-city-route-comparison calculator computes this for your exact numbers). The question is whether that cost buys you the operational simplicity of the GIFT City route.
+
+WHICH ROUTE ACTUALLY WINS
+=========================
+
+The two-route decision is not a fixed ranking; it depends on three things:
+1. The CG-rate spread. The GIFT City route's embedded fund-level CG tax (14.95% on LTCG per DSP's schedule) is higher than the direct route's 12.5%. So on the tax rate alone, the direct route wins. The 2.45 pp spread on a Rs. 5L sleeve that gains Rs. 2L over 5 years is ~Rs. 49k more in tax on the GIFT City side.
+2. The TER gap. The direct route wins by ~0.32 pp/year in the PPFAS vs VOO comparison, and by more if you choose the DSP active fund (0.35% vs 1.75% = 1.4 pp/year gap).
+3. The Schedule FA + operational-cost layer. The GIFT City route (DSP position) avoids Schedule FA disclosure and the USD-brokerage/repatriation mechanics; the direct route carries both. For a small sleeve, the GIFT City operational edge can exactly offset the combined 2.45 pp CG-rate + 0.32 pp TER economic disadvantage.
+
+The worked example below shows the arithmetic for a Rs. 5L sleeve over 5 years at a 10% underlying return.
+
+WORKED EXAMPLE: RS. 5L SLEEVE, 10% INDEX RETURN, 5 YEARS
+========================================================
+
+Assume: Rs. 5,00,000 deployed, 10% gross index return p.a., 5 years, PPFAS S&P 500 FoF all-in TER 0.35%, DSP fund-level 14.95% LTCG, no Schedule FA; vs a direct VOO-class ETF at 0.03% TER, 12.5% LTCG, Schedule FA.
+
+: Pre-tax FV (TER netted in),₹5L × (1.0965)⁵ ≈ **₹7.99L**,₹5L × (1.0997)⁵ ≈ **₹8.06L**  |  GIFT City (PPFAS S&P 500 FoF): Realized gain,≈ ₹2.99L,≈ ₹3.06L  |  Direct LRS (VOO-class): CG on the gain,14.95% × ₹2.99L ≈ **₹446k**,12.5% × ₹3.06L ≈ **₹383k**
+
+The direct route wins by ~Rs. 13k on the corpus (0.26 pp net over 5 years). The GIFT City route wins on operational simplicity (no Schedule FA, no USD brokerage, no repatriation) — which, at Rs. 5L, is worth at least the ~Rs. 13k gap if you value your time, and more if the Schedule FA compliance cost is a real burden. At Rs. 25L+ (the PMS/PRIM rung in the capital-ladder article (./pf-capital-ladder-10l-to-1cr.mdx)), the economic gap grows faster than the operational burden, and the direct route's TER + CG advantage starts to clearly outweigh the GIFT City simplicity premium.
+
+The honest verdict on this specific example: the direct LRS route wins on money, the GIFT City route wins on operational simplicity. A Rs. 5L sleeve is close to the crossover point; a Rs. 25L+ sleeve is clearly on the direct side.
+
+THE "WHEN GIFT CITY IS THE RIGHT TOOL" LAYER
+============================================
+
+GIFT City (the DSP position) is the right tool when:
+• You want the simplest operational path to global exposure — one INR→USD remittance through LRS, no Schedule FA, no USD brokerage, no repatriation mechanics.
+• Your sleeve is Rs. 5L–Rs. 25L — the operational-cost premium is still inside the range where the TER + CG-rate gap is not yet large enough to dominate.
+• The specific scheme is a passive index FoF (PPFAS S&P 500 / Nasdaq 100) — the cost is already at the floor of the GIFT City tier (~0.35% all-in), so you are not paying the 1.75% DSP active-fund premium.
+
+GIFT City is the wrong tool when:
+• You choose the DSP Global Equity active fund for a global-sleeve purpose — the ~1.75% TER is 4× the passive FoF and you are buying the active edge, not the route. At that cost, a direct low-cost US index ETF + a separate active-sleeve is cheaper.
+• Your sleeve is Rs. 25L+ — the direct route's TER + 12.5% CG advantage compounds faster than the GIFT City simplicity premium.
+• The specific scheme is taxed on the Indian-side foreign-asset rules (not the DSP fund-level position) — you inherit the Schedule FA + 12.5% no-indexation CG and lose the fund-level simplicity edge. Read the offer document first.
+
+THE ONE-LINE VERDICT
+====================
+
+The 2026 GIFT City live list is real: PPFAS S&P 500 FoF and PPFAS Nasdaq 100 FoF (passive, ~0.35–0.60% all-in), DSP Global Equity Fund (active, up to ~1.75%), and the newly-launched Edelweiss Greater China and Marcellus Global Equities (actively managed), with the Tata India Dynamic Equity fund a separate inbound route at a USD 500 ticket. The tax treatment is resolved on the DSP primary anchor: fund-level (14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA) — but confirm the specific scheme's offer document before remitting. On the money, the direct LRS route (0.03% VOO-class + 12.5% + Schedule FA) wins by a small margin on a Rs. 5L sleeve over 5 years (~0.26 pp net); on the operational, the GIFT City route wins by a wide margin. The crossover point, where the economic edge clearly outweighs the simplicity premium, is roughly Rs. 25L+ — the same number as the PMS/PRIM rung in the capital-ladder article, which is not a coincidence: it is the point at which the fixed operational costs of the direct route start to amortize into a genuinely different tier of investor.
+
+UPDATE LOG
+==========
+• 2026-10-18 (Wave 23): created. Verified the live GIFT City scheme list, the PPFAS / DSP / Edelweiss / Marcellus / Tata terms, and the DSP fund-level tax schedule (14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA) against src-gift-city-scheme-terms-2026 (new source) + the DSP knowledge hub. Resolved the Wave 22 open tax-treatment conflict on the DSP primary anchor; flagged the per-scheme CA confirmation as the remaining verification step.
+• Review by 2027-04-17: re-verify the live GIFT City scheme list (the HDFC Developed/Emerging Markets passive launches are in pipeline), the DSP fund-level tax schedule (can move with the Finance Act), and the all-in TER figures (scheme TERs can be revised by the houses).
+
+SOURCES
+=======
+• src-intl-fof-cap-2026 — the SEBI $7B MF industry ceiling (the reason the domestic route is frozen) and the GIFT City / IFSCA exclusion from that cap.
+• src-lrs-tcs-sc-2026 — the LRS USD 250,000/FY limit, the Rs. 10L TCS-free threshold, the 20% investment-remittance TCS and the 2% education/medical/tour rate from 1 Apr 2026.
+• src-intl-fof-treatment-ay2026-27 — the AY 2026-27 Section 50AA debt-test and the 12.5% no-pool LTCG it now reaches; the Income-tax Act 2025 renumbering (50AA→76, 112A→198).
+• src-gift-city-live-funds-2026 — the 2026 live GIFT City scheme list, the fresh FCA + KYC onboarding requirement, and the LRS/TCS specifics.
+• src-gift-city-scheme-terms-2026 — new this wave: the PPFAS S&P 500 / Nasdaq 100 FoF scheme terms (0.30% scheme TER, 0.35% / 0.60% all-in, USD 5,000 min, USD 500 top-up), the DSP Global Equity Fund terms (up to ~1.75% all-in, USD 5,000 min), the DSP fund-level tax schedule (14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA), and the newly-launched Edelweiss Greater China / Marcellus Global Equities / Tata India Dynamic Equity (inbound) / HDFC pipeline list.
+
+RELATED
+=======
+• GIFT City IFSC Tax / Timing Deep-Dive (the route + TCS + tax-treatments layer) (/articles/international-gift-city-ifsc-tax-timing-deep-dive)
+• Getting Global Exposure from India: FoF, GIFT City, and LRS (the route-selection layer) (/articles/international-fof-gift-city-lrs)
+• The 10-Lakh Capital Ladder (the Rs. 25L PMS/PRIM rung, where the GIFT-vs-direct crossover lives) (/articles/pf-capital-ladder-10l-to-1cr)
+• PMS / SIF / AIF Selection (the HNI route, for the Rs. 50L+ corpus) (/articles/alternatives-hnw-pms-aif-sif-selection)
+• The gift-city-route-comparison calculator — plug in the TER + CG-rate + schedule-FA flags for your exact sleeve and see which route has the higher final value.

@@ -1,15 +1,48 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 22: 1 new article + 1 new finance function + 1 new calculator + 2 new sources + 8 unit tests + 2 e2e tests; 51 → 52 articles; 35 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 23: 1 new article + 1 new finance function + 1 new calculator + 1 new source + 8 unit tests + 2 e2e tests; 52 → 53 articles; 36 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 52 on disk / registered. Wave 22 added 1: `international-gift-city-ifsc-tax-timing-deep-dive` (the *operational* GIFT City / IFSC layer: why the route stays open (IFSCA-regulated, outside the SEBI $7B cap, bought under the personal LRS), the AY 2026-27 Section 50AA debt-based "Specified Mutual Fund" redefinition that now reaches 12.5% no-pool LTCG for non-specified international FoFs, the **two coexisting tax treatments** on GIFT City gains (Indian-side 12.5% no-indexation LTCG + Schedule FA vs fund-level post-tax NAV with no separate CG compute — the offer document is the tie-breaker), the **TCS 20% reservation math** on the LRS remittance (₹10L aggregate threshold, the 1 Apr 2026 2% education/medical/tour cut, the aggregate-not-per-remittance rule), the live scheme list, the fresh FCA + KYC onboarding, and the Schedule FA / FAST-DS disclosure layer). Wave 21 added 1: `tax-54ec-tranche-tracker`; Wave 20 added 1: `pf-capital-ladder-10l-to-1cr`; Wave 19 added 1: `tax-esop-vesting-tax-walkthrough`.
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 18, indian-taxation 16, p2p-lending 4, wealth-beyond-10l 17. Wave 22 added `international-gift-city-ifsc-tax-timing-deep-dive` as a chapter to wealth-beyond-10l.
-- **Sources:** 59 in `sources.json` (Wave 22 added 2: `src-intl-fof-treatment-ay2026-27` — the AY 2026-27 50AA debt-test + the 12.5% no-pool LTCG it now reaches + the Act-2025 renumbering; `src-gift-city-live-funds-2026` — the live GIFT City scheme list, fresh FCA + KYC onboarding, LRS/TCS specifics, IFSCA Act 2019 anchor).
-- **Update-log:** 58 tracked (Wave 22 added `ul-gift-city-tax-treatment-split-fy2026-27`, reviewAfter 2027-04-17 — the two coexisting GIFT City gain treatments + the 50AA debt-test change + the live scheme list).
-- **Calculators:** 35 (Wave 22 added `gift-city-lrs-tax`, powered by the new `giftCityLrsTaxFY27()` pure function, with 8 unit tests and 2 e2e tests).
+- **Articles:** 53 on disk / registered. Wave 23 added 1: `international-gift-city-live-scheme-comparison` (the *live-scheme comparison + route-decision* layer: the 2026 live GIFT City scheme table — PPFAS S&P 500 FoF, PPFAS Nasdaq 100 FoF, DSP Global Equity Fund, Edelweiss Greater China, Marcellus Global Equities, the Tata India Dynamic Equity inbound fund, and the HDFC passive pipeline — with TER / min ticket / AUM / launch date; the **tax-treatment resolution** that closes the Wave 22 open conflict on the DSP primary anchor: fund-level 14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA; the TER-cost-decay layer; the two-route net-after-tax decision (GIFT City fund-level vs direct LRS 12.5% + Schedule FA + TCS reservation); and the ₹5L-over-5-years worked example that shows the crossover point is ~₹25L+). Wave 22 added 1: `international-gift-city-ifsc-tax-timing-deep-dive`. (the *operational* GIFT City / IFSC layer: why the route stays open (IFSCA-regulated, outside the SEBI $7B cap, bought under the personal LRS), the AY 2026-27 Section 50AA debt-based "Specified Mutual Fund" redefinition that now reaches 12.5% no-pool LTCG for non-specified international FoFs, the **two coexisting tax treatments** on GIFT City gains (Indian-side 12.5% no-indexation LTCG + Schedule FA vs fund-level post-tax NAV with no separate CG compute — the offer document is the tie-breaker), the **TCS 20% reservation math** on the LRS remittance (₹10L aggregate threshold, the 1 Apr 2026 2% education/medical/tour cut, the aggregate-not-per-remittance rule), the live scheme list, the fresh FCA + KYC onboarding, and the Schedule FA / FAST-DS disclosure layer). Wave 21 added 1: `tax-54ec-tranche-tracker`; Wave 20 added 1: `pf-capital-ladder-10l-to-1cr`; Wave 19 added 1: `tax-esop-vesting-tax-walkthrough`.
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 18, indian-taxation 16, p2p-lending 4, wealth-beyond-10l 18. Wave 23 added `international-gift-city-live-scheme-comparison` as a chapter to wealth-beyond-10l.
+- **Sources:** 60 in `sources.json` (Wave 23 added 1: `src-gift-city-scheme-terms-2026` — the PPFAS / DSP / Edelweiss / Marcellus / Tata scheme terms + the DSP fund-level tax schedule).
+- **Update-log:** 59 tracked (Wave 23 added `ul-gift-city-live-schemes-route-decision-fy2026-27`, reviewAfter 2027-04-17 — the live scheme table + the Wave 22 tax-treatment conflict resolved on the DSP anchor).
+- **Calculators:** 36 (Wave 23 added `gift-city-route-comparison`, powered by the new `giftCityRouteComparison()` pure function, with 8 unit tests and 2 e2e tests).
 
+## Wave 23 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/international/international-gift-city-live-scheme-comparison.mdx` — the *live-scheme comparison + route-decision* layer that **closes the open tax-treatment conflict flagged in Wave 22**: the 2026 live GIFT City scheme table (PPFAS S&P 500 FoF 0.30% scheme / ~0.35% all-in, PPFAS Nasdaq 100 FoF ~0.60% all-in, DSP Global Equity Fund up to ~1.75% all-in + the newly-found Edelweiss Greater China, Marcellus Global Equities, and the HDFC passive pipeline; plus the **inbound distinction** — the Tata India Dynamic Equity fund invests *domestic* equity at a USD 500 NRI ticket and is NOT an outbound global sleeve), the **tax-treatment resolution on the DSP primary anchor** (fund-level 14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA; the offer document is the per-scheme tie-breaker), the TER cost-decay layer (0.32 pp/yr PPFAS vs VOO; up to 1.4 pp/yr for the DSP active fund), the two-route net-after-tax decision, and the ₹5L-over-5-yr worked example that puts the crossover at ~₹25L+ (the PMS/PRIM rung from the capital-ladder article).
+
+### New finance function + calculator + tests
+- [x] `giftCityRouteComparison()` in `src/lib/finance/index.ts` — the two-route head-to-head: the GIFT City fund-level post-tax-NAV route (all-in TER netted into the base return + the embedded fund-level CG tax, no investor-side CG, no Schedule FA) vs the direct LRS route (low-cost US ETF TER + the 12.5% no-indexation LTCG + Schedule FA), returning both pre-tax FVs, both realized gains, both route taxes, both final values, the net-return %s, the linear TER cost-drag, the CG-rate spread, and the edge route/amount.
+- [x] `gift-city-route-comparison` calculator page (category: International) — 7 inputs (deployed ₹, index return, years, GIFT all-in TER, GIFT fund-level CG rate, direct all-in TER, direct CG rate), 8 result rows, ECharts 2-bar final-value comparison (the winning bar highlights green).
+- [x] 8 new unit tests (edge-on-direct-when-TER+CG-lower, edge-on-gift-when-embedded-rate-lower, the CG-rate spread sign, the Schedule-FA flag, the linear TER cost-drag, the higher-TER-lowers-final-value, monotonic-in-gross-return, and zero-invest-tie) — **166/166 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; the calculator asserts the three unique result-row DOM labels + the chart container, not the ECharts canvas title) — **96/96 e2e tests pass**.
+
+### New source
+- [x] `src-gift-city-scheme-terms-2026` — the PPFAS S&P 500 / Nasdaq 100 FoF scheme terms (0.30% scheme TER, 0.35% / 0.60% all-in, USD 5,000 min, USD 500 top-up, AUM), the DSP Global Equity Fund terms (up to ~1.75% all-in, USD 5,000 min, ~USD 56.3Mn AUM), the **DSP fund-level tax schedule (14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA)**, and the live Edelweiss / Marcellus / Tata-inbound / HDFC-pipeline list.
+
+### Build gotcha hit this session
+- **Calculator array-insertion brace bug (recurring, now the Wave 21/22 class)** — inserting `gift-city-route-comparison` before the `];` tail dropped the previous `gift-city-lrs-tax` entry's closing `},` → "braces UNBALANCED" (1149 vs 1148). Fixed by restoring the `},` and re-running `_check_calc_braces.mjs` (now BALANCED, 35 entries → 36 after the new entry). The post-insertion brace check remains a hard gate.
+
+### Research verified this session
+- [x] **Live GIFT City scheme terms** — PPFAS S&P 500 FoF (NFO 20 Mar 2026, scheme TER 0.30%, ~0.35% all-in, ~USD 19.6Mn AUM), PPFAS Nasdaq 100 FoF (May 2026, ~0.60% all-in, ~USD 9.4Mn AUM), DSP Global Equity Fund (22 Sep 2025, up to ~1.75% all-in, ~USD 56.3Mn AUM), Edelweiss Greater China (Mar 2026) + Marcellus Global Equities live, HDFC passive in pipeline; the Tata India Dynamic Equity inbound fund (USD 500 NRI ticket, ~2.5% all-in TER) is a *domestic-equity* route, not outbound.
+- [x] **The DSP fund-level tax position** — tax at the fund's PAN (not the investor's), no investor-side CG on redemption, no TDS, no Schedule FA; reported fund-level rates 14.95% LTCG (>24mo) / 42.74% STCG. This is the primary anchor that **resolves the Wave 22 open conflict** (the Deepak-Wealth secondary guide's "foreign-asset + Schedule FA" view is superseded for DSP schemes, with the offer document as the per-scheme tie-breaker).
+- [x] **The TER cost-decay spread** — 0.32 pp/yr between a VOO-class direct ETF (0.03%) and the PPFAS S&P 500 FoF all-in (0.35%); up to 1.4 pp/yr vs the DSP active fund; ~₹65k–90k on a ₹5L sleeve over 20 years.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 166 passed.
+- [x] `node scripts/validate-content.mjs` → 53 articles, 4 books, 60 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 219 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed.
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 53/53 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 96 passed (48 desktop + 48 mobile).
+
+## Wave 22 session (verified 2026-10-18 via web research)
 ## Wave 22 session (verified 2026-10-18 via web research)
 
 ### New article
@@ -226,12 +259,12 @@ Last updated: **2026-10-18** (Wave 22: 1 new article + 1 new finance function + 
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
 - [ ] Resolve the open 80TTB conflict (`ul-senior-80ttb-limit-2026`): confirm whether the Budget-2026 raise to Rs 1,00,000 is in the Finance Act text - re-run the senior-regime decision if so.
 - [ ] **Act-2025 54EC -> Section 85 renumbering:** confirm the operative section number for FY 2027-28 filings; add a new update-log entry if the FY 2027-28 Budget renumbers it back. (Noted in Wave 21; current practice still uses "54EC" informally.)
-- [ ] **GIFT City tax-treatment conflict resolution:** confirm, against a *live scheme's* offer document, whether the fund-level post-tax-NAV position or the Indian-side 12.5% LTCG + Schedule FA position governs for each 2026 scheme; the article flags both but does not pick. (Note: the two 2026 secondary guides genuinely disagree — this is a real open item, not a typo.)
-- [ ] Phase 4 deeper expansion: Wave 23 candidate = a 10L personalized-wealth-plan rewrite driven by the user's answers to the 14 questions, or a GIFT City FoF comparison table across the live schemes (expense ratios / AUM / tracking error).
+- [ ] ~~GIFT City tax-treatment conflict resolution~~ — **RESOLVED in Wave 23** on the DSP primary anchor (fund-level 14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA; the offer document is the per-scheme tie-breaker). The *remaining* open item is the **per-scheme CA confirmation** for each live house (PPFAS / DSP / Edelweiss / Marcellus / Tata), which the article now flags as a 30-minute call, not a structural unknown.
+- [ ] Phase 4 deeper expansion: Wave 24 candidate = the 10L personalized-wealth-plan rewrite driven by the user's answers to the 14 questions, or a per-scheme CA-confirmation addendum (expense-ratio / AUM / tracking-error matrix across the live GIFT City list).
 
 ## Next 3 actions
 1. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers (the 10L capital-ladder article now gives the roadmap that the rewrite plugs into).
-2. Continue the daily article habit (Wave 23 candidate: a GIFT City live-scheme comparison table across the 2026 live list — expense ratios, AUM, tracking error, and the offer-document tax posture — which closes the open tax-treatment conflict from Wave 22).
+2. Continue the daily article habit (Wave 24 candidate: the per-scheme GIFT City CA-confirmation addendum, or a direct-LRS 12.5% + TCS + Schedule FA worked filing example that pairs with the route-comparison calculator).
 3. Resolve the 80TTB conflict and re-verify time-sensitive claims at their reviewAfter dates.
 
 ## Known build-gotchas (recurring)

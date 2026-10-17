@@ -1618,6 +1618,141 @@ export function giftCityLrsTaxFY27(inp: GiftCityLrsInput): GiftCityLrsResult {
   };
 }
 
+export interface GiftCityRouteInput {
+  /** The rupee (or USD) amount deployed. */
+  invest: number;
+  /** The underlying index return per year, pre-cost (e.g. 0.10 = 10%). */
+  grossAnnualReturn: number;
+  /** Whole years held. 2+ means the gain is long-term on both routes. */
+  yearsHeld: number;
+  /** The GIFT City scheme's ALL-IN TER (scheme TER + underlying-ETF TER), e.g.
+   *  0.0035 for the PPFAS S&P 500 FoF. The TER is netted into the base return. */
+  giftAllInTer: number;
+  /** The GIFT City fund-level tax rate on the realized gain: 0.1495 (LTCG,
+   *  >24mo) or 0.4274 (STCG) per DSP's fund-level tax schedule. */
+  giftTaxRate: number;
+  /** The direct LRS route's all-in TER (a low-cost US ETF such as VOO-class
+   *  is ~0.0003; a Nasdaq-100 ETF is ~0.002). */
+  directAllInTer: number;
+  /** The direct-route capital-gains rate: 0.125 (12.5% no-indexation LTCG,
+   *  24mo+) or the slab rate (STCG). */
+  directTaxRate: number;
+  /** The direct route requires Schedule FA disclosure; the GIFT City
+   *  fund-level route (DSP position) does not. */
+  directScheduleFa: boolean;
+}
+
+export interface GiftCityRouteResult {
+  invest: number;
+  /** The pre-tax future value on each route (the TER is already netted in). */
+  giftPreTaxFuture: number;
+  directPreTaxFuture: number;
+  /** The realized gain on each route before the route's own tax. */
+  giftGain: number;
+  directGain: number;
+  /** The route's tax on the realized gain. */
+  giftFundLevelTax: number;
+  directTax: number;
+  /** The final value after the route's tax. */
+  giftFinalValue: number;
+  directFinalValue: number;
+  /** Net return on the deployed capital after cost + tax. */
+  giftNetReturnPct: number;
+  directNetReturnPct: number;
+  /** The linear cost-drag approximation (invest x TER x years) for display. */
+  giftCostDragApprox: number;
+  directCostDragApprox: number;
+  /** The CG-rate spread: positive = the GIFT City route's embedded tax is
+   *  HIGHER than the direct route's (the 14.95% vs 12.5% case). */
+  taxRateSpread: number;
+  /** True when the GIFT City route avoids the Schedule FA disclosure that the
+   *  direct route carries. */
+  giftNoScheduleFa: boolean;
+  /** Which route has the higher final value (before the Schedule FA /
+   *  operational-complexity judgment). */
+  edgeRoute: 'gift' | 'direct' | 'tie';
+  edgeAmount: number;
+  edgePctOfInvest: number;
+  note: string;
+}
+
+/**
+ * The two-route net comparison for a GIFT City global sleeve: the GIFT City
+ * fund-level post-tax-NAV route (TER netted in + the fund's own embedded
+ * capital-gains tax, no investor-side CG, no Schedule FA per the DSP position)
+ * vs the direct LRS route (a low-cost US ETF's TER + the 12.5% no-indexation
+ * LTCG + Schedule FA + the 20% TCS reservation).
+ *
+ * All math is pure and deterministic. The TER is netted into the base return
+ * so it is not double-counted with the cost-drag display figure.
+ */
+export function giftCityRouteComparison(inp: GiftCityRouteInput): GiftCityRouteResult {
+  const invest = Math.max(0, inp.invest);
+  const yrs = Math.max(0, inp.yearsHeld);
+
+  const giftBase = 1 + inp.grossAnnualReturn - inp.giftAllInTer;
+  const directBase = 1 + inp.grossAnnualReturn - inp.directAllInTer;
+  const giftPreTaxFuture = invest * Math.pow(giftBase, yrs);
+  const directPreTaxFuture = invest * Math.pow(directBase, yrs);
+
+  const giftGain = Math.max(0, giftPreTaxFuture - invest);
+  const directGain = Math.max(0, directPreTaxFuture - invest);
+
+  const giftFundLevelTax = giftGain * inp.giftTaxRate;
+  const directTax = directGain * inp.directTaxRate;
+
+  const giftFinalValue = giftPreTaxFuture - giftFundLevelTax;
+  const directFinalValue = directPreTaxFuture - directTax;
+
+  const giftNetReturnPct = invest > 0 ? (giftFinalValue - invest) / invest : 0;
+  const directNetReturnPct = invest > 0 ? (directFinalValue - invest) / invest : 0;
+
+  const giftCostDragApprox = invest * inp.giftAllInTer * yrs;
+  const directCostDragApprox = invest * inp.directAllInTer * yrs;
+  const taxRateSpread = inp.giftTaxRate - inp.directTaxRate;
+  const edgeAmount = giftFinalValue - directFinalValue;
+  const edgePctOfInvest = invest > 0 ? edgeAmount / invest : 0;
+  const edgeRoute: GiftCityRouteResult['edgeRoute'] =
+    edgeAmount > 0 ? 'gift' : edgeAmount < 0 ? 'direct' : 'tie';
+
+  let note = '';
+  if (taxRateSpread > 0) {
+    note =
+      'The GIFT City route embedded ' +
+      (inp.giftTaxRate * 100).toFixed(2) +
+      '% on the gain vs ' +
+      (inp.directTaxRate * 100).toFixed(1) +
+      '% on the direct route - the embedded fund-level rate is HIGHER, so the GIFT City route wins only on operational simplicity (no Schedule FA, no USD brokerage), not on the CG rate.';
+  } else if (taxRateSpread < 0) {
+    note =
+      'The GIFT City route embedded a LOWER rate than the direct route on the gain - a net-after-tax edge for the GIFT City route, plus no Schedule FA.';
+  } else {
+    note = 'The two routes tax the gain at the same rate; the decision is the TER gap + the Schedule FA / operational cost.';
+  }
+
+  return {
+    invest,
+    giftPreTaxFuture,
+    directPreTaxFuture,
+    giftGain,
+    directGain,
+    giftFundLevelTax,
+    directTax,
+    giftFinalValue,
+    directFinalValue,
+    giftNetReturnPct,
+    directNetReturnPct,
+    giftCostDragApprox,
+    directCostDragApprox,
+    taxRateSpread,
+    giftNoScheduleFa: inp.directScheduleFa,
+    edgeRoute,
+    edgeAmount,
+    edgePctOfInvest,
+    note,
+  };
+}
+
 export interface RolloverInput {
   gain: number;
   reinvested: number;

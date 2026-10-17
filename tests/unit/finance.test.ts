@@ -15,7 +15,7 @@ import {
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
-  fiftyFourECTrancheTracker, giftCityLrsTaxFY27 } from '@lib/finance/index';
+  fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1481,6 +1481,77 @@ describe('giftCityLrsTaxFY27', () => {
     // A small outflow stays within the cap.
     const under = giftCityLrsTaxFY27(base({ priorLrsRemittance: 0, investRupees: 1000000 }));
     expect(under.exceedsLrsCap).toBe(false);
+  });
+});
+
+describe('giftCityRouteComparison', () => {
+  const base = (over: Partial<Parameters<typeof giftCityRouteComparison>[0]> = {}) => ({
+    invest: 500000,
+    grossAnnualReturn: 0.1,
+    yearsHeld: 5,
+    giftAllInTer: 0.0035,
+    giftTaxRate: 0.1495,
+    directAllInTer: 0.0003,
+    directTaxRate: 0.125,
+    directScheduleFa: true,
+    ...over,
+  });
+
+  it('puts the edge on the direct route when its TER is far lower and its CG rate is lower', () => {
+    // Direct: 0.03% TER + 12.5% CG. GIFT: 0.35% TER + 14.95% fund-level CG.
+    const r = giftCityRouteComparison(base());
+    expect(r.edgeRoute).toBe('direct');
+    expect(r.edgeAmount).toBeLessThan(0);
+    expect(r.directFinalValue).toBeGreaterThan(r.giftFinalValue);
+  });
+
+  it('puts the edge on the GIFT City route when its embedded CG rate is lower', () => {
+    // GIFT embedded 12.5% vs direct 30% slab -> GIFT is cheaper after tax.
+    const r = giftCityRouteComparison(base({ giftTaxRate: 0.125, directTaxRate: 0.3 }));
+    expect(r.edgeRoute).toBe('gift');
+    expect(r.giftFinalValue).toBeGreaterThan(r.directFinalValue);
+  });
+
+  it('reports the CG-rate spread as (gift - direct)', () => {
+    const r = giftCityRouteComparison(base({ giftTaxRate: 0.1495, directTaxRate: 0.125 }));
+    expect(r.taxRateSpread).toBeCloseTo(0.1495 - 0.125, 6);
+    const neg = giftCityRouteComparison(base({ giftTaxRate: 0.1, directTaxRate: 0.2 }));
+    expect(neg.taxRateSpread).toBeCloseTo(0.1 - 0.2, 6);
+  });
+
+  it('flags the GIFT City route as avoiding Schedule FA when the direct route carries it', () => {
+    const r = giftCityRouteComparison(base({ directScheduleFa: true }));
+    expect(r.giftNoScheduleFa).toBe(true);
+    const noFa = giftCityRouteComparison(base({ directScheduleFa: false }));
+    expect(noFa.giftNoScheduleFa).toBe(false);
+  });
+
+  it('computes the linear TER cost-drag (invest x TER x years)', () => {
+    const r = giftCityRouteComparison(base());
+    expect(r.giftCostDragApprox).toBeCloseTo(500000 * 0.0035 * 5, 0);
+    expect(r.directCostDragApprox).toBeCloseTo(500000 * 0.0003 * 5, 0);
+  });
+
+  it('a higher GIFT City TER lowers its final value (cost drag)', () => {
+    const low = giftCityRouteComparison(base({ giftAllInTer: 0.0035 }));
+    const high = giftCityRouteComparison(base({ giftAllInTer: 0.025 }));
+    expect(high.giftFinalValue).toBeLessThan(low.giftFinalValue);
+  });
+
+  it('monotonically raises both routes as the gross return rises', () => {
+    const low = giftCityRouteComparison(base({ grossAnnualReturn: 0.08 }));
+    const high = giftCityRouteComparison(base({ grossAnnualReturn: 0.12 }));
+    expect(high.giftFinalValue).toBeGreaterThan(low.giftFinalValue);
+    expect(high.directFinalValue).toBeGreaterThan(low.directFinalValue);
+  });
+
+  it('zero invest yields zero values and a tie', () => {
+    const r = giftCityRouteComparison(base({ invest: 0 }));
+    expect(r.giftFinalValue).toBe(0);
+    expect(r.directFinalValue).toBe(0);
+    expect(r.edgeRoute).toBe('tie');
+    expect(r.giftNetReturnPct).toBe(0);
+    expect(r.directNetReturnPct).toBe(0);
   });
 });
 

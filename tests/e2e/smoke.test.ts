@@ -512,4 +512,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('gift-city-route-comparison calculator renders the two-route edge', async ({ page }) => {
+    await page.goto('/calculators/gift-city-route-comparison');
+    // Result-row DOM labels (the three most-unique rows; the chart title
+    // lives inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('GIFT City final value', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Direct LRS final value', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Schedule FA exposure', { exact: true }),
+    ).toBeVisible();
+    // The two-route final-value bar chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('GIFT City live-scheme comparison article renders the scheme table and resolution section', async ({ page }) => {
+    await page.goto('/articles/international-gift-city-live-scheme-comparison');
+    // Stable, unique H2 headings in the body (assert unique prefixes to avoid
+    // the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The live scheme table/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Which route actually wins/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The tax-treatment resolution/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

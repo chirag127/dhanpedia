@@ -1664,6 +1664,55 @@
       "books": [
         "book-wealth-beyond-10l"
       ]
+    },
+    {
+      "id": "international-gift-city-live-scheme-comparison",
+      "file": "src/content/international/international-gift-city-live-scheme-comparison.mdx",
+      "title": "GIFT City Live Schemes & the GIFT-vs-Direct Route Decision (FY 2026-27)",
+      "category": "international",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "gift-city",
+        "ifsc",
+        "ifscf",
+        "fof",
+        "international",
+        "s-p-500",
+        "nasdaq-100",
+        "lrs",
+        "tcs",
+        "section-50aa",
+        "act-2025",
+        "ppfas",
+        "dsp",
+        "edelweiss",
+        "marcellus",
+        "tata",
+        "live-schemes",
+        "expense-ratio",
+        "fund-level-tax",
+        "tax-treatment-resolution"
+      ],
+      "sources": [
+        "src-intl-fof-cap-2026",
+        "src-lrs-tcs-sc-2026",
+        "src-intl-fof-treatment-ay2026-27",
+        "src-gift-city-live-funds-2026",
+        "src-gift-city-scheme-terms-2026"
+      ],
+      "related": [
+        "international-gift-city-ifsc-tax-timing-deep-dive",
+        "international-fof-gift-city-lrs",
+        "international-investing-lrs",
+        "pf-capital-ladder-10l-to-1cr",
+        "alternatives-hnw-pms-aif-sif-selection"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
     }
   ]
 }

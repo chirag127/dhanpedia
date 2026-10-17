@@ -519,6 +519,20 @@
         "src-intl-fof-treatment-ay2026-27",
         "src-gift-city-live-funds-2026"
       ]
+    },
+    {
+      "id": "ul-gift-city-live-schemes-route-decision-fy2026-27",
+      "topic": "GIFT City live scheme table (2026): PPFAS S&P 500 FoF (0.30% scheme / ~0.35% all-in, USD 5,000 min, ~USD 19.6Mn AUM, NFO 20 Mar 2026), PPFAS Nasdaq 100 FoF (0.30% / ~0.60% all-in, ~USD 9.4Mn AUM, May 2026), DSP Global Equity Fund (up to ~1.75% all-in, actively managed, ~USD 56.3Mn AUM, launched 22 Sep 2025), newly-launched Edelweiss Greater China + Marcellus Global Equities, HDFC Developed/Emerging Markets passive in pipeline; INBOUND distinction: Tata India Dynamic Equity (GIFT City) invests domestic equity at a USD 500 NRI ticket, ~2.5% all-in TER, NOT an outbound global sleeve. Resolves the Wave 22 tax-treatment conflict on the DSP primary anchor (fund-level 14.95% LTCG / 42.74% STCG, no investor-side CG, no TDS, no Schedule FA; offer document is the per-scheme tie-breaker).",
+      "article": "international-gift-city-live-scheme-comparison",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-intl-fof-cap-2026",
+        "src-lrs-tcs-sc-2026",
+        "src-intl-fof-treatment-ay2026-27",
+        "src-gift-city-live-funds-2026",
+        "src-gift-city-scheme-terms-2026"
+      ]
     }
   ]
 }

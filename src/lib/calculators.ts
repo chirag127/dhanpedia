@@ -23,6 +23,7 @@ import {
   nriIndiaTaxFY27, rolloverExemption, dtaaReliefFY27,
   esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27,
+  giftCityRouteComparison,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2271,6 +2272,85 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.investRupees), itemStyle: { color: '#3a6ea5' } },
                   { value: Math.round(r.tcs), itemStyle: { color: '#c65d3b' } },
                   { value: Math.round(r.sourceCashNeeded), itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'gift-city-route-comparison',
+    title: 'GIFT City vs Direct LRS: The Net-After-Tax Route Decision (TER + embedded CG + Schedule FA)',
+    category: 'International',
+    description:
+      'Compare the two reliable global routes on the same corpus: a GIFT City IFSC fund (TER netted in, the fund-level embedded CG tax - 14.95% LTCG / 42.74% STCG per DSP - and no Schedule FA on the DSP position) vs a direct LRS US ETF (low TER, 12.5% no-indexation LTCG, Schedule FA + the 20% TCS reservation). Shows which route has the higher final value and why.',
+    inputs: [
+      { key: 'invest', label: 'Amount deployed (Rs)', default: 500000, min: 0, step: 50000, hint: 'The capital in this global sleeve; the TCS reservation is modelled separately on the gift-city-lrs-tax calculator.' },
+      { key: 'grossAnnualReturn', label: 'Index annual return (%)', default: 10, min: 0, max: 30, step: 0.5, hint: 'The pre-cost underlying index return (e.g. S&P 500 / Nasdaq 100). A planning input, not a forecast.' },
+      { key: 'yearsHeld', label: 'Years held', default: 5, min: 0, max: 30, step: 1, hint: '2+ years makes the gain long-term on both routes; under 2 years the STCG rates apply.' },
+      { key: 'giftAllInTer', label: 'GIFT City all-in TER (%)', default: 0.35, min: 0, max: 5, step: 0.05, hint: 'PPFAS S&P 500 FoF is ~0.35% all-in; DSP Global Equity up to ~1.75%; domestic-equity GIFT City funds can run ~2.5%.' },
+      { key: 'giftTaxRate', label: 'GIFT City fund-level CG rate (%)', default: 14.95, min: 0, max: 50, step: 0.05, hint: 'DSP schedule: 14.95% LTCG (>24 months) or 42.74% STCG. The fund-level embedded tax, not your personal rate.' },
+      { key: 'directAllInTer', label: 'Direct US ETF all-in TER (%)', default: 0.03, min: 0, max: 3, step: 0.01, hint: 'VOO-class ~0.03%; Nasdaq-100 ETF ~0.20%. The cheapest fund cost in the comparison.' },
+      { key: 'directTaxRate', label: 'Direct-route CG rate (%)', default: 12.5, min: 0, max: 30, step: 0.5, hint: '12.5% no-indexation LTCG after 24 months; the slab rate for STCG (under 24 months).' },
+    ],
+    assumptions: [
+      'The GIFT City route (DSP position) pays CG at the FUND level - 14.95% LTCG / 42.74% STCG - with no investor-side CG and no Schedule FA; confirm the specific scheme\'s posture in its offer document.',
+      'The direct LRS route owns the US ETF directly: 12.5% no-indexation LTCG (24mo+) or slab STCG, plus Schedule FA disclosure and the 20% TCS reservation (modelled on the gift-city-lrs-tax calculator).',
+      'The all-in TER (scheme TER + underlying-ETF TER) is netted into the base return so it is not double-counted with the cost-drag display figure.',
+      'The comparison is on a single deployed amount and a single horizon; a multi-year SIP ladder changes the arithmetic.',
+      'Both routes run through the same LRS plumbing for the rupee->dollar move; the TCS reservation applies to both, so it cancels out of the head-to-head.',
+    ],
+    limitations: [
+      'The GIFT City fund-level rate (14.95% / 42.74%) is DSP\'s published schedule; other houses may use a different embedded rate - use the scheme\'s figure, not a house\'s, when comparing.',
+      'The 12.5% direct-route rate assumes a 24-month holding; a sub-24-month exit is the slab-rate STCG case, which is materially worse.',
+      'The "no Schedule FA on GIFT City" position is the DSP view; if your scheme is instead taxed on the Indian-side foreign-asset rules, re-run with the direct-route tax rate and add the Schedule FA + FAST-DS exposure.',
+      'This is a decision model, not a filing computation; reconcile with a CA before remitting.',
+    ],
+    compute: (v) => {
+      const r = giftCityRouteComparison({
+        invest: v.invest,
+        grossAnnualReturn: v.grossAnnualReturn / 100,
+        yearsHeld: v.yearsHeld,
+        giftAllInTer: v.giftAllInTer / 100,
+        giftTaxRate: v.giftTaxRate / 100,
+        directAllInTer: v.directAllInTer / 100,
+        directTaxRate: v.directTaxRate / 100,
+        directScheduleFa: true,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const pct = (n: number) => (n * 100).toFixed(2) + '%';
+      const results = [
+        { label: 'GIFT City final value', value: cr(r.giftFinalValue), sub: 'TER ' + v.giftAllInTer + '% + ' + v.giftTaxRate + '% fund-level CG' },
+        { label: 'Direct LRS final value', value: cr(r.directFinalValue), sub: 'TER ' + v.directAllInTer + '% + ' + v.directTaxRate + '% CG + Schedule FA' },
+        { label: 'Edge', value: r.edgeRoute === 'tie' ? 'tie' : r.edgeRoute + ' wins ' + cr(Math.abs(r.edgeAmount)), sub: pct(r.edgePctOfInvest) + ' of deployed capital' },
+        { label: 'GIFT City net return', value: pct(r.giftNetReturnPct), sub: 'after TER + fund-level tax' },
+        { label: 'Direct net return', value: pct(r.directNetReturnPct), sub: 'after TER + CG + (Schedule FA carry)' },
+        { label: 'Cost drag over ' + v.yearsHeld + ' yr (GIFT vs direct)', value: cr(r.giftCostDragApprox) + ' vs ' + cr(r.directCostDragApprox), sub: 'the linear TER x capital x years' },
+        { label: 'CG-rate spread', value: (r.taxRateSpread * 100).toFixed(2) + ' pp', sub: r.taxRateSpread > 0 ? 'GIFT City embedded rate is HIGHER' : 'GIFT City embedded rate is lower' },
+        { label: 'Schedule FA exposure', value: r.giftNoScheduleFa ? 'GIFT City avoids it' : 'both carry it', sub: 'the operational, not economic, difference' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'GIFT City vs Direct LRS final value (Rs L)',
+          alt: 'Bar chart of the final after-tax value on the GIFT City fund-level route vs the direct LRS route for the same corpus and horizon',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: { type: 'category', data: ['GIFT City (fund-level)', 'Direct LRS (+FA)'] },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Final value',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.giftFinalValue), itemStyle: { color: r.edgeRoute === 'gift' ? '#1f7a5c' : '#3a6ea5' } },
+                  { value: Math.round(r.directFinalValue), itemStyle: { color: r.edgeRoute === 'direct' ? '#1f7a5c' : '#8a8f98' } },
                 ],
                 label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },
