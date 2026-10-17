@@ -1580,6 +1580,48 @@
         "book-complete-indian-investor",
         "book-wealth-beyond-10l"
       ]
+    },
+    {
+      "id": "tax-54ec-tranche-tracker",
+      "file": "src/content/taxation/tax-54ec-tranche-tracker.mdx",
+      "title": "The 54EC Tranche Tracker: The 6-Month Window, 5-Year Lock-In & the Early-Redemption Reversal (FY 2026-27)",
+      "category": "taxation",
+      "status": "published",
+      "difficulty": "intermediate",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "54ec",
+        "capital-gains",
+        "lucg",
+        "bond",
+        "rec",
+        "pfc",
+        "hudco",
+        "irfc",
+        "nhai",
+        "lock-in",
+        "rollover",
+        "reversal",
+        "exemption",
+        "infrastructure",
+        "50-lakh",
+        "tranche-tracker"
+      ],
+      "sources": [
+        "src-54-rollover-fy2026-27",
+        "src-it-slab-fy2026-27"
+      ],
+      "related": [
+        "tax-capital-gains-rollover-54-54f-54ec",
+        "tax-india-investor-complete",
+        "real-estate-reit-invit",
+        "fixed-income-bonds-credit",
+        "pf-capital-ladder-10l-to-1cr"
+      ],
+      "books": [
+        "book-indian-taxation"
+      ]
     }
   ]
 }

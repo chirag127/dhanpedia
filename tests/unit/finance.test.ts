@@ -14,7 +14,8 @@ import {
   pmsSimulation,
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
-  dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27 } from '@lib/finance/index';
+  dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
+  fiftyFourECTrancheTracker } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1329,6 +1330,79 @@ describe('capitalLadderFY27', () => {
     const b = capitalLadderFY27(base({ monthlySip: 100000 }));
     expect(b.corpusAtHorizon).toBeGreaterThan(a.corpusAtHorizon);
     expect(a.corpusAtHorizon).toBeGreaterThan(0);
+  });
+});
+
+describe('fiftyFourECTrancheTracker', () => {
+  const base = (over: Partial<Parameters<typeof fiftyFourECTrancheTracker>[0]> = {}) => ({
+    originalGain: 4000000,
+    trancheInvested: 3000000,
+    monthsFromSaleToInvest: 4,
+    monthsHeldBeforeRedemption: -1,
+    ...over,
+  });
+
+  it('captures the smaller of the gain and the (cap-bound, compliant) tranche', () => {
+    const r = fiftyFourECTrancheTracker(base());
+    // 30L invested < 40L gain, and under the 50L cap -> exemption = 30L.
+    expect(r.exemptionCaptured).toBe(3000000);
+    expect(r.compliant).toBe(true);
+  });
+
+  it('is bounded by the Rs 50L cap, not the gain', () => {
+    const r = fiftyFourECTrancheTracker(base({ originalGain: 8000000, trancheInvested: 6000000 }));
+    // Tranche is 60L but capped at 50L; exemption is the cap, not the 80L gain.
+    expect(r.trancheAfterCap).toBe(5000000);
+    expect(r.exemptionCaptured).toBe(5000000);
+  });
+
+  it('captures zero exemption when the tranche is bought after the 6-month window', () => {
+    const r = fiftyFourECTrancheTracker(base({ monthsFromSaleToInvest: 7 }));
+    expect(r.compliant).toBe(false);
+    expect(r.exemptionCaptured).toBe(0);
+    expect(r.taxSaved).toBe(0);
+    // The whole original gain is then taxed at 12.5% -> reversal equals the full gain tax.
+    expect(r.reversalTax).toBeCloseTo(4000000 * 0.125, 0);
+  });
+
+  it('reverses the exemption on an early redemption (before the 5-year lock-in)', () => {
+    const r = fiftyFourECTrancheTracker(base({ monthsHeldBeforeRedemption: 30 }));
+    expect(r.earlyRedemption).toBe(true);
+    expect(r.exemptionLapsed).toBe(r.exemptionCaptured);
+    expect(r.reversalTax).toBeCloseTo(r.exemptionCaptured * 0.125, 0);
+    // Net effect cancels the saving (reversal = tax saved).
+    expect(r.netTaxEffect).toBeCloseTo(0, 0);
+  });
+
+  it('keeps the exemption when held to maturity (no reversal)', () => {
+    const r = fiftyFourECTrancheTracker(base({ monthsHeldBeforeRedemption: 60 }));
+    expect(r.earlyRedemption).toBe(false);
+    expect(r.exemptionLapsed).toBe(0);
+    expect(r.netTaxEffect).toBeCloseTo(-r.taxSaved, 0); // a net saving
+  });
+
+  it('accrues and taxes coupon interest on the capped principal at the slab rate', () => {
+    const r = fiftyFourECTrancheTracker(
+      base({ monthsHeldBeforeRedemption: 60, couponRate: 0.07, interestAccrualMonths: 60 }),
+    );
+    // 50L... but tranche is 30L (under cap) -> 30L x 7% x 5 yr = 10.5L interest.
+    expect(r.interestAccrual).toBeCloseTo(3000000 * 0.07 * 5, 0);
+    expect(r.interestTax).toBeCloseTo(r.interestAccrual * 0.30, 0);
+    expect(r.totalTaxEffect).toBeCloseTo(r.netTaxEffect + r.interestTax, 0);
+  });
+
+  it('zeroes all flows when the original gain is zero', () => {
+    const r = fiftyFourECTrancheTracker(base({ originalGain: 0 }));
+    expect(r.exemptionCaptured).toBe(0);
+    expect(r.reversalTax).toBe(0);
+    expect(r.totalTaxEffect).toBe(r.interestTax);
+  });
+
+  it('the reversal makes a redeemed tranche strictly worse than doing nothing', () => {
+    const held = fiftyFourECTrancheTracker(base({ monthsHeldBeforeRedemption: 60 }));
+    const redeemed = fiftyFourECTrancheTracker(base({ monthsHeldBeforeRedemption: 12 }));
+    // Redemption (reversal + interest) is a worse net outcome than holding to maturity.
+    expect(redeemed.totalTaxEffect).toBeGreaterThan(held.totalTaxEffect);
   });
 });
 

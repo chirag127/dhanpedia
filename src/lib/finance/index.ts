@@ -1356,6 +1356,135 @@ export function nriIndiaTaxFY27(n: NriTaxInput): NriTaxResult {
  *    gains, the slab rate passed in) that would have applied to the exempt
  *    portion.
  */
+/**
+ * 54EC Tranche Tracker: the operational layer over a single-event rollover.
+ *
+ * The existing `rolloverExemption` answers "how much of one gain is exempt
+ * if I reinvest it?". This one answers the follow-up question that actually
+ * trips people up in practice: I have a sequence of 54EC bond issues
+ * (tranches) I am buying across the 6-month window, each with a 5-year
+ * lock-in. What happens when I redeem one early?
+ *
+ * The reversal trap: if you sell or transfer a 54EC bond before the 5-year
+ * lock-in expires, the exemption for that tranche is withdrawn and the
+ * original LTCG is taxed as long-term capital gain at 12.5% (no-indexation
+ * base, post-Finance-No.2 Act 2024). This function models the net outcome:
+ *
+ *   1. The exemption captured by a compliant tranche.
+ *   2. The tax saved vs the no-rollover baseline.
+ *   3. The early-redemption reversal: the tranche's exemption lapses and the
+ *      original gain re-enters the LTCG pot at 12.5%, with the interest
+ *      accrued up to redemption being a separate income-head item.
+ *
+ * All inputs are Rs, months are calendar months, and all math is pure and
+ * deterministic.
+ */
+export interface FiftyFourECTrancheInput {
+  /** The original LTCG amount that generated the 54EC obligation. */
+  originalGain: number;
+  /** The amount actually invested in this 54EC tranche. */
+  trancheInvested: number;
+  /** The 54EC statutory reinvestment cap (Rs 50L, the default). */
+  cap?: number;
+  /** 12.5% post-Finance-No.2 Act 2024. */
+  ltcgRate?: number;
+  /** The 6-month statutory window, in months. */
+  windowMonths?: number;
+  /** The months from the sale date to when this tranche was invested.
+   *  Must be <= windowMonths to be compliant; otherwise the exemption lapses
+   *  for this tranche. */
+  monthsFromSaleToInvest: number;
+  /** The months the tranche is held before early redemption; -1 or a value
+   *  >= lockInMonths means "held to maturity" (no reversal). */
+  monthsHeldBeforeRedemption: number;
+  /** 60 months for the standard 5-year lock-in. */
+  lockInMonths?: number;
+  /** A flat coupon rate for the 54EC bond, used to estimate the interest
+   *  head on the tranche (54EC bond coupon interest is taxed at the
+   *  investor's slab rate, not at 12.5%). */
+  couponRate?: number;
+  /** For early-redemption interest: the months of interest accrued up to
+   *  redemption (defaults to monthsHeldBeforeRedemption when provided). */
+  interestAccrualMonths?: number;
+  /** Slab rate for coupon interest taxation (0.30 = 30% bracket assumed
+   *  for the default HNI bracket). */
+  slabRateForCoupon?: number;
+}
+
+export interface FiftyFourECTrancheResult {
+  originalGain: number;
+  trancheInvested: number;
+  capApplied: number;
+  trancheAfterCap: number; // the smaller of the tranche and the cap
+  compliant: boolean; // monthsFromSaleToInvest <= windowMonths
+  exemptionCaptured: number; // the smaller of the original gain and the (cap-bound,
+  //   compliant-only) tranche
+  taxSaved: number; // exemption x ltcgRate
+  lockInMonths: number;
+  earlyRedemption: boolean;
+  // The reversal numbers: when earlyRedemption is true, the exemption for this
+  // tranche lapses and the original gain re-enters the LTCG pot at ltcgRate.
+  exemptionLapsed: number; // 0 when held-to-maturity or non-compliant
+  reversalTax: number; // the tax on the lapsed exemption
+  netTaxEffect: number; // reversalTax - taxSaved (negative = net saving)
+  interestAccrual: number; // coupon x principal x months/12
+  interestTax: number; // interest x slabRate
+  totalTaxEffect: number; // netTaxEffect + interestTax
+}
+
+export function fiftyFourECTrancheTracker(inp: FiftyFourECTrancheInput): FiftyFourECTrancheResult {
+  const originalGain = Math.max(0, inp.originalGain);
+  const trancheInvested = Math.max(0, inp.trancheInvested);
+  const cap = inp.cap ?? 5000000;
+  const ltcgRate = inp.ltcgRate ?? 0.125;
+  const windowMonths = inp.windowMonths ?? 6;
+  const lockInMonths = inp.lockInMonths ?? 60;
+  const couponRate = inp.couponRate ?? 0;
+  const slabRate = inp.slabRateForCoupon ?? 0.30;
+  const monthsFromSaleToInvest = inp.monthsFromSaleToInvest;
+  const monthsHeld = inp.monthsHeldBeforeRedemption;
+  const interestMonths =
+    inp.interestAccrualMonths !== undefined
+      ? inp.interestAccrualMonths
+      : Math.max(0, monthsHeld);
+
+  const trancheAfterCap = Math.min(trancheInvested, cap);
+  const compliant = monthsFromSaleToInvest <= windowMonths;
+  const baseExempt = Math.min(originalGain, compliant ? trancheAfterCap : 0);
+  const taxSaved = baseExempt * ltcgRate;
+
+  const earlyRedemption = monthsHeld >= 0 && monthsHeld < lockInMonths;
+  // The portion of the gain whose exemption fails or lapses:
+  //  - non-compliant: the whole original gain (it never got any exemption);
+  //  - early redemption: the exemption captured earlier lapses;
+  //  - held to maturity: nothing lapses (the non-exempted balance stays in the
+  //    no-rollover baseline and is not a "reversal").
+  const exemptionLapsed = !compliant ? originalGain : earlyRedemption ? baseExempt : 0;
+  const reversalTax = exemptionLapsed * ltcgRate;
+  const netTaxEffect = reversalTax - taxSaved;
+
+  const interestAccrual = couponRate > 0 ? (trancheAfterCap * couponRate * interestMonths) / 12 : 0;
+  const interestTax = interestAccrual * slabRate;
+
+  return {
+    originalGain,
+    trancheInvested,
+    capApplied: cap,
+    trancheAfterCap,
+    compliant,
+    exemptionCaptured: baseExempt,
+    taxSaved,
+    lockInMonths,
+    earlyRedemption,
+    exemptionLapsed,
+    reversalTax,
+    netTaxEffect,
+    interestAccrual,
+    interestTax,
+    totalTaxEffect: netTaxEffect + interestTax,
+  };
+}
+
 export interface RolloverInput {
   gain: number;
   reinvested: number;

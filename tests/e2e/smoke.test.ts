@@ -447,4 +447,36 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('54ec-tranche-tracker calculator renders the three tranche states', async ({ page }) => {
+    await page.goto('/calculators/54ec-tranche-tracker');
+    // Result-row DOM labels (exemption, reversal, total) - the unique exact rows.
+    await expect(
+      page.getByText('Exemption captured', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Early-redemption reversal tax', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Total net tax effect', { exact: true }),
+    ).toBeVisible();
+    // The tranche-economics bar chart container is present (canvas, not DOM title).
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('54EC tranche tracker article renders the window, lock-in, and reversal sections', async ({ page }) => {
+    await page.goto('/articles/tax-54ec-tranche-tracker');
+    // Stable, unique H2 headings in the body (assert unique prefixes to avoid
+    // the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The six-month window/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The five-year lock-in/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The early-redemption reversal/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

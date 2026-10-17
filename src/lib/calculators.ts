@@ -22,6 +22,7 @@ import {
   npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
   nriIndiaTaxFY27, rolloverExemption, dtaaReliefFY27,
   esopVestingTaxFY27, capitalLadderFY27,
+  fiftyFourECTrancheTracker,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2116,6 +2117,87 @@ export const CALCULATORS: CalcDef[] = [
                 data: r.rungs.map((x) => (x.monthsToUnlock < 0 ? null : x.monthsToUnlock)),
                 itemStyle: { color: '#1f7a5c' },
                 yAxisIndex: 0,
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: '54ec-tranche-tracker',
+    title: '54EC Tranche Tracker: The 6-Month Window, 5-Year Lock-In & Early-Redemption Reversal (FY 2026-27)',
+    category: 'Tax',
+    description:
+      'Model a sequence of 54EC infrastructure-bond tranches against a single long-term capital gain: which tranches are compliant inside the 6-month window, which sit under the Rs 50L cap, and - the trap most people miss - what happens to the exemption when you redeem a tranche before its 5-year lock-in expires. The early-redemption reversal pulls the whole exemption back and re-taxes the original gain at 12.5%.',
+    inputs: [
+      { key: 'originalGain', label: 'Original LTCG amount (Rs)', default: 4000000, min: 0, step: 100000, hint: 'The long-term capital gain from the asset sale that creates the 54EC obligation.' },
+      { key: 'trancheInvested', label: 'Amount invested in this 54EC tranche (Rs)', default: 3000000, min: 0, step: 100000, hint: 'What you put into this bond issue. Bounded by the Rs 50L cap and the original gain.' },
+      { key: 'monthsFromSaleToInvest', label: 'Months from sale to this investment', default: 4, min: 0, max: 24, step: 1, hint: 'The 54EC window is 6 months. A tranche bought in month 7 or later is non-compliant and earns no exemption.' },
+      { key: 'monthsHeld', label: 'Months held before redemption (-1 = hold to maturity)', default: 30, min: -1, max: 120, step: 1, hint: 'The 54EC lock-in is 5 years (60 months). Redeeming before month 60 triggers the exemption reversal. Use -1 for held-to-maturity.' },
+      { key: 'couponRate', label: '54EC bond coupon rate (%)', default: 7, min: 0, max: 12, step: 0.5, hint: 'The bond pays a fixed coupon (recent REC/PFC/HUDCO/IRFC 54EC issues price around 6.5-7.5%). Interest is taxed at your slab rate, not 12.5%.' },
+      { key: 'interestMonths', label: 'Months of coupon interest accrued', default: 30, min: 0, max: 60, step: 1, hint: 'How many months of interest to tax on redemption; defaults to months held.' },
+    ],
+    assumptions: [
+      '12.5% no-indexation LTCG rate (post-Finance-No.2 Act 2024) applies to the original gain if the exemption lapses.',
+      'The 54EC reinvestment cap is Rs 50L per financial year; this tracker models one tranche against that cap.',
+      'The 5-year lock-in is 60 months; early redemption before month 60 withdraws the exemption for the tranche.',
+      'Coupon interest accrues at the stated rate on the capped principal and is taxed at a flat 30% slab (the HNI bracket).',
+      'A single non-compliant tranche (bought after 6 months) captures zero exemption; the original gain is then fully taxed at 12.5%.',
+    ],
+    limitations: [
+      'The 54EC cap is a per-FY reinvestment limit; a large gain spread across two years must respect each year cap separately.',
+      'Early-redemption interest is a simplification - the actual holding-period coupon is the issuer coupon, not a running accrual.',
+      'This is an operational-exemption tracker, not a filing computation; reconcile with Form 64C/64D (78/79 under the Act-2025) and a CA.',
+      'The Rs 50L cap is the statutory default; if a Finance-Act amendment raises it, the cap input overrides the default.',
+    ],
+    compute: (v) => {
+      const r = fiftyFourECTrancheTracker({
+        originalGain: v.originalGain,
+        trancheInvested: v.trancheInvested,
+        monthsFromSaleToInvest: v.monthsFromSaleToInvest,
+        monthsHeldBeforeRedemption: v.monthsHeld,
+        couponRate: v.couponRate / 100,
+        interestAccrualMonths: v.interestMonths,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const status = !r.compliant ? 'NON-COMPLIANT (bought after the 6-mo window)'
+        : r.earlyRedemption ? 'REVERSED (redeemed before the 5-yr lock-in)'
+        : 'HELD TO MATURITY - exemption kept';
+      const results = [
+        { label: 'Exemption captured', value: cr(r.exemptionCaptured), sub: 'of ' + cr(r.originalGain) + ' original gain' },
+        { label: 'Tax saved by the rollover', value: cr(r.taxSaved), sub: 'vs the no-54EC 12.5% baseline' },
+        { label: 'Tranche status', value: status, sub: r.compliant ? 'compliant in window' : 'no exemption for this tranche' },
+        { label: 'Early-redemption reversal tax', value: cr(r.reversalTax), sub: r.earlyRedemption ? 'exemption lapsed, gain re-taxed at 12.5%' : 'no reversal (held to maturity)' },
+        { label: 'Net tax effect', value: cr(r.netTaxEffect), sub: r.netTaxEffect < 0 ? 'net saving' : 'net cost' },
+        { label: 'Coupon interest accrued', value: cr(r.interestAccrual), sub: 'on the capped principal' },
+        { label: 'Interest tax at 30% slab', value: cr(r.interestTax), sub: 'separate income head, not 12.5%' },
+        { label: 'Total net tax effect', value: cr(r.totalTaxEffect), sub: 'reversal + interest, net of the saving' },
+      ];
+      return {
+        results,
+        chart: {
+          title: '54EC tranche economics (Rs L)',
+          alt: 'Bar chart of the 54EC tranche: exemption captured, tax saved, reversal tax, coupon interest, and the net effect',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: { type: 'category', data: ['Exemption', 'Tax saved', 'Reversal', 'Coupon', 'Interest tax'] },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.exemptionCaptured), itemStyle: { color: '#1f7a5c' } },
+                  { value: Math.round(r.taxSaved), itemStyle: { color: '#3a6ea5' } },
+                  { value: Math.round(r.reversalTax), itemStyle: { color: '#c65d3b' } },
+                  { value: Math.round(r.interestAccrual), itemStyle: { color: '#8a8f98' } },
+                  { value: Math.round(r.interestTax), itemStyle: { color: '#6b5b8a' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },
             ],
           },

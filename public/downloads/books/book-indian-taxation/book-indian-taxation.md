@@ -27,6 +27,7 @@ Tax rules are the single most time-sensitive part of this book. Every figure is 
 13. The Senior-Citizen Regime Decision: When the Old Regime Wins for a Retiree (and the 87A Trap It Hides)
 14. Capital Gains Rollover: Section 54, 54F & 54EC — Reinvest the Gain, Not the Sale Value (and What Breaks It)
 15. ESOP / RSU Vesting Tax Walkthrough: The Full Two-Stage Lifecycle (FY 2026-27)
+16. The 54EC Tranche Tracker: The 6-Month Window, 5-Year Lock-In & the Early-Redemption Reversal (FY 2026-27)
 
 
 
@@ -2343,6 +2344,123 @@ The capital-gains relief provision (CGAS) lets you defer advance tax on *unreali
 ## Sources & Citations
 
 - **Income Tax Department, India (IT Act 2025 consolidated guide)** — Taxation of Employee Stock Option Plan (ESOP): two-stage — perquisite at exercise under Sec 17(2)(vi) (FMV minus exercise price) + capital gains at sale; unlisted-company FMV valuation and Schedule FA disclosure. https://www.incometaxindia.gov.in/w/taxation-of-employee-stock-option-plan-esop- (verified 2026-10-16)
+- **Income Tax Department / Union Budget 2025 (Finance Act 2025) — FY 2026-27 slabs** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) — unchanged from the Budget 2025 reset: 0-4L nil, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30%+; Sec 87A rebate extends tax-free up to Rs 12L; standard deduction Rs 75,000. https://cleartax.in/s/income-tax-slabs (verified 2026-10-16)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.
+
+
+
+---
+
+
+The [rollover article](./tax-capital-gains-rollover-54-54f-54ec.mdx) covers *whether* a Section 54EC reinvestment shelters your gain. This is the operational layer: *how the 54EC mechanism actually behaves across time and across issuers* — because the moment you own a 54EC bond, you are not just deciding when to invest; you are committing to a 5-year holding period, a fixed coupon, and a specific issuer's credit, all of which come back to haunt the exemption if you break the lock-in early.
+
+54EC is one of the few capital-gains routes where the tax authority hands you a *window* (6 months) and then *checks on you* (5 years later). Miss the window and you lose the exemption; redeem early and you lose it *back*. This article walks through both failure modes, the proportional rule that applies when you park less than the full gain, the cap that binds at ₹50L, and the issuer/coupon comparison that decides which specific issue to buy.
+
+## The six-month window (where the exemption is made or lost)
+
+The clock starts at the **date of transfer** of the old asset (the sale). You have **6 months** to invest in a notified 54EC bond; the money must be *deposited and allotted* within that window. Two practical points:
+
+- **The window does not pause.** A property sale that clears in month 5 leaves you one month to close a bond issue; if the issue's subscription window has not opened yet, you are in a bind. This is why investors who expect a 54EC obligation often *front-load* the sale and the bond purchase to align with an issue calendar.
+- **The proportional rule applies to the tranche.** Your exemption is the **smaller of the capital gain and the amount actually invested** (bounded by the ₹50L cap). Park ₹30L of a ₹40L gain and you shelter ₹30L; the remaining ₹10L is taxed at 12.5%. This is the same min(gain, reinvested) rule the rollover article lays out, now applied tranche by tranche.
+
+If you invest in **month 7 or later**, that tranche is **non-compliant** and earns **no exemption** — the entire corresponding gain is then taxed at 12.5%. The companion calculator reports this directly as `NON-COMPLIANT`.
+
+## The five-year lock-in (where the exemption is protected)
+
+A 54EC bond must be **held for 5 years** from the date of allotment. During those 5 years:
+
+- You **cannot sell or pledge** the bond on the exchange (the issue is locked).
+- You **keep receiving the coupon** (the interest is a separate, currently-taxed income item at your slab rate — *not* at 12.5%).
+- The bond is listed on an exchange after the lock-in, which is when it becomes freely tradable.
+
+The lock-in is what makes 54EC a genuine *deferred-debt* position: you are buying a 5-year infrastructure bond that pays you ~6.5–7.5% a year while it shelters a chunk of your capital gain. That is a materially better after-tax deal than parking the gain in cash, and it is exactly why 54EC is a first-choice rollover for many property sellers.
+
+## The early-redemption reversal (the trap that un-winds the benefit)
+
+This is the single most important point in this article, and the one that separates the operational picture from the textbook summary:
+
+> **If you sell or transfer a 54EC bond before the 5-year lock-in expires, the exemption for that portion is withdrawn, and the original capital gain is taxed as long-term capital gain (12.5%, no indexation).**
+
+The mechanics:
+
+1. **The exemption lapses in full for the redeemed portion.** It is not a proportional claw-back on the redeemed bonds' interest; it is the *whole original gain* that was sheltered by those bonds coming back into the LTCG pot at 12.5%.
+2. **The coupon you collected during the held period is taxed normally** at your slab rate — that is separate income and is *not* reversed.
+3. **The net effect of redeeming early is that you lose the saving you made** (the reversal cancels the tax saved) *plus* you pay the coupon tax. The calculator's "net tax effect" is exactly `reversalTax − taxSaved`, and "total net tax effect" adds the coupon tax.
+
+Concretely: park ₹30L of a ₹40L gain → save `₹30L × 12.5% = ₹3.75L`. Redeem at month 30 → the exemption lapses, the `₹30L` re-enters at 12.5% (a `₹3.75L` reversal that *cancels the saving*), and you still owe slab-rate tax on 2.5 years of coupon. **Early redemption, in other words, gives you back the full tax bill you were avoiding** — the 54EC position is only as good as your discipline to hold it.
+
+## Worked example: a ₹40L gain, a ₹30L REC tranche
+
+Assume a property sale producing a ₹40L long-term gain, parked in a REC 54EC issue at 7% coupon, ₹30L tranche, bought in month 4 (compliant). Three outcomes:
+
+| Scenario | Exemption | Saving (12.5%) | Reversal | Net + coupon tax |
+|---|---|---|---|---|
+| **Held to maturity** | ₹30L | ₹3.75L | — | **₹3.75L saved** (coupon taxed at slab) |
+| **Redeemed at month 30** | ₹30L | ₹3.75L | ₹3.75L | **zero saved, coupon still taxed** |
+| **Bought at month 7** | ₹0 | ₹0 | ₹5.0L (whole gain) | **₹5.0L on the full ₹40L gain** |
+
+The third row is the subtle one: a non-compliant purchase means *nothing* is sheltered, so the entire ₹40L is taxed at 12.5% (`₹5L`), which is worse than the compliant-and-held case (`₹3.75L` net cost avoided) by the tax on the `₹10L` of un-parked gain. The calculator walks all three.
+
+## Which issuer: REC vs PFC vs HUDCO vs IRFC vs NHAI
+
+All five notified 54EC issuers (REC, PFC, HUDCO, IRFC, and historically NHAI) print a fixed coupon and are 5-year issues; the differences that matter for *your* decision:
+
+- **Coupon** — the effective yield. Recent issues price around 6.5–7.5%; a higher coupon is directly better for the same lock-in, because you are giving up 5 years of liquidity.
+- **Credit / interest coverage** — these are infrastructure-finance companies; REC and PFC are the largest and most-liquid, HUDCO is housing-focused, IRFC is railway-focused. For a *5-year* hold, credit deterioration is a real risk (the bond's price, not its coupon, is what you would care about if it went off-market).
+- **Allotment calendar** — issues open on a rolling basis; you can only buy a tranche when that issuer's subscription window is open. This is the practical constraint that forces the 6-month-window planning above.
+- **The coupon interest is slab-taxed**, so a high-earner's after-tax coupon is lower than a low-earner's — factor that into which tranche you over-weight.
+
+The 54EC bond is not a "park and forget" zero-coupon; it is a *5-year annuity* that shelters your gain. Treat it like a fixed-income position with a tax wrapper, not like a pure tax instrument.
+
+## The 50L cap (the number that binds large gains)
+
+The 54EC reinvestment cap is **₹50,00,000 per financial year** — you can shelter at most ₹50L of a gain per year. Two consequences:
+
+1. **Gains above ₹50L split across years** respect *each* year's cap. A ₹90L gain in FY 2025-26 cannot be parked entirely in FY 2025-26 54EC; the `₹40L` above the cap is taxed, and only a *new* gain with its own fresh 54EC window in the next year gets a new ₹50L.
+2. **The ₹50L cap is also the "standard PMS" rung threshold** in the [capital-ladder article](./pf-capital-ladder-10l-to-1cr.mdx). The two numbers are not the same thing (one is a tax cap, the other an SEBI minimum) but they meet at the same corpus level, so a planer who has a 54EC obligation *and* is crossing the PMS threshold should look at the two together.
+
+## When 54EC is the wrong tool (the honest layer)
+
+54EC is not always the best rollover for a property gain:
+
+- **If you would have bought a *second house* anyway**, Section 54 (1-year / 3-year construction windows) shelters the *whole* gain with no cap and no 5-year lock-in, which beats 54EC. 54EC is the fallback for *not* buying a house.
+- **If the gain is below the ₹50L cap but you need the liquidity**, the 5-year lock-in is a real cost — you are committing ₹30L+ to a 5-year annuity to save a one-time tax bill. The break-even is when `the tax saved` exceeds `the opportunity cost of the locked-in capital` plus `the coupon tax`.
+- **If the lock-in will force an early redemption** (a planned sale of the bond, a refinance, a liquidity need in year 3), the reversal means you get the saving back *and* pay the coupon tax — so a planned early exit is the worst-case 54EC. If you know you will want the money back before year 5, 54EC was the wrong choice from the start.
+
+## What to do (the discipline)
+
+1. **Confirm the gain first** (the 12.5% no-indexation base, the actual LTCG amount, and whether you have losses to offset — see [loss harvesting](./tax-loss-harvesting.mdx)).
+2. **Decide 54EC vs 54/54F** (house route first, 54EC second).
+3. **Map the 6-month window to an issuer calendar** — pick the REC/PFC/HUDCO/IRFC issue whose subscription window falls inside it.
+4. **Buy the compliant tranche now, plan the 5-year hold** — model the coupon (slab-taxed) and the *no-early-redemption* discipline.
+5. **Use the 50L cap consciously** — for gains above ₹50L, the excess is taxed; do not plan around sheltering more than the cap allows.
+6. **Run the [54EC tranche-tracker calculator](/calculators/54ec-tranche-tracker)** for your exact numbers (original gain, tranche, months-from-sale, months-held, coupon, interest months) and check all three outcome rows.
+
+## Update log
+
+- **2026-10-18 (Wave 21):** created. Verified the 54EC operational structure (6-month investment window, 5-year lock-in, ₹50L reinvestment cap, 12.5% no-indexation LTCG base, REC/PFC/HUDCO/IRFC notified issuers, slab-taxed coupon) against `src-54-rollover-fy2026-27` and `src-it-slab-fy2026-27`. The early-redemption reversal (exemption withdrawn, original gain re-taxed at 12.5%) is the structural point of this article and is modelled in the companion calculator.
+- **Review by 2027-04-17:** re-verify the 54EC cap (a Finance-Act amendment could raise it), the notified-bond list, and the coupon range at the FY 2027-28 Budget.
+
+## Sources
+
+- `src-54-rollover-fy2026-27` — Section 54/54F/54EC reinvestment rules: the 6-month 54EC window, the 5-year lock-in, the ₹50L cap, and the 12.5% no-indexation base (post-Finance-No.2 Act 2024), the proportional min(gain, reinvested) rule.
+- `src-it-slab-fy2026-27` — the FY 2026-27 income-tax slabs used for the slab-taxed coupon income.
+
+## Related
+
+- [Capital Gains Rollover: Section 54, 54F & 54EC](/articles/tax-capital-gains-rollover-54-54f-54ec)
+- [The 10-Lakh Capital Ladder (the ₹50L 54EC cap meets the standard-PMS rung)](/articles/pf-capital-ladder-10l-to-1cr)
+- [Loss Harvesting](/articles/tax-loss-harvesting)
+- [Bonds & Credit](/articles/fixed-income-bonds-credit)
+- The **54EC tranche-tracker** calculator — run your exact gain, tranche, window, lock-in, and coupon through all three outcome rows.
+
+
+## Sources & Citations
+
+- **CBDT Budget-2024 capital-gains FAQs (PIB, 24 Jul 2024) / TaxClue 54EC + 54F guides** — Capital-gains reinvestment (rollover) exemptions FY 2026-27 - Section 54 (residential house to residential house), 54F (any long-term asset other than a house to a residential house) and 54EC (a house-gain reinvested in notified infrastructure bonds, capped at Rs 50,00,000): the proportional rule (exemption = the smaller of the net gain and the amount actually reinvested in time), the statutory time windows (54EC within 6 months; 54 purchase within 1 yr before / 2 yr after sale or construction within 3 yr; 54F within 2 yr), the two exemption-breakers (a missed window and a non-long-term gain), the Capital Gains Account Scheme (CGAS) to hold unspent consideration, the Rs 10 Cr new-asset-cost cap on 54/54F (from AY 2024-25), the post-Finance (No.2) Act 2024 12.5% no-indexation LTCG base, and NRI eligibility (the rollover also reduces the 195 TDS). https://www.pib.gov.in/newsite/erelcontentt.aspx?_d=2036604 (verified 2026-10-18)
 - **Income Tax Department / Union Budget 2025 (Finance Act 2025) — FY 2026-27 slabs** — Income-tax slabs, new regime, FY 2026-27 (AY 2027-28) — unchanged from the Budget 2025 reset: 0-4L nil, 5% to 8L, 10% to 12L, 15% to 16L, 20% to 20L, 25% to 24L, 30%+; Sec 87A rebate extends tax-free up to Rs 12L; standard deduction Rs 75,000. https://cleartax.in/s/income-tax-slabs (verified 2026-10-16)
 
 ---

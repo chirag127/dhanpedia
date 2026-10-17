@@ -495,6 +495,17 @@
         "src-aif-categories-2026",
         "src-surcharge-cess-fy2026-27"
       ]
+    },
+    {
+      "id": "ul-54ec-tranche-reversal-fy2026-27",
+      "topic": "54EC operational structure: the 6-month investment window, the 5-year lock-in, the Rs 50L reinvestment cap, the 12.5% no-indexation LTCG base, the REC/PFC/HUDCO/IRFC notified-bond list with ~6.5-7.5% coupons (slab-taxed), and the early-redemption reversal (exemption withdrawn, original gain re-taxed at 12.5%).",
+      "article": "tax-54ec-tranche-tracker",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-54-rollover-fy2026-27",
+        "src-it-slab-fy2026-27"
+      ]
     }
   ]
 }
