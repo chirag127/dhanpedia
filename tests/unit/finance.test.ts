@@ -17,7 +17,7 @@ import {
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
   directLrsUsEquityFilingFY27, fastDSDisclosureFY26,
-  blackMoneyActExposure } from '@lib/finance/index';
+  blackMoneyActExposure, fastDSValuationGuard } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1777,6 +1777,76 @@ describe('blackMoneyActExposure', () => {
     expect(r.bmaTax).toBe(0);
     expect(r.bmaPenalty).toBe(0);
     expect(r.effectivePctOfValue).toBe(0);
+  });
+});
+
+describe('fastDSValuationGuard', () => {
+  const base = (over: Partial<Parameters<typeof fastDSValuationGuard>[0]> = {}) => ({
+    declaredFmv: 4000000,
+    determinedFmv: 5000000,
+    track: 'A',
+    ...over,
+  });
+
+  it('holds the 20% safeguard when the determined FMV is within 20% of declared', () => {
+    // Determined 4.8L vs declared 4L -> 20% variance (inclusive) -> holds.
+    const r = fastDSValuationGuard(base({ declaredFmv: 4000000, determinedFmv: 4800000 }));
+    expect(r.variancePct).toBeCloseTo(0.2, 6);
+    expect(r.valuationSafeguardHolds).toBe(true);
+    expect(r.chargeBaseValue).toBe(4000000);
+  });
+
+  it('fails the safeguard and re-computes on the determined FMV when above 20%', () => {
+    // Determined 5L vs declared 4L -> 25% variance -> safeguard fails.
+    const r = fastDSValuationGuard(base());
+    expect(r.variancePct).toBeCloseTo(0.25, 6);
+    expect(r.valuationSafeguardHolds).toBe(false);
+    expect(r.chargeBaseValue).toBe(5000000);
+    // Track A payable = 60% of the (higher) determined value.
+    expect(r.payableFinal).toBe(5000000 * 0.6);
+    expect(r.payableIfDeclared).toBe(4000000 * 0.6);
+  });
+
+  it('computes the Track A payable at 60% of the charge base', () => {
+    const r = fastDSValuationGuard(base({ declaredFmv: 5000000, determinedFmv: 5000000 }));
+    expect(r.valuationSafeguardHolds).toBe(true);
+    expect(r.payableFinal).toBe(5000000 * 0.6);
+  });
+
+  it('computes the Track B payable as the flat fee (within the ceiling)', () => {
+    const r = fastDSValuationGuard(base({ track: 'B', declaredFmv: 30000000, determinedFmv: 30000000 }));
+    expect(r.track).toBe('B');
+    expect(r.payableFinal).toBe(100000);
+    expect(r.eligibleAtDetermined).toBe(true);
+  });
+
+  it('flags a Track B asset that re-values above the Rs 5 cr ceiling as ineligible', () => {
+    const r = fastDSValuationGuard(base({ track: 'B', declaredFmv: 40000000, determinedFmv: 55000000 }));
+    // Variance > 20% -> re-valued on 55L, which exceeds the 5 cr ceiling.
+    expect(r.valuationSafeguardHolds).toBe(false);
+    expect(r.eligibleAtDetermined).toBe(false);
+    expect(r.note).toMatch(/exceeds the/);
+  });
+
+  it('accumulates the 1%-per-month late-payment interest on the payable', () => {
+    // 6 months late on a 3L payable -> 1.8L interest.
+    const r = fastDSValuationGuard(base({ declaredFmv: 5000000, determinedFmv: 5000000, latePaymentMonths: 6 }));
+    expect(r.payableFinal).toBe(3000000);
+    expect(r.latePaymentInterest).toBe(180000);
+    expect(r.totalOutflow).toBe(3180000);
+  });
+
+  it('no late interest when the payment is on time', () => {
+    const r = fastDSValuationGuard(base({ declaredFmv: 5000000, determinedFmv: 5000000, latePaymentMonths: 0 }));
+    expect(r.latePaymentInterest).toBe(0);
+    expect(r.totalOutflow).toBe(r.payableFinal);
+  });
+
+  it('zero declared value zeroes the variance and the payable', () => {
+    const r = fastDSValuationGuard(base({ declaredFmv: 0, determinedFmv: 0 }));
+    expect(r.variancePct).toBe(0);
+    expect(r.valuationSafeguardHolds).toBe(true);
+    expect(r.payableFinal).toBe(0);
   });
 });
 

@@ -3194,6 +3194,153 @@ export function blackMoneyActExposure(inp: BlackMoneyActInput): BlackMoneyActRes
   };
 }
 
+/* ------------------------------------------------------------------
+ * FAST-DS 2026 valuation guard (the "did I value it right?" layer
+ * that both the FAST-DS and the Black Money Act articles point to)
+ *
+ * The Foreign Assets of Small Taxpayers - Disclosure Scheme Rules,
+ * 2026 (G.S.R. 732(E), 14 Aug 2026; in force 16 Aug 2026; last date
+ * 31 Dec 2026) fix the valuation date at 31 March 2026 and prescribe
+ * per-asset-class valuation (Rule 3) + RBI-reference-rate currency
+ * conversion (Rule 3(4)/(5)). The practical "gotcha" is the
+ * 20% valuation-variance safeguard in Rule 5(2): if the FMV you
+ * declared in Form 1 differs from the FMV the authority later
+ * determines, the declaration is NOT invalid *only* while the
+ * variance is within 20% of the declared FMV; above that, the value
+ * is re-computed on the (higher) determined FMV and the payable
+ * rises with it. Track A = 60% of value (30% + 100% additional);
+ * Track B = a flat Rs 1L fee within the Rs 5 cr ceiling.
+ *
+ * All math is pure and deterministic; the late-payment interest is
+ * 1% per month (or part) on the payable (Rule 7).
+ * ------------------------------------------------------------------ */
+
+export interface FastDSValuationInput {
+  /** The FMV you declared in Form 1, as of the 31 Mar 2026 valuation
+   *  date (Rs). */
+  declaredFmv: number;
+  /** The FMV the authority would determine on assessment / inquiry
+   *  (Rs) - the "true" value the 20% safeguard is tested against. */
+  determinedFmv: number;
+  /** 'A' = undisclosed (30% + 100% additional = 60% of value);
+   *  'B' = a missed-Schedule-FA asset (flat Rs 1L fee, within the
+   *  Rs 5 cr ceiling). */
+  track: 'A' | 'B';
+  /** The Track A ceiling (Rs 1 cr) - the aggregate must be at or under
+   *  it for Track A to be available. */
+  trackACeiling?: number;
+  /** The Track B ceiling (Rs 5 cr). */
+  trackBCeiling?: number;
+  /** The Track A tax rate (30%); the additional amount is equal to it. */
+  trackATaxRate?: number;
+  /** The Track B flat fee (Rs 1,00,000). */
+  trackBFlatFee?: number;
+  /** Whole months (or part) the Form 3 payment is delayed past the
+   *  initial two-month window; 1% interest per month applies. */
+  latePaymentMonths?: number;
+}
+
+export interface FastDSValuationResult {
+  declaredFmv: number;
+  determinedFmv: number;
+  track: FastDSValuationInput['track'];
+  /** The 20% valuation-variance, measured against the DECLARED FMV
+   *  (Rule 5(2)). */
+  variancePct: number;
+  /** True when the variance is within 20% of the declared FMV - the
+   *  declaration stands on the declared value. */
+  valuationSafeguardHolds: boolean;
+  /** The value the payable is computed on: the declared FMV when the
+   *  safeguard holds, otherwise the (higher) determined FMV. */
+  chargeBaseValue: number;
+  /** The declared-valuation payable (60% of the declared value for A,
+   *  the flat fee for B). */
+  payableIfDeclared: number;
+  /** The re-valued payable if the safeguard does NOT hold (60% of the
+   *  determined value for A; the flat fee still applies for B within
+   *  the ceiling). */
+  payableIfRevalued: number;
+  /** The payable that actually applies (re-valued when the safeguard
+   *  fails). */
+  payableFinal: number;
+  /** True when the DETERMINED value is within the track ceiling - a
+   *  Track B asset re-valued above Rs 5 cr loses the flat fee. */
+  eligibleAtDetermined: boolean;
+  /** The 1%-per-month late-payment interest on the payable. */
+  latePaymentInterest: number;
+  /** The full outflow: the applicable payable + the late interest. */
+  totalOutflow: number;
+  note: string;
+}
+
+export function fastDSValuationGuard(inp: FastDSValuationInput): FastDSValuationResult {
+  const declared = Math.max(0, inp.declaredFmv);
+  const determined = Math.max(0, inp.determinedFmv);
+  const track = inp.track;
+  const ceilingA = inp.trackACeiling ?? 10000000;
+  const ceilingB = inp.trackBCeiling ?? 50000000;
+  const taxRateA = inp.trackATaxRate ?? 0.3;
+  const flatFeeB = inp.trackBFlatFee ?? 100000;
+  const lateMonths = inp.latePaymentMonths ?? 0;
+
+  // Rule 5(2): the variance is measured against the DECLARED FMV; the
+  // declaration stands while it is within 20%.
+  const variancePct = declared > 0 ? Math.abs(determined - declared) / declared : 0;
+  const valuationSafeguardHolds = variancePct <= 0.2;
+
+  // The value the charge is computed on, and whether the (re-valued)
+  // asset still sits within the track ceiling.
+  const chargeBaseValue = valuationSafeguardHolds ? declared : determined;
+  const eligibleAtDetermined =
+    track === 'A' ? determined <= ceilingA : determined <= ceilingB;
+
+  const payableIfDeclared =
+    track === 'A' ? declared * (taxRateA + taxRateA) : flatFeeB;
+  const payableIfRevalued =
+    track === 'A' ? determined * (taxRateA + taxRateA) : flatFeeB;
+  const payableFinal = valuationSafeguardHolds ? payableIfDeclared : payableIfRevalued;
+
+  const latePaymentInterest = payableFinal * 0.01 * Math.max(0, lateMonths);
+  const totalOutflow = payableFinal + latePaymentInterest;
+
+  let note = '';
+  if (!eligibleAtDetermined) {
+    note =
+      'The DETERMINED value of Rs ' +
+      determined.toLocaleString('en-IN') +
+      ' exceeds the ' +
+      (track === 'A' ? 'Rs 1 cr Track A' : 'Rs 5 cr Track B') +
+      ' ceiling - the 60% / flat-fee route is not available at the re-valued amount; this asset is outside the FAST-DS scheme for this track.';
+  } else if (!valuationSafeguardHolds) {
+    note =
+      'The valuation variance of ' +
+      (variancePct * 100).toFixed(1) +
+      '% of the declared FMV exceeds the 20% Rule-5(2) safeguard, so the charge is re-computed on the higher determined FMV - under-value the declaration and the payable rises with it.';
+  } else {
+    note =
+      'The valuation variance of ' +
+      (variancePct * 100).toFixed(1) +
+      '% of the declared FMV is within the 20% Rule-5(2) safeguard, so the declaration stands on the declared value and the payable is ' +
+      (track === 'A' ? '60% of it' : 'the flat Rs 1L fee');
+  }
+
+  return {
+    declaredFmv: declared,
+    determinedFmv: determined,
+    track,
+    variancePct,
+    valuationSafeguardHolds,
+    chargeBaseValue,
+    payableIfDeclared,
+    payableIfRevalued,
+    payableFinal,
+    eligibleAtDetermined,
+    latePaymentInterest,
+    totalOutflow,
+    note,
+  };
+}
+
 export function fastDSDisclosureFY26(inp: FastDSDisclosureInput): FastDSDisclosureResult {
   const value = Math.max(0, inp.disclosedValue);
   const category = inp.category;

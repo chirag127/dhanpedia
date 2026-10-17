@@ -25,6 +25,7 @@ import {
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27,
   giftCityRouteComparison, directLrsUsEquityFilingFY27,
   fastDSDisclosureFY26, blackMoneyActExposure,
+  fastDSValuationGuard,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2577,6 +2578,81 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.totalFlatPenalty), itemStyle: { color: '#8a8f98' } },
                   { value: Math.round(r.totalCounterfactualExposure), itemStyle: { color: '#5a2a2a' } },
                   { value: Math.round(r.fastDsCategoryACost), itemStyle: { color: '#1f7a5c' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'fast-ds-valuation-guard',
+    title: 'FAST-DS 2026 Valuation Guard: Did You Value It Right? (Rule 3 + the 20% Rule-5(2) Safeguard)',
+    category: 'Tax',
+    description:
+      'The "did I value the asset right?" layer for a FAST-DS 2026 declaration: the 31 March 2026 valuation date, the Rule 3 per-asset-class FMV, the RBI-reference-rate currency conversion, and - the gotcha - the 20% valuation-variance safeguard in Rule 5(2). If the FMV you declared in Form 1 differs from the FMV the authority later determines by more than 20% of what you declared, the charge is re-computed on the higher value and your payable rises. Shows Track A (60%) vs Track B (flat Rs 1L), the variance, the payable that actually applies, and the 1%-per-month late-payment interest.',
+    inputs: [
+      { key: 'declaredFmv', label: 'FMV you declared in Form 1 (Rs)', default: 4000000, min: 0, step: 100000, hint: 'The fair market value of the asset as of the 31 Mar 2026 valuation date, in rupees, that you put in Form 1. Under-stating it is the trap this calculator surfaces.' },
+      { key: 'determinedFmv', label: 'FMV the authority would determine (Rs)', default: 5000000, min: 0, step: 100000, hint: 'The "true" FMV an assessing officer would arrive at on assessment / inquiry. If it exceeds your declared value by more than 20%, the 20% safeguard fails and the charge is re-computed on this higher value.' },
+      { key: 'track', label: 'FAST-DS track', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'Track A - undisclosed (60% of value, up to Rs 1 cr)' }, { value: 1, label: 'Track B - missed Schedule FA (flat Rs 1L fee, up to Rs 5 cr)' }], hint: 'Track A = the asset/income was never reported. Track B = it was taxed elsewhere but missed from Schedule FA.' },
+      { key: 'latePaymentMonths', label: 'Form 3 payment delay (months past the window)', default: 0, min: 0, max: 36, step: 1, hint: '1% interest per month (or part) applies to the payable after the initial two-month payment window closes.' },
+    ],
+    assumptions: [
+      'FAST-DS Rules 2026 (G.S.R. 732(E), 14 Aug 2026; in force 16 Aug 2026; last date 31 Dec 2026); the valuation date is fixed at 31 Mar 2026 (Rule 2(1)(e)).',
+      'Track A = 30% tax + an additional amount equal to 100% of that tax = 60% of the value; the ceiling is Rs 1 cr.',
+      'Track B = a flat Rs 1,00,000 fee; the ceiling is Rs 5 cr.',
+      'The 20% Rule 5(2) safeguard: the declaration is not invalid merely because the FMV varies, provided the variance is within 20% of the DECLARED FMV; above that the charge re-computes on the higher determined value.',
+      'Late payment of the Form 3 amount attracts 1% interest per month (or part) on the payable.',
+    ],
+    limitations: [
+      'The "determined FMV" is your best estimate of what an assessing officer would arrive at; the department re-values using Rule 3 and the RBI reference rate, so a declared value materially below that is the risk.',
+      'Currency conversion uses the RBI reference rate on the valuation date (Rule 3(4)/(5)); the calculator takes rupee values, not a live FX compute.',
+      'FAST-DS regularises the tax / Black Money Act exposure; it does NOT automatically settle FEMA / exchange-control exposure.',
+      'This is a valuation-guard model, not a Form 1 filing; reconcile with the notified Rules and a CA before acting.',
+    ],
+    compute: (v) => {
+      const r = fastDSValuationGuard({
+        declaredFmv: v.declaredFmv,
+        determinedFmv: v.determinedFmv,
+        track: v.track > 0.5 ? 'B' : 'A',
+        latePaymentMonths: v.latePaymentMonths,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const results = [
+        { label: 'Valuation variance', value: (r.variancePct * 100).toFixed(1) + '%', sub: 'determined vs declared FMV (the 20% Rule-5(2) test)' },
+        { label: '20% safeguard', value: r.valuationSafeguardHolds ? 'HOLDS (stands on declared value)' : 'FAILED (re-computed on determined value)', sub: 'the declaration is invalid only above 20%' },
+        { label: 'Payable (track ' + r.track + ')', value: cr(r.payableFinal), sub: r.track === 'A' ? '60% of the charge base' : 'flat Rs 1L fee' },
+        { label: 'Payable if declared (vs re-valued)', value: cr(r.payableIfDeclared) + ' vs ' + cr(r.payableIfRevalued), sub: 'the gap the safeguard closes' },
+        { label: 'Eligible at determined value', value: r.eligibleAtDetermined ? 'yes' : 'NO - over the ceiling', sub: r.track === 'A' ? 'Rs 1 cr ceiling' : 'Rs 5 cr ceiling' },
+        { label: 'Late-payment interest', value: cr(r.latePaymentInterest), sub: '1%/month x ' + v.latePaymentMonths + ' months' },
+        { label: 'Total outflow', value: cr(r.totalOutflow), sub: 'payable + late interest' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'FAST-DS payable: declared vs re-valued (Rs L)',
+          alt: 'Bar chart of the FAST-DS payable on the declared FMV versus the re-valued (determined) FMV, plus the late-payment interest and the total outflow',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: {
+              type: 'category',
+              data: ['If declared', 'If re-valued', 'Late interest', 'Total outflow'],
+            },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.payableIfDeclared), itemStyle: { color: '#3a6ea5' } },
+                  { value: Math.round(r.payableIfRevalued), itemStyle: { color: r.valuationSafeguardHolds ? '#8a8f98' : '#c65d3b' } },
+                  { value: Math.round(r.latePaymentInterest), itemStyle: { color: '#8a8f98' } },
+                  { value: Math.round(r.totalOutflow), itemStyle: { color: '#1f7a5c' } },
                 ],
                 label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },

@@ -1834,6 +1834,50 @@
       "books": [
         "book-complete-indian-investor"
       ]
+    },
+    {
+      "id": "tax-fastds-valuation-guard-due-diligence",
+      "file": "src/content/taxation/tax-fastds-valuation-guard-due-diligence.mdx",
+      "title": "FAST-DS 2026 Valuation Guard & Due-Diligence: Did You Value It Right? (Rule 3 + the 20% Rule-5(2) Safeguard, 31 Mar 2026)",
+      "category": "taxation",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-01-31",
+      "tags": [
+        "fast-ds",
+        "fastds-rules-2026",
+        "valuation",
+        "rule-3",
+        "20-percent-safeguard",
+        "rule-5-2",
+        "fmv",
+        "31-march-2026",
+        "currency-conversion",
+        "rbi-reference-rate",
+        "form-1",
+        "form-2",
+        "form-3",
+        "form-4",
+        "late-payment-interest",
+        "fema",
+        "due-diligence",
+        "foreign-asset"
+      ],
+      "sources": [
+        "src-fastds-rules-valuation-2026",
+        "src-us-stock-tax-india-2026",
+        "src-it-slab-fy2026-27"
+      ],
+      "related": [
+        "tax-fastds-2026-declaration",
+        "tax-black-money-act-exposure",
+        "tax-direct-lrs-us-equity-filing-walkthrough",
+        "tax-india-investor-complete"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
     }
   ]
 }

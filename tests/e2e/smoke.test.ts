@@ -644,4 +644,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('fast-ds-valuation-guard calculator renders the safeguard verdict', async ({ page }) => {
+    await page.goto('/calculators/fast-ds-valuation-guard');
+    // Result-row DOM labels (the most-unique rows; the chart title is
+    // inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('Valuation variance', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('20% safeguard', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Total outflow', { exact: true }),
+    ).toBeVisible();
+    // The declared-vs-revalued cost chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('FAST-DS valuation-guard article renders the due-diligence sections', async ({ page }) => {
+    await page.goto('/articles/tax-fastds-valuation-guard-due-diligence');
+    // Stable, unique H2 headings in the body (assert unique prefixes to
+    // avoid the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The 20% valuation-variance safeguard/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The document checklist/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /What the immunity does NOT cover/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

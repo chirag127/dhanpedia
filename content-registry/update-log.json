@@ -567,6 +567,18 @@
         "src-us-stock-tax-india-2026",
         "src-it-slab-fy2026-27"
       ]
+    },
+    {
+      "id": "ul-fastds-valuation-guard-2026",
+      "topic": "FAST-DS 2026 valuation + due-diligence layer (the Foreign Assets of Small Taxpayers-Disclosure Scheme Rules, 2026, G.S.R. 732(E) 14 Aug 2026, in force 16 Aug, last date 31 Dec 2026): the fixed 31 Mar 2026 valuation date (Rule 2(1)(e)), the Rule 3 per-asset-class FMV methods (bank accounts = sum of deposits to 31 Mar 2026; quoted/unquoted securities; immovable property; bullion; partnership interests; indexed-cost deemed-FMV fallback) + the Rule 3(4)/(5) RBI-reference-rate two-stage currency conversion, the Rule 5(2) 20% valuation-variance safeguard (the declaration stands only while the FMV variance is within 20% of the DECLARED value; above that the charge re-computes on the higher determined FMV), the four-form chain (Forms 1-2-3-4, Rules 5-8, before the Principal DGIT Systems) + the 1%/month late-payment interest (Rule 7), and the LIMITED immunity (regularises tax / BMA exposure but does NOT settle FEMA and does not replace ongoing Schedule FA).",
+      "article": "tax-fastds-valuation-guard-due-diligence",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-01-31",
+      "sourceIds": [
+        "src-fastds-rules-valuation-2026",
+        "src-us-stock-tax-india-2026",
+        "src-it-slab-fy2026-27"
+      ]
     }
   ]
 }
