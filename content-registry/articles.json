@@ -1878,6 +1878,50 @@
       "books": [
         "book-complete-indian-investor"
       ]
+    },
+    {
+      "id": "pf-capital-inflow-migration",
+      "file": "src/content/personal-finance/pf-capital-inflow-migration.mdx",
+      "title": "The Capital-Inflow Migration Planner: When to Move Each New Rupee Into the Next Rung (SIF → PMS → AIF)",
+      "category": "personal-finance",
+      "status": "published",
+      "difficulty": "intermediate",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "capital-inflow",
+        "migration",
+        "sif",
+        "pms",
+        "prim",
+        "aif",
+        "ladder",
+        "deployment",
+        "scheduling",
+        "10-lakh",
+        "esop",
+        "promotion",
+        "inheritance",
+        "portfolio",
+        "roadmap"
+      ],
+      "sources": [
+        "src-sebi-sif-2026",
+        "src-pms-aif-fees-2026",
+        "src-aif-categories-2026",
+        "src-it-slab-fy2026-27"
+      ],
+      "related": [
+        "pf-capital-ladder-10l-to-1cr",
+        "pf-wealth-plan-10-lakh",
+        "alternatives-hnw-pms-aif-sif-selection",
+        "tax-esop-vesting-tax-walkthrough",
+        "tax-surcharge-cess-high-income"
+      ],
+      "books": [
+        "book-complete-indian-investor",
+        "book-wealth-beyond-10l"
+      ]
     }
   ]
 }

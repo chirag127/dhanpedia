@@ -677,4 +677,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('capital-inflow-migration calculator renders the rung-open schedule', async ({ page }) => {
+    await page.goto('/calculators/capital-inflow-migration');
+    // Result-row DOM labels (the most-unique rows; the chart title is
+    // inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('SIF (Rs 10L) opens', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('AIF (Rs 1Cr) opens', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Total discrete inflows', { exact: true }),
+    ).toBeVisible();
+    // The corpus-trajectory line chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('capital-inflow migration article renders the scheduling sections', async ({ page }) => {
+    await page.goto('/articles/pf-capital-inflow-migration');
+    // Stable, unique H2 headings in the body (assert unique prefixes to
+    // avoid the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The scheduling idea/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The deployment discipline/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /A worked migration plan/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

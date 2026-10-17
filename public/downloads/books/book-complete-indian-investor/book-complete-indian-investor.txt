@@ -2888,3 +2888,96 @@ RELATED
 • Direct LRS US-Equity Filing Walkthrough (the routine Schedule FA layer) (/articles/tax-direct-lrs-us-equity-filing-walkthrough)
 • The Complete Indian Investor Tax Guide (/articles/tax-india-investor-complete)
 • The fast-ds-valuation-guard calculator — run your declared vs determined FMV through the 20% safeguard, the payable, and the late-interest cost.
+
+
+
+THE CAPITAL-INFLOW MIGRATION PLANNER: WHEN TO MOVE EACH NEW RUPEE INTO THE NEXT RUNG (SIF → PMS → AIF)
+
+The 10L capital-ladder article (./pf-capital-ladder-10l-to-1cr.mdx) is a static map: the four SEBI rung thresholds and the months a pure-SIP corpus crosses each. But the real plan is not a pure SIP — it is a sequence of discrete capital events landing at known months: a promotion bonus at month 12, an ESOP exit at month 36, an inheritance at month 48. That changes the question from "when does my corpus reach each door?" to the sharper, more personal one: "at the moment a door opens, what do I move through it, and how much?" This page and its capital-inflow-migration calculator answer that. Everything here is a deployment-scheduling model, not a fund recommendation or a tax compute; the after-tax fee-crossover (the SIF/PMS/AIF wedge) still decides whether the higher rung actually beats the low-cost build-up.
+
+THE SCHEDULING IDEA (WHY "THE MOMENT A RUNG OPENS" IS THE DECISION POINT)
+=========================================================================
+
+A rung opening is not just a corpus event — it is a deployment opportunity. When your corpus crosses the SIF Rs. 10L threshold, that is the moment the first professional-grade, actively-managed instrument becomes available to you. When it crosses PMS/PRIM Rs. 25L, that is the moment the dedicated-portfolio door opens. The instinct to "move the margin UP" is strongest right at the boundary, for three reasons:
+• The threshold is the minimum, not the target. The Rs. 10L SIF floor, the Rs. 25L PMS/PRIM floor, the Rs. 50L PMS floor, the Rs. 1Cr AIF floor are entry conditions, not "deploy exactly this amount." The amount you actually deploy is the deployable margin — the corpus at the unlock month minus the threshold (the calculator's deployableMargin). It is the money that is free to move up without touching the lower-rung capital you already deployed.
+• A discrete inflow that lands at a boundary is the natural trigger. If a Rs. 5L promotion bonus lands in month 12 and your corpus is at Rs. 22L, that bonus tips you to Rs. 27L and opens PMS/PRIM right then. The inflow is not "money to sit in the existing sleeve" — it is the unlocking event for the next rung. That is the whole value of a planner over a static ladder: it ties each inflow to the specific door it opens.
+• Over-allocating early is the cost of getting it wrong. Deploying into a PMS before you have Rs. 25L is not available (it is below the minimum); deploying well before the fee-crossover is paying the 1–2.5% management + 10–20% performance fee on a corpus where a low-cost index + direct sleeve still wins. The planner surfaces the moment, the fee-crossover decides the instrument.
+
+flowchart TD
+  A["Day 0: Rs 10L corpus<br/>+ SIP + a sequence of inflows"] --> B["Month-by-month<br/>corpus trajectory"]
+  B --> C{"Which door opened<br/>this month?"}
+  C -->|"SIF 10L"| D["Deploy the margin UP<br/>into the SIF"]
+  C -->|"PMS/PRIM 25L"| E["Deploy the margin UP<br/>into the PMS/PRIM"]
+  C -->|"PMS 50L"| F["Deploy the margin UP<br/>into standard PMS"]
+  C -->|"AIF 1Cr"| G["Deploy the margin UP<br/>into the AIF"]
+  D --> H["Fee-crossover check:<br/>does the higher rung actually win?"]
+  E --> H
+  F --> H
+  G --> H
+  H -->|"Yes"| I["Move the margin"]
+  H -->|"Not yet"| J["Hold in the<br/>low-cost build-up"]
+
+Alt text: The planner: build the month-by-month corpus (lump + SIP + every discrete inflow), and at each rung that opens, compute the deployable margin (corpus minus threshold) — that is the money free to move up into the newly-opened instrument, with the fee-crossover as the go/no-go check.
+
+THE DEPLOYMENT DISCIPLINE (THE RULES THAT MAKE IT A PLAN, NOT A GUESS)
+======================================================================
+• One migration at a time. When a rung opens, you move the margin into that rung; you do not leapfrog to a higher rung the same month unless the higher rung also opens in that month (a single large inflow can open two doors at once — the calculator reports both).
+• Keep the lower-rung core intact. The margin is, by definition, on top of what you have already deployed. A Rs. 10L SIF position + a new Rs. 5L margin is a Rs. 15L position with the first Rs. 10L still in the SIF; you are not liquidating the SIF to fund the PMS.
+• The inflow month is the decision month, not the arrival month. A bonus that lands in month 12 and sits idle in a savings account until month 13 delays the migration by a month of compounding. The planner treats the inflow as compounding from its month — which is the reason to deploy at the boundary.
+• The PMS/PRIM Rs. 25L route is dated 1 April 2027. Before that date the only sub-Rs. 50L professional door is the SIF at Rs. 10L. If your 25L unlock is before Apr 2027, the PMS/PRIM door is not open yet and that margin stays in the SIF (or the low-cost build-up) until it opens. The planner's calendar answer is the rung opening, not the regulatory commencement date.
+• A surcharge-tier crossing is a correlated event, not the same one. The moment your income crosses Rs. 50L (the 10% surcharge band) is not the same moment your corpus crosses Rs. 50L (the standard-PMS rung). The two are correlated by your income growth, and the surcharge article (./tax-surcharge-cess-high-income.mdx) prices the tax side; this planner prices the deployment side. Plan them together, not separately.
+
+A WORKED MIGRATION PLAN (RS. 10L NOW, THREE FUTURE INFLOWS)
+===========================================================
+
+Assume: Rs. 10L today, a Rs. 50,000/month SIP, 9% nominal return, and three discrete inflows — a Rs. 5L promotion at month 12, a Rs. 15L ESOP exit at month 36, and a Rs. 30L inheritance at month 48. The calculator produces this schedule:
+
+Rung: SIF,₹10L,**Month 0 (today)**,₹10L,**₹0** (exactly at the floor),SIF (your first pro-grade instrument)  |  Threshold: PMS/PRIM,₹25L,**Month ~11–13**,~₹26L,**~₹1L**,PMS/PRIM *if* it has opened (else stays in SIF until Apr 2027)  |  Opens at: Standard PMS,₹50L,**Month ~35–37**,~₹55L,**~₹5L**,dedicated PMS + the 54EC recycling cap  |  Corpus then: AIF,₹1Cr,**Month ~47–49**,~₹1.05Cr,**~₹5L**,AIF Cat I/II/III  |  Deployable margin:   |  Instrument: 
+
+The shape is the point, not the exact numbers (which are yours to plug in): the Rs. 15L ESOP exit at month 36 is the event that opens the standard-PMS door, and the Rs. 30L inheritance at month 48 is the event that opens the AIF door — two of your four rungs are unlocked by a specific inflow, not by the slow SIP. That is the information a static ladder cannot give you, and it is why the migration planner is the most personal piece of the "I have 10L now, more later" plan.
+
+Two honest limits this worked plan cannot remove:
+• The PMS/PRIM timing gap. If the 25L door opens in month 12 but the PMS/PRIM route does not commence until April 2027 (≈ month 30 from now), that ~Rs. 1L margin waits in the SIF / low-cost build-up for ~18 months. The planner tells you the corpus opened the door; the regulatory clock says when the instrument itself is purchasable. Both must line up.
+• The fee-crossover is the real go/no-go. Crossing a threshold is permission, not mandate. On a corpus this size, a low-cost index + direct sleeve can still beat a PMS after fees for some years; the migration planner hands you the when, and the after-tax wedge calculator (/calculators/pms-sif-aif-tax-wedge) hands you the whether. Run both.
+
+WHEN THE PLANNER IS THE RIGHT TOOL (THE HONEST LAYER)
+=====================================================
+• Right when you have named, dated future capital events (a promotion you expect, an ESOP exit you can date, an inheritance you are tracking) and you want the schedule of deployments, not just the thresholds.
+• Right when you are at Rs. 10L and the SIF door is open today — the planner immediately tells you the next margin to deploy and when it arrives.
+• Wrong / incomplete when the events are truly unknown (you cannot date the ESOP exit, you have no idea when the promotion lands) — then use the static ladder (./pf-capital-ladder-10l-to-1cr.mdx) with a wide SIP band and revisit when the event actually happens.
+• Not a substitute for the personalization pass — the 10L plan (./pf-wealth-plan-10-lakh.mdx) needs your age, horizon, risk grade, goals, and tax regime before the migrations are yours; the planner takes your events and returns your schedule.
+
+WHAT TO DO WITH THE OUTPUT
+==========================
+1. Enter your real events (amounts + months) into the capital-inflow-migration calculator.
+2. Read the "opens at" column for each rung — the months where a door opens, and which inflow opened it.
+3. Check the PMS/PRIM commencement date (1 Apr 2027) against your 25L unlock month; a gap means that margin waits.
+4. Run the after-tax wedge calculator (/calculators/pms-sif-aif-tax-wedge) at the corpus where the PMS/AIF rung opens, to confirm the fee-crossover actually favours the move.
+5. Re-verify the SEBI minimums at the next Budget — a threshold can move, which re-prices the whole schedule.
+6. Fold this into the 10L plan (./pf-wealth-plan-10-lakh.mdx) — the migration schedule is the growth path the plan's "road to PMS/AIF" section currently describes in words.
+
+THE ONE-LINE VERDICT
+====================
+
+The capital-inflow-migration planner turns the "I have Rs. 10L now, more later" question from a threshold map into a deployment schedule: it builds your corpus month-by-month across your named inflows (a promotion, an ESOP exit, an inheritance), and at each rung that opens it reports when it opens, what corpus you have, and how much margin is free to move up into the next instrument (SIF → PMS/PRIM → standard PMS → AIF) — with the PMS/PRIM 1-Apr-2027 commencement date and the fee-crossover as the two honest limits. The single most valuable output is which specific inflow opens each door; that is the information the static ladder cannot give you, and it is the spine of a Rs. 10L plan that grows on purpose.
+
+UPDATE LOG
+==========
+• 2026-10-18 (Wave 28): created. Built on the four SEBI rung thresholds verified in the capital-ladder article (./pf-capital-ladder-10l-to-1cr.mdx) (SIF Rs. 10L PAN-level, MF Regs 2026; PMS/PRIM Rs. 25L MF-only, PM Regs 2026, eff 1 Apr 2027; standard PMS Rs. 50L; AIF Rs. 1Cr) and the after-tax fee-crossover logic from the SIF/PMS/AIF wedge. The planner is a deployment-scheduling model: it does not re-derive the thresholds, it sequences your discrete inflows against them.
+• Review by 2027-04-17: re-verify the four SEBI rung minimums and the PMS/PRIM 1 Apr 2027 commencement at the FY 2027-28 Budget; a moved threshold or a delayed PMS/PRIM start re-prices the entire migration schedule.
+
+SOURCES
+=======
+• src-sebi-sif-2026 — SEBI (Mutual Funds) Regulations 2026: the SIF Rs. 10L PAN-level minimum, effective 1 Apr 2026.
+• src-pms-aif-fees-2026 — the PMS/AIF fee structure (1–2.5% management + 10–20% performance) and the per-client minimums; the PMS/PRIM Rs. 25L MF-only route (PM Regs 2026, eff 1 Apr 2027).
+• src-aif-categories-2026 — AIF Category I/II/III definitions and the Rs. 1Cr HNI minimum (and the Rs. 25L employee/director exception).
+• src-it-slab-fy2026-27 — the FY 2026-27 surcharge-tier context that the PMS/AIF income growth correlates with (10% > 50L, 15% > 1Cr, 25% cap > 2Cr).
+
+RELATED
+=======
+• The 10-Lakh Capital Ladder (the static threshold map this planner sequences over) (/articles/pf-capital-ladder-10l-to-1cr)
+• Your 10 Lakh Wealth Plan (the personalization this schedule plugs into) (/articles/pf-wealth-plan-10-lakh)
+• Picking Your Own Rung: SIF / PMS / AIF Selection & Fee-Decay (/articles/alternatives-hnw-pms-aif-sif-selection)
+• ESOP / RSU Vesting Tax Walkthrough (the source of a dated ESOP-exit inflow) (/articles/tax-esop-vesting-tax-walkthrough)
+• Surcharge & Cess for High Income (the correlated tax-side event) (/articles/tax-surcharge-cess-high-income)
+• The capital-inflow-migration calculator — enter your corpus, SIP and three dated inflows and get the rung-open schedule.

@@ -17,7 +17,7 @@ import {
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
   directLrsUsEquityFilingFY27, fastDSDisclosureFY26,
-  blackMoneyActExposure, fastDSValuationGuard } from '@lib/finance/index';
+  blackMoneyActExposure, fastDSValuationGuard, capitalInflowMigrationPlanner } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1847,6 +1847,92 @@ describe('fastDSValuationGuard', () => {
     expect(r.variancePct).toBe(0);
     expect(r.valuationSafeguardHolds).toBe(true);
     expect(r.payableFinal).toBe(0);
+  });
+});
+
+describe('capitalInflowMigrationPlanner', () => {
+  const base = (over: Partial<Parameters<typeof capitalInflowMigrationPlanner>[0]> = {}) => ({
+    currentCorpus: 0,
+    monthlySip: 0,
+    annualReturn: 0,
+    inflows: [],
+    ...over,
+  });
+
+  it('opens SIF at month 0 with zero margin when the corpus is exactly 10L', () => {
+    const r = capitalInflowMigrationPlanner(base({ currentCorpus: 1000000 }));
+    const sif = r.migrationSchedule[0];
+    expect(sif.unlockMonth).toBe(0);
+    expect(sif.deployableMargin).toBe(0);
+  });
+
+  it('reports the deployable margin as corpus-minus-threshold at the unlock month', () => {
+    const r = capitalInflowMigrationPlanner(base({ currentCorpus: 1500000 }));
+    const sif = r.migrationSchedule[0];
+    expect(sif.unlockMonth).toBe(0);
+    expect(sif.corpusAtUnlock).toBe(1500000);
+    expect(sif.deployableMargin).toBe(500000);
+  });
+
+  it('accelerates a rung when a discrete inflow lands at that month', () => {
+    const r = capitalInflowMigrationPlanner(base({
+      inflows: [{ amount: 2500000, month: 5 }],
+    }));
+    const sif = r.migrationSchedule[0];
+    const prim = r.migrationSchedule[1];
+    const aif = r.migrationSchedule[3];
+    expect(sif.unlockMonth).toBe(5);
+    expect(prim.unlockMonth).toBe(5);
+    expect(aif.unlockMonth).toBe(-1); // 25L never reaches 1Cr with no SIP
+    expect(r.totalInflows).toBe(2500000);
+  });
+
+  it('computes the PMS-50L deployable margin from a 60L inflow', () => {
+    const r = capitalInflowMigrationPlanner(base({
+      inflows: [{ amount: 6000000, month: 3 }],
+    }));
+    const pms = r.migrationSchedule[2];
+    expect(pms.unlockMonth).toBe(3);
+    expect(pms.corpusAtUnlock).toBe(6000000);
+    expect(pms.deployableMargin).toBe(1000000);
+  });
+
+  it('sums only the positive inflows into totalInflows', () => {
+    const r = capitalInflowMigrationPlanner(base({
+      inflows: [
+        { amount: 1000000, month: 2 },
+        { amount: 2000000, month: 4 },
+        { amount: 0, month: 6 },
+      ],
+    }));
+    expect(r.totalInflows).toBe(3000000);
+  });
+
+  it('reports the next rung that will still open (first unlock month > 0)', () => {
+    const r = capitalInflowMigrationPlanner(base({
+      inflows: [{ amount: 3000000, month: 10 }],
+    }));
+    // SIF and PRIM both open at month 10; PMS-50L and AIF never open.
+    // "next locked" = the first rung not yet open = SIF.
+    expect(r.nextLockedRung).toBe('sif-10l');
+    expect(r.nextLockedUnlockMonth).toBe(10);
+  });
+
+  it('keeps every rung locked and reports no next rung when nothing will open', () => {
+    const r = capitalInflowMigrationPlanner(base({}));
+    expect(r.migrationSchedule.every((x) => x.unlockMonth === -1)).toBe(true);
+    expect(r.totalInflows).toBe(0);
+    expect(r.nextLockedRung).toBe(null);
+  });
+
+  it('shows a corpus jump at the inflow year in corpusByYear (zero return)', () => {
+    const r = capitalInflowMigrationPlanner(base({
+      inflows: [{ amount: 1000000, month: 13 }],
+    }));
+    // No return, no SIP: Y0=0, Y1=0, Y2=1M, Y3=1M.
+    expect(r.corpusByYear[1]).toBe(0);
+    expect(r.corpusByYear[2]).toBe(1000000);
+    expect(r.corpusByYear[3]).toBe(1000000);
   });
 });
 

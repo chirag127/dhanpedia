@@ -1618,6 +1618,183 @@ export function giftCityLrsTaxFY27(inp: GiftCityLrsInput): GiftCityLrsResult {
   };
 }
 
+/* ------------------------------------------------------------------
+ * Capital Inflow Migration Planner (the "I have 10L now, more later"
+ * scheduling layer that capitalLadderFY27's single-corpus trajectory
+ * does not cover)
+ *
+ * capitalLadderFY27 models ONE lump + a SIP and asks "when does the
+ * corpus cross each rung?". This planner adds the thing that actually
+ * happens in a real plan: a SEQUENCE of discrete future capital events
+ * (a promotion at month 12, an ESOP exit at month 36, an inheritance
+ * at month 48, ...) and asks "at each rung that opens, what margin do
+ * I deploy and into which instrument?" It is a deployment-scheduling
+ * model, not a tax compute.
+ *
+ * All math is pure and deterministic; the corpus compounds monthly at
+ * a constant nominal return plus the SIP, with each inflow landing at
+ * its month. The "deployable margin" at a rung is the corpus at the
+ * unlock month minus that rung's threshold (floored at 0) - the amount
+ * that can move UP into the newly-opened instrument without touching
+ * the already-deployed lower-rung capital.
+ * ------------------------------------------------------------------ */
+
+export interface CapitalInflowEvent {
+  /** The rupee amount of the event (promotion, ESOP exit, inheritance). */
+  amount: number;
+  /** The 1-based month it lands (0 = a starting lump, i.e. month 0). */
+  month: number;
+  /** A short label for the schedule output. */
+  label?: string;
+}
+
+export interface CapitalInflowMigrationInput {
+  /** The corpus you can deploy at month 0. */
+  currentCorpus: number;
+  /** The recurring monthly SIP. */
+  monthlySip: number;
+  /** Nominal annual return as a decimal (e.g. 0.09). */
+  annualReturn: number;
+  /** The discrete future capital events, each landing at its month. */
+  inflows: CapitalInflowEvent[];
+  /** Whole years of the planning horizon (default 30). */
+  horizonYears?: number;
+}
+
+export interface CapitalInflowMigrationRung {
+  id: string;
+  name: string;
+  threshold: number;
+  /** -1 when the rung does not open within the horizon. */
+  unlockMonth: number;
+  /** The corpus at the unlock month. */
+  corpusAtUnlock: number;
+  /** The deployable margin at the unlock: corpus - threshold, floored 0. */
+  deployableMargin: number;
+  /** The instrument to deploy the margin into when the rung opens. */
+  instrument: string;
+}
+
+export interface CapitalInflowMigrationResult {
+  horizonMonths: number;
+  /** The corpus sampled at every 12 months (for the chart). */
+  corpusByYear: number[];
+  /** The total discrete capital added across all inflows. */
+  totalInflows: number;
+  migrationSchedule: CapitalInflowMigrationRung[];
+  /** The next rung that is still locked and will open within the
+   *  horizon (or null when all are open / none will open). */
+  nextLockedRung: string | null;
+  nextLockedUnlockMonth: number;
+  /** A human-readable note on the deployment discipline. */
+  note: string;
+}
+
+export function capitalInflowMigrationPlanner(
+  inp: CapitalInflowMigrationInput,
+): CapitalInflowMigrationResult {
+  const corpus0 = Math.max(0, inp.currentCorpus);
+  const sip = Math.max(0, inp.monthlySip);
+  const rMonthly = inp.annualReturn / 12;
+  const years = inp.horizonYears ?? 30;
+  const horizonMonths = Math.max(1, years * 12);
+
+  // Index the inflows by their landing month (0 = the starting lump).
+  const inflowByMonth = new Map<number, number>();
+  let totalInflows = 0;
+  for (const ev of inp.inflows ?? []) {
+    if (ev.month <= 0) continue; // month 0 is already currentCorpus
+    inflowByMonth.set(ev.month, (inflowByMonth.get(ev.month) ?? 0) + Math.max(0, ev.amount));
+    totalInflows += Math.max(0, ev.amount);
+  }
+
+  // Build the month-by-month corpus trajectory.
+  let current = corpus0;
+  const trajectory: number[] = [current];
+  for (let m = 1; m <= horizonMonths; m++) {
+    current = current * (1 + rMonthly) + sip;
+    if (inflowByMonth.has(m)) current += inflowByMonth.get(m) as number;
+    trajectory.push(current);
+  }
+
+  const corpusByYear: number[] = [];
+  for (let y = 0; y <= years; y++) {
+    const idx = Math.min(horizonMonths, y * 12);
+    corpusByYear.push(trajectory[idx]);
+  }
+
+  // The four rung thresholds + the instrument to deploy the margin into.
+  const rungs: Array<Omit<CapitalInflowMigrationRung, 'unlockMonth' | 'corpusAtUnlock' | 'deployableMargin'>> = [
+    {
+      id: 'sif-10l',
+      name: 'SIF',
+      threshold: 1000000,
+      instrument: 'SEBI Specialized Investment Fund (PAN-level, MF Regs 2026)',
+    },
+    {
+      id: 'prim-25l',
+      name: 'PMS/PRIM',
+      threshold: 2500000,
+      instrument: 'MF-only PMS "PRIM" route (PM Regs 2026, eff 1 Apr 2027) + AIF-employee',
+    },
+    {
+      id: 'pms-50l',
+      name: 'Standard PMS',
+      threshold: 5000000,
+      instrument: 'dedicated PMS portfolio + the 54EC recycling cap',
+    },
+    {
+      id: 'aif-1cr',
+      name: 'AIF',
+      threshold: 10000000,
+      instrument: 'AIF Category I/II/III (VC/PE, debt, long-short)',
+    },
+  ];
+
+  const migrationSchedule: CapitalInflowMigrationRung[] = rungs.map((def) => {
+    let unlockMonth = 0;
+    if (corpus0 >= def.threshold) {
+      unlockMonth = 0;
+    } else {
+      unlockMonth = -1;
+      for (let m = 1; m <= horizonMonths; m++) {
+        if (trajectory[m] >= def.threshold) {
+          unlockMonth = m;
+          break;
+        }
+      }
+    }
+    const corpusAtUnlock = unlockMonth >= 0 ? trajectory[unlockMonth] : 0;
+    const deployableMargin = unlockMonth >= 0 ? Math.max(0, corpusAtUnlock - def.threshold) : 0;
+    return {
+      id: def.id,
+      name: def.name,
+      threshold: def.threshold,
+      unlockMonth,
+      corpusAtUnlock,
+      deployableMargin,
+      instrument: def.instrument,
+    };
+  });
+
+  const nextLocked = migrationSchedule.find((r) => r.unlockMonth > 0) ?? null;
+  const nextLockedRung = nextLocked ? nextLocked.id : null;
+  const nextLockedUnlockMonth = nextLocked ? nextLocked.unlockMonth : -1;
+
+  const note =
+    'Deploy each rung margin at the moment it opens (not before) - the rung threshold is the *minimum*, and the after-tax fee-crossover decides whether the higher rung actually beats the low-cost build-up. A discrete inflow that lands right at a rung boundary is the natural moment to move that margin UP, not to over-allocate early.';
+
+  return {
+    horizonMonths,
+    corpusByYear,
+    totalInflows,
+    migrationSchedule,
+    nextLockedRung,
+    nextLockedUnlockMonth,
+    note,
+  };
+}
+
 export interface GiftCityRouteInput {
   /** The rupee (or USD) amount deployed. */
   invest: number;

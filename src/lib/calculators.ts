@@ -25,7 +25,7 @@ import {
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27,
   giftCityRouteComparison, directLrsUsEquityFilingFY27,
   fastDSDisclosureFY26, blackMoneyActExposure,
-  fastDSValuationGuard,
+  fastDSValuationGuard, capitalInflowMigrationPlanner,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2655,6 +2655,102 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.totalOutflow), itemStyle: { color: '#1f7a5c' } },
                 ],
                 label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'capital-inflow-migration',
+    title: 'Capital Inflow Migration Planner: When to Move Each New Rupee Into the Next Rung (SIF → PMS → AIF)',
+    category: 'Personal Finance',
+    description:
+      'The scheduling layer that the static 10L capital ladder does not cover: a sequence of discrete future capital events (a promotion, an ESOP exit, an inheritance) landing at known months, and the question "at the moment each rung opens, what margin do I deploy, and into which instrument?" Shows the corpus trajectory, the unlock month of each rung, the deployable margin at that moment, and the next locked rung still to come.',
+    inputs: [
+      { key: 'currentCorpus', label: 'Corpus you can deploy today (Rs)', default: 1000000, min: 0, step: 100000, hint: 'The month-0 lump. At Rs 10L the SIF door is already open.' },
+      { key: 'monthlySip', label: 'Monthly SIP / top-up (Rs)', default: 50000, min: 0, step: 5000, hint: 'The recurring monthly addition to the corpus.' },
+      { key: 'annualReturn', label: 'Expected annual return (%)', default: 9, min: 0, max: 30, step: 0.5, hint: 'The nominal return the combined corpus compounds at; 9-10% is a conservative blended assumption.' },
+      { key: 'inflow1Amount', label: 'Inflow #1 amount (Rs)', default: 500000, min: 0, step: 50000, hint: 'The first discrete future event (e.g. a promotion bonus). 0 to skip.' },
+      { key: 'inflow1Month', label: 'Inflow #1 lands at month', default: 12, min: 1, max: 360, step: 1, hint: 'The 1-based month it is added to the corpus.' },
+      { key: 'inflow2Amount', label: 'Inflow #2 amount (Rs)', default: 1500000, min: 0, step: 50000, hint: 'A second event (e.g. an ESOP exit). 0 to skip.' },
+      { key: 'inflow2Month', label: 'Inflow #2 lands at month', default: 36, min: 1, max: 360, step: 1, hint: 'The 1-based month it is added.' },
+      { key: 'inflow3Amount', label: 'Inflow #3 amount (Rs)', default: 3000000, min: 0, step: 50000, hint: 'A third event (e.g. an inheritance / sale). 0 to skip.' },
+      { key: 'inflow3Month', label: 'Inflow #3 lands at month', default: 48, min: 1, max: 360, step: 1, hint: 'The 1-based month it is added.' },
+    ],
+    assumptions: [
+      'The four rung thresholds are the SEBI regulatory minimums: SIF Rs 10L (PAN-level), PMS/PRIM Rs 25L (MF-only, PM Regs 2026), Standard PMS Rs 50L, AIF Rs 1Cr.',
+      'The corpus compounds monthly at a constant nominal return plus the SIP; each discrete inflow lands at its month and compounds from there.',
+      'The "deployable margin" at a rung is the corpus at the unlock month MINUS that rung threshold, floored at 0 - the amount that can move UP into the newly-opened instrument without touching the already-deployed lower-rung capital.',
+      'A month-0 inflow is treated as the starting corpus, not a separate event.',
+    ],
+    limitations: [
+      'This is a deployment-scheduling model, not a tax or fee compute - the after-tax fee-crossover (the SIF/PMS/AIF wedge) decides whether the higher rung actually beats the low-cost build-up; the rung threshold is only the MINIMUM.',
+      'A discrete inflow landing right at a rung boundary is the natural moment to move that margin UP - the planner surfaces that, it does not decide the instrument for you.',
+      'The PMS/PRIM Rs 25L MF-only route opens 1 Apr 2027; before then the only sub-Rs 50L professional door is the SIF at Rs 10L.',
+      'Verify the current SEBI minimums at the next Budget before acting; a regulation can move a threshold.',
+    ],
+    compute: (v) => {
+      const inflows = [
+        { amount: v.inflow1Amount, month: v.inflow1Month, label: 'Inflow #1' },
+        { amount: v.inflow2Amount, month: v.inflow2Month, label: 'Inflow #2' },
+        { amount: v.inflow3Amount, month: v.inflow3Month, label: 'Inflow #3' },
+      ].filter((e) => e.amount > 0);
+      const r = capitalInflowMigrationPlanner({
+        currentCorpus: v.currentCorpus,
+        monthlySip: v.monthlySip,
+        annualReturn: v.annualReturn / 100,
+        inflows,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const mfmt = (m: number) => m < 0 ? 'beyond 30 yr' : m === 0 ? 'now' : 'mo ' + m + ' (' + (m / 12).toFixed(1) + ' yr)';
+      const results = [
+        { label: 'SIF (Rs 10L) opens', value: mfmt(r.migrationSchedule[0].unlockMonth), sub: 'deploy ' + cr(r.migrationSchedule[0].deployableMargin) + ' margin' },
+        { label: 'PMS/PRIM (Rs 25L) opens', value: mfmt(r.migrationSchedule[1].unlockMonth), sub: 'deploy ' + cr(r.migrationSchedule[1].deployableMargin) + ' margin' },
+        { label: 'Standard PMS (Rs 50L) opens', value: mfmt(r.migrationSchedule[2].unlockMonth), sub: 'deploy ' + cr(r.migrationSchedule[2].deployableMargin) + ' margin' },
+        { label: 'AIF (Rs 1Cr) opens', value: mfmt(r.migrationSchedule[3].unlockMonth), sub: 'deploy ' + cr(r.migrationSchedule[3].deployableMargin) + ' margin' },
+        { label: 'Total discrete inflows', value: cr(r.totalInflows), sub: 'across ' + inflows.length + ' event(s)' },
+        { label: 'Corpus at 30-yr horizon', value: cr(r.corpusByYear[30] ?? 0), sub: 'with SIP + all inflows' },
+        { label: 'Next locked rung', value: r.nextLockedRung ? r.migrationSchedule.find((x) => x.id === r.nextLockedRung).name + ' in ' + mfmt(r.nextLockedUnlockMonth) : 'all rungs open', sub: 'the next margin to deploy UP' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'Corpus trajectory (Rs L, by year)',
+          alt: 'Line chart of the corpus by year including the SIP and all discrete inflows, with the four rung thresholds as horizontal reference lines',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: {
+              type: 'category',
+              data: r.corpusByYear.map((_, i) => 'Y' + i),
+            },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Corpus',
+                type: 'line',
+                smooth: true,
+                data: r.corpusByYear.map((n) => Math.round(n)),
+                itemStyle: { color: '#1f7a5c' },
+                areaStyle: { opacity: 0.12, color: '#1f7a5c' },
+              },
+              {
+                name: 'SIF 10L',
+                type: 'line',
+                markLine: {
+                  silent: true,
+                  data: [
+                    { yAxis: 1000000, label: { formatter: 'SIF 10L' } },
+                    { yAxis: 2500000, label: { formatter: 'PMS/PRIM 25L' } },
+                    { yAxis: 5000000, label: { formatter: 'PMS 50L' } },
+                    { yAxis: 10000000, label: { formatter: 'AIF 1Cr' } },
+                  ],
+                  lineStyle: { type: 'dashed', color: '#8a8f98' },
+                },
               },
             ],
           },

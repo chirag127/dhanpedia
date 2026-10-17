@@ -579,6 +579,19 @@
         "src-us-stock-tax-india-2026",
         "src-it-slab-fy2026-27"
       ]
+    },
+    {
+      "id": "ul-capital-inflow-migration-scheduling-fy2026-27",
+      "topic": "Capital-inflow migration scheduling: a sequence of discrete future capital events (promotion, ESOP exit, inheritance) landing at known months, and the deployable-margin rule at each SEBI rung that opens (SIF Rs 10L, PMS/PRIM Rs 25L, standard PMS Rs 50L, AIF Rs 1Cr). The planner treats a discrete inflow that lands at a rung boundary as the unlocking event for that rung; the two honest limits are the PMS/PRIM 1 Apr 2027 commencement date (the Rs 25L MF-only route is not purchasable before then) and the after-tax fee-crossover (a threshold crossing is permission, not mandate - the low-cost build-up can still beat a PMS on fees).",
+      "article": "pf-capital-inflow-migration",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-sebi-sif-2026",
+        "src-pms-aif-fees-2026",
+        "src-aif-categories-2026",
+        "src-it-slab-fy2026-27"
+      ]
     }
   ]
 }
