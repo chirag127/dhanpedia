@@ -3786,6 +3786,195 @@ export interface OdiRouteResult {
   note: string;
 }
 
+/* ------------------------------------------------------------------
+ * Corpus Allocation Blender - the "where does my next rupee go"
+ * synthesis layer that fuses the capital-ladder rung thresholds,
+ * the fee-crossover logic, and the individual-avenue expected
+ * returns into ONE allocation answer for a given corpus + risk grade
+ *
+ * All returns are *after-tax planning figures*, clearly labelled as
+ * assumptions (not forecasts). The risk grade sets the sleeve mix;
+ * the corpus gates which professional avenues are even available;
+ * the blended return is the weight-averaged after-tax return.
+ * ------------------------------------------------------------------ */
+
+export type RiskGrade = 'conservative' | 'balanced' | 'growth' | 'aggressive';
+
+export interface CorpusAllocationInput {
+  /** The current investable corpus (Rs). */
+  corpus: number;
+  riskGrade: RiskGrade;
+  /** True when the investor is an entity (unlocks the ODI 400%-route
+   *  and the AIF/HNI sleeves beyond the individual limits). */
+  isEntity?: boolean;
+  /** True when the investor wants international (GIFT City / LRS)
+   *  exposure. */
+  internationalAppetite?: boolean;
+  /** True when the investor has a named future capital event that the
+   *  allocation should front-load toward the next rung. */
+  frontLoadToNextRung?: boolean;
+}
+
+export interface CorpusAllocationResult {
+  corpus: number;
+  riskGrade: CorpusAllocationInput['riskGrade'];
+  /** The sleeve weights, normalized to sum to 1. */
+  sleeveWeights: Array<{ id: string; name: string; weight: number; afterTaxReturn: number }>;
+  /** The avenues gated on the corpus (SIF / PMS / AIF / ODI-entity),
+   *  with whether each is unlocked at this corpus. */
+  eligibleAvenues: Array<{ id: string; name: string; threshold: number; unlocked: boolean }>;
+  /** The next-locked avenue (the next corpus door) and its threshold,
+   *  or null when all avenues are open. */
+  nextLockedAvenue: { id: string; name: string; threshold: number } | null;
+  /** The blended after-tax expected annual return (weight-averaged). */
+  blendedAfterTaxReturn: number;
+  /** The fraction of the corpus that the "front-load to the next rung"
+   *  discipline suggests parking toward the next avenue. */
+  frontLoadFraction: number;
+  note: string;
+}
+
+/** The four professional avenues and their corpus gates (Rs). */
+const AVENUE_THRESHOLDS: Array<{ id: string; name: string; threshold: number }> = [
+  { id: 'sif-10l', name: 'SIF', threshold: 1000000 },
+  { id: 'pms-50l', name: 'Standard PMS', threshold: 5000000 },
+  { id: 'aif-1cr', name: 'AIF', threshold: 10000000 },
+  // ODI is entity-only; the gate placeholder is the LRS USD 250k
+  // individual ceiling (~Rs 20L) - an individual cannot use the
+  // entity 400% route, so its ODI ceiling is the LRS figure.
+  { id: 'odi-entity', name: 'ODI (entity 400% route)', threshold: 2000000 },
+];
+
+/** The default sleeve mix by risk grade (after-tax planning figures,
+ *  not forecasts). Weights sum to 1 per grade. */
+const RISK_SLEEVE_MIX: Record<
+  RiskGrade,
+  Array<{
+    id: string;
+    name: string;
+    afterTaxReturn: number;
+    weight: number;
+    international?: boolean;
+    entityOnly?: boolean;
+  }>
+> = {
+  conservative: [
+    { id: 'debt-sovereign', name: 'Sovereign debt / SGB', afterTaxReturn: 0.055, weight: 0.5 },
+    { id: 'equity-core', name: 'Index / large-cap equity', afterTaxReturn: 0.085, weight: 0.3 },
+    { id: 'gold', name: 'Gold (SGB / digital)', afterTaxReturn: 0.06, weight: 0.1 },
+    { id: 'alt-professional', name: 'Professional alt sleeve', afterTaxReturn: 0.075, weight: 0.1, entityOnly: true },
+  ],
+  balanced: [
+    { id: 'equity-core', name: 'Index / large-cap equity', afterTaxReturn: 0.085, weight: 0.45 },
+    { id: 'debt-sovereign', name: 'Sovereign debt / SGB', afterTaxReturn: 0.055, weight: 0.25 },
+    { id: 'gold', name: 'Gold (SGB / digital)', afterTaxReturn: 0.06, weight: 0.1 },
+    { id: 'international', name: 'GIFT City / LRS global', afterTaxReturn: 0.075, weight: 0.1, international: true },
+    { id: 'alt-professional', name: 'Professional alt sleeve', afterTaxReturn: 0.08, weight: 0.1, entityOnly: true },
+  ],
+  growth: [
+    { id: 'equity-core', name: 'Index / large-cap equity', afterTaxReturn: 0.085, weight: 0.5 },
+    { id: 'international', name: 'GIFT City / LRS global', afterTaxReturn: 0.075, weight: 0.15, international: true },
+    { id: 'alt-professional', name: 'Professional alt sleeve', afterTaxReturn: 0.08, weight: 0.2, entityOnly: true },
+    { id: 'debt-sovereign', name: 'Sovereign debt / SGB', afterTaxReturn: 0.055, weight: 0.1 },
+    { id: 'gold', name: 'Gold (SGB / digital)', afterTaxReturn: 0.06, weight: 0.05 },
+  ],
+  aggressive: [
+    { id: 'equity-core', name: 'Index / large-cap equity', afterTaxReturn: 0.085, weight: 0.45 },
+    { id: 'alt-professional', name: 'Professional alt sleeve (SIF/PMS/AIF)', afterTaxReturn: 0.09, weight: 0.3, entityOnly: true },
+    { id: 'international', name: 'GIFT City / LRS global', afterTaxReturn: 0.075, weight: 0.15, international: true },
+    { id: 'debt-sovereign', name: 'Sovereign debt / SGB', afterTaxReturn: 0.055, weight: 0.05 },
+    { id: 'gold', name: 'Gold (SGB / digital)', afterTaxReturn: 0.06, weight: 0.05 },
+  ],
+};
+
+export function corpusAllocationBlender(inp: CorpusAllocationInput): CorpusAllocationResult {
+  const corpus = Math.max(0, inp.corpus);
+  const isEntity = inp.isEntity ?? false;
+  const intlAppetite = inp.internationalAppetite ?? true;
+  const frontLoad = inp.frontLoadToNextRung ?? false;
+  const riskGrade = inp.riskGrade;
+
+  // Eligible avenues: an avenue is "unlocked" when the corpus reaches
+  // its threshold; the ODI-entity avenue is additionally entity-gated.
+  const eligibleAvenues = AVENUE_THRESHOLDS.map((a) => ({
+    id: a.id,
+    name: a.name,
+    threshold: a.threshold,
+    unlocked:
+      a.id === 'odi-entity' ? isEntity && corpus >= a.threshold : corpus >= a.threshold,
+  }));
+
+  // The next-locked avenue (the next corpus door). ODI-entity is only a
+  // candidate when the investor is an entity.
+  const candidateLocked = eligibleAvenues.filter(
+    (a) => !a.unlocked && !(a.id === 'odi-entity' && !isEntity),
+  );
+  const nextLocked = candidateLocked.length
+    ? candidateLocked.reduce((min, a) => (a.threshold < min.threshold ? a : min))
+    : null;
+  const nextLockedAvenue = nextLocked
+    ? { id: nextLocked.id, name: nextLocked.name, threshold: nextLocked.threshold }
+    : null;
+
+  // Build the sleeve mix, dropping the sleeves that are gated out at
+  // this corpus / investor type, then normalize to 1.
+  const baseMix = RISK_SLEEVE_MIX[riskGrade].filter((s) => {
+    if (s.entityOnly && !isEntity) return false;
+    if (s.international && !intlAppetite) return false;
+    // The professional-alt sleeve requires at least the SIF 10L gate.
+    if (s.id === 'alt-professional' && corpus < AVENUE_THRESHOLDS[0].threshold) return false;
+    return true;
+  });
+  const weightSum = baseMix.reduce((sum, s) => sum + s.weight, 0);
+  const sleeveWeights = baseMix.map((s) => ({
+    id: s.id,
+    name: s.name,
+    afterTaxReturn: s.afterTaxReturn,
+    weight: weightSum > 0 ? s.weight / weightSum : 0,
+  }));
+
+  // The blended after-tax expected return (weight-averaged).
+  const blendedAfterTaxReturn = sleeveWeights.reduce(
+    (sum, s) => sum + s.weight * s.afterTaxReturn,
+    0,
+  );
+
+  // The front-load fraction: when a next-locked avenue exists and the
+  // investor wants to front-load, the slice of corpus toward that door.
+  const frontLoadFraction =
+    frontLoad && nextLockedAvenue
+      ? Math.min(1, Math.max(0, corpus) / Math.max(1, nextLockedAvenue.threshold))
+      : 0;
+
+  let note = '';
+  if (nextLockedAvenue) {
+    note =
+      'The next professional door is ' +
+      nextLockedAvenue.name +
+      ' at ' +
+      nextLockedAvenue.threshold.toLocaleString('en-IN') +
+      ' Rs; ' +
+      (frontLoad
+        ? (frontLoadFraction * 100).toFixed(0) +
+          '% of the corpus is front-loaded toward it (the rest stays in the low-cost build-up).'
+        : 'keep the full corpus in the low-cost build-up until that door opens.');
+  } else {
+    note =
+      'All four professional avenues are open at this corpus - the allocation can fully deploy the professional-alt sleeve.';
+  }
+
+  return {
+    corpus,
+    riskGrade,
+    sleeveWeights,
+    eligibleAvenues,
+    nextLockedAvenue,
+    blendedAfterTaxReturn,
+    frontLoadFraction,
+    note,
+  };
+}
+
 export function odiRouteEligibility(inp: OdiRouteInput): OdiRouteResult {
   const investorType = inp.investorType;
   const netWorth = inp.netWorth ?? 0;

@@ -1,0 +1,115 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>The Corpus Allocation Blender: Where Does Your Next Rupee Go? (FY 2026-27)</title>
+<style>body{font:16px/1.7 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#14231d}
+h1{font-size:1.8rem}h2{border-bottom:1px solid #ccc;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border:1px solid #ccc;padding:.4rem .5rem}code{background:#f1efe7;padding:.1rem .3rem;border-radius:4px}
+.eq code{display:block;text-align:center;margin:.8rem 0}blockquote{border-left:3px solid #c69a2c;margin:.4rem 0;padding-left:1rem;font-style:italic;color:#3c4b44}</style>
+</head><body><h1>The Corpus Allocation Blender: Where Does Your Next Rupee Go? (FY 2026-27)</h1><p style="color:#3c4b44"><em>The one-screen synthesis that answers 'I have this corpus at this risk grade - where does the next rupee go?': the risk-grade sleeve mix, which professional avenues are actually unlocked at this corpus size (SIF 10L / ODI 20L proxy / PMS 50L / AIF 1Cr), the blended after-tax expected return, and the front-load fraction toward the next rung. All returns are labelled after-tax planning figures, not forecasts.</em></p>
+<p style="font-size:.8rem;color:#555">DhanPedia · Author Chirag Singhal · Verified 2026-10-18</p>
+<p>import Chart from '@components/Chart.astro';</p>
+<p>Every other article on this site answers one layer of the allocation question: the <a href="../personal-finance/pf-capital-ladder-10l-to-1cr.mdx">capital ladder</a> answers <em>when</em> each professional door opens, the <a href="../personal-finance/pf-capital-inflow-migration.mdx">capital-inflow migration planner</a> answers <em>which inflow</em> opens it, and the <a href="../alternatives/alternatives-hnw-pms-aif-sif-selection.mdx">SIF / PMS / AIF selection guides</a> answer <em>which mandate</em> to buy at each door. But the question a ₹10L investor actually asks at 2 a.m. is one screen, not five: <em>I have this corpus, at this risk grade - where does the next rupee go?</em> This page is that screen. It is the synthesis layer: one allocation answer (the sleeve mix, the unlocked avenues, the blended after-tax expected return, and the slice to park toward the next rung) computed from five inputs, with every assumption printed on the page.</p>
+<p>Everything here is arithmetic and regulatory, not a recommendation. The sleeve returns are <strong>after-tax planning figures</strong> drawn from the assumptions already used across this site's calculators (equity around 8.5%, sovereign debt around 5.5%, gold around 6%, international around 7.5%, professional alt around 8-9%); they are <em>not</em> forecasts, and the actual professional-alternative return depends on the fee-crossover that the <a href="/calculators/pms-sif-aif-tax-wedge">PMS/SIF/AIF after-tax wedge calculator</a> prices separately. The companion <strong>corpus-allocation-blender calculator</strong> runs this exact model for any corpus.</p>
+<2>The one-answer layer</2>
+<p>The blender takes five inputs and produces one screen:</p>
+<table>
+<thead><tr><th>Input</th><th>Meaning</th><th>Default</th></tr></thead>
+<tbody><tr><td><strong>Corpus</strong>,The investable sum to allocate (Rs). Below ₹10L the professional-alt sleeve is gated out entirely and the lower-risk mix applies.,₹10L</td><td><strong>Risk grade</strong>,Conservative / Balanced / Growth / Aggressive. Sets the sleeve mix; conservative is debt-heavy, aggressive is equity + professional-alt heavy.,Balanced</td><td><strong>Entity or individual?</strong>,An entity unlocks the ODI 400%-of-net-worth sleeve and the professional avenues; an individual is capped at the LRS / per-client minimums.,Individual</td><td><strong>International appetite</strong>,Whether the GIFT City / LRS global sleeve is included at all.,On</td><td><strong>Front-load to next rung</strong>,Whether to park the corpus-to-next-door slice toward the next avenue, or keep the full corpus in the low-cost build-up.,Off</td></tr></tbody>
+</table>
+<p>And it answers with five outputs:</p>
+<ol>
+<li><strong>The sleeve mix</strong> - the normalized weight on each sleeve (index/large-cap equity, sovereign debt, gold, GIFT City / LRS global, professional alt), after dropping the sleeves that are gated out at this corpus and investor type.</li>
+<li><strong>The unlocked professional avenues</strong> - which of the four doors (SIF, ODI, PMS, AIF) are open at this corpus.</li>
+<li><strong>The next locked avenue</strong> - the next corpus door, named with its threshold.</li>
+<li><strong>The blended after-tax expected return</strong> - the weight-average of the sleeve returns.</li>
+<li><strong>The front-load fraction</strong> - the slice of corpus to park toward the next door, when the flag is on.</li>
+</ol>
+<p>The design point: this is a <em>sizing</em> layer, not a <em>selection</em> layer. It tells you how much to put where at your corpus; choosing the specific SIF, PPM, or AIF mandate is the selection guides' job, and pricing whether the professional mandate actually beats a low-cost build-up is the fee-crossover calculator's job.</p>
+<2>The risk-grade sleeve mix</2>
+<p>The raw sleeve weights per risk grade (before gating and normalization) are:</p>
+<table>
+<thead><tr><th>Sleeve (after-tax planning return)</th><th>Conservative</th><th>Balanced</th><th>Growth</th><th>Aggressive</th></tr></thead>
+<tbody><tr><td>Sovereign debt / SGB (5.5%),50%,25%,10%,5%</td><td>Index / large-cap equity (8.5%),30%,45%,50%,45%</td><td>Gold, SGB / digital (6%),10%,10%,5%,5%</td><td>GIFT City / LRS global (7.5%),-,10%,15%,15%</td><td>Professional alt (7.5-9%),10%,10%,20%,30%</td></tr></tbody>
+</table>
+<p>Three gating rules then shape the mix for <em>your</em> investor type and corpus:</p>
+<ul>
+<li><strong>The professional-alt sleeve is entity-gated in the model.</strong> The 7.5-9% planning return on the professional-alternative sleeve assumes you can actually reach a SIF / PMS / AIF mandate, which is the entity or HNI posture. A resident individual at a ₹10L corpus can reach SIF (the ₹10L PAN-level minimum, <code>src-sebi-sif-2026</code>), but the model conservatively holds the professional sleeve for the entity posture, so it drops the sleeve for an individual and normalizes the rest.</li>
+<li><strong>The international sleeve requires appetite.</strong> If "international appetite" is off, the GIFT City / LRS sleeve is removed and the remaining weights are normalized.</li>
+<li><strong>The professional-alt sleeve requires the SIF gate.</strong> Even when not dropped, it only stays in the mix when the corpus is at least the ₹10L SIF threshold; below it, the allocation stays in the low-cost build-up.</li>
+</ul>
+<p>After gating, the surviving weights are normalized to sum to 1, and the blended return is their weight-average:</p>
+<p>$$\text{Blended after-tax return} = \sum_{s} w_s \times r_s , \qquad \sum_s w_s = 1$$</p>
+<p>At a ₹10L corpus, balanced risk grade, individual investor, international appetite on, the normalized mix is:</p>
+<div class="figure"><p><em>Figure: Sleeve allocation at a 10L corpus, balanced risk grade, individual investor (international appetite on)</em> Pie chart of the balanced sleeve mix after gating: index and large-cap equity 50 percent, sovereign debt 27.8 percent, GIFT City and LRS global 11.1 percent, gold 11.1 percent; blended after-tax planning return 7.3 percent.</p></div>
+<p>The four risk grades at that same corpus (individual, international on) give the following normalized mixes and blended returns. The pattern is monotonic and it is worth noticing: <strong>for a resident individual the blended planning return rises with the risk grade</strong> - conservative 6.6%, balanced 7.3%, growth 7.8%, aggressive 7.9% - because each step up shifts weight off the 5.5% sovereign-debt sleeve and onto the 8.5% equity sleeve and the 7.5% international sleeve. The honest caveat is that the <em>absolute</em> level is still modest at a ₹10L corpus, because the professional-alt sleeve (the one that would push the figure highest) is gated out for an individual here.</p>
+<table>
+<thead><tr><th>Risk grade</th><th>Normalized mix (individual, intl on)</th><th>Blended after-tax planning return</th></tr></thead>
+<tbody><tr><td>Conservative,Debt 55.6% / Equity 33.3% / Gold 11.1%,6.6%</td><td>Balanced,Equity 50% / Debt 27.8% / Intl 11.1% / Gold 11.1%,7.3%</td><td>Growth,Equity 62.5% / Intl 18.8% / Debt 12.5% / Gold 6.3%,7.8%</td><td>Aggressive,Equity 64.3% / Intl 21.4% / Debt 7.1% / Gold 7.1%,7.9%</td></tr></tbody>
+</table>
+<p>Switch the investor to an <strong>entity</strong> at the same corpus and the professional-alt sleeve comes back into the mix. At the aggressive grade the entity mix carries a 30% professional-alt sleeve at a 9% planning return, lifting the blended figure to about <strong>8.2%</strong>, versus <strong>7.9%</strong> for the individual at the same grade. The lift is only a few tenths of a point here - not a full point - because the individual's aggressive mix <em>already</em> leans 64% into the 8.5% equity sleeve; the entity posture simply re-admits the professional-alternative sleeve that a resident individual cannot fully reach at this corpus. That is the whole case for why the entity gate exists in the model: it is what brings the professional sleeve back into the blend.</p>
+<2>Which avenues are actually open</2>
+<p>The four professional doors the blender tracks, with their corpus gates:</p>
+<table>
+<thead><tr><th>Avenue</th><th>Corpus gate</th><th>Regulatory anchor</th></tr></thead>
+<tbody><tr><td><strong>SIF</strong>,₹10L (PAN-level),SEBI (MF) Regulations 2026, effective 1 Apr 2026 (<code>src-sebi-sif-2026</code>)</td><td><strong>ODI</strong> (individual proxy),~₹20L,The LRS USD 250k/FY equity-only ODI ceiling, the individual's outbound direct-investment limit (<code>src-odi-rules-2026</code>)</td><td><strong>Standard PMS</strong>,₹50L,PMS per-client minimum, unchanged into 2026-27 (<code>src-pms-aif-fees-2026</code>)</td><td><strong>AIF</strong>,₹1Cr,AIF HNI minimum, unchanged into 2026-27 (<code>src-aif-categories-2026</code>)</td></tr></tbody>
+</table>
+<p>Two honest footnotes the model carries but the table hides:</p>
+<ul>
+<li><strong>The ODI gate is a proxy.</strong> The blender uses the individual LRS ceiling (~₹20L) as the ODI threshold placeholder, because a resident individual's ODI is equity-only and capped at the LRS figure. For an <strong>entity</strong>, the real ODI route is the 400%-of-net-worth automatic route (the 26 May 2026 amendment, up from 300%), with a USD 1B-per-FY prior-approval trigger - see the <a href="../international/international-odi-route-eligibility.mdx">ODI route-eligibility article</a>. The blender's entity ODI gate is therefore a <em>conservative placeholder</em>, not the entity's actual ceiling.</li>
+<li><strong>The ₹25L PMS/PRIM door is not one of the four.</strong> The SEBI (Portfolio Managers) Regulations 2026 introduced the mutual-fund-only PRIM route at a <strong>₹25L</strong> minimum, effective <strong>1 April 2027</strong> (<code>src-pms-aif-fees-2026</code>). The blender's four doors deliberately keep the <em>standard</em> PMS at ₹50L; the ₹25L MF-only rung is the migration planner's subject, and it is <em>not purchasable before 1 April 2027</em>.</li>
+</ul>
+<p>The ODI-entity avenue is additionally entity-gated in the model: an individual cannot open it, so it never appears in the "next locked avenue" candidate set for a resident individual - the next door is PMS at ₹50L instead.</p>
+<pre>flowchart TD
+  A["Corpus + risk grade + investor type + appetite"] --> B{"Corpus crosses the&lt;br/>avenue gates?"}
+  B -->|"SIF at 10L"| C["SIF unlocked&lt;br/>(1 Apr 2026)"]
+  B -->|"ODI at ~20L&lt;br/>(individual LRS proxy)"| D["ODI individual&lt;br/>equity-only"]
+  B -->|"PMS at 50L"| E["Standard PMS&lt;br/>+ 50L 54EC cap"]
+  B -->|"AIF at 1Cr"| F["AIF Cat I/II/III"]
+  D -.->|"Entity posture&lt;br/>400% of net worth&lt;br/>(26 May 2026)"| G["ODI entity route&lt;br/>USD 1B FY trigger"]
+  E -.->|"The 25L PMS/PRIM&lt;br/>MF-only rung&lt;br/>opens 1 Apr 2027"| E</pre>
+<p><strong>The front-load fraction</strong> is the deployment-scheduling output. When a next-locked avenue exists and the front-load flag is on, the slice of corpus to park toward that door is:</p>
+<p>$$\text{Front-load fraction} = \frac{\text{corpus}}{\text{next avenue threshold}}$$</p>
+<p>At a ₹10L individual corpus, the next door is PMS at ₹50L, so the fraction is <strong>20%</strong> - park ₹2L toward the PMS buildup, keep the rest in the low-cost build-up. For an entity at ₹10L, the next door is the ODI proxy at ₹20L, so the fraction is <strong>50%</strong>. When no next-locked avenue exists (corpus at or above the AIF ₹1Cr gate, for an entity), the fraction is 0 and the note reads "all four professional avenues are open."</p>
+<p>This is a <em>scheduling</em> aid, not a fee or tax compute: it answers "how much to park toward the next door", not "which instrument to buy at that door". The actual decision to buy a professional mandate at the door still runs through the fee-crossover line.</p>
+<2>What the blender deliberately does not model</2>
+<p>The model is a sizing tool, and it says plainly what it leaves out:</p>
+<ul>
+<li><strong>The fee-crossover.</strong> The professional-alt planning return (8-9%) assumes the mandate <em>beats</em> a low-cost build-up; the <a href="/calculators/pms-sif-aif-tax-wedge">PMS/SIF/AIF after-tax wedge calculator</a> is where you verify that at your corpus. At ₹10L, for most SIF strategies the management fee plus performance fee erodes enough of the gross return that the <em>net</em> professional sleeve is often <strong>below</strong> a low-cost index + direct sleeve - which is exactly why the model gates the professional sleeve and lets the low-cost build-up dominate at the small-corpus rungs.</li>
+<li><strong>The PMS/PRIM 25L time-critical door.</strong> The model does not model the 1 April 2027 commencement of the ₹25L MF-only PMS route; that is the migration planner's layer.</li>
+<li><strong>The surcharge on the income that funds the corpus.</strong> As the income that grows the corpus climbs, the FY 2026-27 new-regime surcharge steps in (10% above ₹50L, 15% above ₹1Cr, 25% cap above ₹2Cr, <code>src-surcharge-cess-fy2026-27</code>); the blended figure is on the <em>corpus</em> (post-tax, capital-gains-taxed), not on salary, so the surcharge is a separate layer.</li>
+<li><strong>The ODI entity ceiling.</strong> The entity ODI gate is the individual proxy; the real entity route (400% of net worth, USD 1B trigger) is the ODI route-eligibility article's layer.</li>
+</ul>
+<2>Practical use: turning the screen into a decision</2>
+<p>The workflow the blender is built to drive:</p>
+<pre>flowchart LR
+  A["1. Compute&lt;br/>corpus + risk grade&lt;br/>+ investor type"] --> B["2. Read the mix&lt;br/>+ blended return&lt;br/>+ next locked avenue"]
+  B --> C{"3. Is a professional&lt;br/>mandate worth it here?"}
+  C -->|"No - below the&lt;br/>fee-crossover"| D["Keep the low-cost&lt;br/>build-up; re-run&lt;br/>next quarter"]
+  C -->|"Yes - past the&lt;br/>crossover"| E["Deploy into the&lt;br/>named avenue&lt;br/>(SIF / PMS / AIF / ODI)"]
+  D --> F["4. Front-load the&lt;br/>corpus-to-door slice&lt;br/>when a future inflow&lt;br/>is dated"]
+  E --> F
+  F --> G["5. The next inflow&lt;br/>opens the next rung&lt;br/>(migration planner)"]</pre>
+<p>The discipline that makes it work: <strong>the corpus, not the label, drives the move.</strong> Run the blender at your real corpus now; it tells you the mix, the unlocked doors, and the exact slice to park toward the next one. Then hand the <em>dated</em> future inflows to the <a href="../personal-finance/pf-capital-inflow-migration.mdx">capital-inflow migration planner</a> so each rung's open date is a date, not a guess. The calculator runs the same model for any number you give it.</p>
+<2>Update log</2>
+<ul>
+<li><strong>2026-10-18 (Wave 31):</strong> created as the synthesis layer over the capital-ladder, migration-planner, SIF/PMS/AIF, ODI, and surcharge articles. Verified the four avenue gates (SIF ₹10L, PMS ₹50L, AIF ₹1Cr, ODI ~₹20L individual proxy) against the SEBI (MF) Regulations 2026, the PMS/AIF fee and minimum sources, the AIF category source, the 26 May 2026 ODI amendment, and the FY 2026-27 surcharge bands. All sleeve returns are after-tax planning figures, not forecasts.</li>
+<li><strong>Review by 2027-04-17:</strong> re-verify the SIF, PMS, AIF minimums and the ODI 400%-of-net-worth multiple at the FY 2027-28 Budget; confirm the PMS/PRIM ₹25L MF-only route actually commenced 1 Apr 2027.</li>
+</ul>
+<2>Sources</2>
+<ul>
+<li><code>src-sebi-sif-2026</code> — SEBI (Mutual Funds) Regulations 2026: SIF introduction, ₹10L PAN-level minimum, effective 1 Apr 2026.</li>
+<li><code>src-pms-aif-fees-2026</code> — PMS/AIF fee structure (1-2.5% management + 10-20% performance), the ₹50L PMS per-client minimum, and the ₹25L PMS/PRIM MF-only route (1 Apr 2027).</li>
+<li><code>src-aif-categories-2026</code> — AIF Category I/II/III definitions, the ₹1Cr HNI minimum and the ₹25L employee/director exception.</li>
+<li><code>src-odi-rules-2026</code> — the 26 May 2026 ODI amendment (entity 400% of net worth, USD 1B trigger), the individual LRS USD 250k equity-only ODI ceiling, and the ODI-vs-OPI definition.</li>
+<li><code>src-surcharge-cess-fy2026-27</code> — FY 2026-27 new-regime surcharge tiers (10% / 15% / 25% cap) and the 4% cess.</li>
+</ul>
+<2>Related</2>
+<ul>
+<li><a href="/articles/pf-capital-ladder-10l-to-1cr">The 10-Lakh Capital Ladder: Every Rung from ₹10L to ₹1Cr+</a></li>
+<li><a href="/articles/pf-capital-inflow-migration">Capital-Inflow Migration Planner: When to Move Each New Rupee</a></li>
+<li><a href="/articles/alternatives-hnw-pms-aif-sif-selection">Picking Your Own Rung: The SIF / PMS / AIF Selection &amp; Fee-Decay Guide</a></li>
+<li><a href="/articles/international-odi-route-eligibility">ODI Route Eligibility: Investing INTO a Foreign Entity</a></li>
+<li><a href="/articles/tax-surcharge-cess-high-income">Surcharge &amp; Cess for High Income</a></li>
+<li>The <strong>corpus-allocation-blender calculator</strong> — the same model, interactive: your corpus, risk grade, investor type, and appetite, in one screen.</li>
+</ul>
+<h2>Sources</h2><ol><li>SEBI (via secondary fund guides) — SIF vs Mutual Funds vs PMS vs AIF: Where SEBI’s New 2026 Category Fits: https://www.finvastra.com/blog/sif-vs-mutual-funds-pms-aif-2026 (verified 2026-10-16)</li><li>PMS Sahi Hai / SEBI PMS notification coverage (2026) — PMS / AIF fee convention 2026: management fee on opening corpus (2-2.5% flat, or ~1-1.75% + 15-20% performance above an 8-12% hurdle), performance on gain-above-benchmark, no clawback in the SEBI recurring-fee model; PMS gains pass through and are taxed as the investor own CGT: https://www.pmssahihai.com/insights/pms-charges (verified 2026-10-17)</li><li>Planify / SEBI (AIF) Regulations, 2012 (2026 coverage) — SEBI AIF categories (2026): Cat I (non-debt, venture, private equity), Cat II (non-leveraged, structured), Cat III (leveraged/hedge funds); Rs.1Cr minimum for most AIFs (Rs.25L for angel funds and manager-employee/director investors); Cat I/II close-ended with a 3-year minimum tenure; up to 1000 investors per scheme (49 for angel funds): https://www.planify.in/article/sebi_regulations (verified 2026-10-17)</li><li>KAMRIT 26 May 2026 omnibus-route update + Resolut Partners / E-Tax Prime / Beacon Filing 2026 ODI coverage + Khaitan &amp; Co + the RBI OI Rules 2022 ODI/OPI definition + the RBI LRS FAQ — ODI (Overseas Direct Investment) route 2026: the 26 May 2026 amendment raising the entity automatic-route limit from 300% to 400% of net worth, the USD 1B-per-FY prior-approval trigger, the resident-individual LRS USD 250k/FY equity-only ODI limit, the ODI-vs-OPI definition (unlisted equity / 10%+ listed / control vs a listed under-10% no-control OPI position), and the Form FC-ODI post-fact filing + ~Rs 7,500 late-submission fee: https://kamrit.com/blog/fema-overseas-investment-omnibus-route-may-2026 (verified 2026-10-18)</li><li>Virtual Auditor - Surcharge &amp; HEC under the Income-tax Act, 2025 (updated 15 Apr 2026; Income-tax Act 2025 + Finance Act 2026) — Surcharge &amp; Health and Education Cess under the Income-tax Act, 2025 (effective 1 Apr 2026): individual new-regime surcharge 10% (50L-1Cr) / 15% (1Cr-2Cr) / 25% capped above 2Cr (the 37% top rate of the 1961 Act was ABOLISHED for the new regime); old regime keeps 37% above 5Cr; surcharge on listed-equity 111A/112A tax capped at 15%; 4% cess on (base tax + surcharge); marginal relief at each boundary caps incremental tax + surcharge on (income above boundary): https://virtualauditor.in/learn/surcharge-cess-income-tax-2025/ (verified 2026-10-18)</li></ol>
+<p style="font-size:.75rem;color:#666;margin-top:2rem;border-top:1px solid #ccc;padding-top:1rem">Educational content, not individualized investment, tax, accounting, or legal advice.</p>
+</body></html>

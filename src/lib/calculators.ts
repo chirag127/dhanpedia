@@ -27,6 +27,7 @@ import {
   fastDSDisclosureFY26, blackMoneyActExposure,
   fastDSValuationGuard, capitalInflowMigrationPlanner,
   femaSection13Exposure, odiRouteEligibility,
+  corpusAllocationBlender,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2892,6 +2893,78 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.investorType === 'entity' ? r.entityAutomaticLimitUsd : r.individualLimitUsd), itemStyle: { color: '#3a6ea5' } },
                 ],
                 label: { show: true, formatter: (p) => '$' + Math.round(p.value / 1000) + 'k' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'corpus-allocation-blender',
+    title: 'Corpus Allocation Blender: Where Does My Next Rupee Go? (Sleeve Split + Blended After-Tax Return + Next Rung)',
+    category: 'Personal Finance',
+    description:
+      'The synthesis layer that answers "I have this corpus at this risk grade - where does the next rupee go?" in one screen: the risk-grade sleeve split, which professional avenues are actually UNLOCKED at this corpus size (SIF 10L / PMS 50L / AIF 1Cr / ODI-entity), the blended after-tax expected annual return, and the "front-load to the next rung" fraction that parks the corpus-to-door slice in the low-cost build-up until the next avenue opens. All returns are labelled after-tax planning figures, not forecasts.',
+    inputs: [
+      { key: 'corpus', label: 'Investable corpus (Rs)', default: 1000000, min: 0, step: 100000, hint: 'The corpus to allocate. Below 10L the professional-alt sleeve is gated out entirely; the lower-risk mix applies.' },
+      { key: 'riskGrade', label: 'Risk grade', default: 1, min: 0, max: 3, step: 1, type: 'select', options: [{ value: 0, label: 'Conservative' }, { value: 1, label: 'Balanced' }, { value: 2, label: 'Growth' }, { value: 3, label: 'Aggressive' }], hint: 'Sets the sleeve mix. Conservative is debt-heavy; aggressive is equity + professional-alt heavy.' },
+      { key: 'isEntity', label: 'Investing as an entity?', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No - resident individual (LRS)' }, { value: 1, label: 'Yes - company / LLP (ODI 400% route)' }], hint: 'An entity unlocks the ODI 400%-of-net-worth sleeve and the HNI/AIF avenues; an individual is capped at the LRS / per-client minimums.' },
+      { key: 'internationalAppetite', label: 'Wants international (GIFT City / LRS) exposure?', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes' }, { value: 0, label: 'No - domestic-only' }], hint: 'The international sleeve (GIFT City / LRS global) is included only when appetite is on.' },
+      { key: 'frontLoadToNextRung', label: 'Front-load toward the next rung?', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'No - keep the full build-up' }, { value: 1, label: 'Yes - park the slice toward the next door' }], hint: 'When a named future inflow exists, the fraction of corpus to park toward the next avenue; the rest stays in the low-cost build-up.' },
+    ],
+    assumptions: [
+      'All sleeve returns are AFTER-TAX PLANNING FIGURES (a conservative blend of the existing article assumptions: equity ~8.5%, sovereign debt ~5.5%, gold ~6%, international ~7.5%, professional alt ~8-9%) - not forecasts or promises.',
+      'The professional-alt sleeve is gated on the SIF 10L corpus minimum; below it, the allocation stays in the low-cost build-up (index + debt + gold).',
+      'The ODI-entity sleeve is available only to an entity investor (the 400%-of-net-worth route); an individual ODI is equity-only and capped at the LRS USD 250k.',
+      'The front-load fraction is a *deployment-scheduling* aid, not a tax or a fee compute; it answers "how much to park toward the next door", not "which instrument".',
+      'The blended return is the weight-average of the sleeve after-tax returns; it does not model the time-critical PMS/PRIM 1 Apr 2027 commencement or the surcharge on a high corpus.',
+    ],
+    limitations: [
+      'The risk-grade sleeve mix is a *planning* template; a real allocation is set by horizon, goals, tax regime and the existing portfolio - this tool is the *sizing* layer, not the *selection* layer.',
+      'The professional-alt sleeve return (8-9%) is a planning figure; the actual after-tax PMS/AIF return depends on the fee-crossover, which the [SIF/PMS/AIF wedge calculator](/calculators/pms-sif-aif-tax-wedge) prices separately.',
+      'The ODI-entity gate uses the LRS ~Rs 20L individual ceiling as the ODI threshold placeholder; the real entity ODI limit is 400% of the entity net worth (see the ODI route-eligibility calculator).',
+      'This is a decision model, not a filing or a CA computation - reconcile the final allocation with the fee-crossover + the personalization pass.',
+    ],
+    compute: (v) => {
+      const riskGrades = ['conservative', 'balanced', 'growth', 'aggressive'] as const;
+      const r = corpusAllocationBlender({
+        corpus: v.corpus,
+        riskGrade: riskGrades[v.riskGrade] ?? 'balanced',
+        isEntity: v.isEntity > 0.5,
+        internationalAppetite: v.internationalAppetite > 0.5,
+        frontLoadToNextRung: v.frontLoadToNextRung > 0.5,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const pct = (n: number) => (n * 100).toFixed(1) + '%';
+      const results = [
+        { label: 'Blended after-tax expected return', value: pct(r.blendedAfterTaxReturn), sub: 'weight-averaged sleeve returns (planning figure)' },
+        { label: 'Unlocked professional avenues', value: r.eligibleAvenues.filter((a) => a.unlocked).map((a) => a.name).join(' + ') || 'none (below SIF 10L)', sub: 'the doors open at this corpus' },
+        { label: 'Next locked avenue', value: r.nextLockedAvenue ? r.nextLockedAvenue.name + ' at ' + cr(r.nextLockedAvenue.threshold) : 'all open', sub: 'the next corpus door' },
+        { label: 'Front-load to next rung', value: pct(r.frontLoadFraction), sub: 'the slice to park toward the next door' },
+        { label: 'Top sleeve', value: r.sleeveWeights[0] ? r.sleeveWeights[0].name + ' ' + pct(r.sleeveWeights[0].weight) : 'n/a', sub: 'the largest allocation' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'Sleeve allocation (after-tax planning mix)',
+          alt: 'Pie chart of the risk-grade sleeve allocation, with the professional-alt sleeve and the international sleeve highlighted when available at this corpus',
+          option: {
+            tooltip: { trigger: 'item', formatter: (p) => p.name + ': ' + p.percent + '%' },
+            legend: { bottom: 0 },
+            series: [
+              {
+                type: 'pie',
+                radius: ['35%', '65%'],
+                data: r.sleeveWeights.map((s) => ({
+                  name: s.name,
+                  value: Math.round(s.weight * 1000) / 10,
+                  itemStyle: {
+                    color: s.id === 'alt-professional' ? '#1f7a5c' : s.id === 'international' ? '#6b5b8a' : s.id === 'equity-core' ? '#3a6ea5' : s.id === 'gold' ? '#c65d3b' : '#8a8f98',
+                  },
+                })),
+                label: { formatter: '{b}: {c}%' },
               },
             ],
           },

@@ -616,6 +616,20 @@
         "src-fema-sec13-compound-2026",
         "src-lrs-tcs-sc-2026"
       ]
+    },
+    {
+      "id": "ul-corpus-allocation-blender-fy2026-27",
+      "topic": "Corpus Allocation Blender (FY 2026-27): the synthesis/sizing layer that answers \"I have this corpus at this risk grade - where does the next rupee go?\" in one screen: the risk-grade sleeve mix (after dropping entity-only / international / SIF-gated sleeves and normalizing), which of the four professional avenues (SIF 10L / ODI ~20L individual proxy / PMS 50L / AIF 1Cr) are actually unlocked, the blended after-tax planning return (weight-average of the surviving sleeves), and the front-load fraction (corpus divided by the next-locked-avenue threshold) that parks the corpus-to-door slice in the low-cost build-up. All sleeve returns are after-tax planning figures (equity ~8.5%, sovereign debt ~5.5%, gold ~6%, international ~7.5%, professional alt ~8-9%), not forecasts; the professional-alt sleeve is entity-gated and SIF-10L-gated; the ODI gate is the individual LRS ~20L proxy (the entity 400%-of-net-worth route is a separate layer).",
+      "article": "pf-corpus-allocation-blender",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-sebi-sif-2026",
+        "src-pms-aif-fees-2026",
+        "src-aif-categories-2026",
+        "src-odi-rules-2026",
+        "src-surcharge-cess-fy2026-27"
+      ]
     }
   ]
 }

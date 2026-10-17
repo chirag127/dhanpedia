@@ -18,7 +18,7 @@ import {
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
   directLrsUsEquityFilingFY27, fastDSDisclosureFY26,
   blackMoneyActExposure, fastDSValuationGuard, capitalInflowMigrationPlanner,
-  femaSection13Exposure, odiRouteEligibility } from '@lib/finance/index';
+  femaSection13Exposure, odiRouteEligibility, corpusAllocationBlender } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -2059,6 +2059,76 @@ describe('odiRouteEligibility', () => {
     const r = odiRouteEligibility(base({ unlisted: false, stakePct: 0.05, withControl: true }));
     expect(r.isOdi).toBe(true);
     expect(r.withinAutomaticRoute).toBe(true); // $2M is within the entity limit
+  });
+});
+
+describe('corpusAllocationBlender', () => {
+  const base = (over: Partial<Parameters<typeof corpusAllocationBlender>[0]> = {}) => ({
+    corpus: 1000000,
+    riskGrade: 'balanced' as const,
+    ...over,
+  });
+
+  it('reports SIF unlocked at a 10L corpus and PMS as the next locked avenue', () => {
+    const r = corpusAllocationBlender(base());
+    const sif = r.eligibleAvenues.find((a) => a.id === 'sif-10l')!;
+    const pms = r.eligibleAvenues.find((a) => a.id === 'pms-50l')!;
+    expect(sif.unlocked).toBe(true);
+    expect(pms.unlocked).toBe(false);
+    expect(r.nextLockedAvenue?.id).toBe('pms-50l');
+    expect(r.nextLockedAvenue?.threshold).toBe(5000000);
+  });
+
+  it('front-loads the corpus-to-next-rung fraction when a next avenue is locked', () => {
+    // 10L corpus, next door PMS at 50L -> front-load fraction = 10/50 = 0.2.
+    const r = corpusAllocationBlender(base({ frontLoadToNextRung: true }));
+    expect(r.frontLoadFraction).toBeCloseTo(0.2, 6);
+  });
+
+  it('leaves the front-load fraction at 0 when front-load is off', () => {
+    const r = corpusAllocationBlender(base({ frontLoadToNextRung: false }));
+    expect(r.frontLoadFraction).toBe(0);
+  });
+
+  it('drops the entity-only professional-alt sleeve for an individual', () => {
+    const r = corpusAllocationBlender(base({ riskGrade: 'aggressive' }));
+    expect(r.sleeveWeights.every((s) => s.id !== 'alt-professional')).toBe(true);
+    // But all the non-entity sleeves normalize to 1.
+    const sum = r.sleeveWeights.reduce((acc, s) => acc + s.weight, 0);
+    expect(sum).toBeCloseTo(1, 6);
+  });
+
+  it('drops the international sleeve when appetite is off', () => {
+    const r = corpusAllocationBlender(base({ internationalAppetite: false }));
+    expect(r.sleeveWeights.every((s) => s.id !== 'international')).toBe(true);
+    const sum = r.sleeveWeights.reduce((acc, s) => acc + s.weight, 0);
+    expect(sum).toBeCloseTo(1, 6);
+  });
+
+  it('reports all avenues open and no next-locked avenue at a 1.5Cr entity corpus', () => {
+    const r = corpusAllocationBlender(base({ corpus: 15000000, isEntity: true, riskGrade: 'growth' }));
+    expect(r.eligibleAvenues.every((a) => a.unlocked)).toBe(true);
+    expect(r.nextLockedAvenue).toBe(null);
+    // The entity ODI avenue is the only one gated on isEntity.
+    const odi = r.eligibleAvenues.find((a) => a.id === 'odi-entity')!;
+    expect(odi.unlocked).toBe(true);
+  });
+
+  it('gates the professional-alt sleeve entirely below the SIF 10L corpus', () => {
+    const r = corpusAllocationBlender(base({ corpus: 500000, riskGrade: 'conservative' }));
+    expect(r.sleeveWeights.every((s) => s.id !== 'alt-professional')).toBe(true);
+    const sum = r.sleeveWeights.reduce((acc, s) => acc + s.weight, 0);
+    expect(sum).toBeCloseTo(1, 6);
+  });
+
+  it('computes the blended after-tax return as the weight-averaged sleeve return', () => {
+    const r = corpusAllocationBlender(base());
+    const expected = r.sleeveWeights.reduce((acc, s) => acc + s.weight * s.afterTaxReturn, 0);
+    expect(r.blendedAfterTaxReturn).toBeCloseTo(expected, 6);
+    // And it is bounded by the min/max sleeve after-tax returns.
+    const rates = r.sleeveWeights.map((s) => s.afterTaxReturn);
+    expect(r.blendedAfterTaxReturn).toBeGreaterThanOrEqual(Math.min(...rates) - 1e-9);
+    expect(r.blendedAfterTaxReturn).toBeLessThanOrEqual(Math.max(...rates) + 1e-9);
   });
 });
 

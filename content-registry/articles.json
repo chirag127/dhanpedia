@@ -2005,6 +2005,47 @@
       "books": [
         "book-wealth-beyond-10l"
       ]
+    },
+    {
+      "id": "pf-corpus-allocation-blender",
+      "file": "src/content/personal-finance/pf-corpus-allocation-blender.mdx",
+      "title": "The Corpus Allocation Blender: Where Does Your Next Rupee Go? (Sleeve Split + Blended After-Tax Return + Next Rung, FY 2026-27)",
+      "category": "personal-finance",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "corpus-allocation",
+        "sleeve-mix",
+        "sif",
+        "pms",
+        "aif",
+        "odi",
+        "next-rung",
+        "after-tax-return",
+        "front-load",
+        "risk-grade",
+        "synthesis",
+        "allocation"
+      ],
+      "sources": [
+        "src-sebi-sif-2026",
+        "src-pms-aif-fees-2026",
+        "src-aif-categories-2026",
+        "src-odi-rules-2026",
+        "src-surcharge-cess-fy2026-27"
+      ],
+      "related": [
+        "pf-capital-ladder-10l-to-1cr",
+        "pf-capital-inflow-migration",
+        "alternatives-hnw-pms-aif-sif-selection",
+        "international-odi-route-eligibility",
+        "tax-surcharge-cess-high-income"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
     }
   ]
 }

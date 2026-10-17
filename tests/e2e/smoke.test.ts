@@ -776,4 +776,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('corpus-allocation-blender calculator renders the sleeve split + next-rung verdict', async ({ page }) => {
+    await page.goto('/calculators/corpus-allocation-blender');
+    // Result-row DOM labels (the most-unique rows; the chart title is
+    // inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('Blended after-tax expected return', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Unlocked professional avenues', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Front-load to next rung', { exact: true }),
+    ).toBeVisible();
+    // The sleeve-allocation pie chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('corpus-allocation-blender article renders the synthesis sections', async ({ page }) => {
+    await page.goto('/articles/pf-corpus-allocation-blender');
+    // Stable, unique H2 headings in the body (assert unique prefixes to
+    // avoid the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The one-answer layer/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The risk-grade sleeve mix/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Which avenues are actually open/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });
