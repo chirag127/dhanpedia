@@ -743,4 +743,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('odi-route-eligibility calculator renders the ODI-vs-OPI verdict', async ({ page }) => {
+    await page.goto('/calculators/odi-route-eligibility');
+    // Result-row DOM labels (the most-unique rows; the chart title is
+    // inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('Is this ODI at all?', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Fits the automatic route?', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Filing form', { exact: true }),
+    ).toBeVisible();
+    // The commitment-vs-limit chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('ODI route-eligibility article renders the ODI-vs-OPI decision sections', async ({ page }) => {
+    await page.goto('/articles/international-odi-route-eligibility');
+    // Stable, unique H2 headings in the body (assert unique prefixes to
+    // avoid the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /ODI is not OPI and not the LRS/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The two investor types/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The Form FC-ODI layer/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

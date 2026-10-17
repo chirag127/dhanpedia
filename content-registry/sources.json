@@ -949,5 +949,24 @@
       "Tax regularisation (FAST-DS / Schedule FA) and exchange-control regularisation (FEMA compounding) are separate exercises administered by different authorities - the income-tax department vs the RBI / ED - and settling one does not close the other"
     ],
     "limitations": "The 3x Section 13(1) penalty is a cap (\"up to 3x\"), the actual adjudicated penalty is case-specific, and the Section 15 compounding fee is set by the RBI per contravention (the Rs 2L is a 2025 cap for a class of contraventions, not a flat price). Confirm the specific contravention's compoundability and fee with the PRAVAAH process / a FEMA practitioner before acting. The LRS / NRO / ODI limits are the 2026 positions and can move with an RBI Master Direction."
+  },
+  {
+    "id": "src-odi-rules-2026",
+    "title": "ODI (Overseas Direct Investment) route 2026: the 26 May 2026 amendment raising the entity automatic-route limit from 300% to 400% of net worth, the USD 1B-per-FY prior-approval trigger, the resident-individual LRS USD 250k/FY equity-only ODI limit, the ODI-vs-OPI definition (unlisted equity / 10%+ listed / control vs a listed under-10% no-control OPI position), and the Form FC-ODI post-fact filing + ~Rs 7,500 late-submission fee",
+    "publisher": "KAMRIT 26 May 2026 omnibus-route update + Resolut Partners / E-Tax Prime / Beacon Filing 2026 ODI coverage + Khaitan & Co + the RBI OI Rules 2022 ODI/OPI definition + the RBI LRS FAQ",
+    "url": "https://kamrit.com/blog/fema-overseas-investment-omnibus-route-may-2026",
+    "type": "aggregator",
+    "authority": "secondary",
+    "published": "2026-05-26",
+    "verified": "2026-10-18",
+    "lastVerified": "2026-10-18",
+    "claims": [
+      "The 26 May 2026 RBI amendment to the Foreign Exchange Management (Overseas Investment) Regulations, 2022 raises the omnibus/automatic-route ODI limit for an Indian entity from 300% to 400% of net worth (last audited balance sheet)",
+      "A financial commitment above USD 1 billion in a financial year moves to the prior-RBI-approval route, even within the 400% limit (Master Direction on ODI para 5)",
+      "A resident individual may make an ODI only in equity capital (no loans / guarantees to a foreign entity), only within the LRS USD 250,000/FY limit combined with all other LRS remittances, through the AD bank",
+      "ODI (per the RBI OI Rules 2022 definition) means: acquisition of unlisted equity capital of a foreign entity, OR subscription as part of its memorandum, OR investment in 10% or more of the paid-up equity of a listed foreign entity, OR investment with control where the stake is under 10%; a listed under-10% no-control position is OPI (the 50%-of-net-worth route), not ODI",
+      "Entity ODI is post-fact reporting via Form FC-ODI to the AD bank; a late filing attracts a late-submission fee (about Rs 7,500 and rising, scaled to the delay)"
+    ],
+    "limitations": "The 400% multiple is the 26 May 2026 position and a later notification can move it back to 300% or forward; the USD 1B approval trigger and the Form FC-ODI late-fee figures are case-specific and can change with a Master Direction. An individual ODI is equity-only by law - a personal loan / guarantee to a foreign entity is not permitted, so this source does not price that case. Confirm the operative multiple and fee against the current OI Rules 2022 + Master Direction on ODI before remitting."
   }
 ]

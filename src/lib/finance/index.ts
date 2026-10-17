@@ -3715,3 +3715,145 @@ export function femaSection13Exposure(inp: FemaSection13Input): FemaSection13Res
   };
 }
 
+/* ------------------------------------------------------------------
+ * ODI (Overseas Direct Investment) route eligibility - the "invest
+ * INTO a foreign entity" layer, distinct from the LRS/GIFT-City
+ * personal-remittance layers and from OPI (overseas portfolio
+ * investment in listed securities below the control threshold)
+ *
+ * Verified 2026 position (RBI OI Rules 2022 + the 26 May 2026
+ * amendment + Master Direction on ODI):
+ *   - An INDIAN ENTITY (company / LLP / partnership) may invest up
+ *     to 400% of its net worth (last audited) on the AUTOMATIC
+ *     route; a financial commitment above USD 1B in a FY moves to
+ *     the PRIOR-RBI-APPROVAL route. (The 26 May 2026 amendment
+ *     raised the omnibus-route limit from 300% to 400%.)
+ *   - A RESIDENT INDIVIDUAL may invest only up to USD 250,000 / FY
+ *     (the LRS limit, combined with all other LRS remittances) and
+ *     only in EQUITY capital - no loans / guarantees.
+ *   - "ODI" means: unlisted equity capital, OR >= 10% of the paid-up
+ *     equity of a listed foreign entity, OR any investment with
+ *     CONTROL where the stake is under 10%.
+ *
+ * All math is pure and deterministic; conventions are documented.
+ * ------------------------------------------------------------------ */
+
+export interface OdiRouteInput {
+  /** The investor type: 'entity' or 'individual'. */
+  investorType: 'entity' | 'individual';
+  /** For an entity: the net worth from the last audited balance sheet
+   *  (Rs). */
+  netWorth?: number;
+  /** For an individual: the LRS USD/FY limit (default 250,000). */
+  lrsUsdLimit?: number;
+  /** The USD/INR rate for the entity limit (the 400% figure is in INR;
+   *  the USD-1B approval threshold is compared in USD). */
+  usdInr?: number;
+  /** The financial commitment of the investment, in USD. */
+  commitmentUsd: number;
+  /** The stake as a fraction of the target's paid-up equity (e.g.
+   *  0.15 = 15%). */
+  stakePct: number;
+  /** True when the target is an UNLISTED foreign entity. */
+  unlisted?: boolean;
+  /** True when the investment carries CONTROL. */
+  withControl?: boolean;
+  /** The 400% automatic-route multiplier for an entity (the 2026
+   *  position; the 26 May 2026 amendment raised it from 300%). */
+  entityOdiMultiple?: number;
+}
+
+export interface OdiRouteResult {
+  investorType: OdiRouteInput['investorType'];
+  /** True when the stake qualifies as ODI at all (unlisted equity, or
+   *  listed >= 10%, or any control stake under 10%). */
+  isOdi: boolean;
+  /** For an entity: the 400% automatic-route limit in USD. */
+  entityAutomaticLimitUsd: number;
+  /** For an individual: the LRS limit (the cap on an individual ODI). */
+  individualLimitUsd: number;
+  /** True when the commitment fits the automatic route (no prior RBI
+   *  approval); false when it exceeds the limit (entity: above the
+   *  400% figure / USD-1B financial-commitment trigger; individual:
+   *  above the LRS limit). */
+  withinAutomaticRoute: boolean;
+  /** True when a prior-RBI-approval route is required (entity
+   *  financial commitment above the USD 1B FY trigger). */
+  approvalRoute: boolean;
+  /** The form to file: Form FC-ODI (entity) or the LRS + FC-ILG
+   *  remittance (individual). */
+  filingForm: string;
+  note: string;
+}
+
+export function odiRouteEligibility(inp: OdiRouteInput): OdiRouteResult {
+  const investorType = inp.investorType;
+  const netWorth = inp.netWorth ?? 0;
+  const lrsUsdLimit = inp.lrsUsdLimit ?? 250000;
+  const usdInr = inp.usdInr ?? 84;
+  const commitmentUsd = Math.max(0, inp.commitmentUsd);
+  const stakePct = Math.max(0, inp.stakePct);
+  const unlisted = inp.unlisted ?? false;
+  const withControl = inp.withControl ?? false;
+  const entityOdiMultiple = inp.entityOdiMultiple ?? 4;
+  const approvalUsdTrigger = 1000000000; // USD 1B financial-commitment
+
+  // Is this an ODI at all? Unlisted equity, or listed >= 10%, or any
+  // control stake (even under 10%). A listed <10% non-control stake is
+  // OPI, not ODI.
+  const isOdi = unlisted || stakePct >= 0.1 || withControl;
+
+  // The entity 400% automatic-route limit, in USD (net worth INR x 4 /
+  // the USD-INR rate).
+  const entityAutomaticLimitUsd =
+    investorType === 'entity' ? (netWorth * entityOdiMultiple) / usdInr : 0;
+
+  // For an entity, the approval route is triggered by the USD-1B
+  // financial-commitment cap (independent of the 400% net-worth limit).
+  const approvalRoute =
+    investorType === 'entity' && commitmentUsd > approvalUsdTrigger;
+
+  // The automatic-route test: within the type's limit.
+  const limitUsd =
+    investorType === 'entity'
+      ? entityAutomaticLimitUsd
+      : lrsUsdLimit;
+  const withinAutomaticRoute =
+    !approvalRoute && commitmentUsd <= limitUsd && limitUsd > 0;
+
+  const filingForm =
+    investorType === 'entity'
+      ? 'Form FC-ODI (post-fact reporting to the AD bank; a late filing attracts a late-submission fee)'
+      : 'LRS remittance (within the USD 250,000/FY limit) - an individual ODI is equity-only and within the LRS, filed through the AD bank with a Form 15CA/CB where applicable';
+
+  let note = '';
+  if (!isOdi) {
+    note =
+      'A listed foreign stake under 10% with no control is OPI (overseas portfolio investment), not ODI - it is governed by the OPI 50% of net worth limit, not the ODI route this calculator prices.';
+  } else if (approvalRoute) {
+    note =
+      'The USD 1B-per-FY financial commitment exceeds the automatic-route trigger - a prior RBI approval is required before the remittance, not just a post-fact filing.';
+  } else if (!withinAutomaticRoute) {
+    note =
+      investorType === 'entity'
+        ? 'The commitment exceeds the 400%-of-net-worth automatic limit - it needs the prior-approval route (or a reduced commitment).'
+        : 'The commitment exceeds the individual LRS USD 250,000/FY limit - an individual cannot make a larger ODI; it must come from an entity.';
+  } else {
+    note =
+      investorType === 'entity'
+        ? 'Within the 400%-of-net-worth automatic route - file Form FC-ODI with the AD bank (a late filing attracts a late-submission fee of about Rs 7,500+).'
+        : 'Within the individual LRS USD 250,000/FY limit (equity-only) - remit through the AD bank under LRS, subject to the aggregate LRS outflow and the TCS reservation.';
+  }
+
+  return {
+    investorType,
+    isOdi,
+    entityAutomaticLimitUsd,
+    individualLimitUsd: lrsUsdLimit,
+    withinAutomaticRoute,
+    approvalRoute,
+    filingForm,
+    note,
+  };
+}
+

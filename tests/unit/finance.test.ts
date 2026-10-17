@@ -18,7 +18,7 @@ import {
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
   directLrsUsEquityFilingFY27, fastDSDisclosureFY26,
   blackMoneyActExposure, fastDSValuationGuard, capitalInflowMigrationPlanner,
-  femaSection13Exposure } from '@lib/finance/index';
+  femaSection13Exposure, odiRouteEligibility } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1991,6 +1991,74 @@ describe('femaSection13Exposure', () => {
     expect(r.section13Penalty).toBe(0);
     expect(r.applicableFemaCost).toBe(0);
     expect(r.contraventionSum).toBe(0);
+  });
+});
+
+describe('odiRouteEligibility', () => {
+  const base = (over: Partial<Parameters<typeof odiRouteEligibility>[0]> = {}) => ({
+    investorType: 'entity',
+    netWorth: 200000000, // Rs 20 cr
+    commitmentUsd: 2000000,
+    stakePct: 0.15,
+    unlisted: true,
+    withControl: false,
+    ...over,
+  });
+
+  it('fits the entity automatic route (400% of net worth) for a modest commitment', () => {
+    // 20 cr x 4 / 84 = ~$9.52M limit; $2M commitment is within it.
+    const r = odiRouteEligibility(base());
+    expect(r.isOdi).toBe(true);
+    expect(r.entityAutomaticLimitUsd).toBeGreaterThan(2000000);
+    expect(r.withinAutomaticRoute).toBe(true);
+    expect(r.approvalRoute).toBe(false);
+    expect(r.filingForm).toMatch(/Form FC-ODI/);
+  });
+
+  it('moves an entity to the prior-approval route above the USD 1B FY commitment', () => {
+    const r = odiRouteEligibility(base({ commitmentUsd: 1500000000 }));
+    expect(r.approvalRoute).toBe(true);
+    expect(r.withinAutomaticRoute).toBe(false);
+    expect(r.note).toMatch(/prior RBI approval/i);
+  });
+
+  it('exceeds the 400% automatic limit (but stays under the 1B trigger) for a large-but-sub-1B commitment', () => {
+    // $50M is above the ~$9.52M 400% limit but below the $1B approval trigger.
+    const r = odiRouteEligibility(base({ commitmentUsd: 50000000 }));
+    expect(r.approvalRoute).toBe(false);
+    expect(r.withinAutomaticRoute).toBe(false);
+    expect(r.note).toMatch(/400%/);
+  });
+
+  it('keeps an individual ODI within the LRS USD 250k limit (equity-only)', () => {
+    const r = odiRouteEligibility(base({ investorType: 'individual', commitmentUsd: 200000 }));
+    expect(r.isOdi).toBe(true);
+    expect(r.individualLimitUsd).toBe(250000);
+    expect(r.withinAutomaticRoute).toBe(true);
+    expect(r.filingForm).toMatch(/LRS/);
+  });
+
+  it('marks an individual ODI above the LRS limit as out of route', () => {
+    const r = odiRouteEligibility(base({ investorType: 'individual', commitmentUsd: 300000 }));
+    expect(r.withinAutomaticRoute).toBe(false);
+    expect(r.note).toMatch(/LRS/);
+  });
+
+  it('treats a listed <10% non-control stake as OPI, not ODI', () => {
+    const r = odiRouteEligibility(base({ unlisted: false, stakePct: 0.05, withControl: false }));
+    expect(r.isOdi).toBe(false);
+    expect(r.note).toMatch(/OPI/);
+  });
+
+  it('treats a listed >=10% stake as ODI', () => {
+    const r = odiRouteEligibility(base({ unlisted: false, stakePct: 0.15, withControl: false }));
+    expect(r.isOdi).toBe(true);
+  });
+
+  it('treats a control stake under 10% as ODI', () => {
+    const r = odiRouteEligibility(base({ unlisted: false, stakePct: 0.05, withControl: true }));
+    expect(r.isOdi).toBe(true);
+    expect(r.withinAutomaticRoute).toBe(true); // $2M is within the entity limit
   });
 });
 

@@ -604,6 +604,18 @@
         "src-us-stock-tax-india-2026",
         "src-lrs-tcs-sc-2026"
       ]
+    },
+    {
+      "id": "ul-odi-400-percent-limit-fy2026-27",
+      "topic": "ODI (Overseas Direct Investment) route eligibility (FY 2026-27): the 26 May 2026 amendment raising the entity automatic-route limit from 300% to 400% of net worth, the USD 1B-per-FY prior-approval trigger, the resident-individual LRS USD 250,000/FY equity-only ODI limit, the ODI-vs-OPI definition (unlisted equity / 10%+ listed / control = ODI; a listed under-10% no-control position = OPI, not ODI), and the Form FC-ODI post-fact filing with the ~Rs 7,500 late-submission fee. The ODI route is the outbound-investment lane that is a different mechanism from buying a GIFT City fund or a personal LRS remittance; a breached ODI limit becomes a FEMA Section 13 3x / Section 15 compounding exposure (cross-referenced to tax-fema-exchange-control-exposure).",
+      "article": "international-odi-route-eligibility",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-odi-rules-2026",
+        "src-fema-sec13-compound-2026",
+        "src-lrs-tcs-sc-2026"
+      ]
     }
   ]
 }

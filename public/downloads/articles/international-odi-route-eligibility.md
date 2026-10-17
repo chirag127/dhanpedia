@@ -1,0 +1,100 @@
+
+The [GIFT City / direct-LRS articles](./international-gift-city-live-scheme-comparison.mdx) cover *buying* global exposure (a GIFT City fund, a US ETF). This page covers the distinct **outbound-investment** question: **putting money *into* a foreign entity** - an overseas start-up, a foreign JV, a subsidiary you set up abroad. That is **ODI (Overseas Direct Investment)**, a *different* route from both buying a GIFT City fund and from a personal LRS remittance, and it has its own limits, its own definition, and its own filing. Everything below is a route-eligibility model, not a Form FC-ODI filing; the operative multiple is a 2026 position that a later notification can move.
+
+## ODI is not OPI and not the LRS (the definition that decides everything)
+
+The first thing that confuses people is that "investing abroad" is *not one route* - it is at least three, and the **definition of ODI** is what puts your specific investment in the right bucket:
+
+| Route | What it is | The limit | Who |
+|---|---|---|---|
+| **ODI** (this page) | Investing **into** a foreign *entity*: unlisted equity capital, OR a listed stake of **≥10%**, OR *any* stake that carries **control** (even under 10%) | **Entity: 400% of net worth** (2026) / **Individual: LRS USD 250k** (equity-only) | Indian entity OR resident individual |
+| **OPI** | Buying *listed* foreign securities **under 10%, no control** (a portfolio position) | 50% of net worth (entity) | Entity (individuals use LRS, not OPI) |
+| **LRS personal remittance** | Remitting your *own* money (a GIFT City fund, a US brokerage, tuition, travel) | **USD 250,000 / FY** (resident; NRIs excluded) | Resident individual |
+
+So the **three lines that decide ODI** are: **unlisted equity, a listed stake of 10% or more, or a control stake of any size.** A *listed* foreign stake *under 10% with no control* is **OPI, not ODI** - it runs on the 50%-of-net-worth route, and this article's calculator deliberately *excludes* it ("Is this ODI at all? → OPI"). That boundary is the most common mis-classification: people call a 5% listed position an ODI when it is an OPI, and then file the wrong form under the wrong limit.
+
+## The two investor types (entity 400% vs individual LRS - and why that gap matters)
+
+The 2026 limits diverge sharply by *who* is investing:
+
+- **An Indian entity (company / LLP / partnership)** may invest up to **400% of its net worth** (last audited) on the **automatic route** - the [26 May 2026 amendment raised the omnibus-route limit from 300% to 400%](https://www.kamrit.com/blog/fema-overseas-investment-omnibus-route-may-2026). Above a **USD 1B-per-FY financial commitment**, the investment moves to a **prior-RBI-approval** route (not just a post-fact filing).
+- **A resident individual** may make an ODI **only in equity capital** (no loans, no guarantees to the foreign entity), **only within the LRS USD 250,000/FY limit** (combined with all other LRS remittances), through the AD bank.
+
+That **gap is the whole strategic point**: an individual's ODI ceiling is **~USD 250k**, but the *same* investment by the individual's company is **400% of that company's net worth** - which, for a company with a modest ₹20 cr net worth, is roughly **USD 9.5M**. So "can I invest in this foreign start-up?" has a *radically different answer* depending on whether the money leaves *your* bank account (LRS, USD 250k) or a *company you own* (ODI, 400% of net worth). The **odi-route-eligibility calculator** prices both and flags which one you are in.
+
+The **entity route** is also the answer to the "good returns that need *more* capital" question the user keeps asking: **an ODI into a foreign equity/VC is precisely a higher-capital, higher-return route** - the 400%-of-net-worth limit is what lets a company deploy far more than any individual can under LRS. It pairs with the [pre-IPO / unlisted HNI article](./alternatives-pre-ipo-unlisted-equity-hni.mdx) (the entity is the vehicle for a pre-IPO foreign round) and the [capital-inflow-migration planner](./pf-capital-inflow-migration.mdx) (the ODI is one of the *inflow/exit* events that resizes the corpus).
+
+## The Form FC-ODI layer (and why "a bank transfer" is not "ODI")
+
+ODI is not a simple outward remittance - it is a **regulated filing chain** that begins *before* the money leaves:
+
+- **The form: Form FC-ODI** (entity) - filed with the AD bank, post-fact, reporting the investment. A **late filing attracts a late-submission fee** (about ₹7,500 and rising, scaled to the delay). [src-odi-rules-2026]
+- **Individuals** remit under **LRS** (the USD 250k cap), with **Form 15CA/15CB** where the remittance crosses the value threshold; there is *no* Form FC-ODI for a personal ODI - the LRS *is* the route.
+- **The money-movement is a FEMA fact, independent of the tax side.** A lawful ODI is clean on both ledgers; a *breach* of the ODI limit is a FEMA contravention priced by the [FEMA 3x / compounding layer](./tax-fema-exchange-control-exposure.mdx) - which is why the ODI article and the FEMA article are two sides of the same coin.
+
+The practical rule the [foreign-exposure literature](https://www.harunraaj.com/blog/odi-fema-automatic-route-limits-form-odi-reporting) flags: **"ODI is just a bank transfer" is the exact wrong mental model.** It is a filing that *precedes* the remittance, and skipping it turns a lawful ODI into a Section 13 contravention.
+
+## When ODI is the right tool (the honest layer)
+
+- **Right** when you are putting equity *into* a foreign entity (an overseas start-up, a JV you control, a foreign sub) and the investor is **the entity** - that is the 400% route, and it is the *only* way to deploy the kind of "good-return, more-capital" money the user is asking about, because the individual LRS ceiling (USD 250k) is too small for a real ODI ticket.
+- **Right** for an **individual** only when the ticket is *small* (under ~USD 250k) *and* it is **equity-only** - a personal ODI above that, or one that includes a loan/guarantee to the foreign entity, is simply *not permitted* for an individual.
+- **Wrong** when the "investment" is a *listed foreign stake under 10% with no control* - that is **OPI**, a different route (the 50%-of-net-worth limit), and filing it as ODI is a mis-classification.
+- **Wrong** when the commitment is **above USD 1B/FY for an entity** without a **prior-RBI-approval** plan - that is the approval route, not the automatic one.
+
+## A worked example: a ₹20 cr company investing USD 2M in a foreign start-up
+
+Assume an Indian company with a **₹20 cr (₹200,000,000) net worth** (last audited, at 84 INR/USD) wants to take a **15% unlisted stake in a foreign start-up** for **USD 2,000,000**.
+
+| Question | Answer |
+|---|---|
+| Is it ODI? | **Yes** - unlisted equity (the "is ODI" test is met on the first line) |
+| Automatic-route limit | 400% × ₹20 cr = ₹80 cr ÷ 84 ≈ **USD 9.5M** |
+| Does the USD 2M commitment fit? | **Yes** (USD 2M « USD 9.5M) - automatic route, **no prior approval** |
+| USD 1B trigger? | **No** (USD 2M « USD 1B) |
+| Filing | **Form FC-ODI** to the AD bank (post-fact; a late filing ≈ ₹7,500+ fee) |
+
+Contrast the *same* USD 2M ticket from **the individual personally** (LRS, equity-only): the limit is **USD 250k/FY**, so a **USD 2M personal ODI is out of route** - it *must* come from the entity. **That single reclassification - personal → entity - is the difference between a "not permitted" ODI and a clean automatic-route ODI**, and it is the lever that makes ODI the "good-return, more-capital" route the user asked about. The **odi-route-eligibility calculator** reproduces all of this and flags the ODI-vs-OPI and automatic-vs-approval branches.
+
+## What to do now (the ODI order)
+
+1. **Classify first: ODI or OPI?** - unlisted / 10% or more listed / control → ODI; a listed position under 10% with no control → OPI (a different limit and form). This is the gate the calculator's "Is this ODI at all?" row surfaces.
+2. **Pick the investor: entity or individual.** - The entity gets the 400% route; the individual is capped at LRS USD 250k and equity-only. The *reclassification* is often the whole answer.
+3. **Check the commitment against the limit** (400% of net worth for an entity; USD 250k for an individual) and against the **USD 1B FY** approval trigger (entity only).
+4. **Run the [odi-route-eligibility calculator](/calculators/odi-route-eligibility)** for the ODI-vs-OPI verdict, the automatic-route fit, and the approval-route flag.
+5. **File *before* remitting** - Form FC-ODI (entity) / LRS + 15CA/15CB (individual); a skipped filing turns a lawful ODI into a FEMA Section 13 exposure (the [FEMA layer](./tax-fema-exchange-control-exposure.mdx)).
+6. **Reconcile with a FEMA practitioner** - the 400% multiple is the 26 May 2026 position and the FC-ODI fees are case-specific; confirm the operative figures for your filing date.
+
+## The one-line verdict
+
+**ODI is the "invest *into* a foreign entity" route, and it is a different lane from buying a GIFT City fund or a personal LRS remittance:** it is triggered by **unlisted equity, a listed stake of 10% or more, or any control stake** (a listed position under 10% with no control is **OPI**, not ODI); the **entity** automatic limit is **400% of net worth** (the 26 May 2026 amendment, up from 300%) with the **USD 1B/FY** financial commitment moving to a prior-approval route; the **individual** is **equity-only and capped at LRS USD 250k/FY**; and it is a **regulated Form FC-ODI filing that precedes the remittance** - skip it and the [FEMA 3x / compounding layer](./tax-fema-exchange-control-exposure.mdx) is the price. The **odi-route-eligibility calculator** runs the ODI-vs-OPI, automatic-vs-approval, and entity-vs-individual branches on your exact stake and commitment.
+
+## Update log
+
+- **2026-10-18 (Wave 30):** created. Verified the ODI route against the 2026 sources: the **26 May 2026 amendment raising the omnibus/automatic-route ODI limit from 300% to 400% of net worth** (KAMRIT / Resolut / E-Tax Prime / Beacon), the **USD 1B-per-FY prior-approval trigger**, the **individual LRS USD 250,000/FY equity-only ODI limit** (RBI LRS FAQ + Khaitan / Resolut), the **ODI definition** (unlisted equity / 10% or more listed / control; the listed under-10% no-control OPI exclusion, per the RBI OI Rules 2022 definition), and the **Form FC-ODI post-fact filing + ~₹7,500 late-submission fee** (KAMRIT ODI-filing coverage + the Razorpay FEMA-ODI guide).
+- **Review by 2027-04-17:** re-verify the **400% multiple** (the 26 May 2026 position - a later notification can move it) and the **USD 1B approval trigger** at the next RBI Master Direction on ODI; the Form FC-ODI late fee is a case-specific amount.
+
+## Sources
+
+- `src-odi-rules-2026` — **new this wave:** the ODI route source (KAMRIT 26 May 2026 omnibus-route update + Resolut / E-Tax Prime / Beacon / Khaitan 2026 ODI coverage + the RBI OI Rules 2022 ODI/OPI definition + the RBI LRS FAQ): the 400%-of-net-worth entity automatic limit (up from 300%), the USD 1B/FY prior-approval trigger, the individual LRS USD 250k equity-only ODI, the ODI-vs-OPI definition, and the Form FC-ODI post-fact filing.
+- `src-fema-sec13-compound-2026` — the FEMA exchange-control counterfactual (Section 13 3x / Section 15 compounding) that a *breached* ODI limit becomes - the "skip the filing and this is the price" layer.
+- `src-lrs-tcs-sc-2026` — the LRS USD 250,000/FY limit and the ₹10L TCS threshold that sit under an individual's ODI remittance.
+
+## Related
+
+- [FEMA Exchange-Control Exposure (the 3x / compounding price of a *breached* ODI limit)](/articles/tax-fema-exchange-control-exposure)
+- [GIFT City Live Schemes & the Route Decision (the *buy-global* lane this ODI page is the *invest-into* lane to)](/articles/international-gift-city-live-scheme-comparison)
+- [International Investing & LRS (the personal-remittance lane underneath an individual ODI)](/articles/international-investing-lrs)
+- [Pre-IPO / Unlisted Equity for the HNI (the entity vehicle for a foreign pre-IPO round)](/articles/alternatives-pre-ipo-unlisted-equity-hni)
+- [The Capital-Inflow Migration Planner (the ODI exit is one of the dated inflows that resizes the corpus)](/articles/pf-capital-inflow-migration)
+- The **odi-route-eligibility** calculator — run your exact stake and commitment through the ODI-vs-OPI, automatic-vs-approval, and entity-vs-individual branches.
+
+
+## Sources & Citations
+
+- **KAMRIT 26 May 2026 omnibus-route update + Resolut Partners / E-Tax Prime / Beacon Filing 2026 ODI coverage + Khaitan & Co + the RBI OI Rules 2022 ODI/OPI definition + the RBI LRS FAQ** — ODI (Overseas Direct Investment) route 2026: the 26 May 2026 amendment raising the entity automatic-route limit from 300% to 400% of net worth, the USD 1B-per-FY prior-approval trigger, the resident-individual LRS USD 250k/FY equity-only ODI limit, the ODI-vs-OPI definition (unlisted equity / 10%+ listed / control vs a listed under-10% no-control OPI position), and the Form FC-ODI post-fact filing + ~Rs 7,500 late-submission fee. https://kamrit.com/blog/fema-overseas-investment-omnibus-route-may-2026 (verified 2026-10-18)
+- **Beacon Filing / VirtualAuditor / APTaxLaw / KS&A 2026 FEMA penalty + compounding coverage + the RBI Master Direction on Compounding of Contraventions under FEMA, 1999 (April 2025 update) + Oquilia Research (NRO USD 1M / LRS USD 250k) + RBI LRS FAQ** — FEMA 1999 exchange-control exposure: the Section 13(1) "up to 3x the sum involved" penalty (vs the FERA-era 9x that does not apply), the Section 15 compounding route via PRAVAAH (up to a Rs 5 cr contravention, the 2025 amendment capping certain compounding fees at Rs 2,00,000, and the non-compoundable Section 3(a) hawala exception), and the LRS USD 250k / NRO USD 1M / ODI individual limits that define the breaching "sum". https://www.beaconfiling.com/blog/fema-penalties-compounding-process (verified 2026-10-18)
+- **Standard Chartered Bank India (official notice reproducing Finance Act 2026 LRS TCS amendment)** — Revised TCS on outward foreign remittances under LRS, w.e.f. 1 April 2026 (Finance Act 2026, Sec 394(1) of IT Act 2025). https://www.sc.bank.in/important-information/others/lrs-amendment-in-tcs/ (verified 2026-10-16)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.

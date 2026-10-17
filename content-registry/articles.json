@@ -1965,6 +1965,46 @@
         "book-complete-indian-investor",
         "book-indian-taxation"
       ]
+    },
+    {
+      "id": "international-odi-route-eligibility",
+      "file": "src/content/international/international-odi-route-eligibility.mdx",
+      "title": "ODI Route Eligibility: Investing INTO a Foreign Entity (400% Net Worth Entity / LRS USD 250k Individual, FY 2026-27)",
+      "category": "international",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "odi",
+        "overseas-direct-investment",
+        "fema",
+        "400-percent-net-worth",
+        "lrs",
+        "usd-250k",
+        "form-fc-odi",
+        "foreign-startup",
+        "control-stake",
+        "opi",
+        "auto-route",
+        "rbi",
+        "may-2026-amendment"
+      ],
+      "sources": [
+        "src-odi-rules-2026",
+        "src-fema-sec13-compound-2026",
+        "src-lrs-tcs-sc-2026"
+      ],
+      "related": [
+        "tax-fema-exchange-control-exposure",
+        "international-gift-city-live-scheme-comparison",
+        "international-investing-lrs",
+        "alternatives-pre-ipo-unlisted-equity-hni",
+        "pf-capital-inflow-migration"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
     }
   ]
 }
