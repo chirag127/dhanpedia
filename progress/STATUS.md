@@ -1,14 +1,79 @@
 # DhanPedia — Progress
 
-Last updated: **2026-10-18** (Wave 21: 1 new article + 1 new finance function + 1 new calculator + 8 unit tests + 2 e2e tests; 50 → 51 articles; 34 calculators; all pipeline green)
+Last updated: **2026-10-18** (Wave 22: 1 new article + 1 new finance function + 1 new calculator + 2 new sources + 8 unit tests + 2 e2e tests; 51 → 52 articles; 35 calculators; all pipeline green)
 
 ## State
 
-- **Articles:** 51 on disk / registered. Wave 21 added 1: `tax-54ec-tranche-tracker` (the *operational* layer over Section 54EC: the 6-month investment window, the 5-year lock-in, the ₹50L reinvestment cap, the REC/PFC/HUDCO/IRFC notified-bond list with ~6.5–7.5% coupons (slab-taxed), the proportional min(gain, reinvested) rule applied tranche by tranche, and the early-redemption reversal where the exemption is withdrawn and the original gain is re-taxed at 12.5% no-indexation). Wave 20 added 1: `pf-capital-ladder-10l-to-1cr`; Wave 19 added 1: `tax-esop-vesting-tax-walkthrough`. (the *capital-ladder* layer that answers the user's "I have ₹10L now but can get more later" question: the four SEBI rung thresholds in order — SIF ₹10L (PAN-level, MF Regs 2026, eff 1 Apr 2026), PMS/PRIM + AIF-employee ₹25L (PM Regs 2026, eff 1 Apr 2027), standard PMS ₹50L (which also meets the ₹50L 54EC cap), AIF ₹1Cr HNI route — the corpus math for when each door opens (SIP + optional future lump-sum event), the surcharge-tier shift as income climbs (new-regime 10% > 50L, 15% > 1Cr, 25% cap > 2Cr), a full worked example (₹10L corpus + ₹50k SIP + ₹5L bonus at month 12), and the honest "when a higher rung is the wrong tool" layer). Wave 19 added 1: `tax-esop-vesting-tax-walkthrough` (the *two-stage ESOP/RSU lifecycle* layer: the exercise-date perquisite (FMV minus exercise price, slab tax on salary), the FMV cost-base step-up under Sec 49(2AA)/Act-2025 Sec 73, the CG-head selection (112A listed LTCG pool vs 111A unlisted LTCG vs Sec 112 STCG at the marginal rate), the shared ₹1.25L annual 112A pool, 4% cess + surcharge stacking, the 80-IAC 60-month startup deferral, the TDS 192→392 Act-2025 migration, the "taxed before you can sell" trap + three escape hatches, the Schedule FA / FAST-DS foreign-parent layer, the advance-tax obligation on the CG stage, two full worked examples (listed ₹10L grant + unlisted startup with deferral), and an ITR filing checklist).
-- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 18, indian-taxation 16 (+ tax-54ec-tranche-tracker in Wave 21, + tax-esop-vesting-tax-walkthrough in Wave 19), p2p-lending 4, wealth-beyond-10l 16. Wave 20 added `pf-capital-ladder-10l-to-1cr` as a chapter to both complete-indian-investor and wealth-beyond-10l.
-- **Sources:** 57 in `sources.json` (Wave 21 reused `src-54-rollover-fy2026-27` and `src-it-slab-fy2026-27` — no new source needed).
-- **Update-log:** 57 tracked (Wave 21 added `ul-54ec-tranche-reversal-fy2026-27`, reviewAfter 2027-04-17 — the 54EC operational structure + early-redemption reversal).
-- **Calculators:** 34 (Wave 21 added `54ec-tranche-tracker`, powered by the new `fiftyFourECTrancheTracker()` pure function, with 8 unit tests and 2 e2e tests).
+- **Articles:** 52 on disk / registered. Wave 22 added 1: `international-gift-city-ifsc-tax-timing-deep-dive` (the *operational* GIFT City / IFSC layer: why the route stays open (IFSCA-regulated, outside the SEBI $7B cap, bought under the personal LRS), the AY 2026-27 Section 50AA debt-based "Specified Mutual Fund" redefinition that now reaches 12.5% no-pool LTCG for non-specified international FoFs, the **two coexisting tax treatments** on GIFT City gains (Indian-side 12.5% no-indexation LTCG + Schedule FA vs fund-level post-tax NAV with no separate CG compute — the offer document is the tie-breaker), the **TCS 20% reservation math** on the LRS remittance (₹10L aggregate threshold, the 1 Apr 2026 2% education/medical/tour cut, the aggregate-not-per-remittance rule), the live scheme list, the fresh FCA + KYC onboarding, and the Schedule FA / FAST-DS disclosure layer). Wave 21 added 1: `tax-54ec-tranche-tracker`; Wave 20 added 1: `pf-capital-ladder-10l-to-1cr`; Wave 19 added 1: `tax-esop-vesting-tax-walkthrough`.
+- **Books:** 4 × 6 formats. Chapter counts: complete-indian-investor 18, indian-taxation 16, p2p-lending 4, wealth-beyond-10l 17. Wave 22 added `international-gift-city-ifsc-tax-timing-deep-dive` as a chapter to wealth-beyond-10l.
+- **Sources:** 59 in `sources.json` (Wave 22 added 2: `src-intl-fof-treatment-ay2026-27` — the AY 2026-27 50AA debt-test + the 12.5% no-pool LTCG it now reaches + the Act-2025 renumbering; `src-gift-city-live-funds-2026` — the live GIFT City scheme list, fresh FCA + KYC onboarding, LRS/TCS specifics, IFSCA Act 2019 anchor).
+- **Update-log:** 58 tracked (Wave 22 added `ul-gift-city-tax-treatment-split-fy2026-27`, reviewAfter 2027-04-17 — the two coexisting GIFT City gain treatments + the 50AA debt-test change + the live scheme list).
+- **Calculators:** 35 (Wave 22 added `gift-city-lrs-tax`, powered by the new `giftCityLrsTaxFY27()` pure function, with 8 unit tests and 2 e2e tests).
+
+## Wave 22 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/international/international-gift-city-ifsc-tax-timing-deep-dive.mdx` — the *operational GIFT City / IFSC* layer (the route-selection article covered "which route"; this covers "how the GIFT City route actually behaves in your hands"): why it stays open (IFSCA-regulated, outside the SEBI $7B cap, bought under the personal LRS), the **AY 2026-27 Section 50AA debt-based "Specified Mutual Fund" redefinition** that now reaches 12.5% no-pool LTCG for non-specified international FoFs, the **two coexisting tax treatments** on GIFT City gains (Indian-side 12.5% no-indexation LTCG + Schedule FA vs fund-level post-tax NAV with no separate CG compute — the offer document is the tie-breaker), the **TCS 20% reservation math** (₹10L aggregate threshold, the 1 Apr 2026 2% education/medical/tour cut, the aggregate-not-per-remittance rule), the live 2026 scheme list, the fresh FCA + KYC onboarding that does not carry over, and the Schedule FA / FAST-DS disclosure layer.
+
+### New finance function + calculator + tests
+- [x] `giftCityLrsTaxFY27()` in `src/lib/finance/index.ts` — the LRS aggregate outflow, the TCS-able portion above the ₹10L threshold, the 20% TCS and the "cash needed at source" reservation, the TCS-as-%-of-investment ratio, the USD 250k cap check at an assumed USD/INR, and **both** tax treatments side by side (Indian-side foreign-asset 12.5% LTCG / slab STCG + Schedule FA note, and the fund-level post-tax-NAV "no separate CG" figure), with the TCS-recoverable flag.
+- [x] `gift-city-lrs-tax` calculator page (category: International) — 6 inputs (invest Rs, prior LRS outflow, months held, expected gain %, slab %, USD/INR), 7 result rows, ECharts 3-bar remittance cash-flow chart (Investment / TCS / At source).
+- [x] 8 new unit tests (20% TCS above the 10L threshold, zero-TCS at the threshold, the aggregate prior-outflow accumulation, the TCS-reservation ratio, the 24-month STCG→LTCG flip, the correct-rate gain tax at both treatments, the fund-level zero-investor-CG position, and the USD 250k cap check at 84 INR/USD) — **158/158 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; the calculator asserts the three unique result-row DOM labels and the chart container — the ECharts canvas title is deliberately *not* asserted, per the Wave 19 gotcha) — **92/92 e2e tests pass**.
+
+### New sources
+- [x] `src-intl-fof-treatment-ay2026-27` — the Foliyo / ex-HDFC-Private-Wealth guide: the AY 2026-27 50AA debt-test, the 12.5% no-pool LTCG reaching non-specified int'l FoFs, the Act-2025 renumbering (111A→196, 112→197, 112A→198, 50AA→76), and the fund-level post-tax-NAV position.
+- [x] `src-gift-city-live-funds-2026` — the Deepak Wealth 2026 GIFT City guide: the live scheme list (PPFAS S&P 500 FoF, PPFAS Nasdaq 100 FoF, DSP GIFT City Global Equity Fund, Tata GIFT City Fund, HDFC passive in pipeline), the fresh FCA + KYC onboarding, the LRS/TCS specifics, and the IFSCA Act 2019 anchor.
+
+### Build gotcha hit this session
+- **Calculator array-insertion brace bug (recurring, now Wave 10/11/12/14/21 class)** — inserting the `gift-city-lrs-tax` entry before the `];` tail dropped the previous `54ec-tranche-tracker` entry's closing `},` → "braces UNBALANCED" (1116 vs 1115). Fixed by restoring the `},` and re-running `_check_calc_braces.mjs` (now BALANCED, 34 entries). This is the same bug that has recurred since Wave 10; the post-insertion brace check is now a hard gate.
+- **USD cap arithmetic miscalculation in a new unit test** — the first draft asserted ₹25L "exceeds the USD 250k cap" at 84 INR/USD, but the cap is ~₹2.1 cr, so it does not. Corrected the test to ₹1.5 cr prior + ₹0.8 cr invest = ₹2.3 cr (over) vs a small outflow (under). Same "run the unit test after writing it" lesson as Wave 20.
+
+### Research verified this session
+- [x] **AY 2026-27 Section 50AA debt-test** — "Specified Mutual Fund" is now a debt-based >65% test (annual average of daily closing figures); a non-specified int'l equity FoF can get 12.5% no-indexation LTCG after 24 months (unlisted) / 12 months (listed) instead of the old forever-slab treatment. Income-tax Act 2025 renumbers 50AA→76, 112A→198, 112→197, 111A→196, effective 1 Apr 2026.
+- [x] **The two coexisting GIFT City tax treatments** — Indian-side foreign-asset (12.5% LTCG >24mo, slab STCG, Schedule FA mandatory) vs fund-level post-tax NAV (no separate investor-side CG); the scheme's offer document is the tie-breaker. This is an honest conflict and the article flags it explicitly rather than picking one.
+- [x] **TCS reservation specifics** — ₹10L aggregate TCS-free threshold (raised from ₹7L by Finance Act 2025); 20% on the "other / investment" bucket; education / medical / overseas-tour dropped to 2% from 1 Apr 2026 (Finance Act 2026); TCS is a credit recovered at ITR, not a cost.
+- [x] **Live GIFT City scheme list + fresh onboarding** — PPFAS S&P 500 FoF / PPFAS Nasdaq 100 FoF / DSP GIFT City Global Equity Fund / Tata GIFT City Fund live; HDFC Developed + Emerging Markets passive in pipeline; fresh FCA (HDFC/ICICI/Axis IFSC Banking Units) + fresh KYC, no carryover from a domestic folio.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 158 passed.
+- [x] `node scripts/validate-content.mjs` → 52 articles, 4 books, 59 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 218 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed.
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 52/52 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 92 passed (46 desktop + 46 mobile).
+
+## Wave 21 session (verified 2026-10-18 via web research)
+
+### New article
+- [x] `src/content/taxation/tax-54ec-tranche-tracker.mdx` — the *operational* layer over Section 54EC (the rollover article covered "whether 54EC shelters your gain"; this covers "what the 54EC mechanism does across time and issuers"): the 6-month investment window (non-compliant = zero exemption, the whole gain re-taxed), the proportional min(gain, reinvested) rule applied tranche-by-tranche, the 5-year lock-in, the **early-redemption reversal** (exemption withdrawn, original gain re-taxed at 12.5% no-indexation — redeeming early cancels the saving and still costs coupon tax), a 3-scenario worked example on a ₹40L gain / ₹30L REC tranche, the REC vs PFC vs HUDCO vs IRFC issuer/coupon comparison, the ₹50L cap binding large gains (and its quiet overlap with the standard-PMS rung from the capital-ladder article), and the "when 54EC is the wrong tool" layer (54 house route beats 54EC; a planned pre-year-5 exit is the worst case).
+
+### New finance function + calculator + tests
+- [x] `fiftyFourECTrancheTracker()` in `src/lib/finance/index.ts` — the compliant-only exemption (min of gain and cap-bound tranche, zero when bought after the 6-month window), the tax saved vs the 12.5% no-rollover baseline, the early-redemption reversal (exemption lapsed × 12.5%), the coupon interest accrued on the capped principal taxed at the slab rate, and the total net effect.
+- [x] `54ec-tranche-tracker` calculator page (category: Tax) — 6 inputs (original gain, tranche, months from sale, months held (-1 = maturity), coupon %, interest months), 8 result rows with a three-state status label (HELD / REVERSED / NON-COMPLIANT), 5-bar ECharts tranche-economics chart.
+- [x] 8 new unit tests (proportional exemption, the 50L cap binding, non-compliant window-zeroes-exemption + full-gain reversal, early-redemption cancellation, held-to-maturity net saving, coupon accrual + slab tax, zero-gain edge, redemption-strictly-worse-than-holding) — **150/150 unit tests pass**.
+- [x] 2 new e2e tests (calculator + article, desktop + mobile; the article asserts the unique `The six-month window` / `The five-year lock-in` / `The early-redemption reversal` headings) — **88/88 e2e tests pass**.
+
+### Build gotcha hit this session
+- **Interface-deletion side effect** — inserting the new `FiftyFourECTrancheInput`/`-Result` interfaces via an edit that used the `RolloverInput` interface block as the anchor *replaced* it, leaving `RolloverResult` referencing a now-missing type. Caught by the unit-test compile; restored the `RolloverInput` interface in a follow-up edit. Lesson: when using a named interface block as an edit anchor, verify the anchor still exists after the edit.
+- **Reversal semantics** — the first function draft made the non-compliant case reverse only the exemption-captured amount (zero), but a tranche bought after the window shelters *nothing*, so the *whole original gain* is taxed; corrected `exemptionLapsed` to `!compliant ? originalGain : earlyRedemption ? baseExempt : 0`.
+
+### Research verified this session
+- [x] **54EC operational structure** — 6-month investment window (allotment within window), 5-year lock-in, ₹50L reinvestment cap, 12.5% no-indexation base post-Finance-No.2 Act 2024, slab-taxed coupon; noted the Income-tax Act 2025 renumbering (54EC → Section 85, effective 1 Apr 2026, issuer notices already re-titled "CGTE bonds u/s 85" — the old section number is still used in practice).
+- [x] **Notified-bond issuers** — REC (Series XX w.e.f. 1 Apr 2026), PFC, HUDCO, IRFC, NHAI; coupons in the ~6.5–7.5% band (REC/PFC/HUDCO issuer-notice cross-checks).
+- [x] **Early-redemption reversal** — withdrawal of the 54EC exemption on pre-lock-in transfer, original gain taxed as LTCG; consistent with the rollover article's "two exemption-breakers" framework.
+
+### Pipeline (all green)
+- [x] `npx vitest run` → 150 passed.
+- [x] `node scripts/validate-content.mjs` → 51 articles, 4 books, 57 sources, 0 warnings.
+- [x] `node scripts/check-links.mjs` → all registry references resolve.
+- [x] `npm run build` → 217 pages; new article + new calculator pages generated.
+- [x] `npx pagefind --site dist` → indexed.
+- [x] `node scripts/generate-books.mjs` → 4/4 books, 51/51 article downloads.
+- [x] `node scripts/build-report.mjs` → manifest OK.
+- [x] `npx playwright test` → 88 passed (44 desktop + 44 mobile).
 
 ## Wave 20 session (verified 2026-10-18 via web research)
 
@@ -160,11 +225,13 @@ Last updated: **2026-10-18** (Wave 21: 1 new article + 1 new finance function + 
 - [ ] Deploy to GitHub Pages (owner must enable Pages; CI is configured).
 - [ ] Personalization pass on `pf-wealth-plan-10-lakh` once the user answers the 14 questions.
 - [ ] Resolve the open 80TTB conflict (`ul-senior-80ttb-limit-2026`): confirm whether the Budget-2026 raise to Rs 1,00,000 is in the Finance Act text - re-run the senior-regime decision if so.
-- [ ] Phase 4 deeper expansion: Wave 21 candidate = GIFT City FoF deep-dive, a 54EC tranche-tracker, or the personalized `pf-wealth-plan-10-lakh` rewrite once the user answers the 14 questions.
+- [ ] **Act-2025 54EC -> Section 85 renumbering:** confirm the operative section number for FY 2027-28 filings; add a new update-log entry if the FY 2027-28 Budget renumbers it back. (Noted in Wave 21; current practice still uses "54EC" informally.)
+- [ ] **GIFT City tax-treatment conflict resolution:** confirm, against a *live scheme's* offer document, whether the fund-level post-tax-NAV position or the Indian-side 12.5% LTCG + Schedule FA position governs for each 2026 scheme; the article flags both but does not pick. (Note: the two 2026 secondary guides genuinely disagree — this is a real open item, not a typo.)
+- [ ] Phase 4 deeper expansion: Wave 23 candidate = a 10L personalized-wealth-plan rewrite driven by the user's answers to the 14 questions, or a GIFT City FoF comparison table across the live schemes (expense ratios / AUM / tracking error).
 
 ## Next 3 actions
 1. Ask the user the 14 personalization questions to rewrite `pf-wealth-plan-10-lakh` with their real numbers (the 10L capital-ladder article now gives the roadmap that the rewrite plugs into).
-2. Continue the daily article habit (Wave 21 candidate: GIFT City FoF deep-dive or a 54EC tranche-tracker).
+2. Continue the daily article habit (Wave 23 candidate: a GIFT City live-scheme comparison table across the 2026 live list — expense ratios, AUM, tracking error, and the offer-document tax posture — which closes the open tax-treatment conflict from Wave 22).
 3. Resolve the 80TTB conflict and re-verify time-sensitive claims at their reviewAfter dates.
 
 ## Known build-gotchas (recurring)

@@ -1485,6 +1485,139 @@ export function fiftyFourECTrancheTracker(inp: FiftyFourECTrancheInput): FiftyFo
   };
 }
 
+export interface GiftCityLrsInput {
+  /** The rupee amount you want to invest in the GIFT City scheme. */
+  investRupees: number;
+  /** Your total LRS remittance this FY *before* this one (Rs).
+   *  The TCS-free threshold is Rs 10L on the *aggregate* LRS outflow. */
+  priorLrsRemittance: number;
+  /** The LRS TCS-free threshold (Rs 10L, post-Finance-Act-2025). */
+  tcsThreshold?: number;
+  /** The LRS TCS rate on investment remittances above the threshold (20%). */
+  tcsRate?: number;
+  /** The USD LRS annual limit (USD 250,000). */
+  lrsUsdLimit?: number;
+  /** The USD/INR rate for the cap check (illustrative, e.g. 84). */
+  usdInr?: number;
+  /** Months the units are held; >= 24 = long-term, else short-term. */
+  monthsHeld: number;
+  /** The gain per rupee invested (e.g. 0.15 = a 15% gain), for the two
+   *  treatment outcomes below. */
+  gainPct: number;
+  /** Your marginal slab rate for STCG / specified-MF gains (e.g. 0.30). */
+  slabRate?: number;
+}
+
+export interface GiftCityLrsResult {
+  investRupees: number;
+  /** The aggregate LRS outflow after adding this remittance. */
+  aggregateLrs: number;
+  /** The portion of the aggregate above the Rs 10L TCS-free threshold. */
+  tcsable: number;
+  /** The TCS collected at source (20% of the tcsable portion). */
+  tcs: number;
+  /** The cash you must keep at source to complete the investment
+   *  (investment + TCS) - the "reservation" the article models. */
+  sourceCashNeeded: number;
+  /** TCS as a % of the investment (the real cash-flow hit at remittance). */
+  tcsPctOfInvestment: number;
+  /** True when the remittance (at the assumed USD/INR) would exceed the
+   *  USD 250,000 LRS limit after the prior outflow. */
+  exceedsLrsCap: boolean;
+  lrsCapRupees: number;
+  // The two coexisting tax positions for GIFT City gains in FY 2026-27:
+  /** Indian-side route: 12.5% LTCG (no pool) when held 24+ months, slab
+   *  STCG when held shorter; Schedule FA disclosure mandatory. */
+  indianSideTreatment: {
+    holdingClass: 'long-term' | 'short-term';
+    rate: number;
+    taxOnGain: number;
+    note: string;
+  };
+  /** Fund-level route: the scheme pays tax at the fund level and reflects
+   *  it in a post-tax NAV, so the investor generally owes no separate
+   *  CG compute - confirm in the scheme's offer document. */
+  fundLevelPostTaxNav: {
+    investorSideCg: number;
+    note: string;
+  };
+  /** A reminder that TCS is a credit, not a cost: it is recovered against
+   *  your final liability at ITR filing. */
+  tcsRecoverable: boolean;
+}
+
+/**
+ * The GIFT City / IFSC LRS route: the TCS reservation math and the two
+ * coexisting tax-treatment positions (Indian-side 12.5% LTCG + Schedule FA
+ * vs fund-level post-tax NAV with no separate CG compute).
+ *
+ * Verified FY 2026-27 position:
+ *  - LRS cap USD 250,000/person/FY; TCS-free threshold Rs 10L on the
+ *    aggregate LRS outflow (raised from Rs 7L by the Finance Act 2025).
+ *  - Investment-purpose LRS remittances attract 20% TCS above the threshold
+ *    (credit against final tax at ITR; education/medical/tour dropped to 2%
+ *    from 1 Apr 2026, so the 20% rate is specific to the "other/investment"
+ *    bucket).
+ *  - GIFT City funds are IFSCA-regulated (not SEBI), so they sit outside
+ *    the SEBI USD 7B MF industry ceiling.
+ *  - The Indian-side treatment of the gains is foreign-asset rules: 12.5%
+ *    no-indexation LTCG after 24 months, slab STCG, Schedule FA mandatory.
+ *  - Some GIFT City schemes instead pay tax at the fund level and reflect it
+ *    in a post-tax NAV (no separate investor-side CG) - the offer document
+ *    decides; this function models both positions so a planner can see the
+ *    spread.
+ */
+export function giftCityLrsTaxFY27(inp: GiftCityLrsInput): GiftCityLrsResult {
+  const invest = Math.max(0, inp.investRupees);
+  const prior = Math.max(0, inp.priorLrsRemittance);
+  const threshold = inp.tcsThreshold ?? 1000000;
+  const tcsRate = inp.tcsRate ?? 0.2;
+  const usdLimit = inp.lrsUsdLimit ?? 250000;
+  const usdInr = inp.usdInr ?? 84;
+  const monthsHeld = inp.monthsHeld;
+  const gainPct = inp.gainPct;
+  const slabRate = inp.slabRate ?? 0.3;
+
+  const aggregateLrs = prior + invest;
+  const tcsable = Math.max(0, aggregateLrs - threshold);
+  const tcs = tcsable * tcsRate;
+  const sourceCashNeeded = invest + tcs;
+  const tcsPctOfInvestment = invest > 0 ? tcs / invest : 0;
+
+  const lrsCapRupees = usdLimit * usdInr;
+  const exceedsLrsCap = aggregateLrs > lrsCapRupees;
+
+  const isLtcg = monthsHeld >= 24;
+  const indianRate = isLtcg ? 0.125 : slabRate;
+  const gainRupees = invest * Math.max(0, gainPct);
+  const indianSideTreatment: GiftCityLrsResult['indianSideTreatment'] = {
+    holdingClass: isLtcg ? 'long-term' : 'short-term',
+    rate: indianRate,
+    taxOnGain: gainRupees * indianRate,
+    note: isLtcg
+      ? 'Foreign-asset route: 12.5% no-indexation LTCG after 24 months + Schedule FA disclosure'
+      : 'STCG at the slab rate + Schedule FA disclosure',
+  };
+  const fundLevelPostTaxNav: GiftCityLrsResult['fundLevelPostTaxNav'] = {
+    investorSideCg: 0,
+    note: 'Fund-level post-tax NAV: the scheme pays the tax at the fund level; confirm in the offer document',
+  };
+
+  return {
+    investRupees: invest,
+    aggregateLrs,
+    tcsable,
+    tcs,
+    sourceCashNeeded,
+    tcsPctOfInvestment,
+    exceedsLrsCap,
+    lrsCapRupees,
+    indianSideTreatment,
+    fundLevelPostTaxNav,
+    tcsRecoverable: true,
+  };
+}
+
 export interface RolloverInput {
   gain: number;
   reinvested: number;

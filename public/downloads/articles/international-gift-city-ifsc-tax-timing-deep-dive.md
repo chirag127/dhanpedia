@@ -1,0 +1,133 @@
+
+The [route-selection article](./international-fof-gift-city-lrs.mdx) settled *why* the domestic international-FoF route is mostly closed by the SEBI $7B cap, and *which* of the three routes (domestic FoF, GIFT City, direct LRS) is the reliable global sleeve. This is the operational layer that the route article deliberately left open: **how a GIFT City IFSC investment actually behaves in your hands** — the two tax treatments that coexist on the gain, the cash you must reserve for TCS at remittance, the schemes that are live in 2026, and the onboarding that will not carry over from your domestic folio. Everything here is a planning model, not a filing computation; the two tax positions in particular must be confirmed against *your* scheme's offer document before you remit.
+
+## Why GIFT City stays open while the domestic route is frozen
+
+GIFT City (Gujarat International Finance Tec-City, Gandhinagar) is India's first operational International Financial Services Centre, regulated by **IFSCA** under the IFSCA Act 2019 — a *separate* statutory regulator from SEBI. That single structural fact is the whole reason the route works:
+
+- **IFSCA-registered GIFT City funds are not part of the SEBI mutual-fund universe**, so the **$7B industry-wide overseas equity ceiling that froze most domestic international FoFs does not apply to them**. You are not pooling your money into a SEBI MF that remits abroad; you are remitting *your own* money under the *personal* LRS to buy a scheme domiciled in the GIFT IFSC.
+- **The personal cap is the LRS limit**: a resident individual can remit up to **USD 250,000 per financial year** under the Liberalised Remittance Scheme. That is the binding number, not a $7B industry ceiling.
+
+So the GIFT City route is the *reliable* global sleeve for 2026 precisely because it is the route the cap cannot close. The trade-offs are operational (a separate account, separate KYC, USD denomination) and tax-side (the two treatments below), not availability.
+
+## The AY 2026-27 Section 50AA debt-test change (the math that just moved)
+
+This is the one item most 2026 advice has not caught up with, and it changes the *domestic* FoF side of the comparison:
+
+- **Before AY 2026-27**, the "Specified Mutual Fund" concept swept most international FoFs into *forever-slab* treatment (deemed short-term capital gain), because they lack the domestic-equity threshold. That made a domestic international FoF tax-worse than it looked.
+- **From AY 2026-27, Section 50AA (renumbered Section 76 in the Income-tax Act 2025) redefines "Specified Mutual Fund" on a *debt-based* test**: a fund that invests more than 65% of its total proceeds in debt and money-market instruments, or at least 65% in such a fund, measured on the annual average of daily closing figures. [src-intl-fof-treatment-ay2026-27]
+- The consequence: an **international equity FoF that is *not* predominantly debt is *not* a Specified Mutual Fund under the new test**, so its units can qualify as **long-term after 24 months (unlisted) or 12 months (listed)**, and that LTCG is taxed at **12.5% without indexation and with *no* ₹1.25L pool** (the 112A pool is reserved for equity-oriented funds). A scheme that *does* meet the debt test is deemed short-term and slab-taxed.
+
+Why this matters for *your* GIFT City decision: it is the reason the **route-selection** is not a fixed ranking — the domestic international FoF is now *closer* to the GIFT City tax posture (12.5% LTCG, no pool) than the old slab-forever assumption suggested. The GIFT City route still wins on **availability** (no cap) and on the **post-tax-NAV position** (below), but the "forever slab" argument against a domestic FoF is, from AY 2026-27, *not* the clean argument it used to be. Re-check any held domestic international FoF against the new debt test before concluding it is structurally worse.
+
+## The two coexisting tax treatments (the honest conflict)
+
+For the GIFT City gain itself, **two positions exist in FY 2026-27 and they do not fully agree** — this is the point you must not gloss over:
+
+| Position | What happens | Where it comes from |
+|---|---|---|
+| **A — Indian-side (foreign-asset)** | Gains are taxed as a foreign asset: **12.5% no-indexation LTCG after 24 months**, **slab-rate STCG** under 24 months, plus **Schedule FA disclosure every year you hold** | The foreign-asset route described by the 2026 GIFT City guides [src-gift-city-live-funds-2026] |
+| **B — Fund-level post-tax NAV** | The scheme **pays tax at the fund level** and reflects it in a **post-tax NAV**, so *you* generally owe **no separate capital-gains computation** on redemption | The fund-level position noted in the AY 2026-27 international-fund guide [src-intl-fof-treatment-ay2026-27] |
+
+The **offer document of the specific scheme is the tie-breaker.** A scheme that has a post-tax NAV is not going to bill you 12.5% on redemption; a scheme that does *not* is going to bill you on the Indian-side foreign-asset rules. The **gift-city-lrs-tax calculator** reports *both* numbers side by side (the Indian-side tax on the gain, and the fund-level "no separate CG" figure) so you can see the spread before you commit. **Never plan the GIFT City sleeve on one treatment without reading the scheme's tax posture.**
+
+## The TCS reservation math (the cash-flow gotcha)
+
+This is the number that surprises people at remittance time. Under LRS, the **aggregate** outflow for the year is what triggers TCS, and the **TCS-free threshold is ₹10L** (raised from ₹7L by the Finance Act 2025). For the "other / investment" bucket that a GIFT City remittance falls into, the rate is **20%** on the amount above the threshold. [src-lrs-tcs-sc-2026]
+
+Worked: you remit **₹20L** to buy GIFT City units, and this is your *first* LRS outflow of the year:
+
+- Aggregate LRS = ₹20L. TCS-able = ₹20L − ₹10L = **₹10L**.
+- TCS at 20% = **₹2L**, collected at source by the bank.
+- **Cash you must keep at source = ₹20L (investment) + ₹2L (TCS) = ₹22L.**
+
+That ₹2L is **not a cost** — it is a *credit* that you recover against your final tax liability when you file your ITR. But it *does* lock up that cash at the moment of remittance, and it is the single most common "why did my bank hold back so much?" question. The calculator's "cash needed at source" and "TCS as % of investment" rows are exactly this reservation. Two refinements:
+
+- **The threshold is aggregate, not per-remittance.** If you already sent ₹5L abroad for education earlier in the year, your GIFT City remittance starts its TCS clock from ₹5L, not ₹0.
+- **From 1 Apr 2026, education / medical / overseas-tour TCS dropped to 2%**; the **20% rate is specific to the "other / investment" purpose** — which is what a GIFT City investment remittance is. So the 20% figure is the right one to plan around, not the new 2%.
+
+## Live GIFT City schemes (2026)
+
+As of 2026 the retail-accessible, IFSCA-registered schemes in the live list are: [src-gift-city-live-funds-2026]
+
+| Scheme | House | Underlying |
+|---|---|---|
+| PPFAS IFSC S&P 500 Fund of Fund | Parag Parikh | S&P 500 |
+| PPFAS IFSC Nasdaq 100 Fund of Fund | Parag Parikh | Nasdaq 100 |
+| DSP GIFT City Global Equity Fund | DSP | Global equity |
+| Tata GIFT City Fund | Tata | Global equity |
+| HDFC AM (Developed / Emerging Markets passive) | HDFC | *in pipeline* |
+
+**The list keeps expanding** as more AMCs set up IFSCA-registered vehicles, so confirm the *current* live list and each scheme's **tax posture (position A vs B)** with the fund house or your MFD before remitting. A "passive, low-cost" label is not the same thing as "post-tax NAV" — the two are separate questions.
+
+## The fresh-onboarding requirement (what does NOT carry over)
+
+This is the step most first-time GIFT City investors underestimate:
+
+- Your **existing domestic mutual-fund folio, demat account, and KYC do not carry over** to GIFT City.
+- You need a **Foreign Currency Account (FCA)** at a bank running an **IFSC Banking Unit in GIFT City** (HDFC Bank, ICICI Bank, and Axis Bank currently offer this).
+- You complete **fresh KYC on the specific fund house's dedicated GIFT City portal**.
+- Your rupee remittance for the FCA is processed through your regular Indian bank under LRS, then routed into the fund.
+
+Because of the separate onboarding, the first purchase takes *a few working days longer* than a domestic mutual-fund buy. This is a deliberate, planned allocation, not an impulsive SIP — the onboarding cost amortizes best over a *larger* corpus, which is exactly the scaling logic in the [10L capital-ladder](./pf-capital-ladder-10l-to-1cr.mdx) article.
+
+## The Schedule FA layer (the disclosure you cannot skip)
+
+Under the Indian-side (foreign-asset) treatment, **Schedule FA disclosure in your ITR is mandatory every year for as long as you hold the GIFT City investment, regardless of whether you sold any units.** GIFT City units are *specified foreign financial assets*; the reporting threshold, like the Black Money Act penalty for a missed disclosure (up to ₹10L), is set each year and can move with a Finance Act. Two honest notes:
+
+- If the scheme runs **position B (post-tax NAV)**, the investor-side CG is minimal, but the *asset itself* is still a foreign asset and the Schedule FA question should still be answered with a CA for the specific scheme.
+- The FAST-DS (foreign-assets) amnesty window (opened 16 Aug 2026, deadline 31 Dec 2026) is the safety valve for *undisclosed* foreign assets — not for a normally-held GIFT City fund. Do not confuse the two.
+
+## A worked example: ₹10L GIFT City sleeve, FY 2026-27
+
+Assume you remit **₹10L** (first LRS outflow of the year) into a PPFAS IFSC S&P 500 FoF at 84 USD/INR, hold 30 months, gain 20% (₹2L), and your marginal slab is 30%.
+
+- **TCS reservation:** aggregate LRS ₹10L = at the threshold, **₹0 TCS** (the threshold is inclusive — ₹10L is the TCS-free point; the first rupee *above* it attracts 20%). *If you remit ₹12L, the TCS-able ₹2L becomes a ₹40k TCS and you need ₹12.4L at source.*
+- **LRS cap:** ₹10L at 84 = ~USD 119k, well within the USD 250k limit.
+- **Indian-side treatment (position A):** 30-month hold = long-term; 12.5% on the ₹2L gain = **₹25k**, plus Schedule FA.
+- **Fund-level (position B):** if this scheme pays tax at the fund level, your *separate* investor-side CG is **₹0** — the cost is already inside the post-tax NAV.
+
+The calculator reproduces all of this in one screen. The spread between position A (₹25k) and position B (₹0 separate CG) is why the "which treatment does *my* scheme use?" question is the most valuable one you can answer before remitting.
+
+## When GIFT City is the right sleeve (the honest layer)
+
+- **Right** as a *deliberate* 10–20% global sleeve for a corpus that has a solid domestic core — it is the only reliably-open global route in 2026.
+- **Right** when you want a *simpler* operational path than running a US brokerage (no W-8BEN, no separate US account, no repatriation mechanics) while still dodging the $7B cap.
+- **Wrong** when the corpus is small *and* the global sleeve is small — the fresh onboarding (FCA + KYC) and the TCS cash-flow both amortize better as the sleeve grows; at a ₹1L global slice the operational friction can outweigh the tax edge.
+- **Wrong** if the scheme is *not* post-tax-NAV *and* you are in the 30% slab *and* you expect to exit in under 24 months — that is the STCG-at-slab case, which is the worst of both (slab-rate tax with no pool).
+
+## The one-line verdict
+
+In FY 2026-27, the GIFT City / IFSC route is the **reliably-open** global sleeve: it sidesteps the $7B SEBI cap by being IFSCA-regulated, it is bought under the *personal* LRS (USD 250k, 20% TCS above the ₹10L threshold on the *aggregate*), and it comes with **two coexisting tax treatments** (Indian-side 12.5% LTCG + Schedule FA, or fund-level post-tax NAV) that the **scheme's offer document decides** — so before you remit, confirm the live scheme list, the specific scheme's tax posture, the TCS you must reserve, and the fresh FCA + KYC onboarding.
+
+## Update log
+
+- **2026-10-18 (Wave 22):** created. Verified the IFSCA-regulated GIFT City route and its exclusion from the SEBI $7B cap (src-intl-fof-cap-2026, src-gift-city-live-funds-2026); the ₹10L LRS TCS-free threshold and 20% investment-remittance TCS with the 1-Apr-2026 2% education/medical/tour reduction (src-lrs-tcs-sc-2026); the AY 2026-27 Section 50AA debt-based "Specified Mutual Fund" redefinition and the 12.5% no-pool LTCG it now reaches for non-specified international FoFs (src-intl-fof-treatment-ay2026-27); and the two coexisting GIFT City gain treatments (Indian-side foreign-asset vs fund-level post-tax NAV, the offer document as tie-breaker).
+- **Review by 2027-04-17:** re-verify the live GIFT City scheme list, each scheme's tax posture, the ₹10L TCS threshold and the 20%/2% split, and the 50AA debt-test position at the FY 2027-28 Budget; confirm the Income-tax Act 2025 section renumbering (50AA→76, 112A→198) is settled for filings.
+
+## Sources
+
+- `src-intl-fof-cap-2026` — SEBI + RBI USD 7B overseas MF industry ceiling (unraised, breached 2022), the 2026 frozen-SIP status, and the GIFT City / IFSCA exclusion from that cap.
+- `src-lrs-tcs-sc-2026` — LRS USD 250,000/person/FY; the ₹10L aggregate TCS-free threshold (post-Finance-Act-2025); 20% on the "other / investment" bucket, 2% on education/medical/tour from 1 Apr 2026.
+- `src-intl-fof-treatment-ay2026-27` — the AY 2026-27 Section 50AA debt-based "Specified Mutual Fund" redefinition; 12.5% no-pool LTCG reaching non-specified international FoFs; the Income-tax Act 2025 renumbering; and the fund-level post-tax-NAV position for several GIFT City schemes.
+- `src-gift-city-live-funds-2026` — the 2026 live GIFT City scheme list, the fresh FCA + KYC onboarding (HDFC / ICICI / Axis IFSC Banking Units), the Indian-side foreign-asset treatment (12.5% LTCG >24 months, slab STCG, Schedule FA), and the IFSCA Act 2019 anchor.
+
+## Related
+
+- [Getting Global Exposure from India: FoF, GIFT City, and LRS (the route-selection layer)](/articles/international-fof-gift-city-lrs)
+- [International Investing & LRS](/articles/international-investing-lrs)
+- [The 10-Lakh Capital Ladder (when the global sleeve scales)](/articles/pf-capital-ladder-10l-to-1cr)
+- [Capital Gains Rollover (54/54F/54EC)](/articles/tax-capital-gains-rollover-54-54f-54ec)
+- The **gift-city-lrs-tax** calculator — run your exact remittance through the TCS reservation and both tax treatments.
+
+
+## Sources & Citations
+
+- **Creso / mfreturns / creget / mfonline / VM Financial Services / Value Research Online (2026 coverage of SEBI cap + AMC status)** — SEBI/RBI $7 billion industry-wide cap on direct overseas equity investment by Indian MFs; the $1B/AMC sub-cap; why most domestic international funds closed to fresh SIPs in 2026; GIFT City IFSCA funds are outside this cap. https://creso.in/blog/which-international-mutual-funds-are-open-for-sip-(july-2026) (verified 2026-10-16)
+- **Standard Chartered Bank India (official notice reproducing Finance Act 2026 LRS TCS amendment)** — Revised TCS on outward foreign remittances under LRS, w.e.f. 1 April 2026 (Finance Act 2026, Sec 394(1) of IT Act 2025). https://www.sc.bank.in/important-information/others/lrs-amendment-in-tcs/ (verified 2026-10-16)
+- **Foliyo / Sachin Kabra (ex-Director HDFC Private Wealth)** — International Mutual Fund Taxation in India: the AY 2026-27 Section 50AA debt-test and the 12.5% LTCG (no pool) that now reaches non-specified international FoFs and GIFT City schemes. https://foliyo.ai/guides/mf-taxation/international-fund-tax/ (verified 2026-10-18)
+- **Deepak Wealth / DG Deepak Gokul, CWM** — GIFT City Global Index Funds 2026: the IFSCA-regulated route that stays open under the personal LRS while domestic int'l FoFs are frozen, the live fund list, and the fresh-onboarding (FCA + KYC) requirement. https://deepakwealth.com/gift-city-global-index-funds-india-guide/ (verified 2026-10-18)
+
+---
+Educational content, not individualized investment, tax, accounting, or legal advice.
+Author: Chirag Singhal. DhanPedia.

@@ -22,7 +22,7 @@ import {
   npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27,
   nriIndiaTaxFY27, rolloverExemption, dtaaReliefFY27,
   esopVestingTaxFY27, capitalLadderFY27,
-  fiftyFourECTrancheTracker,
+  fiftyFourECTrancheTracker, giftCityLrsTaxFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2196,6 +2196,81 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.reversalTax), itemStyle: { color: '#c65d3b' } },
                   { value: Math.round(r.interestAccrual), itemStyle: { color: '#8a8f98' } },
                   { value: Math.round(r.interestTax), itemStyle: { color: '#6b5b8a' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'gift-city-lrs-tax',
+    title: 'GIFT City / IFSC LRS Route: TCS Reservation + the Two Tax-Treatment Positions (FY 2026-27)',
+    category: 'International',
+    description:
+      'The operational math for investing in a GIFT City IFSC fund: the TCS "reservation" on your LRS remittance (20% above the Rs 10L threshold), the USD 250k LRS cap, and the two coexisting tax positions on the gain (Indian-side 12.5% LTCG + Schedule FA vs fund-level post-tax NAV). Shows how much cash to keep at source and how the holding period flips the Indian-side treatment.',
+    inputs: [
+      { key: 'investRupees', label: 'Rs you want to invest (Rs)', default: 2000000, min: 0, step: 100000, hint: 'The rupee amount remitted under LRS to buy the GIFT City scheme.' },
+      { key: 'priorLrsRemittance', label: 'Other LRS remittances this FY (Rs)', default: 0, min: 0, step: 100000, hint: 'Your total LRS outflow before this one. TCS is on the AGGREGATE above the Rs 10L threshold.' },
+      { key: 'monthsHeld', label: 'Months you will hold the units', default: 30, min: 0, max: 240, step: 1, hint: '24+ months = long-term (12.5% on the Indian-side route); under 24 months = slab-rate STCG.' },
+      { key: 'gainPct', label: 'Expected gain (%)', default: 20, min: -100, max: 200, step: 5, hint: 'Illustrative gain per rupee invested, used to compute the two treatment outcomes.' },
+      { key: 'slabRate', label: 'Your marginal slab rate (%)', default: 30, min: 0, max: 30, step: 5, hint: 'For the STCG / specified-MF position on the Indian-side route.' },
+      { key: 'usdInr', label: 'USD/INR (for the cap check)', default: 84, min: 50, max: 120, step: 1, hint: 'The assumed rate for the USD 250,000 LRS cap check; a planning input, not a forecast.' },
+    ],
+    assumptions: [
+      'LRS cap USD 250,000/person/FY; TCS-free threshold Rs 10L on the AGGREGATE LRS outflow (post-Finance-Act-2025).',
+      'The 20% TCS applies to the "other / investment" bucket; education / medical / tour dropped to 2% from 1 Apr 2026.',
+      'TCS is a credit, not a cost: it is recovered against your final tax liability at ITR filing.',
+      'The Indian-side route taxes GIFT City gains as a foreign asset: 12.5% no-indexation LTCG after 24 months, slab STCG, Schedule FA mandatory.',
+      'Some GIFT City schemes instead pay tax at the fund level (post-tax NAV); the offer document decides which applies to you.',
+    ],
+    limitations: [
+      'The two tax positions conflict; a planner must confirm the specific scheme\'s posture in its offer document before remitting.',
+      'The USD/INR is illustrative; the LRS cap is checked at your assumed rate, not the live interbank rate.',
+      'The AY 2026-27 Section 50AA debt-test change can reclassify a domestic international FoF you already hold; this calculator covers the GIFT City (IFSCA) route only.',
+      'This is a planning model, not a filing compute; reconcile TCS + Schedule FA with a CA before acting.',
+    ],
+    compute: (v) => {
+      const r = giftCityLrsTaxFY27({
+        investRupees: v.investRupees,
+        priorLrsRemittance: v.priorLrsRemittance,
+        monthsHeld: v.monthsHeld,
+        gainPct: v.gainPct / 100,
+        slabRate: v.slabRate / 100,
+        usdInr: v.usdInr,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const results = [
+        { label: 'TCS on this remittance', value: cr(r.tcs), sub: '20% of the aggregate LRS above Rs 10L' },
+        { label: 'Cash needed at source', value: cr(r.sourceCashNeeded), sub: 'investment + TCS (the reservation)' },
+        { label: 'TCS as % of investment', value: (r.tcsPctOfInvestment * 100).toFixed(1) + '%', sub: 'recoverable as a credit at ITR' },
+        { label: 'LRS cap check', value: r.exceedsLrsCap ? 'OVER the USD 250k cap' : 'within the cap', sub: 'at ' + v.usdInr + ' USD/INR' },
+        { label: 'Indian-side gain treatment', value: r.indianSideTreatment.holdingClass, sub: r.indianSideTreatment.note },
+        { label: 'Indian-side tax on the gain', value: cr(r.indianSideTreatment.taxOnGain), sub: (r.indianSideTreatment.rate * 100).toFixed(1) + '% x gain' },
+        { label: 'Fund-level post-tax NAV', value: 'no separate CG', sub: r.fundLevelPostTaxNav.note },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'GIFT City remittance cash-flow (Rs L)',
+          alt: 'Bar chart of the investment, TCS, and total cash needed at source for the LRS remittance',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: { type: 'category', data: ['Investment', 'TCS', 'At source'] },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.investRupees), itemStyle: { color: '#3a6ea5' } },
+                  { value: Math.round(r.tcs), itemStyle: { color: '#c65d3b' } },
+                  { value: Math.round(r.sourceCashNeeded), itemStyle: { color: '#1f7a5c' } },
                 ],
                 label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },

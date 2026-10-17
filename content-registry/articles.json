@@ -1622,6 +1622,48 @@
       "books": [
         "book-indian-taxation"
       ]
+    },
+    {
+      "id": "international-gift-city-ifsc-tax-timing-deep-dive",
+      "file": "src/content/international/international-gift-city-ifsc-tax-timing-deep-dive.mdx",
+      "title": "GIFT City IFSC Funds: The Tax-Treatment Split, the TCS Reservation Math, and Which Schemes Are Live (FY 2026-27)",
+      "category": "international",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "gift-city",
+        "ifsc",
+        "ifscf",
+        "fof",
+        "international",
+        "s-p-500",
+        "nasdaq-100",
+        "lrs",
+        "tcs",
+        "section-50aa",
+        "act-2025",
+        "indian-side-tax",
+        "fund-level-tax",
+        "schedule-fa",
+        "24-month-ltcg"
+      ],
+      "sources": [
+        "src-intl-fof-cap-2026",
+        "src-lrs-tcs-sc-2026",
+        "src-intl-fof-treatment-ay2026-27",
+        "src-gift-city-live-funds-2026"
+      ],
+      "related": [
+        "international-fof-gift-city-lrs",
+        "international-investing-lrs",
+        "tax-capital-gains-rollover-54-54f-54ec",
+        "pf-capital-ladder-10l-to-1cr"
+      ],
+      "books": [
+        "book-wealth-beyond-10l"
+      ]
     }
   ]
 }

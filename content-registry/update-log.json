@@ -506,6 +506,19 @@
         "src-54-rollover-fy2026-27",
         "src-it-slab-fy2026-27"
       ]
+    },
+    {
+      "id": "ul-gift-city-tax-treatment-split-fy2026-27",
+      "topic": "GIFT City IFSC fund tax treatment: two positions exist in FY 2026-27 (Indian-side 12.5% LTCG/slab STCG + Schedule FA vs fund-level post-tax NAV with no separate investor-side CG compute); the offer document decides. Plus the AY 2026-27 Section 50AA debt-test redefinition (non-specified int'l FoFs can now get 12.5% LTCG, not forever-slab), the ₹10L TCS-free LRS threshold, the 20% investment-remittance TCS, and the live GIFT City fund list (PPFAS S&P 500 FoF, PPFAS Nasdaq 100 FoF, DSP GIFT City Global Equity Fund, Tata GIFT City Fund).",
+      "article": "international-gift-city-ifsc-tax-timing-deep-dive",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-intl-fof-cap-2026",
+        "src-lrs-tcs-sc-2026",
+        "src-intl-fof-treatment-ay2026-27",
+        "src-gift-city-live-funds-2026"
+      ]
     }
   ]
 }

@@ -479,4 +479,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('gift-city-lrs-tax calculator renders the TCS reservation split', async ({ page }) => {
+    await page.goto('/calculators/gift-city-lrs-tax');
+    // Result-row DOM labels (the three most-unique rows; the chart title is
+    // inside the ECharts canvas, not DOM text - a recurring gotcha).
+    await expect(
+      page.getByText('TCS on this remittance', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Cash needed at source', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Indian-side gain treatment', { exact: true }),
+    ).toBeVisible();
+    // The remittance cash-flow bar chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('GIFT City IFSC deep-dive article renders the two-tax-treatment section', async ({ page }) => {
+    await page.goto('/articles/international-gift-city-ifsc-tax-timing-deep-dive');
+    // Unique H2 prefixes (avoid the recurring strict-mode double-heading
+    // collisions; the "Live GIFT City schemes" heading is asserted as a prefix).
+    await expect(
+      page.getByRole('heading', { name: /The two coexisting tax treatments/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The TCS reservation math/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Live GIFT City schemes/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

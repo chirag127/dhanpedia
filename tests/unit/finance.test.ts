@@ -15,7 +15,7 @@ import {
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
-  fiftyFourECTrancheTracker } from '@lib/finance/index';
+  fiftyFourECTrancheTracker, giftCityLrsTaxFY27 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1403,6 +1403,84 @@ describe('fiftyFourECTrancheTracker', () => {
     const redeemed = fiftyFourECTrancheTracker(base({ monthsHeldBeforeRedemption: 12 }));
     // Redemption (reversal + interest) is a worse net outcome than holding to maturity.
     expect(redeemed.totalTaxEffect).toBeGreaterThan(held.totalTaxEffect);
+  });
+});
+
+describe('giftCityLrsTaxFY27', () => {
+  const base = (over: Partial<Parameters<typeof giftCityLrsTaxFY27>[0]> = {}) => ({
+    investRupees: 2000000,
+    priorLrsRemittance: 0,
+    monthsHeld: 30,
+    gainPct: 0.2,
+    slabRate: 0.3,
+    usdInr: 84,
+    ...over,
+  });
+
+  it('collects 20% TCS on the aggregate LRS outflow above the Rs 10L threshold', () => {
+    // 20L investment, no prior outflow: 20L - 10L = 10L tcsable -> 2L TCS.
+    const r = giftCityLrsTaxFY27(base());
+    expect(r.aggregateLrs).toBe(2000000);
+    expect(r.tcsable).toBe(1000000);
+    expect(r.tcs).toBe(200000);
+    expect(r.sourceCashNeeded).toBe(2200000);
+  });
+
+  it('charges no TCS when the aggregate LRS outflow is at or under the threshold', () => {
+    const r = giftCityLrsTaxFY27(base({ investRupees: 1000000 }));
+    expect(r.tcsable).toBe(0);
+    expect(r.tcs).toBe(0);
+    expect(r.sourceCashNeeded).toBe(1000000);
+  });
+
+  it('accumulates prior LRS remittances into the threshold test', () => {
+    // 5L prior + 8L this one = 13L aggregate -> 3L tcsable -> 0.6L TCS.
+    const r = giftCityLrsTaxFY27(base({ priorLrsRemittance: 500000, investRupees: 800000 }));
+    expect(r.aggregateLrs).toBe(1300000);
+    expect(r.tcsable).toBe(300000);
+    expect(r.tcs).toBe(60000);
+  });
+
+  it('reports the TCS percentage of the investment (the reservation ratio)', () => {
+    // 2L TCS on a 20L investment = 10%.
+    const r = giftCityLrsTaxFY27(base());
+    expect(r.tcsPctOfInvestment).toBeCloseTo(0.1, 6);
+  });
+
+  it('flips the Indian-side treatment between STCG and LTCG at the 24-month mark', () => {
+    const st = giftCityLrsTaxFY27(base({ monthsHeld: 12 }));
+    const lt = giftCityLrsTaxFY27(base({ monthsHeld: 24 }));
+    expect(st.indianSideTreatment.holdingClass).toBe('short-term');
+    expect(st.indianSideTreatment.rate).toBeCloseTo(0.3, 6); // slab
+    expect(lt.indianSideTreatment.holdingClass).toBe('long-term');
+    expect(lt.indianSideTreatment.rate).toBeCloseTo(0.125, 6);
+  });
+
+  it('computes the Indian-side tax on the gain at the correct rate', () => {
+    // 20L invest x 20% gain = 4L gain; long-term 12.5% = 0.5L.
+    const r = giftCityLrsTaxFY27(base({ monthsHeld: 30 }));
+    expect(r.indianSideTreatment.taxOnGain).toBe(400000 * 0.125);
+    // Short-term at a 30% slab = 4L x 30% = 1.2L.
+    const st = giftCityLrsTaxFY27(base({ monthsHeld: 12 }));
+    expect(st.indianSideTreatment.taxOnGain).toBe(400000 * 0.3);
+  });
+
+  it('keeps the fund-level post-tax-NAV position at zero investor-side CG', () => {
+    const r = giftCityLrsTaxFY27(base());
+    expect(r.fundLevelPostTaxNav.investorSideCg).toBe(0);
+    // The two positions are explicitly both reported, and TCS is recoverable.
+    expect(r.tcsRecoverable).toBe(true);
+  });
+
+  it('flags when the aggregate outflow exceeds the USD 250k LRS cap', () => {
+    // 84 USD/INR -> cap ~ Rs 2.1 cr (Rs 21,000,000); a 1.5 cr prior + 0.8 cr
+    // investment = 2.3 cr aggregate -> over the cap.
+    const over = giftCityLrsTaxFY27(base({ priorLrsRemittance: 15000000, investRupees: 8000000 }));
+    expect(over.exceedsLrsCap).toBe(true);
+    expect(over.lrsCapRupees).toBe(250000 * 84);
+    // A small outflow stays within the cap.
+    const under = giftCityLrsTaxFY27(base({ priorLrsRemittance: 0, investRupees: 1000000 }));
+    expect(under.exceedsLrsCap).toBe(false);
   });
 });
 
