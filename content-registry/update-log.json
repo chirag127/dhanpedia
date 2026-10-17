@@ -592,6 +592,18 @@
         "src-aif-categories-2026",
         "src-it-slab-fy2026-27"
       ]
+    },
+    {
+      "id": "ul-fema-sec13-3x-exposure-fy2026-27",
+      "topic": "FEMA 1999 exchange-control exposure (the \"side FAST-DS does NOT settle\"): the Section 13(1) penalty of up to 3x the breaching sum (LRS over-limit / NRO over the USD 1M window / ODI over the individual limit) - NOT the FERA-era 9x - and the Section 15 compounding route via PRAVAAH (up to a Rs 5 cr contravention, the 2025 amendment capping certain compounding fees at Rs 2,00,000, and the non-compoundable Section 3(a) hawala exception). The structural point: tax / BMA regularisation and exchange-control regularisation are separate exercises before different authorities; a FAST-DS or Schedule-FA settlement does NOT close the FEMA ledger.",
+      "article": "tax-fema-exchange-control-exposure",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-fema-sec13-compound-2026",
+        "src-us-stock-tax-india-2026",
+        "src-lrs-tcs-sc-2026"
+      ]
     }
   ]
 }

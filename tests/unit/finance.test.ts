@@ -17,7 +17,8 @@ import {
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
   directLrsUsEquityFilingFY27, fastDSDisclosureFY26,
-  blackMoneyActExposure, fastDSValuationGuard, capitalInflowMigrationPlanner } from '@lib/finance/index';
+  blackMoneyActExposure, fastDSValuationGuard, capitalInflowMigrationPlanner,
+  femaSection13Exposure } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1933,6 +1934,63 @@ describe('capitalInflowMigrationPlanner', () => {
     expect(r.corpusByYear[1]).toBe(0);
     expect(r.corpusByYear[2]).toBe(1000000);
     expect(r.corpusByYear[3]).toBe(1000000);
+  });
+});
+
+describe('femaSection13Exposure', () => {
+  const base = (over: Partial<Parameters<typeof femaSection13Exposure>[0]> = {}) => ({
+    contraventionSum: 2000000,
+    ...over,
+  });
+
+  it('computes the Section 13(1) penalty at 3x the contravention sum', () => {
+    const r = femaSection13Exposure(base());
+    expect(r.section13Penalty).toBe(6000000);
+  });
+
+  it('applies a penalty floor when the multiple-of-sum is below it', () => {
+    const r = femaSection13Exposure(base({ contraventionSum: 100000, penaltyFloor: 500000 }));
+    // 3 x 1L = 3L, but the floor of 5L applies.
+    expect(r.section13Penalty).toBe(500000);
+  });
+
+  it('compounds at the provided fee, capped at the 2025 limit, when compoundable', () => {
+    const r = femaSection13Exposure(base({ compoundingFee: 500000, compoundable: true }));
+    expect(r.canCompound).toBe(true);
+    expect(r.compoundedCost).toBe(200000); // capped at the 2025 Rs 2L fee cap
+    expect(r.applicableFemaCost).toBe(200000);
+  });
+
+  it('uses the full Section 13 penalty when no compounding fee is provided', () => {
+    const r = femaSection13Exposure(base());
+    expect(r.canCompound).toBe(false);
+    expect(r.applicableFemaCost).toBe(r.section13Penalty);
+  });
+
+  it('flags a Section 3(a) hawala offence as not compoundable', () => {
+    const r = femaSection13Exposure(base({ compoundingFee: 200000, compoundable: false }));
+    expect(r.canCompound).toBe(false);
+    expect(r.applicableFemaCost).toBe(r.section13Penalty);
+    expect(r.note).toMatch(/not compoundable|Section 3\(a\)/);
+  });
+
+  it('reports the FEMA side as open after the tax side is settled', () => {
+    const r = femaSection13Exposure(base({ fastDsSettled: true }));
+    expect(r.femaOpenAfterTaxSettled).toBe(true);
+    expect(r.note).toMatch(/SEPARATE/);
+  });
+
+  it('reports the FEMA side as not-yet-separate when the tax side is also open', () => {
+    const r = femaSection13Exposure(base({ fastDsSettled: false }));
+    expect(r.femaOpenAfterTaxSettled).toBe(false);
+    expect(r.note).toMatch(/FEMA Section 13/);
+  });
+
+  it('zero contravention sum yields zero penalty and zero FEMA cost', () => {
+    const r = femaSection13Exposure(base({ contraventionSum: 0 }));
+    expect(r.section13Penalty).toBe(0);
+    expect(r.applicableFemaCost).toBe(0);
+    expect(r.contraventionSum).toBe(0);
   });
 });
 

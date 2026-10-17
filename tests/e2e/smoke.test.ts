@@ -710,4 +710,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('fema-penalty calculator renders the exchange-control cost split', async ({ page }) => {
+    await page.goto('/calculators/fema-penalty');
+    // Result-row DOM labels (the most-unique rows; the chart title is
+    // inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('Section 13(1) penalty (3x sum)', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Section 15 compounding fee', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('FEMA open after tax settled?', { exact: true }),
+    ).toBeVisible();
+    // The penalty-vs-fee cost chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('FEMA exposure article renders the exchange-control sections', async ({ page }) => {
+    await page.goto('/articles/tax-fema-exchange-control-exposure');
+    // Stable, unique H2 headings in the body (assert unique prefixes to
+    // avoid the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The 3x penalty and the one that is not/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Section 15 compounding/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The two regulators, two ledgers/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

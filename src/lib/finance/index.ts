@@ -3583,3 +3583,135 @@ export function fastDSDisclosureFY26(inp: FastDSDisclosureInput): FastDSDisclosu
   };
 }
 
+/* ------------------------------------------------------------------
+ * FEMA Section 13 exchange-control exposure - the "side FAST-DS does
+ * NOT settle" layer
+ *
+ * A cross-border position regularised on the tax / Black Money Act side
+ * (FAST-DS 2026, or Schedule FA) still carries a SEPARATE exposure
+ * under the Foreign Exchange Management Act, 1999 (FEMA), administered
+ * by the RBI - not the income-tax department. The counterfactual the
+ * tax-only articles do not price is:
+ *
+ *   - FEMA Section 13(1) - a penalty of up to THREE times the sum
+ *     involved in the contravention (the "up to 3x" figure is the
+ *     current FEMA cap; the older "9x" was the FERA-era number).
+ *   - Section 15 - compounding (voluntary settlement) of a
+ *     compoundable contravention, by paying a fee to the RBI (up to a
+ *     Rs 5 cr contravention) over a PRAVAAH filing; a Section 3(a)
+ *     hawala offence is NOT compoundable. A 2025 amendment caps the
+ *     fee for certain compounding at Rs 2,00,000.
+ *   - The "sum involved" is the FEMA-breaching remittance: a resident
+ *     LRS remittance that exceeded a limit, an NRO repatriation above
+ *     the USD 1M/FY window, or an ODI above the individual limit.
+ *
+ * The whole reason this layer exists: settling the tax / BMA side via
+ * FAST-DS does NOT close the FEMA side - the two are independent
+ * regulators and independent exposures. All math is pure and
+ * deterministic; conventions are documented.
+ * ------------------------------------------------------------------ */
+
+export interface FemaSection13Input {
+  /** The sum involved in the FEMA contravention (Rs) - e.g. an LRS
+   *  remittance that exceeded a limit, an NRO repatriation above the
+   *  USD 1M window, or an ODI above the individual limit. */
+  contraventionSum: number;
+  /** The Section 13(1) penalty as a multiple of the sum (3x the cap). */
+  penaltyMultiple?: number;
+  /** The statutory floor on the penalty (Rs); 0 = none modelled. */
+  penaltyFloor?: number;
+  /** The 2025-amendment cap on the fee for certain compounded
+   *  contraventions (Rs 2,00,000). */
+  compoundingFeeCap?: number;
+  /** The fee paid (or to be paid) to compound the contravention under
+   *  Section 15. 0 / undefined = not compounded, the full Section 13
+   *  penalty applies. */
+  compoundingFee?: number;
+  /** True when the contravention is compoundable (a Section 3(a) hawala
+   *  offence is NOT). */
+  compoundable?: boolean;
+  /** True when the tax / BMA side has already been regularised (via
+   *  FAST-DS or a normal assessment) - the case where the FEMA side is
+   *  the *separate* open exposure. */
+  fastDsSettled?: boolean;
+}
+
+export interface FemaSection13Result {
+  contraventionSum: number;
+  /** The Section 13(1) penalty: max(floor, sum x multiple). */
+  section13Penalty: number;
+  /** The Section 15 compounding fee, capped at the 2025 fee cap. */
+  compoundedCost: number;
+  /** True when Section 15 compounding is available for this
+   *  contravention (compoundable AND a fee is provided). */
+  canCompound: boolean;
+  /** The FEMA cost that actually applies: the compounded fee when
+   *  compounding is available, otherwise the full Section 13 penalty. */
+  applicableFemaCost: number;
+  /** True when the tax/BMA side is settled but the FEMA side remains
+   *  open - the point this layer exists to make explicit. */
+  femaOpenAfterTaxSettled: boolean;
+  note: string;
+}
+
+export function femaSection13Exposure(inp: FemaSection13Input): FemaSection13Result {
+  const sum = Math.max(0, inp.contraventionSum);
+  const penaltyMultiple = inp.penaltyMultiple ?? 3;
+  const penaltyFloor = inp.penaltyFloor ?? 0;
+  const compoundingFeeCap = inp.compoundingFeeCap ?? 200000;
+
+  // The Section 13(1) penalty: up to 3x the sum involved, floored.
+  const section13Penalty = Math.max(penaltyFloor, sum * penaltyMultiple);
+
+  // The Section 15 compounding fee (voluntary settlement), capped.
+  const feeProvided = inp.compoundingFee ?? 0;
+  const canCompound = (inp.compoundable ?? true) && feeProvided > 0;
+  const compoundedCost = canCompound
+    ? Math.min(feeProvided, compoundingFeeCap)
+    : 0;
+
+  // The FEMA cost that actually applies: the compounded fee when
+  // available, otherwise the full Section 13 penalty.
+  const applicableFemaCost = canCompound ? compoundedCost : section13Penalty;
+
+  // The tax/BMA side and the FEMA side are independent; settling the
+  // tax side (FAST-DS / Schedule FA) does NOT close the FEMA exposure.
+  const femaOpenAfterTaxSettled = inp.fastDsSettled ?? false;
+
+  let note = '';
+  if (femaOpenAfterTaxSettled) {
+    note =
+      'The tax / Black Money Act side is settled, but the FEMA exposure is a SEPARATE, RBI-administered liability that FAST-DS does NOT regularise: ' +
+      (canCompound
+        ? 'compound it under Section 15 for a capped fee of Rs ' +
+          compoundedCost.toLocaleString('en-IN') +
+          ' (vs a full Section 13 penalty of Rs ' +
+          section13Penalty.toLocaleString('en-IN') +
+          ').'
+        : 'the full Section 13(1) penalty of up to ' +
+          penaltyMultiple +
+          'x the sum involved applies (Rs ' +
+          section13Penalty.toLocaleString('en-IN') +
+          '); a Section 3(a) hawala offence is not compoundable at all.');
+  } else {
+    note =
+      'FEMA Section 13(1) exposure of up to ' +
+      penaltyMultiple +
+      'x the contravention sum (Rs ' +
+      section13Penalty.toLocaleString('en-IN') +
+      '); compound under Section 15 (Rs ' +
+      compoundedCost.toLocaleString('en-IN') +
+      ') where the contravention is compoundable and not a Section 3(a) hawala offence.';
+  }
+
+  return {
+    contraventionSum: sum,
+    section13Penalty,
+    compoundedCost,
+    canCompound,
+    applicableFemaCost,
+    femaOpenAfterTaxSettled,
+    note,
+  };
+}
+

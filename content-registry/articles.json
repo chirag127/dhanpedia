@@ -1922,6 +1922,49 @@
         "book-complete-indian-investor",
         "book-wealth-beyond-10l"
       ]
+    },
+    {
+      "id": "tax-fema-exchange-control-exposure",
+      "file": "src/content/taxation/tax-fema-exchange-control-exposure.mdx",
+      "title": "FEMA Exchange-Control Exposure: The 3x Penalty and the Side FAST-DS Does NOT Settle (FY 2026-27)",
+      "category": "taxation",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "fema",
+        "exchange-control",
+        "section-13",
+        "section-15",
+        "compounding",
+        "pravaah",
+        "lrs",
+        "nro",
+        "odi",
+        "hawala",
+        "3x-penalty",
+        "black-money-act",
+        "fast-ds",
+        "rbi",
+        "repatriation"
+      ],
+      "sources": [
+        "src-fema-sec13-compound-2026",
+        "src-us-stock-tax-india-2026",
+        "src-lrs-tcs-sc-2026"
+      ],
+      "related": [
+        "tax-fastds-2026-declaration",
+        "tax-black-money-act-exposure",
+        "tax-direct-lrs-us-equity-filing-walkthrough",
+        "international-nri-tax-residency-tds-dtaa",
+        "international-investing-lrs"
+      ],
+      "books": [
+        "book-complete-indian-investor",
+        "book-indian-taxation"
+      ]
     }
   ]
 }

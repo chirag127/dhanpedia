@@ -26,6 +26,7 @@ import {
   giftCityRouteComparison, directLrsUsEquityFilingFY27,
   fastDSDisclosureFY26, blackMoneyActExposure,
   fastDSValuationGuard, capitalInflowMigrationPlanner,
+  femaSection13Exposure,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2751,6 +2752,75 @@ export const CALCULATORS: CalcDef[] = [
                   ],
                   lineStyle: { type: 'dashed', color: '#8a8f98' },
                 },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'fema-penalty',
+    title: 'FEMA Section 13 Exchange-Control Exposure: The Side FAST-DS Does NOT Settle (3x Sum / Section 15 Compounding)',
+    category: 'Tax',
+    description:
+      'The exchange-control layer that a FAST-DS 2026 or Schedule-FA settlement does NOT close: a cross-border position still carries a separate, RBI-administered exposure under FEMA 1999. Models the Section 13(1) penalty (up to 3x the sum involved), the Section 15 compounding fee (capped at the 2025 Rs 2L limit, and NOT available for a Section 3(a) hawala offence), and - the point - that settling the tax/BMA side leaves the FEMA side open. Shows the applicable FEMA cost on your contravention sum.',
+    inputs: [
+      { key: 'contraventionSum', label: 'Sum involved in the FEMA contravention (Rs)', default: 2000000, min: 0, step: 100000, hint: 'The FEMA-breaching amount - e.g. an LRS remittance that exceeded a limit, an NRO repatriation above the USD 1M window, or an ODI above the individual limit.' },
+      { key: 'compoundingFee', label: 'Section 15 compounding fee you will pay (Rs)', default: 200000, min: 0, step: 10000, hint: 'The fee to voluntarily compound the contravention under Section 15 (2025 cap Rs 2,00,000 for certain contraventions). 0 = not compounded, the full Section 13 penalty applies.' },
+      { key: 'compoundable', label: 'Is the contravention compoundable?', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - a compoundable contravention' }, { value: 0, label: 'No - a Section 3(a) hawala offence (not compoundable)' }], hint: 'A hawala offence under Section 3(a) is NOT compoundable - the full Section 13 penalty is the only outcome.' },
+      { key: 'fastDsSettled', label: 'Has the tax / BMA side already been settled?', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - regularised via FAST-DS / Schedule FA' }, { value: 0, label: 'No - still open on the tax side too' }], hint: 'The point of this layer: settling the tax/BMA side does NOT close the FEMA side. Set Yes to see the "FEMA still open after the tax side is settled" read.' },
+    ],
+    assumptions: [
+      'FEMA Section 13(1) levies a penalty of up to THREE times the sum involved in the contravention (the current cap; the older FERA-era figure was higher).',
+      'Section 15 allows compounding (voluntary settlement) of a compoundable contravention by paying a fee to the RBI; a Section 3(a) hawala offence is not compoundable.',
+      'A 2025 amendment caps the compounding fee for certain contraventions at Rs 2,00,000; the cap input overrides it.',
+      'The "sum involved" is the FEMA-breaching remittance (LRS over-limit, NRO over the USD 1M window, ODI over the individual limit), not the asset value.',
+      'The tax / BMA side and the FEMA side are independent - a FAST-DS or Schedule-FA settlement does NOT regularise the FEMA exposure.',
+    ],
+    limitations: [
+      'The 3x Section 13 penalty is a *cap* (up to 3x); the actual adjudicated penalty depends on the contravention facts - this is the worst-case exposure, not a charge you will necessarily pay.',
+      'The Section 15 compounding fee is set by the RBI on a per-contravention basis (the Rs 2L is the 2025 cap for certain contraventions); confirm the applicable fee with the RBI / PRAVAAH process.',
+      'This is the exchange-control (FEMA) counterfactual, not a tax computation; it does not replace the FAST-DS / BMA / Schedule FA tax side.',
+      'A specific contravention\'s compoundability and fee are case-specific; reconcile with a FEMA practitioner before acting.',
+    ],
+    compute: (v) => {
+      const r = femaSection13Exposure({
+        contraventionSum: v.contraventionSum,
+        compoundingFee: v.compoundingFee,
+        compoundable: v.compoundable > 0.5,
+        fastDsSettled: v.fastDsSettled > 0.5,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const results = [
+        { label: 'Section 13(1) penalty (3x sum)', value: cr(r.section13Penalty), sub: 'the worst-case FEMA exposure' },
+        { label: 'Section 15 compounding fee', value: cr(r.compoundedCost), sub: r.canCompound ? 'capped at the 2025 fee limit' : 'not available (not compoundable / no fee)' },
+        { label: 'Applicable FEMA cost', value: cr(r.applicableFemaCost), sub: r.canCompound ? 'the compounded fee' : 'the full Section 13 penalty' },
+        { label: 'Compoundable?', value: r.canCompound ? 'yes (Section 15 route open)' : 'no (Section 3(a) hawala)', sub: 'a hawala offence is not compoundable' },
+        { label: 'FEMA open after tax settled?', value: r.femaOpenAfterTaxSettled ? 'YES - a separate, open exposure' : 'no (tax side still open too)', sub: 'FAST-DS / Schedule FA does NOT close FEMA' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'FEMA cost: penalty vs compounded fee (Rs L)',
+          alt: 'Bar chart of the full Section 13(1) penalty versus the Section 15 compounded fee for the contravention sum, showing the cost of settling on the exchange-control side',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: { type: 'category', data: ['Sec 13 penalty', 'Sec 15 fee', 'Applicable'] },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.section13Penalty), itemStyle: { color: '#a53a3a' } },
+                  { value: Math.round(r.compoundedCost), itemStyle: { color: r.canCompound ? '#1f7a5c' : '#8a8f98' } },
+                  { value: Math.round(r.applicableFemaCost), itemStyle: { color: '#c65d3b' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },
             ],
           },

@@ -31,7 +31,8 @@
         "tax-fastds-2026-declaration",
         "tax-black-money-act-exposure",
         "tax-fastds-valuation-guard-due-diligence",
-        "pf-capital-inflow-migration"
+        "pf-capital-inflow-migration",
+        "tax-fema-exchange-control-exposure"
       ],
       "preface": "This book is the core DhanPedia volume. It assumes you understand what a bank account and a salary are, and takes you to a complete, tax-aware, risk-graded personal portfolio you can actually build with Rs.10 lakh.",
       "version": "1.0",
@@ -91,7 +92,8 @@
         "tax-senior-citizen-regime-decision",
         "tax-capital-gains-rollover-54-54f-54ec",
         "tax-esop-vesting-tax-walkthrough",
-        "tax-54ec-tranche-tracker"
+        "tax-54ec-tranche-tracker",
+        "tax-fema-exchange-control-exposure"
       ],
       "preface": "Tax rules are the single most time-sensitive part of this book. Every figure is marked with its verification date and re-verified each Budget cycle.",
       "version": "1.0",

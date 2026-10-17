@@ -930,5 +930,24 @@
       "FAST-DS is taxpayer-specific (companies/LLPs/firms/trusts cannot use it for their employees) and its immunity is LIMITED: it regularises the tax / Black Money Act exposure but does NOT automatically settle FEMA / exchange-control exposure, and does not replace the ongoing Schedule FA obligation"
     ],
     "limitations": "The 20% valuation-variance safeguard, the per-asset-class Rule 3 methods, and the RBI-reference-rate currency conversion are the operative 2026 positions and can move with a later notification / Budget. The \"determined FMV\" is what an assessing officer arrives at - the calculator takes it as an input, not a live valuation. Confirm the specific asset class and currency against the notified Rules and a CA before filing Form 1. This is a due-diligence/valuation planning layer, not a Form 1 filing computation."
+  },
+  {
+    "id": "src-fema-sec13-compound-2026",
+    "title": "FEMA 1999 exchange-control exposure: the Section 13(1) \"up to 3x the sum involved\" penalty (vs the FERA-era 9x that does not apply), the Section 15 compounding route via PRAVAAH (up to a Rs 5 cr contravention, the 2025 amendment capping certain compounding fees at Rs 2,00,000, and the non-compoundable Section 3(a) hawala exception), and the LRS USD 250k / NRO USD 1M / ODI individual limits that define the breaching \"sum\"",
+    "publisher": "Beacon Filing / VirtualAuditor / APTaxLaw / KS&A 2026 FEMA penalty + compounding coverage + the RBI Master Direction on Compounding of Contraventions under FEMA, 1999 (April 2025 update) + Oquilia Research (NRO USD 1M / LRS USD 250k) + RBI LRS FAQ",
+    "url": "https://www.beaconfiling.com/blog/fema-penalties-compounding-process",
+    "type": "aggregator",
+    "authority": "secondary",
+    "published": "2026-01-01",
+    "verified": "2026-10-18",
+    "lastVerified": "2026-10-18",
+    "claims": [
+      "FEMA Section 13(1) levies a monetary penalty of up to THREE times the sum involved in the contravention (the current cap; the '9 times' figure was the FERA-era number and does not apply under FEMA 1999)",
+      "FEMA Section 15 allows compounding (voluntary settlement) of a compoundable contravention by paying a fee to the RBI (up to a Rs 5 cr contravention) or the Enforcement Directorate (above Rs 5 cr), filed via the PRAVAAH portal; a Section 3(a) hawala offence is NOT compoundable",
+      "A 2025 amendment to the FEMA compounding regime caps the fee for certain compounded contraventions at Rs 2,00,000; the applicable fee is set by the RBI per contravention, not a flat tariff",
+      "The 'sum involved' in a Section 13 penalty is the breaching remittance, not the asset value: a resident LRS remittance (up to USD 250,000/FY, NRIs excluded), an NRO repatriation (up to USD 1,000,000/FY after Indian tax + Forms 15CA/15CB), or an ODI (individual equity-only, within the LRS limit; individuals cannot provide loans/guarantees)",
+      "Tax regularisation (FAST-DS / Schedule FA) and exchange-control regularisation (FEMA compounding) are separate exercises administered by different authorities - the income-tax department vs the RBI / ED - and settling one does not close the other"
+    ],
+    "limitations": "The 3x Section 13(1) penalty is a cap (\"up to 3x\"), the actual adjudicated penalty is case-specific, and the Section 15 compounding fee is set by the RBI per contravention (the Rs 2L is a 2025 cap for a class of contraventions, not a flat price). Confirm the specific contravention's compoundability and fee with the PRAVAAH process / a FEMA practitioner before acting. The LRS / NRO / ODI limits are the 2026 positions and can move with an RBI Master Direction."
   }
 ]
