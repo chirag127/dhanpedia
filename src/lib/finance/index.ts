@@ -3056,6 +3056,144 @@ export interface FastDSDisclosureResult {
   note: string;
 }
 
+/* ------------------------------------------------------------------
+ * Black Money Act (2015) counterfactual exposure - the "what if you
+ * miss FAST-DS and Schedule FA" layer that the FAST-DS article points
+ * to
+ *
+ * The Black Money (Undisclosed Foreign Income and Assets) and
+ * Imposition of Tax Act, 2015 (the "Black Money Act") is the
+ * enforcement framework that FAST-DS 2026 is a one-time way out of.
+ * For an undisclosed foreign asset / income that is NOT regularised
+ * (no FAST-DS declaration, no Schedule FA), the counterfactual
+ * exposure is:
+ *
+ *   - Section 40 - a 30% tax on the undisclosed foreign income/asset.
+ *   - Section 41 - a penalty of THREE times the tax payable, i.e.
+ *     90% of the value; so tax + penalty = 120% of the undisclosed
+ *     value.
+ *   - Section 43/44 - a flat Rs 1,00,000 penalty per assessment year
+ *     for failing to disclose the foreign asset in Schedule FA (or
+ *     furnishing inaccurate particulars); since the Finance Act 2026,
+ *     this flat penalty does NOT apply where the aggregate value of
+ *     NON-IMMOVABLE foreign assets stays within Rs 20 lakh.
+ *
+ * The whole reason FAST-DS exists is that this counterfactual is
+ * 120% + a recurring flat penalty, while FAST-DS Category A costs
+ * only 60% (and Category B a flat Rs 1L). All math is pure and
+ * deterministic; conventions are documented.
+ * ------------------------------------------------------------------ */
+
+export interface BlackMoneyActInput {
+  /** The undisclosed foreign asset / income value, in rupees. */
+  undisclosedValue: number;
+  /** The BMA Section 40 tax rate on the undisclosed value (30%). */
+  bmaTaxRate?: number;
+  /** The BMA Section 41 penalty as a multiple of the tax (3x), i.e.
+   *  90% of the value. */
+  bmaPenaltyMultiple?: number;
+  /** The flat per-year Schedule FA non-disclosure penalty (Rs 10L). */
+  flatPenaltyPerYear?: number;
+  /** Whole assessment years the Schedule FA non-disclosure persisted
+   *  for (the flat penalty is per defaulting year). */
+  nonDisclosureYears?: number;
+  /** The Finance Act 2026 threshold below which the flat Rs 10L
+   *  Schedule FA penalty does NOT apply (Rs 20L, non-immovable only). */
+  flatPenaltyThreshold?: number;
+  /** True when the undisclosed value is a NON-IMMOVABLE asset (the
+   *  FA-2026 flat-penalty exception only covers non-immovable assets). */
+  nonImmovable?: boolean;
+}
+
+export interface BlackMoneyActResult {
+  undisclosedValue: number;
+  /** The Section 40 tax on the undisclosed value. */
+  bmaTax: number;
+  /** The Section 41 penalty (a multiple of the tax). */
+  bmaPenalty: number;
+  /** The combined tax + penalty on the undisclosed value. */
+  totalBmaCharge: number;
+  /** The effective % of the undisclosed value (tax + penalty). */
+  effectivePctOfValue: number;
+  /** Whether the flat Rs 10L Schedule FA penalty applies (it does NOT
+   *  when the asset is non-immovable AND at/below the FA-2026
+   *  threshold). */
+  flatPenaltyApplies: boolean;
+  /** The flat per-year penalty, 0 when the exception applies. */
+  flatPenaltyPerYearAmount: number;
+  /** The accumulated flat penalty over the non-disclosure years. */
+  totalFlatPenalty: number;
+  /** The full counterfactual exposure: BMA tax + BMA penalty + the
+   *  accumulated flat penalty. */
+  totalCounterfactualExposure: number;
+  /** The FAST-DS Category A cost for the same value (the 60% route) -
+   *  included so a planner can see the "defined cost vs open-ended
+   *  exposure" gap that is the whole point of the amnesty. */
+  fastDsCategoryACost: number;
+  /** The saving of a FAST-DS Category A declaration over the BMA
+   *  counterfactual (positive = FAST-DS is cheaper). */
+  fastDsCategoryASaving: number;
+  note: string;
+}
+
+export function blackMoneyActExposure(inp: BlackMoneyActInput): BlackMoneyActResult {
+  const value = Math.max(0, inp.undisclosedValue);
+  const bmaTaxRate = inp.bmaTaxRate ?? 0.3;
+  const bmaPenaltyMultiple = inp.bmaPenaltyMultiple ?? 3;
+  const flatPenaltyPerYear = inp.flatPenaltyPerYear ?? 1000000;
+  const nonDisclosureYears = inp.nonDisclosureYears ?? 1;
+  const flatPenaltyThreshold = inp.flatPenaltyThreshold ?? 2000000;
+
+  const bmaTax = value * bmaTaxRate;
+  // Section 41: a penalty of THREE times the tax (= 90% of value).
+  const bmaPenalty = bmaTax * bmaPenaltyMultiple;
+  const totalBmaCharge = bmaTax + bmaPenalty;
+  const effectivePctOfValue = value > 0 ? totalBmaCharge / value : 0;
+
+  // The Finance Act 2026 exception: the flat Rs 10L Schedule FA penalty
+  // does not apply where the aggregate value of NON-IMMOVABLE foreign
+  // assets is at or under the Rs 20L threshold.
+  const flatPenaltyApplies =
+    !(inp.nonImmovable ?? true) || value > flatPenaltyThreshold;
+  const flatPenaltyPerYearAmount = flatPenaltyApplies ? flatPenaltyPerYear : 0;
+  const totalFlatPenalty = flatPenaltyPerYearAmount * Math.max(0, nonDisclosureYears);
+
+  const totalCounterfactualExposure = totalBmaCharge + totalFlatPenalty;
+
+  // The FAST-DS Category A cost for the same value (60% of value) - the
+  // "defined cost" the amnesty replaces with the open-ended exposure.
+  const fastDsCategoryACost = value * (bmaTaxRate + bmaTaxRate);
+  const fastDsCategoryASaving = totalCounterfactualExposure - fastDsCategoryACost;
+
+  let note = '';
+  if (flatPenaltyApplies) {
+    note =
+      'The full counterfactual exposure is the BMA tax + penalty (' +
+      Math.round(effectivePctOfValue * 100) +
+      '% of the undisclosed value) PLUS the flat Rs 10L per non-disclosure year. A FAST-DS 2026 Category A declaration would have cost only 60% of the value - the ' +
+      Math.max(0, Math.round(fastDsCategoryASaving)).toLocaleString('en-IN') +
+      'Rs gap is exactly why the one-time amnesty exists.';
+  } else {
+    note =
+      'Because the undisclosed value is a non-immovable asset at or under the Rs 20L Finance-Act-2026 threshold, the flat Rs 10L Schedule FA penalty does NOT apply; the exposure is the BMA tax + 90% penalty only (120% of value), still far above the 60% FAST-DS Category A cost.';
+  }
+
+  return {
+    undisclosedValue: value,
+    bmaTax,
+    bmaPenalty,
+    totalBmaCharge,
+    effectivePctOfValue,
+    flatPenaltyApplies,
+    flatPenaltyPerYearAmount,
+    totalFlatPenalty,
+    totalCounterfactualExposure,
+    fastDsCategoryACost,
+    fastDsCategoryASaving,
+    note,
+  };
+}
+
 export function fastDSDisclosureFY26(inp: FastDSDisclosureInput): FastDSDisclosureResult {
   const value = Math.max(0, inp.disclosedValue);
   const category = inp.category;

@@ -556,6 +556,17 @@
         "src-us-stock-tax-india-2026",
         "src-it-slab-fy2026-27"
       ]
+    },
+    {
+      "id": "ul-black-money-act-counterfactual-fy2026-27",
+      "topic": "Black Money Act 2015 counterfactual exposure for an undisclosed foreign asset that is neither FAST-DS-regularised nor Schedule-FA-disclosed: Section 40 (30% tax on the value) + Section 41 (a penalty of 3x the tax = 90% of value, a 120% total) + Sections 43/44 (a flat Rs 10,00,000 per defaulting assessment year for the Schedule FA omission), softened ONLY for a non-immovable asset at or under the Finance Act 2026 Rs 20L threshold (the flat penalty is waived, the 120% is not). The per-year flat-penalty stacking makes time the enemy; the ITAT Special Bench (Mr. Vinil Venugopal & Mrs. Ranjeeta Vinil) read the Section 43 \"may\" word as directory, not mandatory. This counterfactual is the \"do nothing\" column the FAST-DS 2026 defined-cost routes (60% Category A / flat Rs 1L Category B) exist to replace.",
+      "article": "tax-black-money-act-exposure",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-us-stock-tax-india-2026",
+        "src-it-slab-fy2026-27"
+      ]
     }
   ]
 }

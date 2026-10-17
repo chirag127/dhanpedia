@@ -1795,6 +1795,45 @@
       "books": [
         "book-complete-indian-investor"
       ]
+    },
+    {
+      "id": "tax-black-money-act-exposure",
+      "file": "src/content/taxation/tax-black-money-act-exposure.mdx",
+      "title": "Black Money Act Exposure: What Happens if You Miss FAST-DS *and* Schedule FA (FY 2026-27)",
+      "category": "taxation",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "black-money-act",
+        "bma-2015",
+        "section-40",
+        "section-41",
+        "section-43",
+        "section-44",
+        "schedule-fa",
+        "undisclosed-foreign-asset",
+        "penalty",
+        "120-percent",
+        "fast-ds",
+        "counterfactual",
+        "foreign-asset",
+        "finance-act-2026"
+      ],
+      "sources": [
+        "src-us-stock-tax-india-2026",
+        "src-it-slab-fy2026-27"
+      ],
+      "related": [
+        "tax-fastds-2026-declaration",
+        "tax-direct-lrs-us-equity-filing-walkthrough",
+        "international-investing-lrs",
+        "tax-india-investor-complete"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
     }
   ]
 }

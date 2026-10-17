@@ -16,7 +16,8 @@ import {
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
-  directLrsUsEquityFilingFY27, fastDSDisclosureFY26 } from '@lib/finance/index';
+  directLrsUsEquityFilingFY27, fastDSDisclosureFY26,
+  blackMoneyActExposure } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1704,6 +1705,78 @@ describe('fastDSDisclosureFY26', () => {
     expect(r.additionalAmountPortion).toBe(1000000);
     expect(r.payable).toBe(2000000);
     expect(r.effectiveCostPct).toBeCloseTo(0.4, 6);
+  });
+});
+
+describe('blackMoneyActExposure', () => {
+  const base = (over: Partial<Parameters<typeof blackMoneyActExposure>[0]> = {}) => ({
+    undisclosedValue: 5000000,
+    nonDisclosureYears: 3,
+    nonImmovable: true,
+    ...over,
+  });
+
+  it('prices the BMA counterfactual at 120% of the undisclosed value', () => {
+    // 50L x 30% tax = 15L; penalty 3x the tax = 45L; total = 60L = 120%.
+    const r = blackMoneyActExposure(base());
+    expect(r.bmaTax).toBe(1500000);
+    expect(r.bmaPenalty).toBe(4500000);
+    expect(r.totalBmaCharge).toBe(6000000);
+    expect(r.effectivePctOfValue).toBeCloseTo(1.2, 6);
+  });
+
+  it('sets the Section 41 penalty at three times the Section 40 tax', () => {
+    const r = blackMoneyActExposure(base());
+    expect(r.bmaPenalty).toBe(r.bmaTax * 3);
+  });
+
+  it('accumulates the flat Schedule FA penalty across the non-disclosure years', () => {
+    // 3 years x 10L = 30L; 1 year = 10L.
+    const three = blackMoneyActExposure(base({ nonDisclosureYears: 3 }));
+    const one = blackMoneyActExposure(base({ nonDisclosureYears: 1 }));
+    expect(three.totalFlatPenalty).toBe(3000000);
+    expect(one.totalFlatPenalty).toBe(1000000);
+  });
+
+  it('waives the flat penalty for a non-immovable asset at or under the FA-2026 threshold', () => {
+    // 15L non-immovable, at/below the 20L threshold -> the exception applies.
+    const r = blackMoneyActExposure(base({ undisclosedValue: 1500000 }));
+    expect(r.flatPenaltyApplies).toBe(false);
+    expect(r.totalFlatPenalty).toBe(0);
+  });
+
+  it('still charges the flat penalty at exactly the threshold boundary (waived) but above it (charged)', () => {
+    // Exactly 20L (the threshold) for a non-immovable asset is still waived
+    // (the exception is "at or under"); just above it the penalty applies.
+    const at = blackMoneyActExposure(base({ undisclosedValue: 2000000 }));
+    const above = blackMoneyActExposure(base({ undisclosedValue: 2000001 }));
+    expect(at.flatPenaltyApplies).toBe(false);
+    expect(above.flatPenaltyApplies).toBe(true);
+  });
+
+  it('always charges the flat penalty on an immovable asset (no FA-2026 exception)', () => {
+    // Foreign real estate: even a small value attracts the flat penalty.
+    const r = blackMoneyActExposure(base({ undisclosedValue: 100000, nonImmovable: false }));
+    expect(r.flatPenaltyApplies).toBe(true);
+    // base() sets 3 non-disclosure years -> 3 x 10L = 30L accumulated.
+    expect(r.totalFlatPenalty).toBe(3000000);
+  });
+
+  it('reports the FAST-DS Category A defined cost (60%) and the saving over the counterfactual', () => {
+    const r = blackMoneyActExposure(base());
+    // FAST-DS A = 30% + 30% = 60% of 50L = 30L.
+    expect(r.fastDsCategoryACost).toBe(3000000);
+    // Counterfactual = 60L BMA + 30L flat = 90L; the saving = 90L - 30L = 60L.
+    expect(r.totalCounterfactualExposure).toBe(9000000);
+    expect(r.fastDsCategoryASaving).toBe(6000000);
+  });
+
+  it('zeroes the entire exposure when the undisclosed value is zero', () => {
+    const r = blackMoneyActExposure(base({ undisclosedValue: 0 }));
+    expect(r.totalCounterfactualExposure).toBe(r.totalFlatPenalty);
+    expect(r.bmaTax).toBe(0);
+    expect(r.bmaPenalty).toBe(0);
+    expect(r.effectivePctOfValue).toBe(0);
   });
 });
 

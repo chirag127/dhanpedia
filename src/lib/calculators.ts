@@ -24,7 +24,7 @@ import {
   esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27,
   giftCityRouteComparison, directLrsUsEquityFilingFY27,
-  fastDSDisclosureFY26,
+  fastDSDisclosureFY26, blackMoneyActExposure,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2503,6 +2503,80 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.taxPortion), itemStyle: { color: '#3a6ea5' } },
                   { value: Math.round(r.additionalAmountPortion), itemStyle: { color: '#c65d3b' } },
                   { value: Math.round(r.payable), itemStyle: { color: r.eligible ? '#1f7a5c' : '#8a8f98' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'black-money-act-exposure',
+    title: 'Black Money Act Exposure: The Counterfactual When You Miss FAST-DS + Schedule FA (FY 2026-27)',
+    category: 'Tax',
+    description:
+      'The "what if you do nothing" layer: the Black Money Act 2015 counterfactual exposure for an undisclosed foreign asset that is neither regularised under FAST-DS 2026 nor disclosed in Schedule FA - the Section 40 30% tax + the Section 41 penalty of 3x the tax (90% of value, a 120% total) + the flat Rs 10L per-year Section 43/44 Schedule FA penalty (waived for non-immovable assets at or under the Rs 20L Finance-Act-2026 threshold) - and the gap that is the whole reason the one-time amnesty exists.',
+    inputs: [
+      { key: 'undisclosedValue', label: 'Undisclosed foreign asset / income value (Rs)', default: 5000000, min: 0, step: 100000, hint: 'The value that was never disclosed in Schedule FA and not regularised under FAST-DS. The counterfactual is priced on this value.' },
+      { key: 'nonDisclosureYears', label: 'Years the non-disclosure persisted', default: 3, min: 1, max: 30, step: 1, hint: 'The flat Rs 10L Schedule FA penalty is per defaulting assessment year; more years = more accumulated flat penalty.' },
+      { key: 'nonImmovable', label: 'Is it a non-immovable asset?', default: 1, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 1, label: 'Yes - non-immovable (a foreign bank account / shares / fund)' }, { value: 0, label: 'No - immovable (foreign real estate)' }], hint: 'The Finance Act 2026 exception waives the flat Rs 10L penalty only for non-immovable assets at or under the Rs 20L threshold; foreign real estate always attracts it.' },
+    ],
+    assumptions: [
+      'Section 40 of the Black Money Act 2015 levies a 30% tax on the undisclosed foreign income/asset.',
+      'Section 41 adds a penalty of THREE times the tax (90% of the value), so the tax + penalty total is 120% of the undisclosed value.',
+      'Section 43/44 adds a flat Rs 10,00,000 penalty per defaulting assessment year for failing to disclose the asset in Schedule FA.',
+      'Since the Finance Act 2026, the flat Rs 10L penalty does NOT apply where the aggregate value of NON-IMMOVABLE foreign assets is at or under Rs 20 lakh.',
+      'The FAST-DS Category A defined cost for the same value is 60% of value (30% + an equal additional amount) - the gap between this counterfactual and that is the reason the amnesty exists.',
+    ],
+    limitations: [
+      'This is the COUNTERFACTUAL exposure, not a charge you actually pay - it is what the department would assess if it found the undisclosed asset.',
+      'The BMA "may" under Section 43 has been read by a Mumbai ITAT Special Bench as directory (discretionary), not mandatory - the department has discretion in some cases, so treat the flat penalty as the worst case, not a certainty.',
+      'The 120% figure is tax + penalty on the value; interest, prosecution and any Income-tax Act misreporting penalty are separate and not modelled here.',
+      'The Finance Act 2026 Rs 20L non-immovable threshold and the Section 40/41 rates can move at a Budget - verify before acting on a specific asset.',
+    ],
+    compute: (v) => {
+      const r = blackMoneyActExposure({
+        undisclosedValue: v.undisclosedValue,
+        nonDisclosureYears: v.nonDisclosureYears,
+        nonImmovable: v.nonImmovable > 0.5,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const results = [
+        { label: 'BMA tax (Sec 40, 30%)', value: cr(r.bmaTax), sub: 'on the undisclosed value' },
+        { label: 'BMA penalty (Sec 41, 90%)', value: cr(r.bmaPenalty), sub: '3x the tax' },
+        { label: 'Tax + penalty', value: cr(r.totalBmaCharge), sub: (r.effectivePctOfValue * 100).toFixed(0) + '% of the value' },
+        { label: 'Flat Schedule FA penalty', value: cr(r.totalFlatPenalty), sub: r.flatPenaltyApplies ? v.nonDisclosureYears + ' yr x Rs 10L' : 'waived (FA-2026 exception)' },
+        { label: 'Total counterfactual exposure', value: cr(r.totalCounterfactualExposure), sub: 'what "doing nothing" costs' },
+        { label: 'FAST-DS Category A would cost', value: cr(r.fastDsCategoryACost), sub: 'the defined 60% route' },
+        { label: 'Saving from the amnesty', value: cr(r.fastDsCategoryASaving), sub: 'the gap that is why FAST-DS exists' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'Counterfactual vs FAST-DS cost (Rs L)',
+          alt: 'Bar chart of the Black Money Act counterfactual exposure (tax, penalty, flat penalty, total) versus the FAST-DS Category A defined cost',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: {
+              type: 'category',
+              data: ['BMA tax', 'BMA penalty', 'Flat penalty', 'Total exposure', 'FAST-DS A'],
+            },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.bmaTax), itemStyle: { color: '#c65d3b' } },
+                  { value: Math.round(r.bmaPenalty), itemStyle: { color: '#a53a3a' } },
+                  { value: Math.round(r.totalFlatPenalty), itemStyle: { color: '#8a8f98' } },
+                  { value: Math.round(r.totalCounterfactualExposure), itemStyle: { color: '#5a2a2a' } },
+                  { value: Math.round(r.fastDsCategoryACost), itemStyle: { color: '#1f7a5c' } },
                 ],
                 label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },

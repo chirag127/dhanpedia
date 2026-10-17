@@ -611,4 +611,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('black-money-act-exposure calculator renders the counterfactual cost split', async ({ page }) => {
+    await page.goto('/calculators/black-money-act-exposure');
+    // Result-row DOM labels (the most-unique rows; the chart title lives
+    // inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('Total counterfactual exposure', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Saving from the amnesty', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Flat Schedule FA penalty', { exact: true }),
+    ).toBeVisible();
+    // The counterfactual-vs-FAST-DS cost chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('Black Money Act exposure article renders the counterfactual sections', async ({ page }) => {
+    await page.goto('/articles/tax-black-money-act-exposure');
+    // Stable, unique H2 headings in the body (assert unique prefixes to avoid
+    // the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The counterfactual exposure/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The Finance Act 2026 threshold exception/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The three ways out/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });
