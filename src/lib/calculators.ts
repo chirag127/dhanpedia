@@ -24,6 +24,7 @@ import {
   esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27,
   giftCityRouteComparison, directLrsUsEquityFilingFY27,
+  fastDSDisclosureFY26,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2434,6 +2435,74 @@ export const CALCULATORS: CalcDef[] = [
                   { value: Math.round(r.netDividendTax), itemStyle: { color: '#3a6ea5' } },
                   { value: Math.round(r.cgTax), itemStyle: { color: '#6b5b8a' } },
                   { value: Math.round(r.tcs), itemStyle: { color: '#8a8f98' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'fast-ds-declaration',
+    title: 'FAST-DS 2026 Declaration: The Small-Taxpayer Foreign-Asset Amnesty Cost (30%+equal / flat Rs 1L)',
+    category: 'Tax',
+    description:
+      'The FAST-DS 2026 (Foreign Assets of Small Taxpayers - Disclosure Scheme, Finance Act 2026 Ch. IV, window 16 Aug to 31 Dec 2026) decision tool: which category your undisclosed foreign asset falls into - Category A (undisclosed, up to Rs 1 cr: 30% tax plus an equal additional amount = 60% of value) or Category B (already-taxed-but-missed-in-Schedule-FA, up to Rs 5 cr: a flat Rs 1,00,000 fee) - and the effective cost of the regularisation plus the immunity you get.',
+    inputs: [
+      { key: 'disclosedValue', label: 'Disclosed foreign asset / income value (Rs)', default: 5000000, min: 0, step: 100000, hint: 'The value as of the 31 March 2026 reference date, in rupees, for the asset/income you would declare.' },
+      { key: 'category', label: 'FAST-DS category', default: 0, min: 0, max: 1, step: 1, type: 'select', options: [{ value: 0, label: 'Category A - undisclosed (30% + equal additional = 60%)' }, { value: 1, label: 'Category B - missed Schedule FA (flat Rs 1L fee)' }], hint: 'A = the asset/income was never reported and is up to Rs 1 cr. B = the asset was already taxed elsewhere or acquired during non-residence but was simply omitted from Schedule FA, up to Rs 5 cr.' },
+      { key: 'categoryATaxRate', label: 'Category A tax rate (%)', default: 30, min: 0, max: 100, step: 1, hint: 'The scheme rate plus an equal additional amount; the default 30% + equal = 60% total.' },
+    ],
+    assumptions: [
+      'FAST-DS 2026 = Foreign Assets of Small Taxpayers - Disclosure Scheme, Finance Act 2026 Chapter IV (sections 130-144), Rules notified 15 Aug 2026; window 16 Aug to 31 Dec 2026; reference date 31 Mar 2026.',
+      'Category A: undisclosed foreign assets / income up to Rs 1 cr -> 30% tax plus an equal additional amount (60% of value total).',
+      'Category B: specified foreign assets up to Rs 5 cr that were already taxed elsewhere / acquired during non-residence but omitted from Schedule FA -> a flat Rs 1,00,000 fee.',
+      'Above the category ceiling the scheme cannot be used for that asset; the value must be as of the 31 March 2026 reference date.',
+      'A valid declaration + payment gives immunity from further tax, penalty and Black Money Act prosecution for the declared asset/income.',
+    ],
+    limitations: [
+      'FAST-DS is a ONE-TIME window (31 Dec 2026 deadline) and does NOT replace the ongoing Schedule FA obligation for future years.',
+      'It excludes assets linked to proceeds of crime and years where a Black Money Act assessment is already complete; eligibility also depends on the residential-status conditions.',
+      'The valuation method is per the FAST-DS Rules, 2026 (Rule 3); this calculator takes the rupee value as an input rather than computing the valuation itself.',
+      'This is a decision model, not a Form 1 declaration - reconcile with the official FAST-DS process and a CA before acting.',
+    ],
+    compute: (v) => {
+      const r = fastDSDisclosureFY26({
+        disclosedValue: v.disclosedValue,
+        category: v.category > 0.5 ? 'missed-schedule-fa' : 'undisclosed',
+        categoryATaxRate: v.categoryATaxRate / 100,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const results = [
+        { label: 'FAST-DS eligibility', value: r.eligible ? 'eligible' : 'over the ceiling', sub: r.category + ' (ceiling ' + cr(r.ceiling) + ')' },
+        { label: 'Payable (tax / fee)', value: cr(r.payable), sub: r.category === 'undisclosed' ? '30% + equal additional' : 'flat Rs 1L fee' },
+        { label: 'Tax portion + additional', value: cr(r.taxPortion) + ' + ' + cr(r.additionalAmountPortion), sub: r.category === 'undisclosed' ? 'the two 30% legs' : 'Category B has no percentage legs' },
+        { label: 'Effective cost', value: (r.effectiveCostPct * 100).toFixed(1) + '%', sub: 'of the disclosed value' },
+        { label: 'Immunity granted', value: 'Black Money Act', sub: 'no further tax / penalty / prosecution for the declared asset' },
+        { label: 'Window', value: '31 Dec 2026', sub: 'one-time; Schedule FA continues after' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'FAST-DS 2026 cost breakdown (Rs L)',
+          alt: 'Bar chart of the FAST-DS cost: the tax portion, the equal additional amount, and the total payable for the disclosed value',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: { type: 'category', data: ['Tax', 'Additional', 'Total payable'] },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.taxPortion), itemStyle: { color: '#3a6ea5' } },
+                  { value: Math.round(r.additionalAmountPortion), itemStyle: { color: '#c65d3b' } },
+                  { value: Math.round(r.payable), itemStyle: { color: r.eligible ? '#1f7a5c' : '#8a8f98' } },
                 ],
                 label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },

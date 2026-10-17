@@ -545,6 +545,17 @@
         "src-it-slab-fy2026-27",
         "src-us-stock-tax-india-2026"
       ]
+    },
+    {
+      "id": "ul-fastds-2026-window-2026",
+      "topic": "FAST-DS 2026 (Foreign Assets of Small Taxpayers - Disclosure Scheme, Finance Act 2026 Ch. IV ss.130-144, Rules notified 15 Aug 2026): the one-time window 16 Aug to 31 Dec 2026, reference date 31 Mar 2026, two categories (A = undisclosed foreign asset/income up to Rs 1 cr at 30% tax + an equal additional amount = 60% of value; B = a specified foreign asset up to Rs 5 cr that was already taxed elsewhere / acquired during non-residence but omitted from Schedule FA, at a flat Rs 1,00,000 fee), the Form 1 -> 2 -> payment -> 3/4 online sequence before the Principal DGIT (Systems), the Black Money Act immunity (asset-specific, excluding proceeds-of-crime and completed-BMA-assessment years) and the ongoing Schedule FA obligation that FAST-DS does NOT replace. The window is time-boxed - re-verify at the FY 2027-28 Budget whether it closed on 31 Dec 2026 and whether a successor scheme is announced.",
+      "article": "tax-fastds-2026-declaration",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-01-31",
+      "sourceIds": [
+        "src-us-stock-tax-india-2026",
+        "src-it-slab-fy2026-27"
+      ]
     }
   ]
 }

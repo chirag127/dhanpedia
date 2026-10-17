@@ -2994,3 +2994,130 @@ export function directLrsUsEquityFilingFY27(inp: DirectLrsUsEquityInput): Direct
   };
 }
 
+/* ------------------------------------------------------------------
+ * FAST-DS 2026 declaration (the small-taxpayer foreign-asset amnesty
+ * that Wave 24 flagged as the separate layer)
+ *
+ * The Foreign Assets of Small Taxpayers - Disclosure Scheme, 2026
+ * (Finance Act 2026, Chapter IV, sections 130-144; Rules notified
+ * 15 Aug 2026; window 16 Aug - 31 Dec 2026; reference date
+ * 31 March 2026) has two categories:
+ *
+ *   - Category A - undisclosed foreign assets / income up to Rs 1 cr:
+ *     a 30% tax PLUS an equal additional amount, i.e. 60% of the
+ *     disclosed value.
+ *   - Category B - specified foreign assets up to Rs 5 cr that were
+ *     already taxed elsewhere (or acquired during non-residence) but
+ *     were simply omitted from Schedule FA: a FLAT Rs 1,00,000 fee.
+ *
+ * Above the category ceiling (Rs 1 cr / Rs 5 cr) the taxpayer is NOT
+ * eligible for that category. All math is pure and deterministic.
+ * ------------------------------------------------------------------ */
+
+export interface FastDSDisclosureInput {
+  /** The value of the disclosed foreign asset / income as of the
+   *  31 March 2026 reference date (Rs). */
+  disclosedValue: number;
+  /** 'undisclosed' = Category A (30% + equal additional, i.e. 60%);
+   *  'missed-schedule-fa' = Category B (flat Rs 1L fee, the asset was
+   *  already taxed / acquired during non-residence but omitted from
+   *  Schedule FA). */
+  category: 'undisclosed' | 'missed-schedule-fa';
+  /** The Category A ceiling (Rs 1 cr). */
+  categoryACeiling?: number;
+  /** The Category B ceiling (Rs 5 cr). */
+  categoryBCeiling?: number;
+  /** The Category A tax rate (30%) and its equal additional amount
+   *  (another 30% -> 60% total). */
+  categoryATaxRate?: number;
+  /** The Category B flat fee (Rs 1,00,000). */
+  categoryBFlatFee?: number;
+}
+
+export interface FastDSDisclosureResult {
+  disclosedValue: number;
+  category: FastDSDisclosureInput['category'];
+  eligible: boolean;
+  /** The applicable ceiling for the chosen category. */
+  ceiling: number;
+  /** The tax / fee payable. */
+  payable: number;
+  /** Category A: the 30% tax and its equal additional amount, split out. */
+  taxPortion: number;
+  additionalAmountPortion: number;
+  /** The total cost as a fraction of the disclosed value. */
+  effectiveCostPct: number;
+  /** What you get: immunity from further tax, penalty and Black Money
+   *  Act prosecution for the declared asset/income. */
+  immunity: string;
+  /** A reminder that this is a one-time window (16 Aug - 31 Dec 2026)
+   *  and does NOT replace the ongoing Schedule FA obligation. */
+  oneTimeWindowNote: string;
+  note: string;
+}
+
+export function fastDSDisclosureFY26(inp: FastDSDisclosureInput): FastDSDisclosureResult {
+  const value = Math.max(0, inp.disclosedValue);
+  const category = inp.category;
+  const ceilingA = inp.categoryACeiling ?? 10000000;
+  const ceilingB = inp.categoryBCeiling ?? 50000000;
+  const taxRateA = inp.categoryATaxRate ?? 0.3;
+  const flatFeeB = inp.categoryBFlatFee ?? 100000;
+
+  let eligible: boolean;
+  let ceiling: number;
+  let payable: number;
+  let taxPortion: number;
+  let additionalAmountPortion: number;
+
+  if (category === 'undisclosed') {
+    ceiling = ceilingA;
+    eligible = value > 0 && value <= ceilingA;
+    taxPortion = eligible ? value * taxRateA : 0;
+    additionalAmountPortion = eligible ? value * taxRateA : 0;
+    payable = taxPortion + additionalAmountPortion;
+  } else {
+    ceiling = ceilingB;
+    eligible = value > 0 && value <= ceilingB;
+    taxPortion = 0;
+    additionalAmountPortion = 0;
+    payable = eligible ? flatFeeB : 0;
+  }
+
+  const effectiveCostPct = value > 0 ? payable / value : 0;
+
+  let note = '';
+  if (!eligible && value > 0) {
+    note =
+      'Not eligible for the ' +
+      category +
+      ' category: the disclosed value of Rs ' +
+      value.toLocaleString('en-IN') +
+      ' exceeds the Rs ' +
+      ceiling.toLocaleString('en-IN') +
+      ' ceiling. Above the ceiling the scheme cannot be used for this asset.';
+  } else if (category === 'undisclosed') {
+    note =
+      'Category A pays 30% tax plus an equal additional amount - a total of 60% of the disclosed value - for immunity from further tax, penalty and Black Money Act prosecution.';
+  } else {
+    note =
+      'Category B pays a flat Rs 1,00,000 fee (not a percentage of value) for an asset that was already taxed elsewhere or acquired during non-residence but omitted from Schedule FA.';
+  }
+
+  return {
+    disclosedValue: value,
+    category,
+    eligible,
+    ceiling,
+    payable,
+    taxPortion,
+    additionalAmountPortion,
+    effectiveCostPct,
+    immunity:
+      'Immunity from further tax, penalty and prosecution under the Black Money Act, 2015, for the specific asset / income declared.',
+    oneTimeWindowNote:
+      'One-time window: 16 Aug to 31 Dec 2026 (reference date 31 Mar 2026). This does NOT replace the ongoing Schedule FA obligation for future years.',
+    note,
+  };
+}
+

@@ -578,4 +578,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('fast-ds-declaration calculator renders the category cost split', async ({ page }) => {
+    await page.goto('/calculators/fast-ds-declaration');
+    // Result-row DOM labels (the most-unique rows; the chart title is
+    // inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('FAST-DS eligibility', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Payable (tax / fee)', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Immunity granted', { exact: true }),
+    ).toBeVisible();
+    // The category cost breakdown chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('FAST-DS 2026 declaration article renders the two-category section', async ({ page }) => {
+    await page.goto('/articles/tax-fastds-2026-declaration');
+    // Stable, unique H2 headings in the body (assert unique prefixes to avoid
+    // the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The two categories/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /What you get in return/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /When FAST-DS is the right move/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

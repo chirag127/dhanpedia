@@ -1757,6 +1757,44 @@
       "books": [
         "book-complete-indian-investor"
       ]
+    },
+    {
+      "id": "tax-fastds-2026-declaration",
+      "file": "src/content/taxation/tax-fastds-2026-declaration.mdx",
+      "title": "FAST-DS 2026: The Small-Taxpayer Foreign-Asset Amnesty, Worked (Two Categories, 30%+Equal / Flat ₹1L, 31 Dec 2026)",
+      "category": "taxation",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-01-31",
+      "tags": [
+        "fast-ds",
+        "amnesty",
+        "foreign-asset",
+        "black-money-act",
+        "disclosure-scheme",
+        "finance-act-2026",
+        "schedule-fa",
+        "small-taxpayer",
+        "undisclosed-foreign-income",
+        "immunity",
+        "category-a",
+        "category-b",
+        "31-dec-2026"
+      ],
+      "sources": [
+        "src-us-stock-tax-india-2026",
+        "src-it-slab-fy2026-27"
+      ],
+      "related": [
+        "tax-direct-lrs-us-equity-filing-walkthrough",
+        "international-investing-lrs",
+        "tax-india-investor-complete",
+        "international-nri-tax-residency-tds-dtaa"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
     }
   ]
 }

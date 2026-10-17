@@ -16,7 +16,7 @@ import {
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
-  directLrsUsEquityFilingFY27 } from '@lib/finance/index';
+  directLrsUsEquityFilingFY27, fastDSDisclosureFY26 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1634,6 +1634,76 @@ describe('directLrsUsEquityFilingFY27', () => {
     expect(r.scheduleFaRequired).toBe(true);
     // The FAST-DS note is present (the separate small-taxpayer amnesty layer).
     expect(r.fastDsNote.toLowerCase()).toContain('fast-ds');
+  });
+});
+
+describe('fastDSDisclosureFY26', () => {
+  const base = (over: Partial<Parameters<typeof fastDSDisclosureFY26>[0]> = {}) => ({
+    disclosedValue: 5000000,
+    category: 'undisclosed',
+    ...over,
+  });
+
+  it('computes Category A as 30% tax + an equal additional amount (60% of value)', () => {
+    const r = fastDSDisclosureFY26(base({ disclosedValue: 5000000 }));
+    expect(r.eligible).toBe(true);
+    expect(r.taxPortion).toBe(1500000); // 30% of 50L
+    expect(r.additionalAmountPortion).toBe(1500000); // the "equal" additional amount
+    expect(r.payable).toBe(3000000); // 60% of 50L
+    expect(r.effectiveCostPct).toBeCloseTo(0.6, 6);
+  });
+
+  it('keeps Category A eligible at the Rs 1 cr ceiling (inclusive)', () => {
+    const r = fastDSDisclosureFY26(base({ disclosedValue: 10000000 }));
+    expect(r.eligible).toBe(true);
+    expect(r.payable).toBe(6000000); // 60% of 1 cr
+  });
+
+  it('marks Category A ineligible just above the Rs 1 cr ceiling', () => {
+    const r = fastDSDisclosureFY26(base({ disclosedValue: 10000001 }));
+    expect(r.eligible).toBe(false);
+    expect(r.payable).toBe(0);
+    expect(r.note).toMatch(/exceeds the Rs/);
+  });
+
+  it('charges Category B a flat Rs 1L fee regardless of value (up to Rs 5 cr)', () => {
+    const low = fastDSDisclosureFY26(base({ category: 'missed-schedule-fa', disclosedValue: 1000000 }));
+    const high = fastDSDisclosureFY26(base({ category: 'missed-schedule-fa', disclosedValue: 40000000 }));
+    expect(low.eligible).toBe(true);
+    expect(low.payable).toBe(100000);
+    expect(high.eligible).toBe(true);
+    expect(high.payable).toBe(100000); // still the flat fee
+    // The flat fee is far cheaper on a large value: effective cost is tiny.
+    expect(high.effectiveCostPct).toBeCloseTo(100000 / 40000000, 6);
+  });
+
+  it('marks Category B ineligible just above the Rs 5 cr ceiling', () => {
+    const r = fastDSDisclosureFY26(base({ category: 'missed-schedule-fa', disclosedValue: 50000001 }));
+    expect(r.eligible).toBe(false);
+    expect(r.payable).toBe(0);
+    expect(r.ceiling).toBe(50000000);
+  });
+
+  it('reports the immunity and the one-time-window note on every eligible result', () => {
+    const r = fastDSDisclosureFY26(base());
+    expect(r.immunity).toMatch(/Black Money Act/);
+    expect(r.oneTimeWindowNote).toMatch(/31 Dec 2026/);
+  });
+
+  it('zero disclosed value is not eligible (no declaration)', () => {
+    const r = fastDSDisclosureFY26(base({ disclosedValue: 0 }));
+    expect(r.eligible).toBe(false);
+    expect(r.payable).toBe(0);
+    expect(r.effectiveCostPct).toBe(0);
+  });
+
+  it('honours an overridden Category A tax rate', () => {
+    // A 20% + equal (20%) override -> 40% total, not the 60% default.
+    const r = fastDSDisclosureFY26(base({ disclosedValue: 5000000, categoryATaxRate: 0.2 }));
+    expect(r.taxPortion).toBe(1000000);
+    expect(r.additionalAmountPortion).toBe(1000000);
+    expect(r.payable).toBe(2000000);
+    expect(r.effectiveCostPct).toBeCloseTo(0.4, 6);
   });
 });
 
