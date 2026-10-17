@@ -2435,3 +2435,101 @@ RELATED
 • Surcharge & Cess for High Income (/articles/tax-surcharge-cess-high-income)
 • Capital-Gains Rollover (54/54F/54EC) (/articles/tax-capital-gains-rollover-54-54f-54ec)
 • The capital-ladder calculator — turn your real corpus, SIP, and future event into "months to each door".
+
+
+
+DIRECT LRS US-EQUITY FILING WALKTHROUGH: DIVIDEND FTC, 12.5% LTCG, TCS & SCHEDULE FA (FY 2026-27)
+
+The route-selection article (./international-gift-city-live-scheme-comparison.mdx) settled which route to use (GIFT City vs direct LRS). This is the filing-mechanics layer for the direct route: when you own US equities directly through a US brokerage (Schwab / Fidelity / Interactive Brokers / Vested / INDmoney) under LRS, the gain is not taxed the way a domestic equity fund is. It is taxed as a foreign (unlisted) security, and the ITR filing has five distinct layers that must all be handled correctly — and one of them (the dividend withholding rate) has a number that is wrong in most popular advice. Everything below is a planning model; reconcile with Form 67 / Schedule FSI and a CA before filing.
+
+THE FIVE FILING LAYERS
+======================
+
+A direct LRS US-equity position touches five tax/compliance layers in your ITR-2, and they are different layers that people constantly merge:
+
+Layer: **1 — Dividend income + FTC**,The US dividend is taxable in India at the *slab rate*; the US withholding is credited via **Form 67** (Schedule FSI),ITR-2 / ITR-3, capital-gains + other-income head; Form 67 for the FTC  |  What it is: **2 — Capital gains**,The gain on a US share is a **foreign (unlisted) security** gain: 12.5% no-indexation LTCG (>24mo) / slab STCG — **no Rs 1.25L pool**,ITR-2 capital-gains schedule (non-equity, the 112-style rate, not the 112A pool)  |  Where it lands in the ITR: **3 — TCS reservation**,The LRS *investment remittance* that funded the purchase attracts **20% TCS above Rs 10L** on the aggregate outflow,A recoverable credit against the final liability; claimed at ITR (not a cost)
+
+The single most important structural point: layers 1–4 are a normal year's ITR; layer 5 is an emergency exit ramp for something you never reported. A resident who files Schedule FA correctly every year does not need FAST-DS — and conflating the two is a common, expensive mistake.
+
+THE DIVIDEND: THE 25% (NOT 15%) WITHHOLDING AND THE FORM 67 CREDIT
+==================================================================
+
+This is the number most popular 2026 advice gets wrong. The US-India treaty figure widely quoted is 15%, but that is the corporate-holder-with-substantial-voting-stock rate. An individual Indian resident gets a different number:
+• With a valid Form W-8BEN on file, the US withholds 25% on the US dividend (the individual treaty rate under the US-India treaty).
+• Without a W-8BEN, the US applies the 30% backup rate.
+• The dividend is also taxable in India (worldwide-income rule), at your slab rate. The 25% US withholding is credited in India via Form 67, capped at the lesser of the India dividend tax and the US tax actually paid — so you never recover more than was withheld.
+
+Worked: a Rs. 3L US dividend, 30% slab, 25% US withholding (W-8BEN on file): India dividend tax = Rs. 3L × 30% = Rs. 90k; US withholding = Rs. 3L × 25% = Rs. 75k; Form 67 credit = min(Rs. 90k, Rs. 75k) = Rs. 75k; net Indian dividend tax = Rs. 15k. The Rs. 15k is the real cost of the dividend after the treaty credit.
+
+Two honest notes: (a) the W-8BEN must be valid for the withholding year — a lapsed or missing form pushes the rate to 30%; (b) if your slab is below 25% (say 20%), the credit caps at the India dividend tax and you get a small refund of the excess US withholding back from the US — the calculator's "credit capped the other way" case models this.
+
+THE 24-MONTH CLOCK AND THE MISSING POOL
+=======================================
+
+This is where a US-share holding behaves completely differently from a domestic equity fund, and where the "12.5% LTCG" shortcut misleads:
+• US shares are unlisted foreign securities. The long-term clock is 24 months, not the 12 months that apply to Indian-listed equity.
+• LTCG (>24 months) is 12.5% without indexation — and with NO Rs 1.25L pool. The Rs. 1.25L exemption (Section 112A) is for Indian-listed equity and equity-oriented MFs only; it does not apply to a foreign (unlisted) security. So a Rs. 2L US-share LTCG is taxed 12.5% on the whole Rs. 2L (Rs. 25k), not on the Rs. 0.75L above the pool.
+• STCG (≤24 months) is at your slab rate, with no 20% special rate (that special rate is also Indian-listed-equity only).
+
+So the "12.5% foreign LTCG" is a better headline than the domestic 112A only because it is no-indexation; the pool is the trap — if you were assuming the Rs. 1.25L exemption carries over to US shares, it does not. The rollover article (./tax-capital-gains-rollover-54-54f-54ec.mdx) covers the domestic pool; this layer is the foreign-security counterpart.
+
+THE TCS RESERVATION (LAYER 3, THE CASH-FLOW GOTCHA)
+===================================================
+
+The rupee that funded your US purchase left India under LRS, and an investment-purpose LRS remittance attracts 20% TCS on the aggregate outflow above the Rs. 10L threshold (the threshold was raised from Rs. 7L by the Finance Act 2025; education / medical / tour dropped to 2% from 1 Apr 2026, so 20% is specific to the "other / investment" bucket). [src-lrs-tcs-sc-2026]
+• The TCS is collected at source by your bank and credited to your PAN.
+• It is not a cost — it is a credit against your final tax liability, claimed when you file.
+• But it does lock up that cash at remittance: a Rs. 12L investment means Rs. 2L of TCS you must keep available, so you need Rs. 14L at source to complete a Rs. 12L purchase.
+
+The threshold is aggregate, not per-remittance: if you already sent Rs. 5L abroad for education earlier in the year, your Rs. 12L US-investment remittance starts its TCS clock from Rs. 17L, not Rs. 12L. The calculator's "other LRS remittances this FY" input models this.
+
+SCHEDULE FA AND THE FAST-DS LAYER (LAYERS 4 + 5, THE DISCLOSURE YOU CANNOT SKIP)
+================================================================================
+
+Layer 4 — Schedule FA: a US brokerage account is a specified foreign financial asset. The disclosure is mandatory every year for as long as you hold the position, with no minimum threshold — a Rs. 100 holding still gets disclosed. Miss the Schedule FA and you invite the Black Money Act exposure (a penalty up to Rs. 10L a year for a missed disclosure, on the undisclosed asset). If the income (dividends / CG) from the US is also foreign-source, it is reported in Schedule FSI alongside Form 67.
+
+Layer 5 — FAST-DS 2026: the Finance Act 2026 introduced the Foreign Assets of Small Taxpayers – Disclosure Scheme (Chapter IV, sections 130–144), a one-time voluntary window that opened ~15 August 2026 and runs to 31 December 2026. [The KPMG / CBDT / NDTV coverage] It has two categories:
+• Category A — undisclosed foreign assets / income up to Rs. 1 cr: a specified tax + an equal additional amount payable on the disclosed value (the "pay tax and an equal fee" structure, roughly doubling the disclosed value for a small, forgotten asset).
+• Category B — up to Rs. 5 cr, for assets acquired from disclosed income or during a non-resident period: a flat Rs. 1L fee (not a tax on the value) for a specific asset class, with immunity from penalty and prosecution.
+
+The FAST-DS is the amnesty layer: it is for a foreign asset you never reported. A normally-reported US position (Schedule FA every year) does not need FAST-DS, and the two must not be conflated. If you have a forgotten overseas account, FAST-DS (before 31 Dec 2026) is the clean regularisation; if you report on time every year, it is irrelevant to you.
+
+A WORKED EXAMPLE: RS. 12L US SLEEVE, RS. 3L DIVIDEND, RS. 4L GAIN (FY 2026-27)
+==============================================================================
+
+Assume: Rs. 12L LRS investment remittance (your first LRS outflow of the year, so the Rs. 10L threshold applies), a 30% slab, a Rs. 3L US dividend (25% WHT, W-8BEN valid), and a Rs. 4L LTCG (>24 months) on a US lot.
+
+Layer: **TCS reservation (layer 3)**,₹12L − ₹10L = ₹2L tcsable × 20% = **₹40k TCS** at source (recoverable)  |  Figure: **Dividend (layer 1)**,India ₹3L × 30% = ₹90k; US WHT ₹3L × 25% = ₹75k; Form 67 credit ₹75k; **net dividend tax ₹15k**
+
+The direct-lrs-us-equity-filing calculator reproduces all five layers in one screen, including the "credit capped the other way" case (a lower slab) and the TCS accumulation when you have other LRS outflows.
+
+WHEN THE DIRECT ROUTE IS THE RIGHT FILING POSTURE (THE HONEST LAYER)
+====================================================================
+• Right when the global sleeve is Rs. 25L+ and you will hold long-term (>24 months) — the 12.5% no-indexation LTCG + the 25%→slab FTC is a clean, predictable filing, and the fixed operational costs (W-8BEN, Schedule FA every year, repatriation) amortize.
+• Right when you need the cheapest fund cost (a 0.03% VOO-class ETF) and are willing to carry the Schedule FA + TCS paperwork.
+• Wrong / avoid if you hold under 24 months — that is the slab-rate STCG case, which is the worst of the lot (your top slab on a foreign gain, no pool, plus the Schedule FA). The 24-month clock is the single most important filing-discipline point.
+• Wrong if you have a forgotten overseas asset — that is the FAST-DS layer, and the 31 Dec 2026 deadline makes it time-boxed.
+
+THE ONE-LINE VERDICT
+====================
+
+A direct LRS US-equity position is a five-layer filing: (1) the dividend at slab with the 25% US withholding (not 15%) credited via Form 67, (2) the capital gain as a foreign-unlisted security at 12.5% no-indexation LTCG (>24mo, no pool) or slab STCG, (3) the 20% TCS on the LRS investment remittance above the Rs. 10L threshold (a recoverable credit), (4) Schedule FA every year with no minimum threshold, and (5) the FAST-DS 2026 window (~15 Aug – 31 Dec 2026) as the separate small-taxpayer amnesty for assets you never reported. The direct-lrs-us-equity-filing calculator runs all five on your exact numbers.
+
+UPDATE LOG
+==========
+• 2026-10-18 (Wave 24): created. Verified the five-layer structure against the FY 2026-27 sources: the 25% individual US dividend withholding (W-8BEN) vs the 30% backup (and the 15% corporate-with-voting-stock figure that is NOT the individual rate), the 24-month / no-pool foreign-security CG treatment (src-lrs-tcs-sc-2026, src-it-slab-fy2026-27, src-intl-fof-treatment-ay2026-27), the Rs. 10L LRS TCS threshold + 20% investment-remittance rate (src-lrs-tcs-sc-2026), and the FAST-DS 2026 small-taxpayer scheme (Finance Act 2026 Ch. IV §§130–144, ~15 Aug – 31 Dec 2026, the Rs. 1 cr specified-tax category + the Rs. 5 cr flat-Rs. 1L-fee category) cross-checked against KPMG / CBDT / NDTV coverage.
+• Review by 2027-04-17: re-verify the 25% US dividend withholding individual rate and the no-pool 24-month rule at the FY 2027-28 Budget; confirm the FAST-DS 2026 window actually closed on 31 Dec 2026 and whether a successor scheme is announced; confirm the Rs. 10L LRS TCS threshold.
+
+SOURCES
+=======
+• src-lrs-tcs-sc-2026 — LRS USD 250,000/person/FY; the Rs. 10L aggregate TCS-free threshold (post-Finance-Act-2025); the 20% "other / investment" TCS and the 1-Apr-2026 2% education/medical/tour rate.
+• src-it-slab-fy2026-27 — the FY 2026-27 slab table used for the dividend / STCG slab-rate computation.
+• src-us-stock-tax-india-2026 — the 25% individual US dividend withholding (W-8BEN) vs the 30% backup (and the 15% corporate figure that is not the individual rate), the 24-month / 12.5% no-pool foreign-security CG treatment, the Form 67 FTC cap, the Schedule FA no-threshold disclosure, and the FAST-DS 2026 small-taxpayer scheme terms (Finance Act 2026 Ch. IV §§130–144, ~15 Aug – 31 Dec 2026).
+
+RELATED
+=======
+• International Investing & LRS (the route + the TCS structure) (/articles/international-investing-lrs)
+• GIFT City Live Schemes & the Route Decision (the GIFT-vs-direct layer this pairs with) (/articles/international-gift-city-live-scheme-comparison)
+• DTAA Country-Rate Reference (the treaty-rate layer) (/articles/international-dtaa-country-rate-reference)
+• The Complete Indian Investor Tax Guide (/articles/tax-india-investor-complete)
+• The direct-lrs-us-equity-filing calculator — run your exact dividend / gain / remittance through all five layers.

@@ -1713,6 +1713,50 @@
       "books": [
         "book-wealth-beyond-10l"
       ]
+    },
+    {
+      "id": "tax-direct-lrs-us-equity-filing-walkthrough",
+      "file": "src/content/taxation/tax-direct-lrs-us-equity-filing-walkthrough.mdx",
+      "title": "Direct LRS US-Equity Filing Walkthrough: Dividend FTC, 12.5% LTCG, TCS & Schedule FA (FY 2026-27)",
+      "category": "taxation",
+      "status": "published",
+      "difficulty": "advanced",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "tags": [
+        "lrs",
+        "us-stocks",
+        "us-equity",
+        "foreign",
+        "dividend",
+        "withholding",
+        "w8ben",
+        "form-67",
+        "foreign-tax-credit",
+        "12.5%",
+        "lucg",
+        "stcg",
+        "schedule-fa",
+        "schedule-fsi",
+        "tcs",
+        "fast-ds",
+        "direct-lrs",
+        "itr-2"
+      ],
+      "sources": [
+        "src-lrs-tcs-sc-2026",
+        "src-it-slab-fy2026-27",
+        "src-us-stock-tax-india-2026"
+      ],
+      "related": [
+        "international-investing-lrs",
+        "international-gift-city-live-scheme-comparison",
+        "international-dtaa-country-rate-reference",
+        "tax-india-investor-complete"
+      ],
+      "books": [
+        "book-complete-indian-investor"
+      ]
     }
   ]
 }

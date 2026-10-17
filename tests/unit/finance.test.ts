@@ -15,7 +15,8 @@ import {
   newRegimeTaxFY27, oldRegimeTaxFY27, coreSatelliteBlend, advanceTaxFY27,
   sifSleeveSizing, businessTrustTiming, aifWaterfall, deductionShieldFY27, afterTaxProductWedge, highIncomeTaxFY27, hufIncomeSplitFY27, npsRetirementExitFY27, preIpoTaxOutcome, seniorRegimeTaxFY27, nriIndiaTaxFY27, rolloverExemption,
   dtaaReliefFY27, esopVestingTaxFY27, capitalLadderFY27,
-  fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison } from '@lib/finance/index';
+  fiftyFourECTrancheTracker, giftCityLrsTaxFY27, giftCityRouteComparison,
+  directLrsUsEquityFilingFY27 } from '@lib/finance/index';
 
 const close = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
 
@@ -1552,6 +1553,87 @@ describe('giftCityRouteComparison', () => {
     expect(r.edgeRoute).toBe('tie');
     expect(r.giftNetReturnPct).toBe(0);
     expect(r.directNetReturnPct).toBe(0);
+  });
+});
+
+describe('directLrsUsEquityFilingFY27', () => {
+  const base = (over: Partial<Parameters<typeof directLrsUsEquityFilingFY27>[0]> = {}) => ({
+    dividendRupees: 300000,
+    usWithholdingRate: 0.25,
+    capitalGainRupees: 400000,
+    monthsHeld: 30,
+    slabRate: 0.3,
+    lrsRemittance: 1200000,
+    priorLrsRemittance: 0,
+    ...over,
+  });
+
+  it('computes the US withholding at 25% when a W-8BEN is on file', () => {
+    const r = directLrsUsEquityFilingFY27(base());
+    expect(r.usWithholdingPaid).toBe(300000 * 0.25);
+  });
+
+  it('caps the Form 67 foreign-tax-credit at the US withholding actually paid', () => {
+    // India dividend tax 90k; US WHT 75k; the credit is the lesser -> 75k,
+    // so the net dividend tax is 15k (you cannot recover more than was withheld).
+    const r = directLrsUsEquityFilingFY27(base());
+    expect(r.dividendSlabTax).toBe(90000);
+    expect(r.foreignTaxCredit).toBe(75000);
+    expect(r.netDividendTax).toBe(15000);
+  });
+
+  it('the credit is capped the other way when the US rate exceeds the slab', () => {
+    // 30% WHT on 30L = 90k; slab tax at a 20% slab = 60k -> credit caps at 60k.
+    const r = directLrsUsEquityFilingFY27(
+      base({ usWithholdingRate: 0.3, slabRate: 0.2 }),
+    );
+    expect(r.usWithholdingPaid).toBe(90000);
+    expect(r.foreignTaxCredit).toBe(60000); // capped at the India dividend tax
+    expect(r.netDividendTax).toBe(0);
+  });
+
+  it('classifies a 24-month-or-longer hold as 12.5% no-pool LTCG', () => {
+    const r = directLrsUsEquityFilingFY27(base({ monthsHeld: 30 }));
+    expect(r.cgHead).toBe('ltcg');
+    expect(r.cgRate).toBe(0.125);
+    expect(r.noLtcgPool).toBe(true);
+    expect(r.cgTax).toBe(400000 * 0.125);
+  });
+
+  it('classifies a sub-24-month hold as slab-rate STCG (no pool, no 12.5%)', () => {
+    const r = directLrsUsEquityFilingFY27(base({ monthsHeld: 12 }));
+    expect(r.cgHead).toBe('stcg');
+    expect(r.cgRate).toBe(0.3);
+    expect(r.noLtcgPool).toBe(false);
+    expect(r.cgTax).toBe(400000 * 0.3);
+  });
+
+  it('reserves the 20% TCS on the LRS investment remittance above the Rs 10L threshold', () => {
+    // 12L remittance, no prior -> 2L tcsable -> 0.4L TCS (a recoverable credit).
+    const r = directLrsUsEquityFilingFY27(base());
+    expect(r.tcsable).toBe(200000);
+    expect(r.tcs).toBe(40000);
+    // A remittance at or under the threshold collects no TCS.
+    const under = directLrsUsEquityFilingFY27(base({ lrsRemittance: 800000 }));
+    expect(under.tcsable).toBe(0);
+    expect(under.tcs).toBe(0);
+  });
+
+  it('accumulates prior LRS outflows into the TCS threshold test', () => {
+    // 9L prior + 5L this one = 14L aggregate -> 4L tcsable -> 0.8L TCS.
+    const r = directLrsUsEquityFilingFY27(
+      base({ priorLrsRemittance: 900000, lrsRemittance: 500000 }),
+    );
+    expect(r.tcsable).toBe(400000);
+    expect(r.tcs).toBe(80000);
+  });
+
+  it('totals the Indian burden as net dividend tax + CG tax and flags Schedule FA', () => {
+    const r = directLrsUsEquityFilingFY27(base());
+    expect(r.totalBurden).toBe(15000 + 50000);
+    expect(r.scheduleFaRequired).toBe(true);
+    // The FAST-DS note is present (the separate small-taxpayer amnesty layer).
+    expect(r.fastDsNote.toLowerCase()).toContain('fast-ds');
   });
 });
 

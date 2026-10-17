@@ -533,6 +533,18 @@
         "src-gift-city-live-funds-2026",
         "src-gift-city-scheme-terms-2026"
       ]
+    },
+    {
+      "id": "ul-direct-lrs-us-equity-filing-fy2026-27",
+      "topic": "Direct LRS US-equity filing layers (FY 2026-27): the 5-layer structure (1 dividend at slab + the 25% individual US dividend withholding via W-8BEN credited through Form 67, 2 the foreign-unlisted-security CG at 12.5% no-indexation LTCG after 24 months with NO pool or slab STCG, 3 the 20% TCS on the LRS investment remittance above the Rs 10L threshold as a recoverable credit, 4 Schedule FA every year with no minimum threshold, 5 the FAST-DS 2026 small-taxpayer window ~15 Aug to 31 Dec 2026 as the separate amnesty layer).",
+      "article": "tax-direct-lrs-us-equity-filing-walkthrough",
+      "lastVerified": "2026-10-18",
+      "reviewAfter": "2027-04-17",
+      "sourceIds": [
+        "src-lrs-tcs-sc-2026",
+        "src-it-slab-fy2026-27",
+        "src-us-stock-tax-india-2026"
+      ]
     }
   ]
 }

@@ -545,4 +545,37 @@ test.describe('DhanPedia smoke tests', () => {
     ).toBeVisible();
     await expect(page.locator('#tts-btn')).toBeVisible();
   });
+
+  test('direct-lrs-us-equity-filing calculator renders the five filing layers', async ({ page }) => {
+    await page.goto('/calculators/direct-lrs-us-equity-filing');
+    // Result-row DOM labels (the five most-unique rows; the chart title
+    // lives inside the ECharts canvas, so it is not asserted as DOM text).
+    await expect(
+      page.getByText('US withholding on the dividend', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Form 67 foreign-tax-credit', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Schedule FA', { exact: true }),
+    ).toBeVisible();
+    // The five-layer tax chart container is present.
+    await expect(page.locator('[role="img"]')).toBeVisible();
+  });
+
+  test('direct LRS US-equity filing article renders the filing-layer sections', async ({ page }) => {
+    await page.goto('/articles/tax-direct-lrs-us-equity-filing-walkthrough');
+    // Stable, unique H2 headings in the body (assert unique prefixes to avoid
+    // the recurring strict-mode double-heading collisions).
+    await expect(
+      page.getByRole('heading', { name: /The five filing layers/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /The 24-month clock and the missing pool/ }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Schedule FA and the FAST-DS layer/ }),
+    ).toBeVisible();
+    await expect(page.locator('#tts-btn')).toBeVisible();
+  });
 });

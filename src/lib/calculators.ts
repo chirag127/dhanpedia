@@ -23,7 +23,7 @@ import {
   nriIndiaTaxFY27, rolloverExemption, dtaaReliefFY27,
   esopVestingTaxFY27, capitalLadderFY27,
   fiftyFourECTrancheTracker, giftCityLrsTaxFY27,
-  giftCityRouteComparison,
+  giftCityRouteComparison, directLrsUsEquityFilingFY27,
 } from '@lib/finance/index';
 
 export interface CalcInput {
@@ -2351,6 +2351,89 @@ export const CALCULATORS: CalcDef[] = [
                 data: [
                   { value: Math.round(r.giftFinalValue), itemStyle: { color: r.edgeRoute === 'gift' ? '#1f7a5c' : '#3a6ea5' } },
                   { value: Math.round(r.directFinalValue), itemStyle: { color: r.edgeRoute === 'direct' ? '#1f7a5c' : '#8a8f98' } },
+                ],
+                label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+
+  {
+    id: 'direct-lrs-us-equity-filing',
+    title: 'Direct LRS US-Equity Filing Walkthrough: Dividend FTC + 12.5% LTCG + TCS + Schedule FA (FY 2026-27)',
+    category: 'International',
+    description:
+      'The filing-mechanics layer for a resident Indian who owns US equities directly through a US brokerage under LRS: the 25% US dividend withholding (with a W-8BEN) credited in India via Form 67, the 12.5% no-indexation LTCG (24-month clock, no Rs 1.25L pool on a foreign security) or slab STCG, the 20% TCS reservation on the LRS investment remittance (a recoverable credit), and the Schedule FA disclosure that is mandatory with no minimum threshold - plus the FAST-DS 2026 small-taxpayer window flagged as the separate amnesty layer.',
+    inputs: [
+      { key: 'dividendRupees', label: 'US dividend received this FY (Rs)', default: 300000, min: 0, step: 10000, hint: 'The gross US dividend, converted to rupees at the relevant rate. 0 if you held a zero-coupon / no-dividend position.' },
+      { key: 'usWithholdingRate', label: 'US dividend withholding rate (%)', default: 25, min: 0, max: 30, step: 1, hint: '25% with a Form W-8BEN on file (the individual treaty rate); 30% backup withholding if no W-8BEN. The 15% figure is the corporate-with-voting-stock rate, not the individual rate.' },
+      { key: 'capitalGainRupees', label: 'Realized capital gain this FY (Rs)', default: 400000, min: -1000000, max: 10000000, step: 10000, hint: 'The gross realized gain (loss if negative) on the lot sold, in rupees.' },
+      { key: 'monthsHeld', label: 'Months held on the sold lot', default: 30, min: 0, max: 240, step: 1, hint: 'US shares are unlisted foreign securities: 24+ months = long-term (12.5% no pool); under 24 months = slab-rate STCG.' },
+      { key: 'slabRate', label: 'Your marginal slab rate (%)', default: 30, min: 0, max: 30, step: 5, hint: 'For the dividend + any STCG; the top HNI bracket is 30% before surcharge.' },
+      { key: 'lrsRemittance', label: 'LRS investment remittance this FY (Rs)', default: 1200000, min: 0, step: 100000, hint: 'The rupee outflow under LRS that funded the US purchase - the TCS is on the AGGREGATE LRS outflow above the Rs 10L threshold.' },
+      { key: 'priorLrsRemittance', label: 'Other LRS remittances this FY (Rs)', default: 0, min: 0, step: 100000, hint: 'Your total LRS outflow before this one; TCS accumulates on the aggregate.' },
+    ],
+    assumptions: [
+      'US dividend withholding is 25% with a W-8BEN on file (the 30% backup rate applies without one); the 15% treaty figure is the corporate-with-voting-stock rate and is NOT the individual rate.',
+      'US shares are unlisted foreign securities: LTCG after 24 months at 12.5% without indexation and with NO Rs 1.25L pool (the 112A pool is Indian-listed-equity only); STCG at the slab rate.',
+      'The Form 67 foreign-tax-credit caps the credit at the lesser of the India dividend tax and the US withholding actually paid.',
+      'The 20% TCS on the LRS investment remittance above the Rs 10L threshold is a recoverable credit against your final tax, not a cost.',
+      'Schedule FA is mandatory for a US brokerage position, with no minimum threshold, every year while held.',
+    ],
+    limitations: [
+      'The W-8BEN must be valid for the withholding year; a lapsed or missing form pushes the rate to the 30% backup.',
+      'This is a filing-computation model, not a Form 67 / Schedule FSI utility - reconcile with the ITR e-file before acting.',
+      'The FAST-DS 2026 window (Finance Act 2026, Ch. IV, ~15 Aug to 31 Dec 2026) is the amnesty layer for UNDISCLOSED foreign assets; a normally-reported US position does not need FAST-DS.',
+      'FX conversion of the gain / dividend to rupees uses the rate on the relevant date; the calculator takes rupee inputs.',
+    ],
+    compute: (v) => {
+      const r = directLrsUsEquityFilingFY27({
+        dividendRupees: v.dividendRupees,
+        usWithholdingRate: v.usWithholdingRate / 100,
+        capitalGainRupees: v.capitalGainRupees,
+        monthsHeld: v.monthsHeld,
+        slabRate: v.slabRate / 100,
+        lrsRemittance: v.lrsRemittance,
+        priorLrsRemittance: v.priorLrsRemittance,
+      });
+      const cr = (n: number) => 'Rs ' + Math.round(n / 100000).toLocaleString('en-IN') + 'L';
+      const results = [
+        { label: 'US withholding on the dividend', value: cr(r.usWithholdingPaid), sub: v.usWithholdingRate + '% (W-8BEN ' + (v.usWithholdingRate < 30 ? 'on file' : 'backup') + ')' },
+        { label: 'Form 67 foreign-tax-credit', value: cr(r.foreignTaxCredit), sub: 'capped at the lesser of India dividend tax and US withholding' },
+        { label: 'Net dividend tax', value: cr(r.netDividendTax), sub: 'slab tax minus the credit' },
+        { label: 'CG head + rate', value: r.cgHead.toUpperCase() + ' at ' + (r.cgRate * 100).toFixed(1) + '%', sub: r.noLtcgPool ? 'LTCG: no Rs 1.25L pool on a foreign security' : 'STCG at the slab rate' },
+        { label: 'CG tax', value: cr(r.cgTax), sub: 'on the realized gain' },
+        { label: 'TCS on the LRS remittance', value: cr(r.tcs), sub: '20% above the Rs 10L threshold - recoverable at ITR' },
+        { label: 'Total Indian tax on the foreign income', value: cr(r.totalBurden), sub: 'net dividend tax + CG tax (before the TCS credit)' },
+        { label: 'Schedule FA', value: r.scheduleFaRequired ? 'required (no threshold)' : 'not required', sub: 'disclose the US position every year while held' },
+      ];
+      return {
+        results,
+        chart: {
+          title: 'Direct LRS US-equity tax layers (Rs L)',
+          alt: 'Bar chart of the Indian tax layers on the US position: US withholding, the Form 67 credit, net dividend tax, the CG tax, and the TCS reservation',
+          option: {
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0 },
+            xAxis: {
+              type: 'category',
+              data: ['US withholding', 'Form 67 credit', 'Net div tax', 'CG tax', 'TCS'],
+            },
+            yAxis: { type: 'value', axisLabel: { formatter: (x) => 'Rs ' + Math.round(x / 100000) + 'L' } },
+            grid: { left: 70, right: 20, top: 30, bottom: 50 },
+            series: [
+              {
+                name: 'Amount',
+                type: 'bar',
+                data: [
+                  { value: Math.round(r.usWithholdingPaid), itemStyle: { color: '#c65d3b' } },
+                  { value: Math.round(r.foreignTaxCredit), itemStyle: { color: '#1f7a5c' } },
+                  { value: Math.round(r.netDividendTax), itemStyle: { color: '#3a6ea5' } },
+                  { value: Math.round(r.cgTax), itemStyle: { color: '#6b5b8a' } },
+                  { value: Math.round(r.tcs), itemStyle: { color: '#8a8f98' } },
                 ],
                 label: { show: true, formatter: (p) => 'Rs ' + Math.round(p.value / 1e5) + 'L' },
               },

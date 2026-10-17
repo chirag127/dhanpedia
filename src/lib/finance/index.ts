@@ -2856,3 +2856,141 @@ export function esopVestingTaxFY27(inp: EsopVestingTaxInput): EsopVestingTaxResu
   };
 }
 
+/* ------------------------------------------------------------------
+ * Direct LRS US-equity filing walkthrough (the "direct route" layer that
+ * the GIFT City route-comparison calculator points to)
+ *
+ * For a resident Indian who owns US equities directly through a US
+ * brokerage (under LRS), this models the FY 2026-27 filing mechanics:
+ *
+ *  - Dividends: US-source, taxed in India at the slab rate. The US
+ *    withholds 25% (with a Form W-8BEN on file; the 15% figure is the
+ *    corporate-with-voting-stock treaty rate, NOT the individual rate) or
+ *    30% (backup, no W-8BEN). The US withholding is credited in India via
+ *    Form 67, capped at the lesser of the India tax on the dividend and
+ *    the US tax actually paid.
+ *  - Capital gains: US shares are UNLISTED foreign securities. LTCG
+ *    (>24 months) is 12.5% without indexation and with NO Rs 1.25L pool
+ *    (the 112A pool is Indian-listed-equity only); STCG (<=24 months) is
+ *    at the slab rate.
+ *  - TCS: the LRS investment remittance that funded the purchase attracts
+ *    20% TCS above the Rs 10L aggregate threshold - a recoverable credit,
+ *    not a cost.
+ *  - Schedule FA: a specified foreign financial asset with NO minimum
+ *    threshold, disclosed every year while held.
+ *  - FAST-DS 2026: a one-time "small taxpayer" disclosure window
+ *    (Finance Act 2026, Ch. IV, ~15 Aug to 31 Dec 2026) for undisclosed
+ *    foreign assets - the amnesty layer, flagged for completeness.
+ *
+ * All math is pure and deterministic; conventions are documented.
+ * ------------------------------------------------------------------ */
+
+export interface DirectLrsUsEquityInput {
+  /** The gross US dividend received this FY, in rupees. */
+  dividendRupees: number;
+  /** The US dividend withholding rate actually applied: 0.25 (with a
+   *  Form W-8BEN on file) or 0.30 (backup, no W-8BEN). */
+  usWithholdingRate: number;
+  /** Override the US withholding actually paid (rupees). When 0/undefined
+   *  it is derived as dividend x usWithholdingRate. */
+  usWithholdingPaid?: number;
+  /** The gross realized capital gain this FY, in rupees. */
+  capitalGainRupees: number;
+  /** Whole months held on the lot that generated the gain; >= 24 makes it
+   *  long-term (12.5% no-pool), otherwise short-term (slab). */
+  monthsHeld: number;
+  /** The marginal slab rate for the dividend + STCG (e.g. 0.30). */
+  slabRate?: number;
+  /** The LRS investment remittance this FY that funded the purchase (Rs). */
+  lrsRemittance: number;
+  /** Other LRS remittances this FY before this one (Rs). */
+  priorLrsRemittance?: number;
+  /** The Rs 10L TCS-free threshold on aggregate LRS outflow. */
+  tcsThreshold?: number;
+  /** The LRS investment-remittance TCS rate (20%). */
+  tcsRate?: number;
+}
+
+export interface DirectLrsUsEquityResult {
+  dividendRupees: number;
+  usWithholdingPaid: number;
+  /** The India slab tax on the dividend (before the FTC). */
+  dividendSlabTax: number;
+  /** The Form 67 foreign-tax-credit: the lesser of the India dividend tax
+   *  and the US withholding actually paid. */
+  foreignTaxCredit: number;
+  /** The net dividend tax after the credit. */
+  netDividendTax: number;
+  /** The CG head + rate for this lot. */
+  cgHead: 'ltcg' | 'stcg';
+  cgRate: number;
+  capitalGainRupees: number;
+  cgTax: number;
+  /** True when the lot is LTCG - which carries NO Rs 1.25L pool on a
+   *  foreign (unlisted) security. */
+  noLtcgPool: boolean;
+  /** The TCS on the LRS investment remittance above the threshold - a
+   *  recoverable credit, not a permanent cost. */
+  tcsable: number;
+  tcs: number;
+  /** Schedule FA is mandatory for a US brokerage position, with no minimum
+   *  threshold. */
+  scheduleFaRequired: boolean;
+  /** The total Indian tax on the foreign income, after the credit. */
+  totalBurden: number;
+  /** A note flagging the FAST-DS 2026 small-taxpayer disclosure window as
+   *  the amnesty layer for *undisclosed* foreign assets (distinct from a
+   *  normally-reported US brokerage position). */
+  fastDsNote: string;
+}
+
+export function directLrsUsEquityFilingFY27(inp: DirectLrsUsEquityInput): DirectLrsUsEquityResult {
+  const dividend = Math.max(0, inp.dividendRupees);
+  const whRate = Math.min(1, Math.max(0, inp.usWithholdingRate));
+  const usWithholdingPaid =
+    inp.usWithholdingPaid && inp.usWithholdingPaid > 0
+      ? inp.usWithholdingPaid
+      : dividend * whRate;
+  const slabRate = inp.slabRate ?? 0.3;
+
+  const dividendSlabTax = dividend * slabRate;
+  // Form 67 FTC cap: the lesser of the India tax on the dividend and the
+  // US withholding actually paid on it.
+  const foreignTaxCredit = Math.min(dividendSlabTax, usWithholdingPaid);
+  const netDividendTax = Math.max(0, dividendSlabTax - foreignTaxCredit);
+
+  const isLtcg = inp.monthsHeld >= 24;
+  const cgHead: DirectLrsUsEquityResult['cgHead'] = isLtcg ? 'ltcg' : 'stcg';
+  const cgRate = isLtcg ? 0.125 : slabRate;
+  const capitalGain = Math.max(0, inp.capitalGainRupees);
+  const cgTax = capitalGain * cgRate;
+
+  // The TCS reservation on the LRS investment remittance (recoverable credit).
+  const threshold = inp.tcsThreshold ?? 1000000;
+  const tcsRate = inp.tcsRate ?? 0.2;
+  const aggregateLrs = Math.max(0, inp.priorLrsRemittance ?? 0) + Math.max(0, inp.lrsRemittance);
+  const tcsable = Math.max(0, aggregateLrs - threshold);
+  const tcs = tcsable * tcsRate;
+
+  const totalBurden = netDividendTax + cgTax;
+
+  return {
+    dividendRupees: dividend,
+    usWithholdingPaid,
+    dividendSlabTax,
+    foreignTaxCredit,
+    netDividendTax,
+    cgHead,
+    cgRate,
+    capitalGainRupees: capitalGain,
+    cgTax,
+    noLtcgPool: isLtcg,
+    tcsable,
+    tcs,
+    scheduleFaRequired: true,
+    totalBurden,
+    fastDsNote:
+      'FAST-DS 2026 (Foreign Assets of Small Taxpayers, Finance Act 2026 Ch. IV, ~15 Aug to 31 Dec 2026) is the amnesty layer for UNDISCLOSED foreign assets (a Rs 1 cr specified-tax/fee category and a Rs 5 cr flat-Rs 1L-fee category); a normally-reported US brokerage position does NOT need FAST-DS - it is Schedule FA, every year.',
+  };
+}
+
